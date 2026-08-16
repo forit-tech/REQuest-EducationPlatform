@@ -1,0 +1,29 @@
+{
+  "name": "request-learning-platform",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "dev": "vite",
+    "content:validate": "node ./scripts/validate-content.mjs",
+    "bot": "node ./bot/bot.mjs",
+    "build": "npm run content:validate && tsc -b && vite build",
+    "preview": "vite preview",
+    "desktop": "npm run build && electron .",
+    "desktop:pack": "npm run build && powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/package-desktop.ps1"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "lucide-react": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "vite": "latest"
+  },
+  "devDependencies": {
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "electron": "latest",
+    "typescript": "latest"
+  }
+}
