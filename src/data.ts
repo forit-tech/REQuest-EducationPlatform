@@ -12,6 +12,7 @@ import polarsCourse from '../knowledge/data/polars/course.json'
 import dataCleaningCourse from '../knowledge/data/data-cleaning/course.json'
 import exploratoryDataAnalysisCourse from '../knowledge/data/exploratory-data-analysis/course.json'
 import dataVisualizationCourse from '../knowledge/data/data-visualization/course.json'
+import statisticsCourse from '../knowledge/data/statistics/course.json'
 import advancedSqlCourse from '../knowledge/data/advanced-sql/course.json'
 import postgresqlCourse from '../knowledge/data/postgresql/course.json'
 import analyticalDatabasesCourse from '../knowledge/data/analytical-databases/course.json'
@@ -58,6 +59,7 @@ const dataCourseFiles: CourseFile[] = [
   dataCleaningCourse,
   exploratoryDataAnalysisCourse,
   dataVisualizationCourse,
+  statisticsCourse,
   sqlFoundationsCourse,
   advancedSqlCourse,
   relationalDatabasesCourse,
@@ -91,24 +93,6 @@ type RoomDefinition = Omit<Room, 'index'>
 
 const roomDefinitions: RoomDefinition[] = [
   ...catalogRooms,
-  {
-    id: 'pandas-field', title: 'Pandas в полевых условиях', category: 'Анализ данных', level: 'База', accent: '#6ce5c1', completed: 2, prerequisites: ['data-formats', 'python-core'],
-    description: 'Исследуем настоящий датасет маркетплейса: пропуски, дубли, выбросы и решения, которые влияют на бизнес.',
-    skills: ['DataFrame', 'очистка', 'группировка', 'соединение таблиц'],
-    missions: missions('pd', ['Задача от аналитика', 'Таблица DataFrame изнутри', 'Загрузка CSV', 'Диагностика пропусков', 'Дубликаты заказов', 'Типы и даты', 'Фильтрация без ловушек', 'Группировка groupby и агрегации', 'Соединение merge: собираем витрины', 'Выбросы в чеках', 'Память и скорость', 'Итоговое испытание: витрина метрик']),
-  },
-  {
-    id: 'sql-investigation', title: 'SQL: расследование метрик', category: 'Базы данных', level: 'База', accent: '#7da2ff', prerequisites: ['sql-foundations'],
-    description: 'Находим причину падения выручки, двигаясь от простых выборок к оконным функциям и плану запроса.',
-    skills: ['SELECT', 'JOIN', 'CTE', 'оконные функции'],
-    missions: missions('sql', ['Инцидент: −12% выручки', 'SELECT: выбираем столбцы', 'WHERE: сужаем круг', 'NULL: отсутствующее значение', 'Группировка GROUP BY', 'Фильтрация групп HAVING', 'Соединения INNER и LEFT JOIN', 'CTE: понятный временный результат', 'Оконные функции', 'Когорты по неделям', 'План запроса EXPLAIN', 'Индексы', 'Итоговое испытание: причина найдена']),
-  },
-  {
-    id: 'statistics', title: 'Статистика без суеверий', category: 'Математика', level: 'Средний', accent: '#e0b875', locked: true, prerequisites: ['pandas-field', 'sql-foundations'],
-    description: 'Проверяем продуктовые гипотезы и учимся не путать красивое число с надёжным выводом.',
-    skills: ['распределения', 'интервалы', 'p-значение', 'A/B-тесты'],
-    missions: missions('stat', ['Ставка владельца продукта', 'Случайные величины', 'Среднее обманывает', 'Дисперсия', 'Распределения', 'Выборка и смещение', 'Доверительный интервал', 'Формулируем H₀', 'p-значение (p-value) без мифов', 'Ошибки I и II рода', 'Мощность теста', 'Бутстрэп (bootstrap)', 'A/B-тест', 'Итоговое испытание: решение о выпуске']),
-  },
   {
     id: 'linear-algebra', title: 'Линейная алгебра для ML', category: 'Математика', level: 'Средний', accent: '#e0b875', locked: true, prerequisites: ['statistics'],
     description: 'Векторы и матрицы становятся инструментами: от расстояний до сжатия признаков и PCA.',

@@ -4,9 +4,29 @@
   "description": "От понимания структуры данных до промышленных конвейеров и расследования инцидентов.",
   "language": "ru",
   "courses": [
-    "technical-foundations", "data-foundations", "python-core", "data-formats", "numpy", "pandas", "polars", "data-cleaning",
-    "exploratory-data-analysis", "data-visualization", "sql-foundations", "advanced-sql",
-    "relational-databases", "postgresql", "analytical-databases", "clickhouse", "duckdb",
-    "data-modeling", "data-quality", "large-data", "etl-elt", "production-incidents", "data-final-project"
+    "technical-foundations",
+    "data-foundations",
+    "python-core",
+    "data-formats",
+    "numpy",
+    "pandas",
+    "polars",
+    "data-cleaning",
+    "exploratory-data-analysis",
+    "data-visualization",
+    "statistics",
+    "sql-foundations",
+    "advanced-sql",
+    "relational-databases",
+    "postgresql",
+    "analytical-databases",
+    "clickhouse",
+    "duckdb",
+    "data-modeling",
+    "data-quality",
+    "large-data",
+    "etl-elt",
+    "production-incidents",
+    "data-final-project"
   ]
 }
