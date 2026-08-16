@@ -1,0 +1,551 @@
+{
+  "version": 2,
+  "verifiedAt": "2026-08-10",
+  "note": "Класс источника определяет, что с ним можно делать. ADAPTABLE_OER — можно адаптировать и переводить с атрибуцией. GROUNDING — только сверка фактов и API, пересказ запрещён. REFERENCE_ONLY — только ориентир по дидактике, содержание не переносится. Поле shareAlike означает вирусную лицензию: производный текст придётся отдать под той же лицензией, поэтому из таких источников берём только фактическую основу для Fact Digest, а не формулировки.",
+  "sources": [
+    {
+      "id": "microsoft-data-science-for-beginners",
+      "class": "ADAPTABLE_OER",
+      "title": "Microsoft Data Science for Beginners",
+      "url": "https://github.com/microsoft/Data-Science-For-Beginners",
+      "license": "MIT",
+      "shareAlike": false,
+      "russianAvailable": true,
+      "allowedUses": [
+        "facts",
+        "curriculum-patterns",
+        "code",
+        "adaptation"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "data-foundations",
+        "data-formats",
+        "relational-databases",
+        "data-visualization"
+      ],
+      "notes": "20 уроков в 6 модулях. Официальные переводы на 50+ языков, включая русский."
+    },
+    {
+      "id": "microsoft-ml-for-beginners",
+      "class": "ADAPTABLE_OER",
+      "title": "Microsoft ML for Beginners",
+      "url": "https://github.com/microsoft/ML-For-Beginners",
+      "license": "MIT",
+      "shareAlike": false,
+      "russianAvailable": true,
+      "allowedUses": [
+        "facts",
+        "curriculum-patterns",
+        "code",
+        "adaptation"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "ml-baseline",
+        "boosting"
+      ]
+    },
+    {
+      "id": "data-carpentry-lessons",
+      "class": "ADAPTABLE_OER",
+      "title": "Data Carpentry Lessons",
+      "url": "https://datacarpentry.org/lessons/",
+      "license": "CC-BY-4.0",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": [
+        "facts",
+        "curriculum-patterns",
+        "adaptation"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "data-foundations",
+        "data-formats",
+        "sql-foundations",
+        "data-cleaning"
+      ],
+      "notes": "Отдельный урок «Data Management with SQL» — прямой ориентир для sql-foundations."
+    },
+    {
+      "id": "turing-way",
+      "class": "ADAPTABLE_OER",
+      "title": "The Turing Way",
+      "url": "https://github.com/the-turing-way/the-turing-way",
+      "license": "CC-BY-4.0",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": [
+        "facts",
+        "curriculum-patterns",
+        "adaptation"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "data-quality",
+        "data-foundations",
+        "etl-elt"
+      ],
+      "notes": "Руководства по воспроизводимости, происхождению данных и управлению исследовательскими данными."
+    },
+    {
+      "id": "google-ml-crash-course",
+      "class": "ADAPTABLE_OER",
+      "title": "Google Machine Learning Crash Course",
+      "url": "https://developers.google.com/machine-learning/crash-course",
+      "license": "CC-BY-4.0 (текст), Apache-2.0 (код)",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": [
+        "facts",
+        "curriculum-patterns",
+        "code",
+        "adaptation"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "ml-baseline",
+        "statistics"
+      ]
+    },
+    {
+      "id": "pgexercises",
+      "class": "ADAPTABLE_OER",
+      "title": "PostgreSQL Exercises",
+      "url": "https://pgexercises.com/",
+      "license": "BSD-2-Clause",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": [
+        "facts",
+        "curriculum-patterns",
+        "code",
+        "adaptation"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "sql-foundations",
+        "advanced-sql"
+      ],
+      "notes": "Проверено: репозиторий AlisdairO/pgexercises под BSD 2-Clause, а не проприетарной лицензией. Паттерн упражнений можно адаптировать."
+    },
+    {
+      "id": "select-star-sql",
+      "class": "ADAPTABLE_OER",
+      "title": "Select Star SQL",
+      "url": "https://selectstarsql.com/",
+      "license": "CC-BY-SA-4.0 (текст), CC0 (код и данные)",
+      "shareAlike": true,
+      "russianAvailable": false,
+      "allowedUses": [
+        "facts",
+        "curriculum-patterns",
+        "code"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "sql-foundations",
+        "advanced-sql"
+      ],
+      "notes": "Текст share-alike — берём только фактическую основу. Датасеты под CC0, их можно использовать без ограничений."
+    },
+    {
+      "id": "sql-murder-mystery",
+      "class": "ADAPTABLE_OER",
+      "title": "Knight Lab SQL Murder Mystery",
+      "url": "https://github.com/NUKnightLab/sql-mysteries",
+      "license": "MIT (код), CC-BY-SA-4.0 (текст)",
+      "shareAlike": true,
+      "russianAvailable": false,
+      "allowedUses": [
+        "facts",
+        "curriculum-patterns",
+        "code"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "sql-foundations",
+        "production-incidents"
+      ],
+      "notes": "Ориентир для расследовательского формата миссий. Сюжет и датасеты REQuest пишем свои."
+    },
+    {
+      "id": "openintro-statistics",
+      "class": "ADAPTABLE_OER",
+      "title": "OpenIntro Statistics",
+      "url": "https://www.openintro.org/book/os/",
+      "license": "CC-BY-SA-3.0",
+      "shareAlike": true,
+      "russianAvailable": false,
+      "allowedUses": [
+        "facts",
+        "curriculum-patterns"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "statistics"
+      ],
+      "notes": "Share-alike. Производное произведение обязано указывать «Derivative of OpenIntro» и не может нести «OpenIntro» в названии."
+    },
+    {
+      "id": "postgresql-docs",
+      "class": "GROUNDING",
+      "title": "PostgreSQL documentation",
+      "url": "https://www.postgresql.org/docs/",
+      "license": "PostgreSQL License",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": [
+        "factual-verification",
+        "api-reference",
+        "code",
+        "adaptation"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "sql-foundations",
+        "advanced-sql",
+        "postgresql",
+        "relational-databases"
+      ],
+      "notes": "Лицензия разрешает модификацию и распространение документации при сохранении copyright-уведомления."
+    },
+    {
+      "id": "sqlite-docs",
+      "class": "GROUNDING",
+      "title": "SQLite documentation",
+      "url": "https://sqlite.org/docs.html",
+      "license": "Public Domain",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": [
+        "factual-verification",
+        "api-reference",
+        "code",
+        "adaptation"
+      ],
+      "attributionRequired": false,
+      "coverage": [
+        "sql-foundations",
+        "relational-databases"
+      ],
+      "notes": "Код и документация переданы в общественное достояние — ограничений на использование нет."
+    },
+    {
+      "id": "python-docs",
+      "class": "GROUNDING",
+      "title": "Python documentation",
+      "url": "https://docs.python.org/3/",
+      "license": "PSF-2.0 (текст), 0BSD (примеры кода)",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": [
+        "factual-verification",
+        "api-reference",
+        "code",
+        "adaptation"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "data-formats",
+        "python-core"
+      ],
+      "notes": "Модули csv, json, codecs — первоисточник для курса форматов данных."
+    },
+    {
+      "id": "effective-pandas",
+      "class": "ADAPTABLE_OER",
+      "title": "Effective Pandas (Tom Augspurger)",
+      "url": "https://github.com/TomAugspurger/effective-pandas",
+      "license": "CC-BY-4.0",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": [
+        "facts",
+        "curriculum-patterns",
+        "code",
+        "adaptation"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "pandas",
+        "data-cleaning"
+      ],
+      "notes": "Проверено: репозиторий под CC-BY-4.0 — адаптация разрешена с атрибуцией. Разбор идиоматичного Pandas и антипаттернов."
+    },
+    {
+      "id": "pandas-documentation",
+      "class": "GROUNDING",
+      "title": "Pandas documentation",
+      "url": "https://pandas.pydata.org/docs/",
+      "license": "BSD-3-Clause",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": [
+        "factual-verification",
+        "api-reference",
+        "code"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "pandas",
+        "data-formats",
+        "data-cleaning"
+      ]
+    },
+    {
+      "id": "numpy-documentation",
+      "class": "GROUNDING",
+      "title": "NumPy documentation",
+      "url": "https://numpy.org/doc/stable/",
+      "license": "BSD-3-Clause",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": [
+        "factual-verification",
+        "api-reference",
+        "code"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "numpy"
+      ]
+    },
+    {
+      "id": "apache-parquet-format",
+      "class": "GROUNDING",
+      "title": "Apache Parquet format specification",
+      "url": "https://github.com/apache/parquet-format",
+      "license": "Apache-2.0",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": [
+        "factual-verification",
+        "api-reference",
+        "adaptation"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "data-formats",
+        "large-data",
+        "analytical-databases"
+      ]
+    },
+    {
+      "id": "apache-arrow-docs",
+      "class": "GROUNDING",
+      "title": "Apache Arrow documentation",
+      "url": "https://arrow.apache.org/docs/",
+      "license": "Apache-2.0",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": [
+        "factual-verification",
+        "api-reference",
+        "adaptation"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "data-formats",
+        "polars",
+        "large-data"
+      ]
+    },
+    {
+      "id": "duckdb-docs",
+      "class": "GROUNDING",
+      "title": "DuckDB documentation",
+      "url": "https://duckdb.org/docs/",
+      "license": "MIT",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": [
+        "factual-verification",
+        "api-reference",
+        "code",
+        "adaptation"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "duckdb",
+        "data-formats",
+        "sql-foundations"
+      ]
+    },
+    {
+      "id": "polars-user-guide",
+      "class": "GROUNDING",
+      "title": "Polars user guide",
+      "url": "https://docs.pola.rs/",
+      "license": "MIT",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": [
+        "factual-verification",
+        "api-reference",
+        "code",
+        "adaptation"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "polars",
+        "large-data"
+      ]
+    },
+    {
+      "id": "clickhouse-docs",
+      "class": "GROUNDING",
+      "title": "ClickHouse documentation",
+      "url": "https://clickhouse.com/docs",
+      "license": "Apache-2.0",
+      "shareAlike": false,
+      "russianAvailable": true,
+      "allowedUses": [
+        "factual-verification",
+        "api-reference",
+        "code",
+        "adaptation"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "clickhouse",
+        "analytical-databases"
+      ]
+    },
+    {
+      "id": "scikit-learn-docs",
+      "class": "GROUNDING",
+      "title": "scikit-learn documentation",
+      "url": "https://scikit-learn.org/stable/",
+      "license": "BSD-3-Clause",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": [
+        "factual-verification",
+        "api-reference",
+        "code"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "ml-baseline",
+        "boosting"
+      ]
+    },
+    {
+      "id": "rfc-4180-csv",
+      "class": "GROUNDING",
+      "title": "RFC 4180 — Common Format for CSV Files",
+      "url": "https://www.rfc-editor.org/rfc/rfc4180",
+      "license": "IETF Trust Legal Provisions",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": [
+        "factual-verification"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "data-formats"
+      ],
+      "notes": "RFC можно свободно распространять дословно, но производные работы ограничены. Используем только для сверки фактов."
+    },
+    {
+      "id": "rfc-8259-json",
+      "class": "GROUNDING",
+      "title": "RFC 8259 — The JavaScript Object Notation (JSON) Data Interchange Format",
+      "url": "https://www.rfc-editor.org/rfc/rfc8259",
+      "license": "IETF Trust Legal Provisions",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": [
+        "factual-verification"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "data-formats"
+      ]
+    },
+    {
+      "id": "unicode-utf8",
+      "class": "GROUNDING",
+      "title": "The Unicode Standard",
+      "url": "https://www.unicode.org/versions/latest/",
+      "license": "Unicode License",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": [
+        "factual-verification"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "data-formats"
+      ]
+    },
+    {
+      "id": "mlcourse-ai",
+      "class": "REFERENCE_ONLY",
+      "title": "mlcourse.ai (Open Data Science)",
+      "url": "https://mlcourse.ai/",
+      "license": "CC-BY-NC-SA-4.0",
+      "shareAlike": true,
+      "russianAvailable": true,
+      "allowedUses": [],
+      "attributionRequired": true,
+      "coverage": [
+        "ml-baseline",
+        "boosting",
+        "statistics"
+      ],
+      "notes": "Отличный русскоязычный курс, но NC запрещает коммерческое использование. Только как ориентир по дидактике, содержание не переносится."
+    },
+    {
+      "id": "python-data-science-handbook",
+      "class": "REFERENCE_ONLY",
+      "title": "Python Data Science Handbook",
+      "url": "https://jakevdp.github.io/PythonDataScienceHandbook/",
+      "license": "CC-BY-NC-ND-4.0 (текст), MIT (код)",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": [
+        "code"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "numpy",
+        "pandas"
+      ],
+      "notes": "ND прямо запрещает адаптацию и перевод текста. Код под MIT использовать можно."
+    },
+    {
+      "id": "kaggle-learn",
+      "class": "REFERENCE_ONLY",
+      "title": "Kaggle Learn",
+      "url": "https://www.kaggle.com/learn",
+      "license": "проприетарная",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": [],
+      "attributionRequired": false,
+      "coverage": [
+        "pandas",
+        "sql-foundations",
+        "ml-baseline"
+      ]
+    },
+    {
+      "id": "roadmap-sh",
+      "class": "REFERENCE_ONLY",
+      "title": "roadmap.sh",
+      "url": "https://roadmap.sh/",
+      "license": "требует проверки перед любым использованием",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": [],
+      "attributionRequired": true,
+      "coverage": [
+        "career-tracks"
+      ],
+      "notes": "Только как ориентир по структуре карьерных треков. Контент не копировать."
+    }
+  ]
+}

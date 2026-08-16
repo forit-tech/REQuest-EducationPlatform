@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.playwright-cli/
+output/
+*.tsbuildinfo
+
+# Секреты: токен Telegram-бота и всё, что рядом
+.env
+.env.local
+
+# Список подписчиков бота — персональные данные
+bot/subscribers.json
+
+# Сборки desktop-приложения и их бэкапы
+release/

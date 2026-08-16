@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "id": "DATA-002",
+  "title": "Строка, объект и наблюдение",
+  "locale": "ru-RU",
+  "level": "recognize-explain-apply-debug-production",
+  "sourceIds": [
+    "microsoft-data-science-for-beginners",
+    "data-carpentry-lessons",
+    "pandas-documentation"
+  ],
+  "factDigest": [
+    {
+      "claim": "Единица наблюдения определяется смыслом записи, а не форматом файла.",
+      "sourceIds": ["microsoft-data-science-for-beginners", "data-carpentry-lessons"]
+    },
+    {
+      "claim": "Столбцы табличного набора описывают переменные или признаки наблюдаемого объекта.",
+      "sourceIds": ["data-carpentry-lessons", "pandas-documentation"]
+    },
+    {
+      "claim": "Перед агрегацией необходимо определить детализацию таблицы и ключ подсчитываемого объекта.",
+      "sourceIds": ["microsoft-data-science-for-beginners", "data-carpentry-lessons"]
+    }
+  ],
+  "originality": {
+    "story": "REQuest",
+    "datasets": "REQuest synthetic",
+    "tasks": "REQuest",
+    "tests": "REQuest"
+  },
+  "datasets": [
+    {
+      "id": "orders",
+      "file": "orders.csv",
+      "label": "Заказы",
+      "rowCount": 128400,
+      "unitOfObservation": "один оформленный заказ",
+      "primaryKey": "order_id",
+      "columns": ["order_id", "user_id", "amount", "status", "created_at"]
+    },
+    {
+      "id": "order_items",
+      "file": "order_items.csv",
+      "label": "Товары в заказах",
+      "rowCount": 327912,
+      "unitOfObservation": "одна товарная позиция внутри заказа",
+      "primaryKey": "order_item_id",
+      "columns": ["order_item_id", "order_id", "product", "quantity", "price"]
+    }
+  ],
+  "activities": [
+    {
+      "id": "find-observation",
+      "type": "table-row-select",
+      "datasetId": "orders",
+      "prompt": "Выбери строку заказа ORD-78104 целиком.",
+      "expected": "ORD-78104"
+    },
+    {
+      "id": "find-feature",
+      "type": "table-column-select",
+      "datasetId": "orders",
+      "prompt": "Выбери признак, показывающий состояние заказа.",
+      "expected": "status"
+    },
+    {
+      "id": "find-value",
+      "type": "table-cell-select",
+      "datasetId": "orders",
+      "prompt": "Выбери значение этого признака у ORD-78104.",
+      "expected": "оплачен"
+    }
+  ],
+  "reasoningCheck": {
+    "prompt": "Почему строку ORD-78104 можно считать одним наблюдением о заказе?",
+    "options": [
+      "В строке есть уникальный order_id, а остальные поля описывают тот же заказ",
+      "В строке встречаются числа",
+      "Файл имеет расширение CSV"
+    ],
+    "answer": "В строке есть уникальный order_id, а остальные поля описывают тот же заказ"
+  },
+  "productionCheck": {
+    "prompt": "В order_items.csv один заказ встречается несколько раз. Почему COUNT(*) завысит число заказов?",
+    "options": [
+      "Строка здесь означает товарную позицию, поэтому заказы нужно считать по уникальному order_id",
+      "CSV всегда дублирует строки при открытии",
+      "Столбец price запрещает считать заказы"
+    ],
+    "answer": "Строка здесь означает товарную позицию, поэтому заказы нужно считать по уникальному order_id"
+  },
+  "acceptance": {
+    "requiresAllActivities": true,
+    "requiresReasoningCheck": true,
+    "requiresProductionCheck": true
+  },
+  "executionTests": [
+    {
+      "type": "row-exists",
+      "datasetId": "orders",
+      "column": "order_id",
+      "value": "ORD-78104"
+    },
+    {
+      "type": "cell-equals",
+      "datasetId": "orders",
+      "where": {"column": "order_id", "value": "ORD-78104"},
+      "column": "status",
+      "value": "оплачен"
+    },
+    {
+      "type": "distinct-less-than-rows",
+      "datasetId": "order_items",
+      "column": "order_id"
+    }
+  ],
+  "review": {
+    "executionValidated": true,
+    "technicalReview": "approved",
+    "russianEdit": "approved",
+    "licenseReview": "approved"
+  }
+}

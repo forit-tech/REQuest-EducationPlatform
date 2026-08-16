@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "id": "DATA-003",
+  "title": "Признак и переменная",
+  "locale": "ru-RU",
+  "level": "recognize-explain-apply-debug-production",
+  "sourceIds": [
+    "microsoft-data-science-for-beginners",
+    "data-carpentry-lessons",
+    "pandas-documentation"
+  ],
+  "factDigest": [
+    {
+      "claim": "Признак описывает отдельное свойство наблюдаемого объекта и обычно представлен столбцом таблицы.",
+      "sourceIds": ["microsoft-data-science-for-beginners", "data-carpentry-lessons"]
+    },
+    {
+      "claim": "Числовой способ записи не гарантирует количественного смысла переменной.",
+      "sourceIds": ["microsoft-data-science-for-beginners", "data-carpentry-lessons"]
+    },
+    {
+      "claim": "Операции над столбцом должны соответствовать смыслу его значений, а не только dtype.",
+      "sourceIds": ["pandas-documentation", "data-carpentry-lessons"]
+    }
+  ],
+  "originality": {
+    "story": "REQuest",
+    "datasets": "REQuest synthetic",
+    "tasks": "REQuest",
+    "tests": "REQuest"
+  },
+  "datasets": [
+    {
+      "id": "orders",
+      "file": "orders.csv",
+      "label": "Заказы",
+      "rowCount": 128400,
+      "unitOfObservation": "один оформленный заказ",
+      "primaryKey": "order_id",
+      "columns": ["order_id", "user_id", "amount", "status", "created_at"]
+    }
+  ],
+  "activities": [
+    {
+      "id": "find-feature",
+      "type": "table-column-select",
+      "datasetId": "orders",
+      "prompt": "Выбери столбец, который хранит сумму заказа.",
+      "expected": "amount"
+    },
+    {
+      "id": "find-feature-value",
+      "type": "table-cell-select",
+      "datasetId": "orders",
+      "prompt": "Выбери значение суммы у заказа ORD-78104.",
+      "expected": "3 490"
+    }
+  ],
+  "reasoningCheck": {
+    "prompt": "Почему amount является признаком заказа?",
+    "options": [
+      "Он описывает отдельное свойство каждого заказа и может принимать разные значения",
+      "Потому что название столбца написано по-английски",
+      "Потому что это третий столбец таблицы"
+    ],
+    "answer": "Он описывает отдельное свойство каждого заказа и может принимать разные значения"
+  },
+  "productionCheck": {
+    "prompt": "user_id хранится как число. Почему среднее значение user_id не имеет полезного смысла?",
+    "options": [
+      "user_id — идентификатор: цифры различают пользователей, но не измеряют их количество или качество",
+      "Среднее запрещено считать для любых целых чисел",
+      "В таблице слишком мало строк"
+    ],
+    "answer": "user_id — идентификатор: цифры различают пользователей, но не измеряют их количество или качество"
+  },
+  "acceptance": {
+    "requiresAllActivities": true,
+    "requiresReasoningCheck": true,
+    "requiresProductionCheck": true
+  },
+  "executionTests": [
+    {
+      "type": "column-exists",
+      "datasetId": "orders",
+      "column": "amount"
+    },
+    {
+      "type": "cell-equals",
+      "datasetId": "orders",
+      "where": {"column": "order_id", "value": "ORD-78104"},
+      "column": "amount",
+      "value": "3490"
+    }
+  ],
+  "review": {
+    "executionValidated": true,
+    "technicalReview": "approved",
+    "russianEdit": "approved",
+    "licenseReview": "approved"
+  }
+}
