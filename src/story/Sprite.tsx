@@ -1,4 +1,43 @@
 import type { Character, Emotion } from './types'
+import miraNeutral from '../../assets/characters/generated/mira-v2.png'
+import miraHappy from '../../assets/characters/generated/mira-happy-v2.png'
+import miraWorried from '../../assets/characters/generated/mira-worried-v2.png'
+import miraSurprised from '../../assets/characters/generated/mira-surprised-v2.png'
+import miraDetermined from '../../assets/characters/generated/mira-determined-v2.png'
+import olegNeutral from '../../assets/characters/generated/oleg-v2.png'
+import olegHappy from '../../assets/characters/generated/oleg-happy-v2.png'
+import olegWorried from '../../assets/characters/generated/oleg-worried-v2.png'
+import olegSurprised from '../../assets/characters/generated/oleg-surprised-v2.png'
+import olegDetermined from '../../assets/characters/generated/oleg-determined-v2.png'
+import lenaNeutral from '../../assets/characters/generated/lena-v2.png'
+import lenaHappy from '../../assets/characters/generated/lena-happy-v2.png'
+import lenaWorried from '../../assets/characters/generated/lena-worried-v2.png'
+import lenaSurprised from '../../assets/characters/generated/lena-surprised-v2.png'
+import lenaDetermined from '../../assets/characters/generated/lena-determined-v2.png'
+import glebHappy from '../../assets/characters/generated/gleb-happy-v2.png'
+import glebWorried from '../../assets/characters/generated/gleb-worried-v2.png'
+import glebSurprised from '../../assets/characters/generated/gleb-surprised-v2.png'
+import glebDetermined from '../../assets/characters/generated/gleb-determined-v2.png'
+import glebNeutral from '../../assets/characters/generated/gleb-v2.png'
+import sonyaNeutral from '../../assets/characters/generated/sonya-v2.png'
+import artemNeutral from '../../assets/characters/generated/artem-v2.png'
+import antonNeutral from '../../assets/characters/generated/anton-v2.png'
+import alexeyNeutral from '../../assets/characters/generated/alexey-v2.png'
+
+function singlePose(image: string): Record<Emotion, string> {
+  return { neutral: image, happy: image, worried: image, surprised: image, tired: image, determined: image }
+}
+
+const illustratedSprites: Partial<Record<string, Record<Emotion, string>>> = {
+  mira: { neutral: miraNeutral, happy: miraHappy, worried: miraWorried, surprised: miraSurprised, tired: miraWorried, determined: miraDetermined },
+  oleg: { neutral: olegNeutral, happy: olegHappy, worried: olegWorried, surprised: olegSurprised, tired: olegWorried, determined: olegDetermined },
+  lena: { neutral: lenaNeutral, happy: lenaHappy, worried: lenaWorried, surprised: lenaSurprised, tired: lenaWorried, determined: lenaDetermined },
+  gleb: { neutral: glebNeutral, happy: glebHappy, worried: glebWorried, surprised: glebSurprised, tired: glebWorried, determined: glebDetermined },
+  sonya: singlePose(sonyaNeutral),
+  artem: singlePose(artemNeutral),
+  anton: singlePose(antonNeutral),
+  alexey: singlePose(alexeyNeutral),
+}
 
 /** Голова центрирована в (110, 108), rx 52 / ry 60. Все черты лица считаются от неё. */
 const brows: Record<Emotion, { left: string; right: string }> = {
@@ -48,6 +87,12 @@ export function Sprite({ character, emotion = 'neutral', height = 420, dimmed = 
   dimmed?: boolean
   side?: 'left' | 'right'
 }) {
+  const illustrated = illustratedSprites[character.id]?.[emotion]
+  if (illustrated) {
+    return <img className={`vn-sprite illustrated ${dimmed ? 'is-dimmed' : ''} side-${side}`} src={illustrated} height={height}
+      role="img" aria-label={`${character.name}, ${character.role}`} draggable={false}/>
+  }
+
   const { palette, traits } = character
   const brow = brows[emotion]
   const eyeOpen = emotion === 'tired' ? 3 : emotion === 'surprised' ? 8 : 6

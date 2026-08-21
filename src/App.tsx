@@ -5,13 +5,14 @@ import {
   GitBranch, Map, Play, Search, Settings, Sparkles, Star, TerminalSquare, Trophy, UserRound, X,
   Gift, Zap, Backpack,
 } from 'lucide-react'
-import { missionTypeLabels, rooms } from './data'
+import { missionTypeLabels, rooms, roomsForProfession } from './data'
 import type { AppSection, MissionType, Room, View } from './types'
 import { AccountView, AuthView } from './AccountViews'
 import { activeAccount, completeMission, getProgress, loadState, logout, setTheme as persistTheme, type ThemeId, type UserAccount, type UserProgress } from './core/storage'
 import { careerDomains, professions, sharedSkillNames, type CareerDomainId, type Profession, type ProfessionId } from './professions'
 import { glossary } from './glossary'
 import dataPrograms from '../knowledge/data/programs.json'
+import professionPrograms from '../knowledge/professions/programs.json'
 import { MissionRunner } from './MissionRunner'
 import { StoryScene } from './story/StoryScene'
 import { Portrait } from './story/Portrait'
@@ -98,6 +99,18 @@ function isMissionAccessible(room: Room, missionId: string, progress: UserProgre
 function currentAccessibleRoom(progress: UserProgress) {
   const saved = rooms.find(item => item.id === progress.currentRoomId)
   return saved && isRoomAccessible(saved, progress) ? saved : rooms.find(item => isRoomAccessible(item, progress)) ?? rooms[0]
+}
+
+function currentQuestRoom(progress: UserProgress, professionId: ProfessionId) {
+  const routeRooms = roomsForProfession(professionId)
+  const candidates = routeRooms.length ? routeRooms : rooms
+  const saved = candidates.find(room => room.id === progress.currentRoomId)
+  if (saved && isRoomAccessible(saved, progress) && !isRoomComplete(saved.id, progress)) return saved
+  return candidates.find(room => isRoomAccessible(room, progress) && !isRoomComplete(room.id, progress)) ?? saved ?? candidates[0] ?? currentAccessibleRoom(progress)
+}
+
+function currentQuestMission(room: Room, progress: UserProgress) {
+  return room.missions.find(mission => !progress.completedMissionIds.includes(mission.id)) ?? room.missions[room.missions.length - 1]
 }
 
 function GlobalSearch({ open, progress, onClose, onChoose }: { open: boolean; progress: UserProgress; onClose: () => void; onChoose: (target: SearchTarget) => void }) {
@@ -360,14 +373,27 @@ function RoomCard({ room, locked, onOpen, completedMissionIds }: { room: Room; l
 }
 
 function PathView({ onOpen, header, progress, domainId, professionId, onDomainChange, onProfessionChange }: { onOpen: (id: string) => void; header: React.ReactNode; progress: UserProgress; domainId: CareerDomainId; professionId: ProfessionId; onDomainChange: (id: CareerDomainId) => void; onProfessionChange: (id: ProfessionId) => void }) {
-  const totalMissions = rooms.reduce((sum, room) => sum + room.missions.length, 0)
-  const completedCount = progress.completedMissionIds.length
-  const pathPercent = Math.round(completedCount / totalMissions * 100)
   const profession = professions.find(item => item.id === professionId) ?? professions[0]
+  const program = professionPrograms.find(item => item.professionId === profession.id)
+  const routeRooms = roomsForProfession(profession.id)
+  const totalMissions = routeRooms.reduce((sum, room) => sum + room.missions.length, 0)
+  const routeMissionIds = new Set(routeRooms.flatMap(room => room.missions.map(mission => mission.id)))
+  const completedCount = progress.completedMissionIds.filter(id => routeMissionIds.has(id)).length
+  const pathPercent = totalMissions ? Math.round(completedCount / totalMissions * 100) : 0
   const domain = careerDomains.find(item => item.id === domainId) ?? careerDomains[0]
   const domainProfessions = professions.filter(item => item.domainId === domain.id)
-  const isDataScientist = profession.id === 'data-scientist'
-  const routeRooms = profession.stages.map(stage => rooms.find(room => room.id === stage.roomId)).filter((item): item is Room => Boolean(item))
+  const isReady = program?.status === 'ready' && routeRooms.length > 0
+  const roadmapProfession: Profession = program ? {
+    ...profession,
+    status: isReady ? 'Доступен' : 'Скоро',
+    stages: program.stages.map(stage => ({
+      title: stage.title,
+      goal: stage.goal,
+      blocks: stage.courseIds.map(id => rooms.find(room => room.id === id)?.title ?? id),
+      stack: profession.stack,
+      roomId: stage.courseIds[0],
+    })),
+  } : profession
   const routeStartRoom = routeRooms.find(item => isRoomAccessible(item, progress) && !isRoomComplete(item.id, progress)) ?? routeRooms.find(item => isRoomAccessible(item, progress))
   const routeStarted = Boolean(routeStartRoom && hasRoomProgress(routeStartRoom, progress))
   return <>
@@ -382,24 +408,24 @@ function PathView({ onOpen, header, progress, domainId, professionId, onDomainCh
       </section>
       <section className="specialization-hub">
         <div className="career-heading"><div><span className="section-kicker">ШАГ 02 // {domain.title.toUpperCase()}</span><h2>Выбери специализацию</h2></div><p>Роли внутри направления используют общий фундамент, а затем расходятся в специализированные ветки.</p></div>
-        <div className="profession-grid">{domainProfessions.map(item => <button key={item.id} className={`profession-card ${profession.id === item.id ? 'selected' : ''}`} onClick={() => onProfessionChange(item.id)}><span className="profession-icon"><item.Icon size={20}/></span><span className="profession-copy"><strong>{item.title}</strong><small>{item.subtitle}</small></span><span className={`profession-status ${item.status === 'Доступен' ? 'ready' : ''}`}>{item.status}</span></button>)}</div>
+        <div className="profession-grid">{domainProfessions.map(item => { const ready = professionPrograms.some(programItem => programItem.professionId === item.id && programItem.status === 'ready'); return <button key={item.id} className={`profession-card ${profession.id === item.id ? 'selected' : ''}`} onClick={() => onProfessionChange(item.id)}><span className="profession-icon"><item.Icon size={20}/></span><span className="profession-copy"><strong>{item.title}</strong><small>{item.subtitle}</small></span><span className={`profession-status ${ready ? 'ready' : ''}`}>{ready ? 'Доступен' : 'Скоро'}</span></button> })}</div>
         <div className="shared-skills-note"><GitBranch size={18}/><div><strong>Один навык — несколько карьерных путей</strong><span>Основы Python, SQL, Git, Linux и другие общие блоки засчитываются везде. Повторно проходить их не придётся.</span></div></div>
       </section>
       <section className="path-hero">
-        <div className="hero-copy"><div className="eyebrow"><Sparkles size={15}/> Выбранная профессия</div><h1>{profession.title}:<br/><span>{profession.subtitle}</span></h1><p>{profession.description} {isDataScientist && 'Маршрут состоит из коротких миссий с кодом, реальными данными и рабочими кейсами.'}</p>
-          <div className="hero-actions">{isDataScientist && routeStartRoom ? <><button className="primary-button" onClick={() => onOpen(routeStartRoom.id)}><Play size={16} fill="currentColor"/>{routeStarted ? 'Продолжить маршрут' : 'Начать маршрут'}</button><span>{routeStartRoom.title} · {routeStartRoom.missions[0]?.minutes ?? 6} минут</span></> : <button className="primary-button" disabled><LockKeyhole size={16}/>Маршрут готовится</button>}</div>
+        <div className="hero-copy"><div className="eyebrow"><Sparkles size={15}/> Выбранная профессия</div><h1>{profession.title}:<br/><span>{profession.subtitle}</span></h1><p>{profession.description} {isReady && 'Маршрут состоит из коротких миссий, рабочих кейсов и непрерывной сюжетной кампании.'}</p>
+          <div className="hero-actions">{isReady && routeStartRoom ? <><button className="primary-button" onClick={() => onOpen(routeStartRoom.id)}><Play size={16} fill="currentColor"/>{routeStarted ? 'Продолжить маршрут' : 'Начать маршрут'}</button><span>{routeStartRoom.title} · {routeStartRoom.missions[0]?.minutes ?? 6} минут</span></> : <button className="primary-button" disabled><LockKeyhole size={16}/>Маршрут готовится</button>}</div>
         </div>
-        {isDataScientist ? <div className="hero-stats"><ProgressRing percent={pathPercent}/><div className="stat-stack"><div><strong>{completedCount}</strong><span>миссий пройдено</span></div><div><strong>{totalMissions}</strong><span>всего в маршруте</span></div></div></div> : <div className="profession-modules"><span>Основной стек</span>{profession.stack.map(tool => <b key={tool}>{tool}</b>)}</div>}
+        {isReady ? <div className="hero-stats"><ProgressRing percent={pathPercent}/><div className="stat-stack"><div><strong>{completedCount}</strong><span>миссий пройдено</span></div><div><strong>{totalMissions}</strong><span>всего в маршруте</span></div></div></div> : <div className="profession-modules"><span>Основной стек</span>{profession.stack.map(tool => <b key={tool}>{tool}</b>)}</div>}
       </section>
-      <ProfessionRoadmap profession={profession} progress={progress} onSelect={onProfessionChange} onOpenStage={onOpen}/>
-      {profession.domainId === 'data-ai' && <DataCurriculum progress={progress} onOpen={onOpen}/>} 
-      {isDataScientist ? <>
-      <section className="route-head"><div><span className="section-kicker">Маршрут 01</span><h2>Фундамент науки о данных</h2></div><div className="legend"><span><i className="dot done"/>пройдено</span><span><i className="dot current"/>доступно</span><span><i className="dot"/>закрыто</span></div></section>
+      <ProfessionRoadmap profession={roadmapProfession} progress={progress} onSelect={onProfessionChange} onOpenStage={onOpen}/>
+      {profession.id === 'data-scientist' && <DataCurriculum progress={progress} onOpen={onOpen}/>} 
+      {isReady ? <>
+      <section className="route-head"><div><span className="section-kicker">ПОЛНЫЙ МАРШРУТ</span><h2>{profession.title}: от первого дела до продакшена</h2></div><div className="legend"><span><i className="dot done"/>пройдено</span><span><i className="dot current"/>доступно</span><span><i className="dot"/>закрыто</span></div></section>
       <section className="route-grid">
         <div className="route-line" aria-hidden="true"/>
-        {rooms.map(room => <RoomCard key={room.id} room={room} locked={!isRoomAccessible(room, progress)} completedMissionIds={progress.completedMissionIds} onOpen={() => onOpen(room.id)}/>)}
+        {routeRooms.map(room => <RoomCard key={room.id} room={room} locked={!isRoomAccessible(room, progress)} completedMissionIds={progress.completedMissionIds} onOpen={() => onOpen(room.id)}/>)}
       </section>
-      <section className="next-path"><div><span className="section-kicker">Дальше</span><h2>Выбери специализацию</h2><p>Откроется после защиты первой модели.</p></div><div className="specialties"><span>Инженер машинного обучения</span><span>Продуктовый аналитик</span><span>Инженер обработки текста</span></div></section>
+      <section className="next-path"><div><span className="section-kicker">ФИНАЛ ПРОФЕССИИ</span><h2>Защити итоговое дело</h2><p>Последняя глава связывает навыки маршрута в одно рабочее решение и фиксирует последствия твоих выборов.</p></div><div className="specialties"><span>Рабочий артефакт</span><span>Решение инцидента</span><span>Финал новеллы</span></div></section>
       </> : <section className="profession-preview"><div className="preview-mark"><profession.Icon size={28}/></div><div><span className="section-kicker">МАРШРУТ В РАЗРАБОТКЕ</span><h2>{profession.title}</h2><p>Структура профессии уже предусмотрена платформой. Полноценные комнаты и практические миссии будут добавлены следующим контентным этапом.</p></div><button className="ds-button ds-secondary" onClick={() => onProfessionChange('data-scientist')}>Открыть готовый маршрут</button></section>}
     </main>
   </>
@@ -495,10 +521,10 @@ export default function App() {
   const [account, setAccount] = useState<UserAccount | null>(() => activeAccount())
   const [theme, setTheme] = useState<ThemeId>(initial.theme)
   const [progress, setProgress] = useState<UserProgress | null>(() => account ? getProgress(account.id) : null)
-  const [view, setView] = useState<View>({ type: 'path' })
+  const [view, setView] = useState<View>({ type: 'quest' })
   const [searchOpen, setSearchOpen] = useState(false)
   const [game, setGame] = useState<GameState>(() => (account ? getGame(account.id) : emptyGame()))
-  const [scene, setScene] = useState<StoryAct | null>(null)
+  const [scene, setScene] = useState<StoryAct | null>(() => account ? pendingPrologueAct(game) ?? null : null)
   const [endingRoomId, setEndingRoomId] = useState<string | null>(null)
   const [professionId, setProfessionId] = useState<ProfessionId>(() => (localStorage.getItem('request.selected-profession') as ProfessionId) || 'data-scientist')
   const [domainId, setDomainId] = useState<CareerDomainId>(() => professions.find(item => item.id === ((localStorage.getItem('request.selected-profession') as ProfessionId) || 'data-scientist'))?.domainId || 'data-ai')
@@ -536,6 +562,14 @@ export default function App() {
     // Пролог играет у всех и раньше всего остального, независимо от раздела и профессии.
     const intro = pendingPrologueAct(game)
     if (intro) { setScene(intro); return }
+    if (view.type === 'quest' && progress) {
+      const questRoom = currentQuestRoom(progress, professionId)
+      const questMission = currentQuestMission(questRoom, progress)
+      const questAct = pendingAct(questRoom.id, game, { on: 'caseStart' })
+        ?? pendingAct(questRoom.id, game, { on: 'beforeMission', missionId: questMission.id })
+      if (questAct) setScene(questAct)
+      return
+    }
     const moment = view.type === 'room' ? { on: 'caseStart' as const }
       : view.type === 'mission' ? { on: 'beforeMission' as const, missionId: view.missionId }
       : undefined
@@ -543,8 +577,15 @@ export default function App() {
     const roomId = view.type === 'room' ? view.roomId : view.type === 'mission' ? view.roomId : ''
     const act = pendingAct(roomId, game, moment)
     if (act) setScene(act)
-  }, [view, game, account, scene])
-  function authenticated(next: UserAccount) { setAccount(next); setProgress(getProgress(next.id)); setGame(getGame(next.id)); setView({ type: 'path' }) }
+  }, [view, game, account, scene, progress, professionId])
+  function authenticated(next: UserAccount) {
+    const nextGame = getGame(next.id)
+    setAccount(next)
+    setProgress(getProgress(next.id))
+    setGame(nextGame)
+    setScene(pendingPrologueAct(nextGame) ?? null)
+    setView({ type: 'quest' })
+  }
   function signOut() { logout(); setAccount(null); setProgress(null) }
   function finishScene() {
     if (account && scene) setGame(markActSeen(account.id, scene.id))
@@ -596,7 +637,7 @@ export default function App() {
       setView({ type: 'path' })
     } else if (target.kind === 'section') {
       setSearchOpen(false)
-      setView({ type: target.section })
+      setView(target.section === 'home' ? { type: 'quest' } : { type: target.section })
     } else {
       const targetRoom = rooms.find(item => item.id === target.roomId)
       if (!targetRoom || !isRoomAccessible(targetRoom, progress)) return
@@ -606,6 +647,15 @@ export default function App() {
     }
   }
   if (!account || !progress) return <AuthView onAuthenticated={authenticated}/>
+  if (view.type === 'quest') {
+    const questRoom = currentQuestRoom(progress, professionId)
+    const questMission = currentQuestMission(questRoom, progress)
+    return <>
+      <MissionRunner key={`${questRoom.id}-${questMission.id}`} questMode room={questRoom} mission={questMission} completed={progress.completedMissionIds.includes(questMission.id)} energy={game.energy} inventory={game.inventory} onSpendFocus={spendFocus} onExit={() => setView({ type: 'path' })} onComplete={() => missionCompleted(questRoom, questMission.id, questMission.xp)}/>
+      {scene && <StoryScene campaign act={scene} chosenByChoiceId={game.choices} onChoose={pickChoice} onFinish={finishScene}/>}
+      {endingRoomId && <EndingView roomId={endingRoomId} game={game} onReplay={() => replayCurrentCase(endingRoomId)} onClose={() => setEndingRoomId(null)}/>}
+    </>
+  }
   if (view.type === 'mission') {
     const missionRoom = rooms.find(item => item.id === view.roomId)
     const mission = missionRoom?.missions.find(item => item.id === view.missionId)
@@ -620,10 +670,10 @@ export default function App() {
   const sectionTitles: Record<AppSection, string> = { home: 'Главная', path: 'Профессии', practice: 'Практика', projects: 'Проекты', achievements: 'Достижения', hq: 'Штаб' }
   const header = (title: string, roomValue?: Room) => <Header title={title} onBack={roomValue ? () => setView({ type: 'path' }) : undefined} room={roomValue} theme={theme} onThemeChange={changeTheme} xp={progress.xp} game={game} onOpenAccount={() => setView({ type: 'account' })} onOpenSearch={() => setSearchOpen(true)}/>
   const activeSection = view.type === 'room' ? 'path' : view.type === 'account' ? 'account' : view.type
-  return <><div className="app-shell"><Sidebar active={activeSection} account={account} progress={progress} onNavigate={section => setView({ type: section })} onOpenAccount={() => setView({ type: 'account' })}/><div className="content-shell">
+  return <><div className="app-shell"><Sidebar active={activeSection} account={account} progress={progress} onNavigate={section => setView(section === 'home' ? { type: 'quest' } : { type: section })} onOpenAccount={() => setView({ type: 'account' })}/><div className="content-shell">
     {view.type === 'account' ? <AccountView account={account} progress={progress} onAccountChange={setAccount} onBack={() => setView({ type: 'path' })} onLogout={signOut}/>
       : room ? <RoomView room={room} onBack={() => setView({ type: 'path' })} header={header('Профессии', room)} banner={<CaseBanner roomId={room.id} game={game}/>} progress={progress} onStart={missionId => setView({ type: 'mission', roomId: room.id, missionId })}/>
-      : view.type === 'home' ? <HomeView header={header(sectionTitles.home)} account={account} progress={progress} onContinue={() => setView({ type: 'room', roomId: currentAccessibleRoom(progress).id })} onOpenPath={() => setView({ type: 'path' })} onOpenPractice={() => setView({ type: 'practice' })}/>
+      : view.type === 'home' ? <HomeView header={header(sectionTitles.home)} account={account} progress={progress} onContinue={() => setView({ type: 'quest' })} onOpenPath={() => setView({ type: 'path' })} onOpenPractice={() => setView({ type: 'practice' })}/>
       : view.type === 'practice' ? <PracticeView header={header(sectionTitles.practice)} progress={progress} onOpen={roomId => setView({ type: 'room', roomId })}/>
       : view.type === 'projects' ? <ProjectsView header={header(sectionTitles.projects)}/>
       : view.type === 'hq' ? <HqView header={header(sectionTitles.hq)} account={account} progress={progress} game={game} onGameChange={setGame} onOpenRoom={roomId => setView({ type: 'room', roomId })}/>

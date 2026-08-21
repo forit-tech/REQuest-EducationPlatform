@@ -6,6 +6,8 @@ import { glossary } from './glossary'
 import { missionTypeLabels } from './data'
 import data002 from '../knowledge/data/data-foundations/missions/DATA-002.json'
 import data003 from '../knowledge/data/data-foundations/missions/DATA-003.json'
+import { caseForCourse, character } from './story/engine'
+import { Sprite } from './story/Sprite'
 
 type RunnerProps = {
   room: Room
@@ -17,6 +19,7 @@ type RunnerProps = {
   onSpendFocus: (amount: number) => boolean
   onExit: () => void
   onComplete: () => void
+  questMode?: boolean
 }
 
 const eventRows = [
@@ -127,7 +130,7 @@ function ReadmeView({ mission, isCodeMission, hasTerminal, onOpenWorkspace }: { 
   </article>
 }
 
-export function MissionRunner({ room, mission, completed, energy, inventory, onSpendFocus, onExit, onComplete }: RunnerProps) {
+export function MissionRunner({ room, mission, completed, energy, inventory, onSpendFocus, onExit, onComplete, questMode = false }: RunnerProps) {
   const isObservationInvestigation = mission.id === 'DATA-002'
   const isFeatureInvestigation = mission.id === 'DATA-003'
   const isContentFactoryInvestigation = isObservationInvestigation || isFeatureInvestigation
@@ -151,6 +154,10 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
   const hasNotebook = inventory.includes('notebook')
   const focusBonus = energy >= FOCUS_BONUS_THRESHOLD
   const hintAffordable = hasDuck || hintPaid || energy >= HINT_FOCUS_COST
+  const story = questMode ? caseForCourse(room.id) : undefined
+  const companion = character(story?.cast[0] ?? 'mira')
+  const guide = character(story?.cast[1] ?? 'oleg')
+  const episode = room.missions.findIndex(item => item.id === mission.id) + 1
   function revealHint() {
     if (hintVisible) { setHintVisible(false); return }
     if (hasDuck || hintPaid) { setHintVisible(true); return }
@@ -159,7 +166,8 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
     setHintVisible(true)
   }
   const [command, setCommand] = useState('')
-  const [code, setCode] = useState("# Рабочий файл миссии\n# Исследуй данные и запиши решение ниже\n\nrows = 850_000\nprint(f'Получено наблюдений: {rows}')")
+  const [code, setCode] = useState(mission.task?.starterCode ?? "# Рабочий файл миссии\n# Исследуй данные и запиши решение ниже\n\nrows = 850_000\nprint(f'Получено наблюдений: {rows}')")
+  const workspaceFile = mission.task?.workspaceFile ?? 'solution.py'
   const [terminalLines, setTerminalLines] = useState([
     'REQuest Runtime 0.4 · изолированная учебная среда',
     'Контейнер rq-data-01 запущен',
@@ -168,10 +176,15 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
   ])
   const evidenceComplete = selectedRow === 'ORD-78104' && selectedColumn === 'status' && selectedCell === 'оплачен'
   const featureEvidenceComplete = selectedColumn === 'amount' && selectedCell === '3 490'
+  const codeChecks = mission.task?.codeChecks ?? []
+  const hasCodeChecks = codeChecks.length > 0
+  const passedCodeChecks = codeChecks.filter(check => code.includes(check.includes))
   const isCorrect = isObservationInvestigation
     ? evidenceComplete && answer === data002.reasoningCheck.answer && productionAnswer === data002.productionCheck.answer
     : isFeatureInvestigation
       ? featureEvidenceComplete && answer === data003.reasoningCheck.answer && productionAnswer === data003.productionCheck.answer
+      : hasCodeChecks
+        ? passedCodeChecks.length === codeChecks.length
       : mission.task
         ? answer.trim() === mission.task.answer.trim()
         : isCodeMission && code.trim().length > 30
@@ -179,6 +192,8 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
     ? evidenceComplete && Boolean(answer) && Boolean(productionAnswer)
     : isFeatureInvestigation
       ? featureEvidenceComplete && Boolean(answer) && Boolean(productionAnswer)
+      : hasCodeChecks
+        ? code.trim().length > 0
       : mission.task
         ? Boolean(answer)
         : isCodeMission ? code.trim().length > 0 : Boolean(answer)
@@ -210,19 +225,29 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
     setFinished(true)
   }
 
-  return <div className="mission-runner">
+  return <div className={`mission-runner ${questMode ? 'quest-runner' : ''}`}>
     <header className="runner-topbar">
       <div className="runner-brand"><span className="runner-mark">∿</span><strong>RE<span>Quest</span></strong></div>
-      <button className="runner-back" onClick={onExit}><ArrowLeft size={17}/>Комната {room.index}</button>
-      <div className="runner-location"><span>{room.title}</span><ChevronRight size={14}/><strong>{mission.title}</strong></div>
-      <div className="runner-telemetry"><span><CircleDot size={14}/>{mission.minutes}:00</span><span><Star size={14}/>+{mission.xp} XP</span><button onClick={onExit} aria-label="Закрыть миссию"><X size={18}/></button></div>
+      {questMode ? <>
+        <div className="quest-case-location"><span>{story?.number ?? `ДЕЛО ${room.index}`}</span><strong>{story?.title ?? room.title}</strong></div>
+        <div className="quest-episode-location"><span>ЭПИЗОД {String(episode).padStart(2, '0')} / {room.missions.length}</span><strong>{mission.title}</strong></div>
+        <div className="runner-telemetry"><span><CircleDot size={14}/>{mission.minutes}:00</span><span><Star size={14}/>+{mission.xp} XP</span><button onClick={onExit} aria-label="Поставить дело на паузу"><X size={18}/></button></div>
+      </> : <>
+        <button className="runner-back" onClick={onExit}><ArrowLeft size={17}/>Комната {room.index}</button>
+        <div className="runner-location"><span>{room.title}</span><ChevronRight size={14}/><strong>{mission.title}</strong></div>
+        <div className="runner-telemetry"><span><CircleDot size={14}/>{mission.minutes}:00</span><span><Star size={14}/>+{mission.xp} XP</span><button onClick={onExit} aria-label="Закрыть миссию"><X size={18}/></button></div>
+      </>}
     </header>
 
     <div className="runner-shell">
       <aside className="runner-brief">
-        <div className="runner-brief-head"><span>МИССИЯ // {mission.id}</span><h1>{mission.title}</h1><p>{mission.intro}</p></div>
+        {questMode && <div className="quest-cast-stage">
+          <div className="quest-cast-figures"><Sprite character={companion} emotion="worried" height={226}/><Sprite character={guide} emotion="determined" height={244} side="right"/></div>
+          <div className="quest-dialogue-brief"><span>{guide.name} · {guide.role}</span><p>{mission.intro}</p></div>
+        </div>}
+        <div className="runner-brief-head"><span>{questMode ? `ТЕКУЩАЯ ЦЕЛЬ // ${mission.id}` : `МИССИЯ // ${mission.id}`}</span><h1>{mission.title}</h1>{!questMode && <p>{mission.intro}</p>}</div>
         <nav className="runner-steps" aria-label="Этапы миссии">
-          {['Изучи контекст', 'Выполни задание', 'Пройди проверку', 'Забери награду'].map((label, index) => { const number = index + 1; const done = number < step || finished; const active = number === step && !finished; return <div className={`${done ? 'done' : ''} ${active ? 'active' : ''}`} key={label}><i>{done ? <Check size={14}/> : number}</i><span>{label}</span></div> })}
+          {(questMode ? ['Получить цель', 'Собрать улику', 'Доказать вывод', 'Продолжить дело'] : ['Изучи контекст', 'Выполни задание', 'Пройди проверку', 'Забери награду']).map((label, index) => { const number = index + 1; const done = number < step || finished; const active = number === step && !finished; return <div className={`${done ? 'done' : ''} ${active ? 'active' : ''}`} key={label}><i>{done ? <Check size={14}/> : number}</i><span>{label}</span></div> })}
         </nav>
         <section className="runner-context"><span>РАБОЧИЙ КОНТЕКСТ</span><p>{mission.productionContext || 'Перед тобой учебная копия рабочего окружения. Изменения сохраняются только внутри миссии.'}</p></section>
         {!!mission.objectives?.length && <section className="runner-objectives"><span>ЦЕЛИ</span><ul>{mission.objectives.map(item => <li key={item}>{item}</li>)}</ul></section>}
@@ -252,7 +277,7 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
       </aside>
 
       <main className={`runner-workspace ${hasTerminal ? '' : 'theory-workspace'}`}>
-        <div className="workspace-tabs"><button className={activeTab === 'workspace' ? 'active' : ''} onClick={() => setActiveTab('workspace')}>{isCodeMission ? <Code2 size={15}/> : <Database size={15}/>} {isCodeMission ? 'solution.py' : dataFileName}</button><button className={activeTab === 'readme' ? 'active' : ''} disabled={isContentFactoryInvestigation && !isCorrect} title={isContentFactoryInvestigation && !isCorrect ? 'Конспект откроется после самостоятельного вывода' : undefined} onClick={() => setActiveTab('readme')}><BookOpen size={15}/>{isContentFactoryInvestigation && !isCorrect ? 'Конспект после вывода' : 'Конспект.md'}</button><div><span className="runtime-dot"/>{hasTerminal ? 'Среда запущена' : 'Материал загружен'}</div></div>
+        <div className="workspace-tabs"><button className={activeTab === 'workspace' ? 'active' : ''} onClick={() => setActiveTab('workspace')}>{isCodeMission ? <Code2 size={15}/> : <Database size={15}/>} {isCodeMission ? workspaceFile : dataFileName}</button><button className={activeTab === 'readme' ? 'active' : ''} disabled={isContentFactoryInvestigation && !isCorrect} title={isContentFactoryInvestigation && !isCorrect ? 'Конспект откроется после самостоятельного вывода' : undefined} onClick={() => setActiveTab('readme')}><BookOpen size={15}/>{isContentFactoryInvestigation && !isCorrect ? 'Конспект после вывода' : 'Конспект.md'}</button><div><span className="runtime-dot"/>{hasTerminal ? 'Среда запущена' : 'Материал загружен'}</div></div>
         <div className="workspace-main">
           <section className="workspace-canvas">{activeTab === 'readme' ? <ReadmeView mission={mission} isCodeMission={isCodeMission} hasTerminal={hasTerminal} onOpenWorkspace={() => setActiveTab('workspace')}/> : isCodeMission ? <CodeWorkspace value={code} onChange={setCode}/> : isObservationInvestigation ? <Data002Preview dataset={investigationDataset} onDatasetChange={setInvestigationDataset} selectedRow={selectedRow} selectedColumn={selectedColumn} selectedCell={selectedCell} onRow={setSelectedRow} onColumn={setSelectedColumn} onCell={(value, column, rowId) => { if (column === 'status' && rowId === 'ORD-78104') setSelectedCell(value); else setSelectedCell('') }}/> : isFeatureInvestigation ? <Data003Preview selectedColumn={selectedColumn} selectedCell={selectedCell} onColumn={column => { setSelectedColumn(column); if (column !== 'amount') setSelectedCell('') }} onCell={(value, column, rowId) => { setSelectedColumn(column); setSelectedCell(column === 'amount' && rowId === 'ORD-78104' ? value : '') }}/> : <DataPreview mission={mission}/>}</section>
           <aside className="runner-task-panel">
@@ -273,7 +298,7 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
               <div className="evidence-list">{data003.activities.map((activity, index) => { const done = index === 0 ? selectedColumn === activity.expected : selectedCell === activity.expected; return <div className={done ? 'done' : ''} key={activity.id}><i>{done ? <Check size={13}/> : index + 1}</i><span>{activity.prompt}</span></div> })}</div>
               <div className="investigation-question"><span>ОБОСНУЙ ВЫВОД</span><p>{data003.reasoningCheck.prompt}</p><div className="runner-options">{data003.reasoningCheck.options.map(option => <button className={answer === option ? 'selected' : ''} onClick={() => { setAnswer(option); setChecked(false) }} key={option}><i>{answer === option && <Check size={13}/>}</i><span>{option}</span></button>)}</div></div>
               <div className="production-check"><div><span>PRODUCTION // ЛОВУШКА ТИПА</span></div><p>{data003.productionCheck.prompt}</p><div className="runner-options">{data003.productionCheck.options.map(option => <button className={productionAnswer === option ? 'selected' : ''} onClick={() => { setProductionAnswer(option); setChecked(false) }} key={option}><i>{productionAnswer === option && <Check size={13}/>}</i><span>{option}</span></button>)}</div></div>
-            </div> : <><p>{mission.task?.prompt || 'Исследуй рабочие файлы и подготовь решение.'}</p>{mission.task?.options ? <div className="runner-options">{mission.task.options.map(option => <button className={answer === option ? 'selected' : ''} onClick={() => { setAnswer(option); setChecked(false) }} key={option}><i>{answer === option && <Check size={13}/>}</i><span>{option}</span></button>)}</div> : <label className="runner-answer"><span>Ответ или вывод</span><textarea value={answer} onChange={event => { setAnswer(event.target.value); setChecked(false) }} placeholder="Запиши результат исследования…"/></label>}</>}
+            </div> : hasCodeChecks ? <div className="code-brief"><p>{mission.task?.prompt}</p><span className="code-brief-kicker">УСЛОВИЯ ПРОВЕРКИ</span><div className="code-checklist">{codeChecks.map(check => { const passed = code.includes(check.includes); return <div className={passed ? 'passed' : ''} key={check.label}><i>{passed ? <Check size={13}/> : '·'}</i><span>{check.label}</span></div> })}</div><small>Пиши решение в <code>{workspaceFile}</code>. Проверка смотрит на обязательные шаги программы.</small></div> : <><p>{mission.task?.prompt || 'Исследуй рабочие файлы и подготовь решение.'}</p>{mission.task?.options ? <div className="runner-options">{mission.task.options.map(option => <button className={answer === option ? 'selected' : ''} onClick={() => { setAnswer(option); setChecked(false) }} key={option}><i>{answer === option && <Check size={13}/>}</i><span>{option}</span></button>)}</div> : <label className="runner-answer"><span>Ответ или вывод</span><textarea value={answer} onChange={event => { setAnswer(event.target.value); setChecked(false) }} placeholder="Запиши результат исследования…"/></label>}</>}
             {checked && <div className={`runner-feedback ${isCorrect ? 'success' : 'error'}`}><strong>{isCorrect ? 'Проверка пройдена' : 'Есть неточность'}</strong><p>{isCorrect ? mission.task?.explanation || 'Решение прошло автоматические проверки.' : 'Посмотри на единицу наблюдения и попробуй ещё раз.'}</p></div>}
             {finished && <div className="runner-complete"><Check size={22}/><div><strong>Миссия завершена</strong><span>+{mission.xp} XP сохранено в профиле</span></div></div>}
           </aside>
@@ -284,7 +309,7 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
           <div className="terminal-output">{terminalLines.map((line, index) => <div className={line.startsWith('✓') ? 'ok' : line.startsWith('✕') ? 'bad' : ''} key={`${line}-${index}`}>{line}</div>)}<form onSubmit={event => { event.preventDefault(); runCommand() }}><span>$</span><input aria-label="Команда терминала" value={command} onChange={event => setCommand(event.target.value)} autoComplete="off" spellCheck={false}/></form></div>
         </section>}
 
-        <footer className="runner-actions"><span>{finished ? 'Прогресс и награда сохранены' : checked && isCorrect ? 'Решение готово к отправке' : 'Изменения сохраняются в учебной среде'}</span><div>{!finished && <button className="runner-check" onClick={verify} disabled={!canCheck}><Play size={15} fill="currentColor"/>Проверить решение</button>}{checked && isCorrect && !finished && <button className="runner-finish" onClick={finishMission}><Check size={16}/>Завершить миссию</button>}{finished && <button className="runner-finish" onClick={onExit}><ArrowLeft size={16}/>Вернуться в комнату</button>}</div></footer>
+        <footer className="runner-actions"><span>{finished ? 'Улика добавлена в досье' : checked && isCorrect ? 'Доказательство принято — история продолжится' : questMode ? 'Результат изменит ход текущего дела' : 'Изменения сохраняются в учебной среде'}</span><div>{!finished && <button className="runner-check" onClick={verify} disabled={!canCheck}><Play size={15} fill="currentColor"/>Проверить решение</button>}{checked && isCorrect && !finished && <button className="runner-finish" onClick={finishMission}><Check size={16}/>{questMode ? 'Продолжить историю' : 'Завершить миссию'}</button>}{finished && <button className="runner-finish" onClick={onExit}><ArrowLeft size={16}/>{questMode ? 'Поставить дело на паузу' : 'Вернуться в комнату'}</button>}</div></footer>
       </main>
     </div>
   </div>
