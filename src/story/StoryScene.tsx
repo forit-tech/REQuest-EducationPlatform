@@ -22,7 +22,7 @@ const channelIcons = { chat: MessageSquare, alert: AlertTriangle, mail: Mail, ti
 const channelLabels = { chat: 'СООБЩЕНИЕ', alert: 'АЛЕРТ', mail: 'ПИСЬМО', ticket: 'ЗАДАЧА' }
 
 type StoryMoment =
-  | { kind: 'line'; speaker: string; emotion?: Emotion; text: string; scene: string }
+  | { kind: 'line'; speaker: string; emotion?: Emotion; text: string; scene: string; fromPanel?: boolean }
   | { kind: 'notification'; beat: NotificationBeat; scene: string }
   | { kind: 'choice'; beat: ChoiceBeat; scene: string }
 
@@ -71,6 +71,7 @@ function expandAct(act: StoryAct): StoryMoment[] {
           emotion: panel.emotion,
           text: panel.caption,
           scene,
+          fromPanel: true,
         }
       })
     }
@@ -133,7 +134,7 @@ export function StoryScene({ act, career, chosenByChoiceId, onChoose, onFinish, 
     const scene = moment?.scene
     for (let index = step; index >= 0 && ids.length < 2; index -= 1) {
       const candidate = moments[index]
-      if (candidate.kind !== 'line' || candidate.scene !== scene) break
+      if (candidate.kind !== 'line' || candidate.scene !== scene || (index !== step && candidate.fromPanel)) break
       if (candidate.speaker !== 'narrator' && !ids.includes(candidate.speaker)) ids.unshift(candidate.speaker)
     }
     return ids
