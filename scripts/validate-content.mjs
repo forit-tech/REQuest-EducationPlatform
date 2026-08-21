@@ -9,8 +9,12 @@ const sourcesPath = resolve(root, 'knowledge/content-factory/sources.json')
 const knowledgeRoot = resolve(root, 'knowledge')
 const professionProgramsPath = resolve(root, 'knowledge/professions/programs.json')
 const storyCasesRoot = resolve(root, 'knowledge/story/cases')
+const castPath = resolve(root, 'knowledge/story/cast.json')
 const catalog = JSON.parse(await readFile(sourcesPath, 'utf8'))
 const professionPrograms = JSON.parse(await readFile(professionProgramsPath, 'utf8'))
+const storyCast = JSON.parse(await readFile(castPath, 'utf8'))
+const castIds = new Set(storyCast.map(member => member.id))
+const illustratedCastIds = new Set(['mira', 'oleg', 'lena', 'gleb', 'sonya', 'artem', 'anton', 'alexey'])
 const domainConfigs = []
 for (const entry of await readdir(knowledgeRoot, { withFileTypes: true })) {
   if (!entry.isDirectory() || ['content-factory', 'story', 'professions'].includes(entry.name)) continue
@@ -71,7 +75,7 @@ for (const domain of domainConfigs) {
     }
     if (program?.phase?.startsWith('Профессия')) {
       const practical = course.missions.filter(mission => ['code', 'lab'].includes(mission.type) || mission.task?.starterCode)
-      validate(practical.length / course.missions.length >= 0.6, course.id, 'в профессиональном блоке практика должна занимать не менее 60% миссий')
+      validate(practical.length / course.missions.length >= 0.65, course.id, 'в профессиональном блоке практика должна занимать не менее 65% миссий')
       validate(course.missions.some(mission => mission.historicalFact?.sourceUrl), course.id, 'нет исторического или научного факта с источником')
       for (const mission of practical) {
         validate(Boolean(mission.task?.starterCode), mission.id, 'практическая миссия не содержит стартовый рабочий файл')
@@ -121,6 +125,24 @@ for (const file of (await readdir(storyCasesRoot)).filter(name => name.endsWith(
   validate(story.cast?.length >= 3, story.caseId ?? file, 'в сюжетном деле должно быть минимум три персонажа')
   validate(story.acts?.length >= 4, story.caseId ?? file, 'сюжетное дело должно содержать минимум четыре акта')
   validate(story.endings?.length >= 2, story.caseId ?? file, 'сюжетное дело должно содержать минимум две концовки')
+  for (const castId of story.cast ?? []) {
+    validate(castIds.has(castId), story.caseId ?? file, `неизвестный персонаж в составе дела: ${castId}`)
+    validate(illustratedCastIds.has(castId), story.caseId ?? file, `у персонажа нет иллюстрированных поз: ${castId}`)
+  }
+  for (const act of story.acts ?? []) {
+    for (const beat of act.beats ?? []) {
+      const speakers = beat.kind === 'line'
+        ? [beat.speaker]
+        : beat.kind === 'comic'
+          ? beat.panels.map(panel => panel.speaker).filter(Boolean)
+          : []
+      for (const speaker of speakers) {
+        validate(castIds.has(speaker), act.id, `неизвестный speaker: ${speaker}`)
+        validate(speaker === 'narrator' || story.cast.includes(speaker), act.id, `speaker ${speaker} отсутствует в составе дела`)
+        validate(speaker === 'narrator' || illustratedCastIds.has(speaker), act.id, `у speaker ${speaker} нет иллюстрированного спрайта`)
+      }
+    }
+  }
   storyCourseIds.add(story.courseId)
 }
 
@@ -129,7 +151,7 @@ for (const courseId of professionRouteCourseIds) {
   const course = coursesById.get(courseId)
   if (!course) continue
   const practical = course.missions.filter(mission => mission.task?.starterCode)
-  validate(practical.length / course.missions.length >= 0.6, courseId, 'в профессиональном блоке практика должна занимать не менее 60% миссий')
+  validate(practical.length / course.missions.length >= 0.65, courseId, 'в профессиональном блоке практика должна занимать не менее 65% миссий')
   validate(course.missions.some(mission => mission.historicalFact?.sourceUrl), courseId, 'нет исторического или научного факта с источником')
   for (const mission of practical) {
     validate(mission.task?.codeChecks?.length >= 3, mission.id, 'практическая миссия должна иметь минимум три автоматические проверки')
