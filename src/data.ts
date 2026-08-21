@@ -1,30 +1,7 @@
 import type { Mission, MissionType, Room } from './types'
 import { glossaryTermIds } from './glossary'
-import technicalFoundationsCourse from '../knowledge/data/technical-foundations/course.json'
-import dataFoundationsCourse from '../knowledge/data/data-foundations/course.json'
-import pythonCoreCourse from '../knowledge/data/python-core/course.json'
-import dataFormatsCourse from '../knowledge/data/data-formats/course.json'
-import sqlFoundationsCourse from '../knowledge/data/sql-foundations/course.json'
-import numpyCourse from '../knowledge/data/numpy/course.json'
-import relationalDatabasesCourse from '../knowledge/data/relational-databases/course.json'
-import pandasCourse from '../knowledge/data/pandas/course.json'
-import polarsCourse from '../knowledge/data/polars/course.json'
-import dataCleaningCourse from '../knowledge/data/data-cleaning/course.json'
-import exploratoryDataAnalysisCourse from '../knowledge/data/exploratory-data-analysis/course.json'
-import dataVisualizationCourse from '../knowledge/data/data-visualization/course.json'
-import statisticsCourse from '../knowledge/data/statistics/course.json'
-import advancedSqlCourse from '../knowledge/data/advanced-sql/course.json'
-import postgresqlCourse from '../knowledge/data/postgresql/course.json'
-import analyticalDatabasesCourse from '../knowledge/data/analytical-databases/course.json'
-import clickhouseCourse from '../knowledge/data/clickhouse/course.json'
-import duckdbCourse from '../knowledge/data/duckdb/course.json'
-import dataModelingCourse from '../knowledge/data/data-modeling/course.json'
-import dataQualityCourse from '../knowledge/data/data-quality/course.json'
-import largeDataCourse from '../knowledge/data/large-data/course.json'
-import etlEltCourse from '../knowledge/data/etl-elt/course.json'
-import productionIncidentsCourse from '../knowledge/data/production-incidents/course.json'
-import dataFinalProjectCourse from '../knowledge/data/data-final-project/course.json'
 import dataPrograms from '../knowledge/data/programs.json'
+import professionPrograms from '../knowledge/professions/programs.json'
 
 interface CourseFile {
   id: string
@@ -48,35 +25,25 @@ const fromCourse = (course: CourseFile, accent: string): RoomDefinition => ({
   prerequisites: dataPrograms.find(program => program.id === course.id)?.prerequisites ?? [],
 })
 
-const dataCourseFiles: CourseFile[] = [
-  technicalFoundationsCourse,
-  dataFoundationsCourse,
-  pythonCoreCourse,
-  dataFormatsCourse,
-  numpyCourse,
-  pandasCourse,
-  polarsCourse,
-  dataCleaningCourse,
-  exploratoryDataAnalysisCourse,
-  dataVisualizationCourse,
-  statisticsCourse,
-  sqlFoundationsCourse,
-  advancedSqlCourse,
-  relationalDatabasesCourse,
-  postgresqlCourse,
-  analyticalDatabasesCourse,
-  clickhouseCourse,
-  duckdbCourse,
-  dataModelingCourse,
-  dataQualityCourse,
-  largeDataCourse,
-  etlEltCourse,
-  productionIncidentsCourse,
-  dataFinalProjectCourse,
-]
+const courseModules = import.meta.glob('../knowledge/**/course.json', { eager: true, import: 'default' }) as Record<string, CourseFile>
+const dataCourseFiles: CourseFile[] = Object.values(courseModules)
+
+const professionPrerequisites = new Map<string, string[]>()
+for (const program of professionPrograms) {
+  for (const stage of program.stages) {
+    stage.courseIds.forEach((courseId, index) => {
+      if (!professionPrerequisites.has(courseId)) {
+        professionPrerequisites.set(courseId, index > 0 ? [stage.courseIds[index - 1]] : stage.prerequisites)
+      }
+    })
+  }
+}
 
 const dataCourseAccents = ['#38bdf8', '#6ce5c1', '#7da2ff', '#e0b875', '#d98cff', '#ff8d74']
-const catalogRooms = dataCourseFiles.map((course, index) => fromCourse(course, dataCourseAccents[index % dataCourseAccents.length]))
+const catalogRooms = dataCourseFiles.map((course, index) => ({
+  ...fromCourse(course, dataCourseAccents[index % dataCourseAccents.length]),
+  prerequisites: professionPrerequisites.get(course.id) ?? fromCourse(course, dataCourseAccents[index % dataCourseAccents.length]).prerequisites,
+}))
 
 const kinds: MissionType[] = ['story', 'quiz', 'code', 'lab', 'code', 'case']
 
@@ -123,6 +90,30 @@ export const rooms: Room[] = roomDefinitions.map((room, index) => ({
   ...room,
   index: String(index + 1).padStart(2, '0'),
 }))
+
+export function courseIdsForProfession(professionId: string) {
+  const program = professionPrograms.find(item => item.professionId === professionId)
+  return program?.stages.flatMap(stage => stage.courseIds) ?? []
+}
+
+export function roomsForProfession(professionId: string) {
+  const program = professionPrograms.find(item => item.professionId === professionId)
+  if (!program) return []
+  const roomById = new Map(rooms.map(room => [room.id, room]))
+  const route: Room[] = []
+  for (const stage of program.stages) {
+    stage.courseIds.forEach((courseId, courseIndex) => {
+      const room = roomById.get(courseId)
+      if (!room) return
+      route.push({
+        ...room,
+        index: String(route.length + 1).padStart(2, '0'),
+        prerequisites: courseIndex > 0 ? [stage.courseIds[courseIndex - 1]] : stage.prerequisites,
+      })
+    })
+  }
+  return route
+}
 
 export const missionTypeLabels: Record<MissionType, string> = {
   story: 'История', quiz: 'Квиз', code: 'Код', lab: 'Лаборатория', case: 'Кейс', boss: 'Испытание',

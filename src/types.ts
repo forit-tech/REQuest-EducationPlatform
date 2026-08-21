@@ -16,6 +16,12 @@ export interface Mission {
     options?: string[]
     answer: string
     explanation: string
+    starterCode?: string
+    workspaceFile?: string
+    codeChecks?: Array<{
+      label: string
+      includes: string
+    }>
   }
   hints?: string[]
 }
@@ -38,6 +44,7 @@ export interface Room {
 export type AppSection = 'home' | 'path' | 'practice' | 'projects' | 'achievements' | 'hq'
 
 export type View =
+  | { type: 'quest' }
   | { type: AppSection }
   | { type: 'room'; roomId: string }
   | { type: 'mission'; roomId: string; missionId: string }

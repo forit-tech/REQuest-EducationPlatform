@@ -27,23 +27,24 @@ function NotificationCard({ beat }: { beat: NotificationBeat }) {
   </div>
 }
 
-function ComicCard({ beat }: { beat: ComicBeat }) {
+function ComicCard({ beat, campaign = false }: { beat: ComicBeat; campaign?: boolean }) {
   return <div className="story-comic">{beat.panels.map((panel, index) => {
     const who = panel.speaker ? character(panel.speaker) : undefined
     return <figure className="comic-panel" key={index} style={{ animationDelay: `${index * 140}ms` }}>
       <div className="comic-art" data-scene={panel.scene}>
-        {who ? <Sprite character={who} emotion={panel.emotion ?? 'neutral'} height={150}/> : <div className="comic-establishing"><i/><i/><i/></div>}
+        {who ? <Sprite character={who} emotion={panel.emotion ?? 'neutral'} height={campaign ? 250 : 150}/> : <div className="comic-establishing"><i/><i/><i/></div>}
       </div>
       <figcaption>{who && <b>{who.name}: </b>}{panel.caption}</figcaption>
     </figure>
   })}</div>
 }
 
-export function StoryScene({ act, chosenByChoiceId, onChoose, onFinish }: {
+export function StoryScene({ act, chosenByChoiceId, onChoose, onFinish, campaign = false }: {
   act: StoryAct
   chosenByChoiceId: Record<string, string>
   onChoose: (choiceId: string, optionId: string, effects: BeatEffects) => void
   onFinish: () => void
+  campaign?: boolean
 }) {
   const [step, setStep] = useState(0)
   const [replyShown, setReplyShown] = useState(false)
@@ -82,17 +83,17 @@ export function StoryScene({ act, chosenByChoiceId, onChoose, onFinish }: {
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
       if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); advance() }
-      if (event.key === 'Escape') onFinish()
+      if (event.key === 'Escape' && !campaign) onFinish()
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   })
 
-  return <div className="vn-overlay" role="dialog" aria-label={act.title}>
-    <div className="vn-stage">
+  return <div className={`vn-overlay ${campaign ? 'campaign' : ''}`} role="dialog" aria-label={act.title}>
+    <div className={`vn-stage ${campaign ? 'is-campaign' : ''}`}>
       <header className="vn-head">
         <div><span className="story-kicker">СЦЕНА</span><strong>{act.title}</strong></div>
-        <button className="story-skip" onClick={onFinish}><SkipForward size={15}/>Пропустить</button>
+        {!campaign && <button className="story-skip" onClick={onFinish}><SkipForward size={15}/>Пропустить</button>}
       </header>
 
       <div className={`vn-scene ${isNarrator ? 'is-narration' : ''}`} onClick={advance}>
@@ -106,7 +107,7 @@ export function StoryScene({ act, chosenByChoiceId, onChoose, onFinish }: {
 
         <div className="vn-inserts">
           {beat?.kind === 'notification' && <NotificationCard beat={beat as NotificationBeat}/>}
-          {beat?.kind === 'comic' && <ComicCard beat={beat as ComicBeat}/>}
+          {beat?.kind === 'comic' && <ComicCard beat={beat as ComicBeat} campaign={campaign}/>} 
         </div>
 
         {isChoice && choiceBeat && <div className="vn-choice">
@@ -140,7 +141,7 @@ export function StoryScene({ act, chosenByChoiceId, onChoose, onFinish }: {
 
       <footer className="vn-foot">
         <div className="story-dots">{act.beats.map((_, index) => <i key={index} className={index <= step ? 'on' : ''}/>)}</div>
-        <span className="vn-hint">Пробел или Enter — дальше, Esc — пропустить</span>
+        <span className="vn-hint">{campaign ? 'Пробел или Enter — дальше' : 'Пробел или Enter — дальше, Esc — пропустить'}</span>
         <button className="story-next" onClick={advance} disabled={blocked}>
           {blocked ? 'Выбери вариант' : last ? 'Продолжить' : 'Дальше'}<ChevronRight size={16}/>
         </button>

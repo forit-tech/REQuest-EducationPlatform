@@ -10,6 +10,19 @@
   background: var(--deck); border: 1px solid var(--line-strong); border-radius: 18px; overflow: hidden;
   box-shadow: 0 34px 100px rgba(0, 0, 0, .6);
 }
+.vn-overlay.campaign { padding: 0; background: var(--void); backdrop-filter: none; }
+.vn-stage.is-campaign { width: 100%; height: 100%; border: 0; border-radius: 0; box-shadow: none; }
+.vn-stage.is-campaign .vn-head { min-height: 66px; padding-inline: 28px; }
+.vn-stage.is-campaign .vn-scene { background:
+  linear-gradient(to top, color-mix(in srgb, var(--void) 72%, transparent), transparent 48%),
+  radial-gradient(circle at 50% 82%, color-mix(in srgb, var(--signal) 13%, transparent), transparent 58%); }
+.vn-stage.is-campaign .vn-dialogue { min-height: 150px; padding: 22px 6vw 26px; }
+.vn-stage.is-campaign .vn-foot { min-height: 64px; padding-inline: 6vw; }
+.vn-stage.is-campaign .vn-actor { padding-top: 18px; }
+.vn-stage.is-campaign .vn-sprite { height: min(50vh, 500px); }
+.vn-stage.is-campaign .vn-inserts { width: min(1180px, 92%); }
+.vn-stage.is-campaign .story-comic { gap: 18px; }
+.vn-stage.is-campaign .comic-art { min-height: 290px; }
 .vn-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 22px; border-bottom: 1px solid var(--line-soft); background: var(--console); }
 .vn-head strong { font-size: 15px; }
 
@@ -24,6 +37,7 @@
 .vn-actor { position: relative; z-index: 1; display: grid; place-items: end center; height: 100%; padding-bottom: 4px; animation: vn-enter .34s cubic-bezier(.2, .8, .3, 1) both; }
 @keyframes vn-enter { from { opacity: 0; transform: translateY(24px) scale(.98) } to { opacity: 1; transform: none } }
 .vn-sprite { display: block; max-height: 100%; filter: drop-shadow(0 18px 34px rgba(0, 0, 0, .5)); transition: opacity .2s, filter .2s; }
+.vn-sprite.illustrated { width: auto; max-width: min(46vw, 620px); object-fit: contain; object-position: center bottom; user-select: none; }
 .vn-sprite.is-dimmed { opacity: .35; filter: grayscale(.6) drop-shadow(0 12px 24px rgba(0, 0, 0, .4)); }
 
 .vn-inserts { position: relative; z-index: 2; align-self: center; justify-self: center; width: min(760px, 92%); max-height: 100%; overflow-y: auto; }

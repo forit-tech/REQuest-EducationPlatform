@@ -2,20 +2,12 @@ import type { Character, StoryAct, StoryCase, StoryEnding } from './types'
 import type { GameState } from '../core/game'
 import castData from '../../knowledge/story/cast.json'
 import prologueCase from '../../knowledge/story/cases/prologue.json'
-import technicalFoundationsCase from '../../knowledge/story/cases/technical-foundations.json'
-import dataFoundationsCase from '../../knowledge/story/cases/data-foundations.json'
-import dataFormatsCase from '../../knowledge/story/cases/data-formats.json'
-import sqlFoundationsCase from '../../knowledge/story/cases/sql-foundations.json'
-import numpyCase from '../../knowledge/story/cases/numpy.json'
 
 export const cast = castData as unknown as Character[]
-export const cases = [
-  technicalFoundationsCase,
-  dataFoundationsCase,
-  dataFormatsCase,
-  sqlFoundationsCase,
-  numpyCase,
-] as unknown as StoryCase[]
+const caseModules = import.meta.glob('../../knowledge/story/cases/*.json', { eager: true, import: 'default' }) as Record<string, StoryCase>
+export const cases = Object.entries(caseModules)
+  .filter(([path]) => !path.endsWith('/prologue.json'))
+  .map(([, story]) => story)
 
 const castById = new Map(cast.map(character => [character.id, character]))
 
