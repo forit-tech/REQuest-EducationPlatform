@@ -7,6 +7,11 @@ import dataLab from '../../assets/scenes/data-lab-rain-v1.png'
 import conferenceHall from '../../assets/scenes/tech-conference-v1.png'
 import tripStation from '../../assets/scenes/business-trip-station-v1.png'
 import industrialHub from '../../assets/scenes/industrial-hub-v1.png'
+import cityCoffeeShop from '../../assets/scenes/city-coffee-shop-v1.png'
+import teamRestaurant from '../../assets/scenes/team-restaurant-v1.png'
+import airportLounge from '../../assets/scenes/airport-lounge-rain-v1.png'
+import libraryWorkshop from '../../assets/scenes/library-workshop-v1.png'
+import hackathonNight from '../../assets/scenes/hackathon-night-v1.png'
 import { Portrait } from './Portrait'
 import { Sprite } from './Sprite'
 import { character } from './engine'
@@ -29,10 +34,20 @@ const locationNames = {
   conference: 'Технологическая конференция',
   trip: 'Командировка',
   industrial: 'Площадка клиента',
+  cafe: 'Кофейня',
+  restaurant: 'Ресторан',
+  airport: 'Аэропорт',
+  library: 'Вечерний воркшоп',
+  hackathon: 'Ночной хакатон',
 } as const
 
 function locationFor(scene: string) {
   const value = scene.toLowerCase()
+  if (/hackathon|хакатон/.test(value)) return 'hackathon'
+  if (/library|workshop|библиот|воркшоп/.test(value)) return 'library'
+  if (/airport|departure|аэропорт|вылет/.test(value)) return 'airport'
+  if (/restaurant|dinner|ресторан|ужин/.test(value)) return 'restaurant'
+  if (/cafe|coffee|break|кофе|кофейн|перерыв/.test(value)) return 'cafe'
   if (/conference|festival|event|demo|конферен|фестивал|мероприят/.test(value)) return 'conference'
   if (/trip|station|airport|travel|поезд|вокзал|командиров/.test(value)) return 'trip'
   if (/industrial|factory|warehouse|plant|склад|завод|площадк/.test(value)) return 'industrial'
@@ -42,7 +57,7 @@ function locationFor(scene: string) {
   return 'office'
 }
 
-const locationImages = { office: officeMorning, meeting: meetingRoom, server: serverRoom, lab: dataLab, conference: conferenceHall, trip: tripStation, industrial: industrialHub }
+const locationImages = { office: officeMorning, meeting: meetingRoom, server: serverRoom, lab: dataLab, conference: conferenceHall, trip: tripStation, industrial: industrialHub, cafe: cityCoffeeShop, restaurant: teamRestaurant, airport: airportLounge, library: libraryWorkshop, hackathon: hackathonNight }
 
 function expandAct(act: StoryAct): StoryMoment[] {
   let scene = act.title
@@ -111,14 +126,17 @@ export function StoryScene({ act, career, chosenByChoiceId, onChoose, onFinish, 
   const location = locationFor(moment?.scene ?? act.title)
 
   const visibleIds = useMemo(() => {
+    // Смена кадра очищает сцену: персонажи из старых реплик больше не «висят»
+    // рядом с письмом или сообщением, в котором их физически нет.
+    if (moment?.kind === 'notification') return []
     const ids: string[] = []
-    for (const candidate of moments.slice(0, step + 1)) {
-      if (candidate.kind !== 'line' || candidate.speaker === 'narrator') continue
-      const existing = ids.indexOf(candidate.speaker)
-      if (existing >= 0) ids.splice(existing, 1)
-      ids.push(candidate.speaker)
+    const scene = moment?.scene
+    for (let index = step; index >= 0 && ids.length < 2; index -= 1) {
+      const candidate = moments[index]
+      if (candidate.kind !== 'line' || candidate.scene !== scene) break
+      if (candidate.speaker !== 'narrator' && !ids.includes(candidate.speaker)) ids.unshift(candidate.speaker)
     }
-    return ids.slice(-3)
+    return ids
   }, [moments, step])
 
   const slots = visibleIds.length === 1 ? ['center'] : visibleIds.length === 2 ? ['left', 'right'] : ['left', 'center', 'right']
@@ -173,7 +191,7 @@ export function StoryScene({ act, career, chosenByChoiceId, onChoose, onFinish, 
 
         {line && <div className={`vn-speech ${isNarrator ? 'is-narrator' : `from-${activeSlot ?? 'center'}`}`}>
           {!isNarrator && activeCharacter && <div className="vn-speaker">
-            <Portrait character={activeCharacter} emotion={line.emotion} size={68} speaking/>
+            <Portrait character={activeCharacter} emotion={line.emotion} size={76} speaking/>
             <div><strong>{activeCharacter.name}</strong><span>{activeCharacter.role}</span></div>
           </div>}
           <p>{typed.visible}<span className={`caret ${typed.done ? 'done' : ''}`}/></p>
@@ -187,7 +205,7 @@ export function StoryScene({ act, career, chosenByChoiceId, onChoose, onFinish, 
           <div className="choice-options">{choice.options.map(option => (
             <button key={option.id} className={chosen === option.id ? 'picked' : ''} disabled={Boolean(chosen)}
               onClick={() => {
-                onChoose(choice.id, option.id, { trust: option.trust, flags: option.flags, items: option.items })
+                onChoose(choice.id, option.id, { trust: option.trust, flags: option.flags, clearFlags: option.clearFlags, items: option.items })
                 setReplyShown(true)
               }}>
               <span>{option.text}</span>{chosen === option.id && <em>выбрано</em>}

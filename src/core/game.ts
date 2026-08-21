@@ -138,6 +138,7 @@ export function claimDaily(userId: string) {
 export interface BeatEffects {
   trust?: Record<string, number>
   flags?: string[]
+  clearFlags?: string[]
   items?: string[]
 }
 
@@ -150,7 +151,10 @@ export function applyChoice(userId: string, choiceId: string, optionId: string, 
   return commit(userId, {
     ...game,
     trust,
-    flags: [...new Set([...game.flags, ...(effects.flags ?? [])])],
+    flags: [...new Set([
+      ...game.flags.filter(flag => !(effects.clearFlags ?? []).includes(flag)),
+      ...(effects.flags ?? []),
+    ])],
     inventory: [...new Set([...game.inventory, ...(effects.items ?? [])])],
     choices: { ...game.choices, [choiceId]: optionId },
   })

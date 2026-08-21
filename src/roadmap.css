@@ -2,14 +2,14 @@
 .roadmap-heading { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 30px; }
 .roadmap-heading h2 { margin: 9px 0 8px; font-size: 28px; letter-spacing: -.03em; }
 .roadmap-heading p { max-width: 680px; margin: 0; color: var(--ink-soft); font-size: 14px; line-height: 1.65; }
-.roadmap-summary { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--deck); color: var(--ink-dim); white-space: nowrap; }
+.roadmap-summary { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--r-card); background: var(--deck); color: var(--ink-dim); white-space: nowrap; }
 .roadmap-summary > svg { color: var(--signal); }
 .roadmap-summary span { display: flex; align-items: baseline; gap: 5px; font-size: 14px; }
 .roadmap-summary strong { color: var(--ink); font: 600 16px 'JetBrains Mono'; }
-.tree-selector { display: grid; grid-template-columns: 220px minmax(0,1fr); gap: 18px; align-items: center; margin-bottom: 22px; padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--deck); }
+.tree-selector { display: grid; grid-template-columns: 220px minmax(0,1fr); gap: 18px; align-items: center; margin-bottom: 22px; padding: 16px; border: 1px solid var(--line); border-radius: var(--r-card); background: var(--deck); }
 .tree-selector > div:first-child p { margin: 7px 0 0; color: var(--ink-dim); font-size: 14px; line-height: 1.45; }
 .tree-selector > div:last-child { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 7px; }
-.tree-selector button { min-width: 0; min-height: 86px; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: 10px; border: 1px solid var(--line-soft); border-radius: 11px; color: var(--ink-soft); background: var(--control); text-align: left; cursor: pointer; }
+.tree-selector button { min-width: 0; min-height: 86px; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: 10px; border: 1px solid var(--line-soft); border-radius: var(--r-control); color: var(--ink-soft); background: var(--control); text-align: left; cursor: pointer; }
 .tree-selector button:hover { border-color: var(--line-strong); }
 .tree-selector button.active { border-color: var(--signal); background: var(--console); box-shadow: 0 0 18px var(--glow); }
 .tree-selector strong { max-width: 100%; font-size: 14px; line-height: 1.25; overflow-wrap: anywhere; }
@@ -23,20 +23,20 @@
 .tree-stage { display: grid; grid-template-columns: 56px minmax(0,1fr); gap: 18px; }
 .tree-stage.locked { opacity: .56; }
 .tree-axis { display: flex; flex-direction: column; align-items: center; }
-.tree-axis span { width: 46px; height: 46px; flex: 0 0 46px; display: grid; place-items: center; border: 1px solid var(--line-strong); border-radius: 14px; color: var(--ink-dim); background: var(--control); font: 600 15px 'JetBrains Mono'; }
+.tree-axis span { width: 46px; height: 46px; flex: 0 0 46px; display: grid; place-items: center; border: 1px solid var(--line-strong); border-radius: var(--r-card); color: var(--ink-dim); background: var(--control); font: 600 15px 'JetBrains Mono'; }
 .tree-stage.active .tree-axis span { border-color: var(--signal); color: var(--signal); box-shadow: 0 0 22px var(--glow); }
 .tree-stage.available .tree-axis span { color: var(--success); }
 .tree-stage.completed .tree-axis span { border-color: var(--success); color: var(--success); }
 .tree-axis i { width: 1px; min-height: 32px; flex: 1; background: var(--line-strong); }
 .tree-stage.active .tree-axis i,.tree-stage.available .tree-axis i { background: var(--signal); box-shadow: 0 0 8px var(--glow); }
 .tree-stage.completed .tree-axis i { background: var(--success); }
-.tree-branch { margin-bottom: 20px; border: 1px solid var(--line); border-radius: 14px; background: color-mix(in srgb, var(--deck) 95%, transparent); overflow: hidden; }
+.tree-branch { margin-bottom: 20px; border: 1px solid var(--line); border-radius: var(--r-panel); background: color-mix(in srgb, var(--deck) 95%, transparent); overflow: hidden; }
 .tree-stage.active .tree-branch { border-color: var(--signal); box-shadow: 0 8px 26px var(--glow); }
 .tree-stage.available .tree-branch { border-color: var(--line-strong); }
 .tree-stage.completed .tree-branch { border-color: color-mix(in srgb, var(--success) 34%, var(--line)); }
 .tree-stage.planned .tree-branch { border-style: dashed; }
 .tree-branch > header { min-height: 112px; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 22px; border-bottom: 1px solid var(--line); }
-.stage-open { min-width: 142px; min-height: 42px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 0 12px; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--control); color: var(--signal); font-size: 14px; font-weight: 600; cursor: pointer; }
+.stage-open { min-width: 142px; min-height: 42px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 0 12px; border: 1px solid var(--line-strong); border-radius: var(--r-control); background: var(--control); color: var(--signal); font-size: 14px; font-weight: 600; cursor: pointer; }
 .stage-open:hover:not(:disabled) { background: var(--console-hover); border-color: var(--signal); }
 .stage-open:active:not(:disabled) { transform: translateY(1px); }
 .stage-open:disabled { border-color: var(--line-soft); color: var(--ink-ghost); cursor: default; }
@@ -50,12 +50,12 @@
 .tree-blocks { padding: 20px 22px; border-right: 1px solid var(--line); }
 .tree-blocks > span,.tree-stack > span { display: block; margin-bottom: 12px; color: var(--ink-dim); font: 14px 'JetBrains Mono'; text-transform: uppercase; }
 .tree-blocks > div { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; position: relative; }
-.skill-node { min-width: 0; min-height: 70px; display: grid; grid-template-columns: 26px minmax(0,1fr); align-content: center; gap: 3px 8px; padding: 10px; border: 1px solid var(--line-soft); border-radius: 11px; background: var(--control); }
+.skill-node { min-width: 0; min-height: 70px; display: grid; grid-template-columns: 26px minmax(0,1fr); align-content: center; gap: 3px 8px; padding: 10px; border: 1px solid var(--line-soft); border-radius: var(--r-control); background: var(--control); }
 .skill-node i { grid-row: 1 / span 2; color: var(--signal); font: normal 14px 'JetBrains Mono'; }
 .skill-node strong { min-width: 0; color: var(--ink-soft); font-size: 14px; line-height: 1.35; overflow-wrap: anywhere; }
 .skill-node em { grid-column: 2; justify-self: start; color: var(--signal); font: normal 14px 'JetBrains Mono'; }
 .tree-stack { padding: 20px; background: color-mix(in srgb, var(--control) 45%, transparent); }
 .tree-stack > div { display: flex; flex-wrap: wrap; gap: 7px; }
-.tree-stack b { padding: 7px 9px; border: 1px solid var(--line-soft); border-radius: 10px; background: var(--control); color: var(--ink-dim); font: 500 14px 'JetBrains Mono'; }
+.tree-stack b { padding: 7px 9px; border: 1px solid var(--line-soft); border-radius: var(--r-control); background: var(--control); color: var(--ink-dim); font: 500 14px 'JetBrains Mono'; }
 @media (max-width: 900px) { .tree-selector { grid-template-columns: 1fr; }.tree-selector > div:last-child { grid-template-columns: repeat(3,minmax(0,1fr)); }.tree-content { grid-template-columns: 1fr; }.tree-blocks { border-right: 0; border-bottom: 1px solid var(--line); }.tree-blocks > div { grid-template-columns: repeat(2,minmax(0,1fr)); } }
 @media (max-width: 760px) { .roadmap-heading { align-items: start; flex-direction: column; }.roadmap-summary { width: 100%; white-space: normal; flex-wrap: wrap; }.tree-selector > div:last-child { grid-template-columns: 1fr 1fr; }.tree-stage { grid-template-columns: 42px minmax(0,1fr); gap: 10px; }.tree-axis span { width: 38px; height: 38px; flex-basis: 38px; }.tree-branch > header { align-items: flex-start; flex-direction: column; padding: 16px; }.stage-open { width: 100%; }.tree-blocks,.tree-stack { padding: 16px; }.tree-blocks > div { grid-template-columns: 1fr; } }

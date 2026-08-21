@@ -6,7 +6,7 @@
     "domainId": "data-ai",
     "bio": "Пришла в компанию в один день с тобой. Быстро считает в уме, но верит первому же красивому числу. Учится вместе с тобой и повторяет твои ошибки, если ты их не заметишь.",
     "palette": {"skin": "#f2c9a4", "hair": "#4a2f3d", "cloth": "#26354f", "accent": "#38bdf8"},
-    "traits": {"hair": "bob", "glasses": false, "freckles": true}
+    "traits": {"hair": "bob", "glasses": false, "freckles": true, "height": "short", "eyeColor": "зелёные", "style": "мягкая синяя рубашка и широкие брюки"}
   },
   {
     "id": "oleg",
@@ -15,7 +15,7 @@
     "domainId": "data-ai",
     "bio": "Двенадцать лет в данных. Не даёт готовых ответов и не любит слово «примерно». Его доверие открывает доступ к продовым системам и скрытым сценам.",
     "palette": {"skin": "#e0b088", "hair": "#3a3a42", "cloth": "#2f2f3a", "accent": "#e0b875"},
-    "traits": {"hair": "short", "glasses": true, "beard": true}
+    "traits": {"hair": "short", "glasses": true, "beard": true, "height": "tall", "eyeColor": "карие", "style": "графитовый костюм без галстука"}
   },
   {
     "id": "lena",
@@ -23,8 +23,8 @@
     "role": "Продуктовый менеджер",
     "domainId": "data-ai",
     "bio": "Приносит вопросы, на которые нужен ответ сегодня. Давит сроками, но первой признаёт правоту, если показать ей данные.",
-    "palette": {"skin": "#f5d3b0", "hair": "#8c4a2f", "cloth": "#3d2b4a", "accent": "#d98cff"},
-    "traits": {"hair": "ponytail", "glasses": false}
+    "palette": {"skin": "#f5d3b0", "hair": "#d8c19a", "cloth": "#07523f", "accent": "#8f263d"},
+    "traits": {"hair": "ponytail", "glasses": false, "height": "tall", "eyeColor": "голубые", "style": "изумрудный брючный костюм и бордовые лоферы"}
   },
   {
     "id": "gleb",
@@ -33,7 +33,7 @@
     "domainId": "devops",
     "bio": "Живёт в графиках мониторинга и просыпается от алертов. Появляется, когда что-то падает, и уходит, когда всё снова работает.",
     "palette": {"skin": "#d8a37a", "hair": "#2b2b30", "cloth": "#1f3a34", "accent": "#6ce5c1"},
-    "traits": {"hair": "buzz", "glasses": false, "headset": true}
+    "traits": {"hair": "buzz", "glasses": false, "headset": true, "height": "average", "eyeColor": "серые", "style": "технический жилет и рабочие ботинки", "tattoo": "тонкая схема на предплечье"}
   },
   {
     "id": "sonya",
@@ -42,7 +42,7 @@
     "domainId": "cybersecurity",
     "bio": "Смотрит на любые данные как на возможную утечку. Задаёт неудобные вопросы про доступы и происхождение выгрузок.",
     "palette": {"skin": "#e8bfa0", "hair": "#1f2933", "cloth": "#2a2233", "accent": "#ff8d74"},
-    "traits": {"hair": "long", "glasses": true}
+    "traits": {"hair": "long", "glasses": true, "height": "tall", "eyeColor": "тёмно-карие", "style": "чёрный монохром с красными деталями"}
   },
   {
     "id": "artem",
@@ -51,7 +51,7 @@
     "domainId": "backend",
     "bio": "Автор сервиса, который отдаёт вам данные. Уверен, что на его стороне всё правильно, и обычно это действительно так.",
     "palette": {"skin": "#f0c49a", "hair": "#5a3a24", "cloth": "#243a4d", "accent": "#7da2ff"},
-    "traits": {"hair": "short", "glasses": false}
+    "traits": {"hair": "short", "glasses": false, "height": "average", "eyeColor": "карие", "style": "деним, футболка и белые кеды"}
   },
   {
     "id": "anton",
@@ -60,7 +60,7 @@
     "domainId": "data-ai",
     "bio": "Владелец конвейеров загрузки. Знает про данные то, чего нет ни в одной документации, потому что чинил их в три часа ночи. Не верит внешним поставщикам и оказывается прав.",
     "palette": {"skin": "#dcae86", "hair": "#4d3520", "cloth": "#2b3a2f", "accent": "#6ce5c1"},
-    "traits": {"hair": "short", "glasses": true, "beard": true}
+    "traits": {"hair": "short", "glasses": true, "beard": true, "height": "short", "eyeColor": "ореховые", "style": "рабочая чёрная рубашка и карго"}
   },
   {
     "id": "alexey",
@@ -69,7 +69,25 @@
     "domainId": "data-ai",
     "bio": "Отвечает за то, чтобы числам компании можно было верить. Задаёт короткие неудобные вопросы и умеет ждать ответа молча. Появляется, когда цена ошибки перестаёт быть учебной.",
     "palette": {"skin": "#e9bd95", "hair": "#2f3238", "cloth": "#1f2a3d", "accent": "#7da2ff"},
-    "traits": {"hair": "short", "glasses": false}
+    "traits": {"hair": "short", "glasses": false, "height": "tall", "eyeColor": "серые", "style": "строгий синий костюм"}
+  },
+  {
+    "id": "yana",
+    "name": "Яна",
+    "role": "Исследователь продукта",
+    "domainId": "product",
+    "bio": "Проверяет, какую проблему действительно решает команда. Возвращается в поздних главах с контекстом, если игрок помог ей практической работой в начале пути.",
+    "palette": {"skin": "#e8b88f", "hair": "#251c20", "cloth": "#a7422b", "accent": "#f0c992"},
+    "traits": {"hair": "bob", "glasses": false, "height": "short", "eyeColor": "тёмно-карие", "style": "терракотовый жакет и широкие брюки"}
+  },
+  {
+    "id": "pavel",
+    "name": "Павел",
+    "role": "Полевой инженер надёжности",
+    "domainId": "engineering",
+    "bio": "Знает, как решения ведут себя за пределами идеального стенда. Помнит помощь делом и возвращает её в командировках и аварийных главах.",
+    "palette": {"skin": "#75452f", "hair": "#171517", "cloth": "#162e4a", "accent": "#d69a32"},
+    "traits": {"hair": "short", "glasses": false, "beard": true, "height": "tall", "eyeColor": "карие", "style": "технический жилет, янтарная футболка и ботинки"}
   },
   {
     "id": "narrator",

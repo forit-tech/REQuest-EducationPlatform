@@ -6,6 +6,10 @@ export interface CharacterTraits {
   beard?: boolean
   freckles?: boolean
   headset?: boolean
+  height?: 'short' | 'average' | 'tall'
+  eyeColor?: string
+  style?: string
+  tattoo?: string
 }
 
 export interface Character {
@@ -48,6 +52,8 @@ export interface ChoiceOption {
   /** Кому и сколько доверия. */
   trust?: Record<string, number>
   flags?: string[]
+  /** Взаимоисключающие флаги, которые этот выбор отменяет. */
+  clearFlags?: string[]
   items?: string[]
   xp?: number
 }

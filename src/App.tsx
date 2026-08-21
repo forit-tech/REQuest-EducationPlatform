@@ -16,7 +16,7 @@ import professionPrograms from '../knowledge/professions/programs.json'
 import { MissionRunner } from './MissionRunner'
 import { StoryScene } from './story/StoryScene'
 import { Sprite } from './story/Sprite'
-import { caseActIds, caseChoiceIds, caseForCourse, caseProgress, cast, character, pendingAct, resolveEnding } from './story/engine'
+import { caseActIds, caseChoiceIds, caseForCourse, caseProgress, cast, character, missionBriefAct, missionSceneForReplay, pendingAct, resolveEnding } from './story/engine'
 import { applyChoice, claimDaily, emptyGame, focusBonusXp, getGame, markActSeen, rankFor, recordEnding, replayCase, spendEnergy, spendFocus as spendFocusPoints, useItem, ITEMS, FOCUS_BONUS_THRESHOLD, type BeatEffects, type GameState, MAX_ENERGY } from './core/game'
 import type { StoryAct } from './story/types'
 import { notifyCaseEnding, notifyMissionDone, syncProgress } from './core/notify'
@@ -533,10 +533,29 @@ export default function App() {
   useEffect(() => {
     if (!account || scene) return
     if (view.type !== 'mission') return
+    const brief = briefActFor(view.roomId, view.missionId)
     const act = pendingAct(view.roomId, game, { on: 'caseStart' }, professionId)
       ?? pendingAct(view.roomId, game, { on: 'beforeMission', missionId: view.missionId }, professionId)
+      ?? (brief && !game.seenActs.includes(brief.id) ? brief : undefined)
     if (act) setScene(act)
   }, [view, game, account, scene, professionId])
+  /** Сцена-бриф эпизода: у большинства миссий нет собственного авторского акта. */
+  function briefActFor(roomId: string, missionId: string) {
+    const story = caseForCourse(roomId, professionId)
+    const missionRoom = rooms.find(item => item.id === roomId)
+    const missionItem = missionRoom?.missions.find(item => item.id === missionId)
+    if (!story || !missionRoom || !missionItem) return undefined
+    const episode = missionRoom.missions.findIndex(item => item.id === missionId) + 1
+    return missionBriefAct(story, missionItem, episode, missionRoom.missions.length)
+  }
+  function replayScene(roomId: string, missionId: string) {
+    const missionRoom = rooms.find(item => item.id === roomId)
+    const missionItem = missionRoom?.missions.find(item => item.id === missionId)
+    if (!missionRoom || !missionItem) return
+    const episode = missionRoom.missions.findIndex(item => item.id === missionId) + 1
+    const act = missionSceneForReplay(roomId, missionItem, episode, missionRoom.missions.length, professionId)
+    if (act) setScene(act)
+  }
   function authenticated(next: UserAccount) {
     const nextGame = getGame(next.id)
     setAccount(next)
@@ -547,7 +566,15 @@ export default function App() {
   }
   function signOut() { logout(); setAccount(null); setProgress(null) }
   function finishScene() {
-    if (account && scene) setGame(markActSeen(account.id, scene.id))
+    if (account && scene) {
+      let next = markActSeen(account.id, scene.id)
+      // Открытие дела уже вводит игрока в эпизод: второй бриф подряд показывать не нужно.
+      if (scene.trigger.on === 'caseStart' && view.type === 'mission') {
+        const brief = briefActFor(view.roomId, view.missionId)
+        if (brief) next = markActSeen(account.id, brief.id)
+      }
+      setGame(next)
+    }
     setScene(null)
   }
   function pickChoice(choiceId: string, optionId: string, effects: BeatEffects) {
@@ -609,8 +636,9 @@ export default function App() {
   if (view.type === 'mission') {
     const missionRoom = rooms.find(item => item.id === view.roomId)
     const mission = missionRoom?.missions.find(item => item.id === view.missionId)
+    const nextMission = missionRoom && mission ? missionRoom.missions[missionRoom.missions.findIndex(item => item.id === mission.id) + 1] : undefined
     if (missionRoom && mission && isMissionAccessible(missionRoom, mission.id, progress)) return <>
-      <MissionRunner professionId={professionId} questMode={Boolean(caseForCourse(missionRoom.id, professionId))} room={missionRoom} mission={mission} completed={progress.completedMissionIds.includes(mission.id)} energy={game.energy} inventory={game.inventory} onSpendFocus={spendFocus} onExit={() => setView({ type: 'room', roomId: missionRoom.id })} onComplete={() => missionCompleted(missionRoom, mission.id, mission.xp)}/>
+      <MissionRunner key={mission.id} professionId={professionId} questMode={Boolean(caseForCourse(missionRoom.id, professionId))} room={missionRoom} mission={mission} completed={progress.completedMissionIds.includes(mission.id)} energy={game.energy} inventory={game.inventory} onSpendFocus={spendFocus} onExit={() => setView({ type: 'room', roomId: missionRoom.id })} onComplete={() => missionCompleted(missionRoom, mission.id, mission.xp)} nextMission={nextMission} onNext={nextMission ? () => setView({ type: 'mission', roomId: missionRoom.id, missionId: nextMission.id }) : undefined} onReplayScene={caseForCourse(missionRoom.id, professionId) ? () => replayScene(missionRoom.id, mission.id) : undefined}/>
       {scene && (
         <StoryScene act={scene} career={caseForCourse(view.roomId, professionId)?.career} chosenByChoiceId={game.choices} onChoose={pickChoice} onFinish={finishScene} onHome={() => { setScene(null); setView({ type: 'home' }) }}/>
       )}

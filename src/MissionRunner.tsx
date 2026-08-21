@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react'
-import { ArrowLeft, BookOpen, Check, ChevronRight, CircleDot, Code2, Database, FileJson, Lightbulb, Map, Play, RotateCcw, Star, TerminalSquare, X, Zap } from 'lucide-react'
+import { useMemo, useRef, useState } from 'react'
+import { ArrowLeft, ArrowRight, BookOpen, Check, ChevronRight, ChevronsDownUp, ChevronsUpDown, CircleDot, Clapperboard, Code2, Database, FileJson, GripHorizontal, Lightbulb, Map, Play, RotateCcw, Star, TerminalSquare, X, Zap } from 'lucide-react'
 import type { Mission, Room } from './types'
 import { FOCUS_BONUS_THRESHOLD, HINT_FOCUS_COST } from './core/game'
 import { glossary } from './glossary'
@@ -20,9 +20,18 @@ type RunnerProps = {
   onSpendFocus: (amount: number) => boolean
   onExit: () => void
   onComplete: () => void
+  /** Следующий эпизод дела: позволяет продолжать, не выходя в общее меню. */
+  nextMission?: Mission
+  onNext?: () => void
+  /** Пересмотреть сцену, с которой начинается эпизод. */
+  onReplayScene?: () => void
   questMode?: boolean
   professionId?: ProfessionId
 }
+
+const MIN_TERMINAL_HEIGHT = 120
+const DEFAULT_TERMINAL_HEIGHT = 180
+const COLLAPSED_TERMINAL_HEIGHT = 36
 
 const eventRows = [
   ['104218', 'view_item', 'mobile', '—', '19:43:08'],
@@ -110,6 +119,24 @@ function DataPreview({ mission }: { mission: Mission }) {
   </div>
 }
 
+/**
+ * Каркас решения для кодовых эпизодов. Возвращает шаблон только тогда,
+ * когда он действительно закрывает все обязательные проверки миссии.
+ */
+function solutionSkeleton(mission: Mission, hypothesis: string) {
+  const checks = mission.task?.codeChecks ?? []
+  if (!checks.length) return ''
+  const file = mission.task?.workspaceFile ?? 'solution.py'
+  if (!file.endsWith('.py')) return ''
+  const claim = hypothesis.trim().replace(/"/g, '«')
+  const header = (mission.task?.starterCode ?? '').split('\n').filter(line => line.startsWith('#') || line.includes('case_id')).join('\n')
+  const body = claim
+    ? [`    return "${claim}"`, '', '', `assert solve() == "${claim}"`]
+    : ['    # TODO: верни свой вывод одной строкой', '    return "твой вывод"', '', '', '# Проверка: ровно та же строка, что и в return', 'assert solve() == "твой вывод"']
+  const template = [header, '', 'def solve():', '    """Вывод, который ты защищаешь в этом эпизоде."""', ...body, 'print(solve())'].join('\n')
+  return checks.every(check => template.includes(check.includes)) ? template : ''
+}
+
 function CodeWorkspace({ value, onChange }: { value: string; onChange: (value: string) => void }) {
   const lines = value.split('\n')
   return <div className="runner-code-view"><div className="code-gutter">{lines.map((_, index) => <span key={index}>{index + 1}</span>)}</div><textarea aria-label="Редактор решения" spellCheck={false} value={value} onChange={event => onChange(event.target.value)}/></div>
@@ -127,13 +154,17 @@ function ReadmeView({ mission, isCodeMission, hasTerminal, onOpenWorkspace }: { 
       <section><h3>Главная мысль</h3><div className="concept-contrast"><div><span>ДАННЫЕ</span><strong>Зафиксированные факты и наблюдения</strong><p>«Пользователь 104221 совершил покупку в 19:44:42 на сумму 3 490».</p></div><div><span>ПРЕДСТАВЛЕНИЕ</span><strong>Способ хранения этих фактов</strong><p>CSV-файл, таблица, JSON, база данных или запись на бумаге.</p></div></div><p className="lecture-rule"><strong>Формат можно поменять — факт останется тем же.</strong> Поэтому данные нельзя определять как «только числа» или «любой файл».</p></section>
       <section><h3>Как это связано с таблицей</h3><div className="table-anatomy"><div><code>строка 104221</code><span>одно наблюдение: конкретная покупка</span></div><div><code>event_name</code><span>признак: какое действие произошло</span></div><div><code>purchase</code><span>значение признака в этом наблюдении</span></div></div><button className="open-data-button" onClick={onOpenWorkspace}><Database size={16}/>Посмотреть этот факт в таблице</button></section>
       <section><h3>Зачем нужен вопрос справа</h3><p>Он проверяет одну идею: сможешь ли ты отделить сам зафиксированный факт от файла, в котором он хранится. Сначала найди строку покупки в таблице, затем выбери самое точное определение данных.</p></section>
-    </> : <section><h3>Короткий конспект</h3><p>{mission.productionContext}</p><div className="lecture-rule"><strong>Свяжи определение с рабочим примером.</strong> Открой таблицу, найди единицу наблюдения и только затем отвечай на вопрос.</div><button className="open-data-button" onClick={onOpenWorkspace}><Database size={16}/>Открыть рабочие данные</button></section>}
-    {hasTerminal && <section><h3>Зачем здесь терминал</h3><p>Эта миссия требует исследовать рабочую среду или выполнить код. Терминал нужен для просмотра файлов, схемы данных и запуска проверки.</p><pre><code>help{`\n`}ls{`\n`}inspect events_sample.csv{`\n`}schema{`\n`}clear</code></pre></section>}
+    </> : isCodeMission ? <section><h3>Короткий конспект</h3><p>{mission.productionContext}</p>
+      <div className="lecture-rule"><strong>Что считается решением.</strong> Короткая программа в файле <code>{mission.task?.workspaceFile ?? 'solution.py'}</code>: она возвращает твой вывод и сама же его проверяет. Обязательные фрагменты перечислены в панели «Задание» справа.</div>
+      {!!mission.task?.codeChecks?.length && <pre><code>{mission.task.codeChecks.map(check => check.includes.trim()).join('\n')}</code></pre>}
+      <button className="open-data-button" onClick={onOpenWorkspace}><Code2 size={16}/>Открыть рабочий файл</button>
+    </section> : <section><h3>Короткий конспект</h3><p>{mission.productionContext}</p><div className="lecture-rule"><strong>Свяжи определение с рабочим примером.</strong> Открой таблицу, найди единицу наблюдения и только затем отвечай на вопрос.</div><button className="open-data-button" onClick={onOpenWorkspace}><Database size={16}/>Открыть рабочие данные</button></section>}
+    {hasTerminal && <section><h3>Зачем здесь терминал</h3><p>Эта миссия требует исследовать рабочую среду или выполнить код. Терминал нужен для просмотра файлов, схемы данных и запуска проверки. Его окно можно растянуть вверх за верхнюю кромку.</p><pre><code>help{`\n`}ls{`\n`}inspect events_sample.csv{`\n`}schema{`\n`}cat {mission.task?.workspaceFile ?? 'solution.py'}{`\n`}rq check{`\n`}clear</code></pre></section>}
     {!hasTerminal && <div className="readme-note theory"><BookOpen size={18}/><p><strong>Терминала в этой миссии нет намеренно.</strong> Здесь тренируется понимание понятия, поэтому достаточно конспекта, таблицы и вопроса.</p></div>}
   </article>
 }
 
-export function MissionRunner({ room, mission, completed, energy, inventory, onSpendFocus, onExit, onComplete, questMode = false, professionId }: RunnerProps) {
+export function MissionRunner({ room, mission, completed, energy, inventory, onSpendFocus, onExit, onComplete, nextMission, onNext, onReplayScene, questMode = false, professionId }: RunnerProps) {
   const isObservationInvestigation = mission.id === 'DATA-002'
   const isFeatureInvestigation = mission.id === 'DATA-003'
   const isContentFactoryInvestigation = isObservationInvestigation || isFeatureInvestigation
@@ -152,6 +183,10 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
   const [hintVisible, setHintVisible] = useState(false)
   const [hintPaid, setHintPaid] = useState(false)
   const [mapUsed, setMapUsed] = useState(false)
+  const [exampleVisible, setExampleVisible] = useState(false)
+  const [terminalHeight, setTerminalHeight] = useState(DEFAULT_TERMINAL_HEIGHT)
+  const [terminalCollapsed, setTerminalCollapsed] = useState(false)
+  const terminalOutputRef = useRef<HTMLDivElement>(null)
   const hasDuck = inventory.includes('rubber-duck')
   const hasMap = inventory.includes('schema-map')
   const hasNotebook = inventory.includes('notebook')
@@ -182,12 +217,19 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
   const codeChecks = mission.task?.codeChecks ?? []
   const hasCodeChecks = codeChecks.length > 0
   const passedCodeChecks = codeChecks.filter(check => code.includes(check.includes))
+  const failedCodeChecks = codeChecks.filter(check => !code.includes(check.includes))
+  /** В кодовых эпизодах гипотеза выбирается вариантом, а потом оформляется программой. */
+  const codeHypothesis = hasCodeChecks ? mission.task?.options ?? [] : []
+  const hypothesisReady = !codeHypothesis.length || answer.trim() === mission.task?.answer.trim()
+  /** Каркас вставляется с заглушкой, образец — уже с выбранной гипотезой. */
+  const skeleton = useMemo(() => hasCodeChecks ? solutionSkeleton(mission, '') : '', [mission, hasCodeChecks])
+  const skeletonExample = useMemo(() => hasCodeChecks && hypothesisReady && answer ? solutionSkeleton(mission, answer) : skeleton, [mission, hasCodeChecks, hypothesisReady, answer, skeleton])
   const isCorrect = isObservationInvestigation
     ? evidenceComplete && answer === data002.reasoningCheck.answer && productionAnswer === data002.productionCheck.answer
     : isFeatureInvestigation
       ? featureEvidenceComplete && answer === data003.reasoningCheck.answer && productionAnswer === data003.productionCheck.answer
       : hasCodeChecks
-        ? passedCodeChecks.length === codeChecks.length
+        ? passedCodeChecks.length === codeChecks.length && hypothesisReady
       : mission.task
         ? answer.trim() === mission.task.answer.trim()
         : isCodeMission && code.trim().length > 30
@@ -196,7 +238,7 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
     : isFeatureInvestigation
       ? featureEvidenceComplete && Boolean(answer) && Boolean(productionAnswer)
       : hasCodeChecks
-        ? code.trim().length > 0
+        ? code.trim().length > 0 && (!codeHypothesis.length || Boolean(answer))
       : mission.task
         ? Boolean(answer)
         : isCodeMission ? code.trim().length > 0 : Boolean(answer)
@@ -208,7 +250,9 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
     if (!clean) return
     const normalized = clean.toLowerCase()
     let output: string[]
-    if (normalized === 'help') output = ['Команды: ls · inspect events_sample.csv · schema · clear']
+    if (normalized === 'help') output = [`Команды: ls · inspect events_sample.csv · schema · cat ${workspaceFile} · rq check · clear`]
+    else if (normalized === 'rq check' || normalized === 'rq check solution') { setCommand(''); verify(); return }
+    else if (normalized === `cat ${workspaceFile.toLowerCase()}`) output = code.split('\n')
     else if (normalized === 'ls') output = ['events_sample.csv   README.md   solution.py']
     else if (normalized === 'inspect events_sample.csv' || normalized === 'inspect') output = ['850000 rows × 5 columns', 'user_id:int · event_name:string · device:string · revenue:float? · event_time:datetime']
     else if (normalized === 'schema') output = ['PRIMARY OBSERVATION: одно действие пользователя', 'NULLABLE: revenue', 'SOURCE: web-event-stream']
@@ -220,7 +264,39 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
 
   function verify() {
     setChecked(true)
-    setTerminalLines(lines => [...lines, '$ rq check solution', isCorrect ? '✓ Проверка пройдена: смысл данных определён верно.' : '✕ Проверка не пройдена: вернись к наблюдениям и контексту.'])
+    const report = hasCodeChecks
+      ? isCorrect
+        ? [`✓ Пройдено проверок: ${codeChecks.length} из ${codeChecks.length}.`]
+        : [
+            ...(hypothesisReady ? [] : ['✕ Гипотеза выбрана неверно: сначала шаг 1 в панели задания.']),
+            ...failedCodeChecks.map(check => `✕ ${check.label}: в файле нет фрагмента ${check.includes.trim()}`),
+          ]
+      : [isCorrect ? '✓ Проверка пройдена: смысл данных определён верно.' : '✕ Проверка не пройдена: вернись к наблюдениям и контексту.']
+    setTerminalLines(lines => [...lines, `$ rq check ${workspaceFile}`, ...report])
+    if (!terminalCollapsed) requestAnimationFrame(() => terminalOutputRef.current?.scrollTo({ top: terminalOutputRef.current.scrollHeight }))
+  }
+
+  /** Терминал тянется вверх мышью: в кодовых эпизодах вывод бывает длиннее окна. */
+  function startTerminalResize(event: React.PointerEvent<HTMLDivElement>) {
+    event.preventDefault()
+    const startY = event.clientY
+    const startHeight = terminalCollapsed ? COLLAPSED_TERMINAL_HEIGHT : terminalHeight
+    setTerminalCollapsed(false)
+    const move = (moveEvent: PointerEvent) => {
+      const maximum = Math.max(MIN_TERMINAL_HEIGHT, window.innerHeight - 260)
+      setTerminalHeight(Math.min(Math.max(startHeight + (startY - moveEvent.clientY), MIN_TERMINAL_HEIGHT), maximum))
+    }
+    const stop = () => {
+      window.removeEventListener('pointermove', move)
+      window.removeEventListener('pointerup', stop)
+    }
+    window.addEventListener('pointermove', move)
+    window.addEventListener('pointerup', stop)
+  }
+
+  function nudgeTerminal(delta: number) {
+    setTerminalCollapsed(false)
+    setTerminalHeight(value => Math.min(Math.max(value + delta, MIN_TERMINAL_HEIGHT), Math.max(MIN_TERMINAL_HEIGHT, window.innerHeight - 260)))
   }
 
   function finishMission() {
@@ -246,7 +322,11 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
       <aside className="runner-brief">
         {questMode && <div className="quest-cast-stage">
           <div className="quest-cast-figures"><Sprite character={companion} emotion="worried" height={226}/><Sprite character={guide} emotion="determined" height={244} side="right"/></div>
-          <div className="quest-dialogue-brief"><span>{guide.name} · {guide.role}</span><p>{mission.intro}</p></div>
+          <div className="quest-dialogue-brief">
+            <span>{guide.name} · {guide.role}</span>
+            <p>{mission.intro}</p>
+            {onReplayScene && <button className="scene-replay" onClick={onReplayScene}><Clapperboard size={15}/>Пересмотреть сцену эпизода</button>}
+          </div>
         </div>}
         <div className="runner-brief-head"><span>{questMode ? `ТЕКУЩАЯ ЦЕЛЬ // ${mission.id}` : `МИССИЯ // ${mission.id}`}</span><h1>{mission.title}</h1>{!questMode && <p>{mission.intro}</p>}</div>
         <nav className="runner-steps" aria-label="Этапы миссии">
@@ -279,7 +359,7 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
         </div>
       </aside>
 
-      <main className={`runner-workspace ${hasTerminal ? '' : 'theory-workspace'}`}>
+      <main className={`runner-workspace ${hasTerminal ? '' : 'theory-workspace'}`} style={{ '--terminal-h': `${terminalCollapsed ? COLLAPSED_TERMINAL_HEIGHT : terminalHeight}px` } as React.CSSProperties}>
         <div className="workspace-tabs"><button className={activeTab === 'workspace' ? 'active' : ''} onClick={() => setActiveTab('workspace')}>{isCodeMission ? <Code2 size={15}/> : <Database size={15}/>} {isCodeMission ? workspaceFile : dataFileName}</button><button className={activeTab === 'readme' ? 'active' : ''} disabled={isContentFactoryInvestigation && !isCorrect} title={isContentFactoryInvestigation && !isCorrect ? 'Конспект откроется после самостоятельного вывода' : undefined} onClick={() => setActiveTab('readme')}><BookOpen size={15}/>{isContentFactoryInvestigation && !isCorrect ? 'Конспект после вывода' : 'Конспект.md'}</button><div><span className="runtime-dot"/>{hasTerminal ? 'Среда запущена' : 'Материал загружен'}</div></div>
         <div className="workspace-main">
           <section className="workspace-canvas">{activeTab === 'readme' ? <ReadmeView mission={mission} isCodeMission={isCodeMission} hasTerminal={hasTerminal} onOpenWorkspace={() => setActiveTab('workspace')}/> : isCodeMission ? <CodeWorkspace value={code} onChange={setCode}/> : isObservationInvestigation ? <Data002Preview dataset={investigationDataset} onDatasetChange={setInvestigationDataset} selectedRow={selectedRow} selectedColumn={selectedColumn} selectedCell={selectedCell} onRow={setSelectedRow} onColumn={setSelectedColumn} onCell={(value, column, rowId) => { if (column === 'status' && rowId === 'ORD-78104') setSelectedCell(value); else setSelectedCell('') }}/> : isFeatureInvestigation ? <Data003Preview selectedColumn={selectedColumn} selectedCell={selectedCell} onColumn={column => { setSelectedColumn(column); if (column !== 'amount') setSelectedCell('') }} onCell={(value, column, rowId) => { setSelectedColumn(column); setSelectedCell(column === 'amount' && rowId === 'ORD-78104' ? value : '') }}/> : <DataPreview mission={mission}/>}</section>
@@ -301,18 +381,76 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
               <div className="evidence-list">{data003.activities.map((activity, index) => { const done = index === 0 ? selectedColumn === activity.expected : selectedCell === activity.expected; return <div className={done ? 'done' : ''} key={activity.id}><i>{done ? <Check size={13}/> : index + 1}</i><span>{activity.prompt}</span></div> })}</div>
               <div className="investigation-question"><span>ОБОСНУЙ ВЫВОД</span><p>{data003.reasoningCheck.prompt}</p><div className="runner-options">{data003.reasoningCheck.options.map(option => <button className={answer === option ? 'selected' : ''} onClick={() => { setAnswer(option); setChecked(false) }} key={option}><i>{answer === option && <Check size={13}/>}</i><span>{option}</span></button>)}</div></div>
               <div className="production-check"><div><span>PRODUCTION // ЛОВУШКА ТИПА</span></div><p>{data003.productionCheck.prompt}</p><div className="runner-options">{data003.productionCheck.options.map(option => <button className={productionAnswer === option ? 'selected' : ''} onClick={() => { setProductionAnswer(option); setChecked(false) }} key={option}><i>{productionAnswer === option && <Check size={13}/>}</i><span>{option}</span></button>)}</div></div>
-            </div> : hasCodeChecks ? <div className="code-brief"><p>{mission.task?.prompt}</p><span className="code-brief-kicker">УСЛОВИЯ ПРОВЕРКИ</span><div className="code-checklist">{codeChecks.map(check => { const passed = code.includes(check.includes); return <div className={passed ? 'passed' : ''} key={check.label}><i>{passed ? <Check size={13}/> : '·'}</i><span>{check.label}</span></div> })}</div><small>Пиши решение в <code>{workspaceFile}</code>. Проверка смотрит на обязательные шаги программы.</small></div> : <><p>{mission.task?.prompt || 'Исследуй рабочие файлы и подготовь решение.'}</p>{mission.task?.options ? <div className="runner-options">{mission.task.options.map(option => <button className={answer === option ? 'selected' : ''} onClick={() => { setAnswer(option); setChecked(false) }} key={option}><i>{answer === option && <Check size={13}/>}</i><span>{option}</span></button>)}</div> : <label className="runner-answer"><span>Ответ или вывод</span><textarea value={answer} onChange={event => { setAnswer(event.target.value); setChecked(false) }} placeholder="Запиши результат исследования…"/></label>}</>}
-            {checked && <div className={`runner-feedback ${isCorrect ? 'success' : 'error'}`}><strong>{isCorrect ? 'Проверка пройдена' : 'Есть неточность'}</strong><p>{isCorrect ? mission.task?.explanation || 'Решение прошло автоматические проверки.' : 'Посмотри на единицу наблюдения и попробуй ещё раз.'}</p></div>}
+            </div> : hasCodeChecks ? <div className="code-brief">
+              <p>{mission.task?.prompt}</p>
+              {!!codeHypothesis.length && <div className="code-step">
+                <span className="code-brief-kicker">ШАГ 1 // ГИПОТЕЗА</span>
+                <p className="code-step-lead">Сначала выбери вывод, который будешь защищать кодом.</p>
+                <div className="runner-options">{codeHypothesis.map(option => <button className={answer === option ? 'selected' : ''} onClick={() => { setAnswer(option); setChecked(false) }} key={option}><i>{answer === option && <Check size={13}/>}</i><span>{option}</span></button>)}</div>
+              </div>}
+              <div className="code-step">
+                <span className="code-brief-kicker">{codeHypothesis.length ? 'ШАГ 2 // КОД' : 'УСЛОВИЯ ПРОВЕРКИ'}</span>
+                <p className="code-step-lead">Решение — это короткая программа в файле <code>{workspaceFile}</code>. Проверка ищет в нём обязательные фрагменты: их видно ниже, написать их нужно самому.</p>
+                <div className="code-checklist">{codeChecks.map(check => { const passed = code.includes(check.includes); return <div className={passed ? 'passed' : ''} key={check.label}><i>{passed ? <Check size={13}/> : '·'}</i><div><span>{check.label}</span><code>{check.includes.trim()}</code></div></div> })}</div>
+                {!!skeleton && <div className="code-skeleton">
+                  <button onClick={() => setExampleVisible(value => !value)}><Lightbulb size={15}/>{exampleVisible ? 'Скрыть образец' : 'Показать образец решения'}</button>
+                  <button onClick={() => { setCode(skeleton); setChecked(false); setActiveTab('workspace') }} title="Вставить каркас в рабочий файл"><Code2 size={15}/>Вставить каркас в файл</button>
+                </div>}
+                {exampleVisible && !!skeletonExample && <pre className="code-example"><code>{skeletonExample}</code></pre>}
+              </div>
+            </div> : <><p>{mission.task?.prompt || 'Исследуй рабочие файлы и подготовь решение.'}</p>{mission.task?.options ? <div className="runner-options">{mission.task.options.map(option => <button className={answer === option ? 'selected' : ''} onClick={() => { setAnswer(option); setChecked(false) }} key={option}><i>{answer === option && <Check size={13}/>}</i><span>{option}</span></button>)}</div> : <label className="runner-answer"><span>Ответ или вывод</span><textarea value={answer} onChange={event => { setAnswer(event.target.value); setChecked(false) }} placeholder="Запиши результат исследования…"/></label>}</>}
+            {checked && <div className={`runner-feedback ${isCorrect ? 'success' : 'error'}`}>
+              <strong>{isCorrect ? 'Проверка пройдена' : 'Есть неточность'}</strong>
+              <p>{isCorrect
+                ? mission.task?.explanation || 'Решение прошло автоматические проверки.'
+                : hasCodeChecks
+                  ? !hypothesisReady
+                    ? 'Гипотеза в шаге 1 выбрана неверно — с ней код проверку не пройдёт.'
+                    : `В файле не хватает обязательных фрагментов: ${failedCodeChecks.map(check => check.includes.trim()).join(' · ')}`
+                  : 'Посмотри на единицу наблюдения и попробуй ещё раз.'}</p>
+            </div>}
             {finished && <div className="runner-complete"><Check size={22}/><div><strong>Миссия завершена</strong><span>+{mission.xp} XP сохранено в профиле</span></div></div>}
           </aside>
         </div>
 
-        {hasTerminal && <section className="runner-terminal">
-          <div className="terminal-head"><div><TerminalSquare size={15}/><strong>ТЕРМИНАЛ</strong><span>rq-data-01</span></div><button onClick={() => setTerminalLines([])}><RotateCcw size={14}/>Очистить</button></div>
-          <div className="terminal-output">{terminalLines.map((line, index) => <div className={line.startsWith('✓') ? 'ok' : line.startsWith('✕') ? 'bad' : ''} key={`${line}-${index}`}>{line}</div>)}<form onSubmit={event => { event.preventDefault(); runCommand() }}><span>$</span><input aria-label="Команда терминала" value={command} onChange={event => setCommand(event.target.value)} autoComplete="off" spellCheck={false}/></form></div>
+        {hasTerminal && <section className={`runner-terminal ${terminalCollapsed ? 'collapsed' : ''}`}>
+          <div
+            className="terminal-resize"
+            role="separator"
+            aria-label="Высота терминала"
+            aria-orientation="horizontal"
+            tabIndex={0}
+            title="Потяни вверх, чтобы увеличить терминал"
+            onPointerDown={startTerminalResize}
+            onDoubleClick={() => { setTerminalCollapsed(false); setTerminalHeight(value => value > DEFAULT_TERMINAL_HEIGHT ? DEFAULT_TERMINAL_HEIGHT : Math.max(MIN_TERMINAL_HEIGHT, window.innerHeight - 320)) }}
+            onKeyDown={event => {
+              if (event.key === 'ArrowUp') { event.preventDefault(); nudgeTerminal(40) }
+              if (event.key === 'ArrowDown') { event.preventDefault(); nudgeTerminal(-40) }
+            }}
+          ><GripHorizontal size={15}/></div>
+          <div className="terminal-head">
+            <div><TerminalSquare size={15}/><strong>ТЕРМИНАЛ</strong><span>rq-data-01</span></div>
+            <div className="terminal-tools">
+              <button onClick={() => setTerminalCollapsed(value => !value)} title={terminalCollapsed ? 'Развернуть терминал' : 'Свернуть терминал'}>{terminalCollapsed ? <ChevronsUpDown size={14}/> : <ChevronsDownUp size={14}/>}{terminalCollapsed ? 'Развернуть' : 'Свернуть'}</button>
+              <button onClick={() => setTerminalLines([])}><RotateCcw size={14}/>Очистить</button>
+            </div>
+          </div>
+          <div className="terminal-output" ref={terminalOutputRef}>{terminalLines.map((line, index) => <div className={line.startsWith('✓') ? 'ok' : line.startsWith('✕') ? 'bad' : ''} key={`${line}-${index}`}>{line}</div>)}<form onSubmit={event => { event.preventDefault(); runCommand() }}><span>$</span><input aria-label="Команда терминала" value={command} onChange={event => setCommand(event.target.value)} autoComplete="off" spellCheck={false}/></form></div>
         </section>}
 
-        <footer className="runner-actions"><span>{finished ? 'Улика добавлена в досье' : checked && isCorrect ? 'Доказательство принято — история продолжится' : questMode ? 'Результат изменит ход текущего дела' : 'Изменения сохраняются в учебной среде'}</span><div>{!finished && <button className="runner-check" onClick={verify} disabled={!canCheck}><Play size={15} fill="currentColor"/>Проверить решение</button>}{checked && isCorrect && !finished && <button className="runner-finish" onClick={finishMission}><Check size={16}/>{questMode ? 'Продолжить историю' : 'Завершить миссию'}</button>}{finished && <button className="runner-finish" onClick={onExit}><ArrowLeft size={16}/>{questMode ? 'Поставить дело на паузу' : 'Вернуться в комнату'}</button>}</div></footer>
+        <footer className="runner-actions">
+          <span>{finished
+            ? nextMission ? `Дальше: ${nextMission.title}` : questMode ? 'Улика добавлена в досье — эпизоды дела закончились' : 'Миссия закрыта — это была последняя в комнате'
+            : checked && isCorrect ? 'Доказательство принято — история продолжится' : questMode ? 'Результат изменит ход текущего дела' : 'Изменения сохраняются в учебной среде'}</span>
+          <div>
+            {!finished && <button className="runner-check" onClick={verify} disabled={!canCheck}><Play size={15} fill="currentColor"/>Проверить решение</button>}
+            {checked && isCorrect && !finished && <button className="runner-finish" onClick={finishMission}><Check size={16}/>{questMode ? 'Продолжить историю' : 'Завершить миссию'}</button>}
+            {finished && (nextMission && onNext ? <>
+              <button className="runner-check" onClick={onExit}><ArrowLeft size={16}/>{questMode ? 'Поставить дело на паузу' : 'Вернуться в комнату'}</button>
+              <button className="runner-finish" onClick={onNext}>{questMode ? 'Следующий эпизод' : 'Следующая миссия'}<ArrowRight size={16}/></button>
+            </> : <button className="runner-finish" onClick={onExit}><Check size={16}/>{questMode ? 'К финалу дела' : 'Вернуться в комнату'}</button>)}
+          </div>
+        </footer>
       </main>
     </div>
   </div>
