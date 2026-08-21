@@ -3,12 +3,12 @@
  * Токена здесь нет и быть не может: он живёт только в .env на стороне бота.
  * Если бот не запущен, вызовы тихо игнорируются — обучение от этого не страдает.
  */
-const ENDPOINT = 'http://127.0.0.1:8787'
+const ENDPOINT = import.meta.env.VITE_BOT_ENDPOINT?.trim()
 
-let botAvailable = true
+let botAvailable = Boolean(ENDPOINT)
 
 async function push(payload: Record<string, unknown>) {
-  if (!botAvailable) return
+  if (!botAvailable || !ENDPOINT) return
   try {
     await fetch(ENDPOINT, {
       method: 'POST',

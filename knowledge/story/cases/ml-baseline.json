@@ -1,0 +1,183 @@
+{
+  "caseId": "case-ml-baseline",
+  "courseId": "ml-baseline",
+  "number": "02",
+  "title": "Модель знает завтрашний день",
+  "logline": "Качество прогноза почти идеальное, но один признак появляется только после наступления целевого события.",
+  "setting": "Продуктовая компания «Север»",
+  "cast": [
+    "mira",
+    "oleg",
+    "lena"
+  ],
+  "acts": [
+    {
+      "id": "ml-baseline-start",
+      "title": "Модель знает завтрашний день",
+      "trigger": {
+        "on": "caseStart"
+      },
+      "beats": [
+        {
+          "kind": "comic",
+          "panels": [
+            {
+              "speaker": "mira",
+              "emotion": "surprised",
+              "scene": "office",
+              "caption": "Качество прогноза почти идеальное, но один признак появляется только после наступления целевого события."
+            },
+            {
+              "speaker": "oleg",
+              "emotion": "determined",
+              "scene": "screen",
+              "caption": "Сначала строим цепочку доказательств. Красивый ответ без проверки не принимается."
+            },
+            {
+              "speaker": "lena",
+              "emotion": "worried",
+              "scene": "meeting",
+              "caption": "Решение нужно сегодня. Ошибка изменит план команды на квартал."
+            }
+          ]
+        },
+        {
+          "kind": "line",
+          "speaker": "oleg",
+          "emotion": "determined",
+          "text": "Это дело про «Первая модель машинного обучения». Не проходи уроки отдельно: каждый найденный факт станет уликой в общем расследовании."
+        }
+      ]
+    },
+    {
+      "id": "ml-baseline-brief",
+      "title": "Первая версия",
+      "trigger": {
+        "on": "beforeMission",
+        "missionId": "MLB-001"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "mira",
+          "emotion": "happy",
+          "text": "Я уже собрала материалы. Давай сначала договоримся, какой вопрос мы вообще пытаемся решить."
+        },
+        {
+          "kind": "line",
+          "speaker": "oleg",
+          "emotion": "neutral",
+          "text": "Хорошее начало. Зафиксируй принцип — после этого рабочая станция откроет первую улику."
+        }
+      ]
+    },
+    {
+      "id": "ml-baseline-evidence",
+      "title": "Улика не сходится",
+      "trigger": {
+        "on": "afterMission",
+        "missionId": "MLB-003"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "mira",
+          "emotion": "worried",
+          "text": "Проверка изменила число. Значит, первая версия была удобной, но неверной."
+        },
+        {
+          "kind": "line",
+          "speaker": "oleg",
+          "emotion": "happy",
+          "text": "Именно поэтому мы оставляем воспроизводимые шаги. Ошибка, найденная до решения, — полезная улика."
+        }
+      ]
+    },
+    {
+      "id": "ml-baseline-choice",
+      "title": "Давление срока",
+      "trigger": {
+        "on": "beforeMission",
+        "missionId": "MLB-007"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "lena",
+          "emotion": "worried",
+          "text": "Мне нужна рекомендация через двадцать минут. Можно не показывать спорный сегмент?"
+        },
+        {
+          "kind": "choice",
+          "id": "ml-baseline-deadline-choice",
+          "prompt": "Как ты ответишь?",
+          "options": [
+            {
+              "id": "transparent",
+              "text": "Покажу спорный риск и объясню, как он влияет на решение.",
+              "reply": "Руководитель кивает: неприятный риск лучше скрытой ошибки.",
+              "trust": {
+                "lena": 2,
+                "oleg": 1
+              },
+              "flags": [
+                "ml-baseline-transparent"
+              ]
+            },
+            {
+              "id": "fast",
+              "text": "Уберу спорный риск ради короткого ответа.",
+              "reply": "Наставник ничего не говорит, но просит сохранить эту версию отдельно.",
+              "trust": {
+                "oleg": -1
+              },
+              "flags": [
+                "ml-baseline-rushed"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ml-baseline-turn",
+      "title": "Решение выдерживает проверку",
+      "trigger": {
+        "on": "afterMission",
+        "missionId": "MLB-010"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "mira",
+          "emotion": "happy",
+          "text": "Теперь вывод не рассыпается, даже если изменить период и открыть сегменты."
+        },
+        {
+          "kind": "line",
+          "speaker": "lena",
+          "emotion": "determined",
+          "text": "Хорошо. Доводи доказательства до итоговой рекомендации — я защищу её перед командой."
+        }
+      ]
+    }
+  ],
+  "endings": [
+    {
+      "id": "ml-baseline-gold",
+      "title": "Доказательство принято",
+      "summary": "Команда получила воспроизводимый вывод и безопасный следующий шаг.",
+      "minTrust": {
+        "oleg": 1,
+        "lena": 1
+      },
+      "rank": "золото"
+    },
+    {
+      "id": "ml-baseline-silver",
+      "title": "Решение с оговорками",
+      "summary": "Вывод принят, но часть рисков придётся перепроверить после запуска.",
+      "rank": "серебро"
+    }
+  ]
+}

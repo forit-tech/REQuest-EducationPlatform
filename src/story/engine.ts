@@ -1,7 +1,6 @@
 import type { Character, StoryAct, StoryCase, StoryEnding } from './types'
 import type { GameState } from '../core/game'
 import castData from '../../knowledge/story/cast.json'
-import prologueCase from '../../knowledge/story/cases/prologue.json'
 
 export const cast = castData as unknown as Character[]
 const caseModules = import.meta.glob('../../knowledge/story/cases/*.json', { eager: true, import: 'default' }) as Record<string, StoryCase>
@@ -15,16 +14,8 @@ export function character(id: string): Character {
   return castById.get(id) ?? castById.get('narrator')!
 }
 
-/** Пролог не привязан к курсу: он играет у всех при первом запуске. */
-export const prologue = prologueCase as unknown as StoryCase
-
 export function caseForCourse(courseId: string) {
   return cases.find(item => item.courseId === courseId)
-}
-
-/** Непросмотренный акт пролога, если он есть. */
-export function pendingPrologueAct(game: GameState) {
-  return prologue.acts.find(act => !game.seenActs.includes(act.id))
 }
 
 function actVisible(act: StoryAct, game: GameState) {

@@ -1,0 +1,183 @@
+{
+  "caseId": "case-linear-algebra",
+  "courseId": "linear-algebra",
+  "number": "01",
+  "title": "Сигнал в тысяче измерений",
+  "logline": "Система сравнения объектов стала медленной и нестабильной после роста пространства признаков.",
+  "setting": "Продуктовая компания «Север»",
+  "cast": [
+    "mira",
+    "oleg",
+    "lena"
+  ],
+  "acts": [
+    {
+      "id": "linear-algebra-start",
+      "title": "Сигнал в тысяче измерений",
+      "trigger": {
+        "on": "caseStart"
+      },
+      "beats": [
+        {
+          "kind": "comic",
+          "panels": [
+            {
+              "speaker": "mira",
+              "emotion": "surprised",
+              "scene": "office",
+              "caption": "Система сравнения объектов стала медленной и нестабильной после роста пространства признаков."
+            },
+            {
+              "speaker": "oleg",
+              "emotion": "determined",
+              "scene": "screen",
+              "caption": "Сначала строим цепочку доказательств. Красивый ответ без проверки не принимается."
+            },
+            {
+              "speaker": "lena",
+              "emotion": "worried",
+              "scene": "meeting",
+              "caption": "Решение нужно сегодня. Ошибка изменит план команды на квартал."
+            }
+          ]
+        },
+        {
+          "kind": "line",
+          "speaker": "oleg",
+          "emotion": "determined",
+          "text": "Это дело про «Линейная алгебра для ML». Не проходи уроки отдельно: каждый найденный факт станет уликой в общем расследовании."
+        }
+      ]
+    },
+    {
+      "id": "linear-algebra-brief",
+      "title": "Первая версия",
+      "trigger": {
+        "on": "beforeMission",
+        "missionId": "LAL-001"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "mira",
+          "emotion": "happy",
+          "text": "Я уже собрала материалы. Давай сначала договоримся, какой вопрос мы вообще пытаемся решить."
+        },
+        {
+          "kind": "line",
+          "speaker": "oleg",
+          "emotion": "neutral",
+          "text": "Хорошее начало. Зафиксируй принцип — после этого рабочая станция откроет первую улику."
+        }
+      ]
+    },
+    {
+      "id": "linear-algebra-evidence",
+      "title": "Улика не сходится",
+      "trigger": {
+        "on": "afterMission",
+        "missionId": "LAL-003"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "mira",
+          "emotion": "worried",
+          "text": "Проверка изменила число. Значит, первая версия была удобной, но неверной."
+        },
+        {
+          "kind": "line",
+          "speaker": "oleg",
+          "emotion": "happy",
+          "text": "Именно поэтому мы оставляем воспроизводимые шаги. Ошибка, найденная до решения, — полезная улика."
+        }
+      ]
+    },
+    {
+      "id": "linear-algebra-choice",
+      "title": "Давление срока",
+      "trigger": {
+        "on": "beforeMission",
+        "missionId": "LAL-007"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "lena",
+          "emotion": "worried",
+          "text": "Мне нужна рекомендация через двадцать минут. Можно не показывать спорный сегмент?"
+        },
+        {
+          "kind": "choice",
+          "id": "linear-algebra-deadline-choice",
+          "prompt": "Как ты ответишь?",
+          "options": [
+            {
+              "id": "transparent",
+              "text": "Покажу спорный риск и объясню, как он влияет на решение.",
+              "reply": "Руководитель кивает: неприятный риск лучше скрытой ошибки.",
+              "trust": {
+                "lena": 2,
+                "oleg": 1
+              },
+              "flags": [
+                "linear-algebra-transparent"
+              ]
+            },
+            {
+              "id": "fast",
+              "text": "Уберу спорный риск ради короткого ответа.",
+              "reply": "Наставник ничего не говорит, но просит сохранить эту версию отдельно.",
+              "trust": {
+                "oleg": -1
+              },
+              "flags": [
+                "linear-algebra-rushed"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "linear-algebra-turn",
+      "title": "Решение выдерживает проверку",
+      "trigger": {
+        "on": "afterMission",
+        "missionId": "LAL-010"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "mira",
+          "emotion": "happy",
+          "text": "Теперь вывод не рассыпается, даже если изменить период и открыть сегменты."
+        },
+        {
+          "kind": "line",
+          "speaker": "lena",
+          "emotion": "determined",
+          "text": "Хорошо. Доводи доказательства до итоговой рекомендации — я защищу её перед командой."
+        }
+      ]
+    }
+  ],
+  "endings": [
+    {
+      "id": "linear-algebra-gold",
+      "title": "Доказательство принято",
+      "summary": "Команда получила воспроизводимый вывод и безопасный следующий шаг.",
+      "minTrust": {
+        "oleg": 1,
+        "lena": 1
+      },
+      "rank": "золото"
+    },
+    {
+      "id": "linear-algebra-silver",
+      "title": "Решение с оговорками",
+      "summary": "Вывод принят, но часть рисков придётся перепроверить после запуска.",
+      "rank": "серебро"
+    }
+  ]
+}

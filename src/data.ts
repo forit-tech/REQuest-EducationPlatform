@@ -1,6 +1,4 @@
 import type { Mission, MissionType, Room } from './types'
-import { glossaryTermIds } from './glossary'
-import dataPrograms from '../knowledge/data/programs.json'
 import professionPrograms from '../knowledge/professions/programs.json'
 
 interface CourseFile {
@@ -13,6 +11,10 @@ interface CourseFile {
   missions: unknown[]
 }
 
+interface CourseProgramEntry { id: string; prerequisites?: string[] }
+const programModules = import.meta.glob('../knowledge/*/programs.json', { eager: true, import: 'default' }) as Record<string, unknown[]>
+const canonicalPrograms = Object.values(programModules).flat().filter((entry): entry is CourseProgramEntry => Boolean(entry && typeof entry === 'object' && 'id' in entry))
+
 const fromCourse = (course: CourseFile, accent: string): RoomDefinition => ({
   id: course.id,
   title: course.title,
@@ -22,68 +24,19 @@ const fromCourse = (course: CourseFile, accent: string): RoomDefinition => ({
   description: course.description,
   skills: course.skills,
   missions: course.missions as Mission[],
-  prerequisites: dataPrograms.find(program => program.id === course.id)?.prerequisites ?? [],
+  prerequisites: canonicalPrograms.find(program => program.id === course.id)?.prerequisites ?? [],
 })
 
 const courseModules = import.meta.glob('../knowledge/**/course.json', { eager: true, import: 'default' }) as Record<string, CourseFile>
 const dataCourseFiles: CourseFile[] = Object.values(courseModules)
 
-const professionPrerequisites = new Map<string, string[]>()
-for (const program of professionPrograms) {
-  for (const stage of program.stages) {
-    stage.courseIds.forEach((courseId, index) => {
-      if (!professionPrerequisites.has(courseId)) {
-        professionPrerequisites.set(courseId, index > 0 ? [stage.courseIds[index - 1]] : stage.prerequisites)
-      }
-    })
-  }
-}
-
 const dataCourseAccents = ['#38bdf8', '#6ce5c1', '#7da2ff', '#e0b875', '#d98cff', '#ff8d74']
-const catalogRooms = dataCourseFiles.map((course, index) => ({
-  ...fromCourse(course, dataCourseAccents[index % dataCourseAccents.length]),
-  prerequisites: professionPrerequisites.get(course.id) ?? fromCourse(course, dataCourseAccents[index % dataCourseAccents.length]).prerequisites,
-}))
-
-const kinds: MissionType[] = ['story', 'quiz', 'code', 'lab', 'code', 'case']
-
-const missions = (room: string, names: string[]): Mission[] => names.map((title, index) => ({
-  id: `${room}-${index + 1}`,
-  title,
-  type: index === names.length - 1 ? 'boss' : kinds[index % kinds.length],
-  minutes: index === names.length - 1 ? 25 : 5 + (index % 4) * 3,
-  xp: index === names.length - 1 ? 320 : 55 + index * 10,
-  termIds: glossaryTermIds(title),
-}))
+const catalogRooms = dataCourseFiles.map((course, index) => fromCourse(course, dataCourseAccents[index % dataCourseAccents.length]))
 
 type RoomDefinition = Omit<Room, 'index'>
 
 const roomDefinitions: RoomDefinition[] = [
   ...catalogRooms,
-  {
-    id: 'linear-algebra', title: 'Линейная алгебра для ML', category: 'Математика', level: 'Средний', accent: '#e0b875', locked: true, prerequisites: ['statistics'],
-    description: 'Векторы и матрицы становятся инструментами: от расстояний до сжатия признаков и PCA.',
-    skills: ['векторы', 'матрицы', 'SVD', 'PCA'],
-    missions: missions('la', ['Карта пространства', 'Векторы признаков', 'Скалярное произведение', 'Нормы и расстояния', 'Матрицы данных', 'Умножение матриц', 'Линейные преобразования', 'Ранг', 'Собственные векторы', 'Сингулярное разложение (SVD)', 'Метод главных компонент (PCA) на пальцах', 'Итоговое испытание: сжатие эмбеддингов']),
-  },
-  {
-    id: 'ml-baseline', title: 'Первая модель машинного обучения', category: 'Машинное обучение', level: 'Средний', accent: '#d98cff', locked: true, prerequisites: ['linear-algebra', 'statistics'],
-    description: 'Строим базовое решение для прогноза оттока, не допуская утечки данных и самообмана при проверке качества.',
-    skills: ['базовая модель', 'валидация', 'метрики', 'конвейер'],
-    missions: missions('ml', ['Задача от бизнеса', 'Что предсказываем', 'Базовое решение (baseline)', 'Обучающая и тестовая выборки', 'Утечка данных', 'Линейная регрессия', 'Логистическая регрессия', 'Метрики классификации', 'Дисбаланс классов', 'Кросс-валидация', 'Предобработка (preprocessing)', 'Конвейер обработки (pipeline)', 'Интерпретация', 'Итоговое испытание: защита модели']),
-  },
-  {
-    id: 'boosting', title: 'Бустинг на табличных данных', category: 'Машинное обучение', level: 'Продвинутый', accent: '#d98cff', locked: true, prerequisites: ['ml-baseline'],
-    description: 'Сравниваем CatBoost, XGBoost и LightGBM, а затем укладываем качество в ограничения сервиса.',
-    skills: ['деревья решений', 'CatBoost', 'подбор параметров', 'SHAP'],
-    missions: missions('boost', ['Слабые модели вместе', 'Дерево решений', 'Бэггинг и бустинг', 'Градиентный бустинг', 'CatBoost', 'XGBoost', 'LightGBM', 'Категориальные признаки', 'Переобучение (overfitting)', 'Подбор параметров', 'Объяснение модели с SHAP', 'Бюджет задержки ответа', 'Итоговое испытание: модель скоринга']),
-  },
-  {
-    id: 'production', title: 'Модель выходит в прод', category: 'MLOps', level: 'Продвинутый', accent: '#ff8d74', locked: true, prerequisites: ['boosting'],
-    description: 'Превращаем ноутбук в сервис: API, контейнер, мониторинг качества и безопасный релиз.',
-    skills: ['FastAPI', 'Docker', 'мониторинг', 'дрейф данных'],
-    missions: missions('prod', ['Ноутбук — не сервис', 'Контракт модели', 'Точка доступа FastAPI (endpoint)', 'Валидация входа', 'Образ Docker', 'Версии артефактов', 'Логирование', 'Метрики сервиса', 'Дрейф данных (data drift)', 'Дрейф концепции (concept drift)', 'Канареечный релиз (canary deployment)', 'Откат модели', 'Итоговое испытание: ночной инцидент']),
-  },
 ]
 
 export const rooms: Room[] = roomDefinitions.map((room, index) => ({
@@ -100,15 +53,17 @@ export function roomsForProfession(professionId: string) {
   const program = professionPrograms.find(item => item.professionId === professionId)
   if (!program) return []
   const roomById = new Map(rooms.map(room => [room.id, room]))
+  const routeIds = new Set(program.stages.flatMap(stage => stage.courseIds))
   const route: Room[] = []
   for (const stage of program.stages) {
-    stage.courseIds.forEach((courseId, courseIndex) => {
+    stage.courseIds.forEach(courseId => {
       const room = roomById.get(courseId)
       if (!room) return
+      const routePrerequisites = (room.prerequisites ?? []).filter(prerequisite => routeIds.has(prerequisite))
       route.push({
         ...room,
         index: String(route.length + 1).padStart(2, '0'),
-        prerequisites: courseIndex > 0 ? [stage.courseIds[courseIndex - 1]] : stage.prerequisites,
+        prerequisites: routePrerequisites.length ? routePrerequisites : stage.prerequisites,
       })
     })
   }

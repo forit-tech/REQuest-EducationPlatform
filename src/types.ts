@@ -11,6 +11,12 @@ export interface Mission {
   objectives?: string[]
   intro?: string
   productionContext?: string
+  historicalFact?: {
+    title: string
+    text: string
+    sourceLabel: string
+    sourceUrl: string
+  }
   task?: {
     prompt: string
     options?: string[]
@@ -44,7 +50,6 @@ export interface Room {
 export type AppSection = 'home' | 'path' | 'practice' | 'projects' | 'achievements' | 'hq'
 
 export type View =
-  | { type: 'quest' }
   | { type: AppSection }
   | { type: 'room'; roomId: string }
   | { type: 'mission'; roomId: string; missionId: string }

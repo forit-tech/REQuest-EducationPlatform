@@ -40,9 +40,7 @@
     "goal": "Писать понятные программы, надёжно читать файлы и проверять обработку данных.",
     "missionCount": 50,
     "status": "ready",
-    "prerequisites": [
-      "technical-foundations"
-    ],
+    "prerequisites": [],
     "blocks": [
       "Значения, типы и переменные",
       "Условия и циклы",
@@ -239,9 +237,7 @@
     "goal": "Самостоятельно получать, фильтровать, группировать и соединять данные.",
     "missionCount": 58,
     "status": "ready",
-    "prerequisites": [
-      "data-foundations"
-    ],
+    "prerequisites": [],
     "blocks": [
       "SELECT и FROM",
       "WHERE",
@@ -706,6 +702,75 @@
       "Метрики и судьи",
       "Prompt injection и границы доверия",
       "Трассировка и выпуск"
+    ]
+  },
+  {
+    "id": "linear-algebra",
+    "phase": "Профессия · data-scientist",
+    "title": "Линейная алгебра для ML",
+    "goal": "Превращаем векторы и матрицы в рабочие инструменты моделей, расстояний и снижения размерности.",
+    "missionCount": 13,
+    "status": "ready",
+    "prerequisites": [
+      "statistics"
+    ],
+    "blocks": [
+      "Векторы и признаки",
+      "Скалярное произведение и расстояние",
+      "Матрицы и преобразования",
+      "SVD и PCA"
+    ]
+  },
+  {
+    "id": "ml-baseline",
+    "phase": "Профессия · data-scientist",
+    "title": "Первая модель машинного обучения",
+    "goal": "Формулируем целевую переменную, строим baseline и честно проверяем качество без утечки данных.",
+    "missionCount": 13,
+    "status": "ready",
+    "prerequisites": [
+      "linear-algebra",
+      "statistics"
+    ],
+    "blocks": [
+      "Постановка задачи и target",
+      "Baseline и разбиение",
+      "Утечка данных",
+      "Метрики и порог"
+    ]
+  },
+  {
+    "id": "boosting",
+    "phase": "Профессия · data-scientist",
+    "title": "Бустинг на табличных данных",
+    "goal": "Обучаем градиентный бустинг, контролируем переобучение и объясняем итоговые решения модели.",
+    "missionCount": 13,
+    "status": "ready",
+    "prerequisites": [
+      "ml-baseline"
+    ],
+    "blocks": [
+      "Деревья решений",
+      "Градиентный бустинг",
+      "Категории и переобучение",
+      "Интерпретация и ограничения"
+    ]
+  },
+  {
+    "id": "production",
+    "phase": "Профессия · data-scientist",
+    "title": "Модель выходит в прод",
+    "goal": "Превращаем модель в версионированный сервис с контрактом, наблюдаемостью, canary и безопасным откатом.",
+    "missionCount": 13,
+    "status": "ready",
+    "prerequisites": [
+      "boosting"
+    ],
+    "blocks": [
+      "Контракт модели и API",
+      "Контейнер и артефакты",
+      "Мониторинг качества и drift",
+      "Canary и rollback"
     ]
   }
 ]
