@@ -1,0 +1,17 @@
+{
+  "id": "backend",
+  "title": "Серверная разработка",
+  "description": "Языки, API, базы данных, конкурентность, тестирование и эксплуатация серверных сервисов.",
+  "language": "ru",
+  "courses": [
+    "java-core-jvm",
+    "spring-services",
+    "java-production",
+    "python-web-api",
+    "python-databases-async",
+    "python-service-production",
+    "go-core-concurrency",
+    "go-network-services",
+    "go-production"
+  ]
+}

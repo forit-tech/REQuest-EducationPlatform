@@ -1,0 +1,183 @@
+{
+  "caseId": "case-model-serving",
+  "courseId": "model-serving",
+  "number": "02",
+  "title": "Сто миллисекунд доверия",
+  "logline": "Новый скоринг точнее старого, но под реальной нагрузкой начинает задерживать оформление заказов.",
+  "setting": "Продуктовая компания «Север»",
+  "cast": [
+    "mira",
+    "oleg",
+    "anton"
+  ],
+  "acts": [
+    {
+      "id": "model-serving-start",
+      "title": "Сто миллисекунд доверия",
+      "trigger": {
+        "on": "caseStart"
+      },
+      "beats": [
+        {
+          "kind": "comic",
+          "panels": [
+            {
+              "speaker": "mira",
+              "emotion": "surprised",
+              "scene": "office",
+              "caption": "Новый скоринг точнее старого, но под реальной нагрузкой начинает задерживать оформление заказов."
+            },
+            {
+              "speaker": "oleg",
+              "emotion": "determined",
+              "scene": "screen",
+              "caption": "Сначала строим цепочку доказательств. Красивый ответ без проверки не принимается."
+            },
+            {
+              "speaker": "anton",
+              "emotion": "worried",
+              "scene": "meeting",
+              "caption": "Решение нужно сегодня. Ошибка изменит план команды на квартал."
+            }
+          ]
+        },
+        {
+          "kind": "line",
+          "speaker": "oleg",
+          "emotion": "determined",
+          "text": "Это дело про «Сервинг и релиз моделей». Не проходи уроки отдельно: каждый найденный факт станет уликой в общем расследовании."
+        }
+      ]
+    },
+    {
+      "id": "model-serving-brief",
+      "title": "Первая версия",
+      "trigger": {
+        "on": "beforeMission",
+        "missionId": "MSV-001"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "mira",
+          "emotion": "happy",
+          "text": "Я уже открыла выгрузку. Давай сначала договоримся, какой вопрос мы вообще пытаемся решить."
+        },
+        {
+          "kind": "line",
+          "speaker": "oleg",
+          "emotion": "neutral",
+          "text": "Хорошее начало. Зафиксируй принцип — после этого рабочая станция откроет первую улику."
+        }
+      ]
+    },
+    {
+      "id": "model-serving-evidence",
+      "title": "Улика не сходится",
+      "trigger": {
+        "on": "afterMission",
+        "missionId": "MSV-003"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "mira",
+          "emotion": "worried",
+          "text": "Проверка изменила число. Значит, первая версия была удобной, но неверной."
+        },
+        {
+          "kind": "line",
+          "speaker": "oleg",
+          "emotion": "happy",
+          "text": "Именно поэтому мы оставляем воспроизводимые шаги. Ошибка, найденная до решения, — полезная улика."
+        }
+      ]
+    },
+    {
+      "id": "model-serving-choice",
+      "title": "Давление срока",
+      "trigger": {
+        "on": "beforeMission",
+        "missionId": "MSV-007"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "anton",
+          "emotion": "worried",
+          "text": "Мне нужна рекомендация через двадцать минут. Можно не показывать спорный сегмент?"
+        },
+        {
+          "kind": "choice",
+          "id": "model-serving-deadline-choice",
+          "prompt": "Как ты ответишь?",
+          "options": [
+            {
+              "id": "transparent",
+              "text": "Покажу сегмент и объясню, как он влияет на решение.",
+              "reply": "Лена кивает: неприятный риск лучше скрытой ошибки.",
+              "trust": {
+                "anton": 2,
+                "oleg": 1
+              },
+              "flags": [
+                "model-serving-transparent"
+              ]
+            },
+            {
+              "id": "fast",
+              "text": "Уберу сегмент ради короткого ответа.",
+              "reply": "Олег ничего не говорит, но просит сохранить эту версию отдельно.",
+              "trust": {
+                "oleg": -1
+              },
+              "flags": [
+                "model-serving-rushed"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "model-serving-turn",
+      "title": "Решение выдерживает проверку",
+      "trigger": {
+        "on": "afterMission",
+        "missionId": "MSV-010"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "mira",
+          "emotion": "happy",
+          "text": "Теперь вывод не рассыпается, даже если изменить период и открыть сегменты."
+        },
+        {
+          "kind": "line",
+          "speaker": "anton",
+          "emotion": "determined",
+          "text": "Хорошо. Доводи доказательства до итоговой рекомендации — я защищу её перед командой."
+        }
+      ]
+    }
+  ],
+  "endings": [
+    {
+      "id": "model-serving-gold",
+      "title": "Доказательство принято",
+      "summary": "Команда получила воспроизводимый вывод и безопасный следующий шаг.",
+      "minTrust": {
+        "oleg": 1,
+        "anton": 1
+      },
+      "rank": "золото"
+    },
+    {
+      "id": "model-serving-silver",
+      "title": "Решение с оговорками",
+      "summary": "Вывод принят, но часть рисков придётся перепроверить после запуска.",
+      "rank": "серебро"
+    }
+  ]
+}

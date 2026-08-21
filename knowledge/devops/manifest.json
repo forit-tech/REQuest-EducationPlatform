@@ -1,0 +1,13 @@
+{
+  "domain": "devops",
+  "title": "DevOps и SRE",
+  "version": "1.0.0",
+  "courses": [
+    "linux-network-ops",
+    "containers-kubernetes",
+    "cicd-infrastructure",
+    "sre-foundations",
+    "observability-incidents",
+    "capacity-reliability"
+  ]
+}

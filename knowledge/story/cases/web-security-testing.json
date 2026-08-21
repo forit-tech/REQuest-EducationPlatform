@@ -1,0 +1,183 @@
+{
+  "caseId": "case-web-security-testing",
+  "courseId": "web-security-testing",
+  "number": "02",
+  "title": "Чужой объект по номеру",
+  "logline": "В тестовом кабинете замена идентификатора открыла метаданные проекта другой роли.",
+  "setting": "Продуктовая компания «Север»",
+  "cast": [
+    "alexey",
+    "mira",
+    "artem"
+  ],
+  "acts": [
+    {
+      "id": "web-security-testing-start",
+      "title": "Чужой объект по номеру",
+      "trigger": {
+        "on": "caseStart"
+      },
+      "beats": [
+        {
+          "kind": "comic",
+          "panels": [
+            {
+              "speaker": "alexey",
+              "emotion": "surprised",
+              "scene": "office",
+              "caption": "В тестовом кабинете замена идентификатора открыла метаданные проекта другой роли."
+            },
+            {
+              "speaker": "mira",
+              "emotion": "determined",
+              "scene": "screen",
+              "caption": "Сначала строим цепочку доказательств. Красивый ответ без проверки не принимается."
+            },
+            {
+              "speaker": "artem",
+              "emotion": "worried",
+              "scene": "meeting",
+              "caption": "Решение нужно сегодня. Ошибка изменит план команды на квартал."
+            }
+          ]
+        },
+        {
+          "kind": "line",
+          "speaker": "mira",
+          "emotion": "determined",
+          "text": "Это дело про «Безопасность web-приложений». Не проходи уроки отдельно: каждый найденный факт станет уликой в общем расследовании."
+        }
+      ]
+    },
+    {
+      "id": "web-security-testing-brief",
+      "title": "Первая версия",
+      "trigger": {
+        "on": "beforeMission",
+        "missionId": "WST-001"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "alexey",
+          "emotion": "happy",
+          "text": "Я уже собрала материалы. Давай сначала договоримся, какой вопрос мы вообще пытаемся решить."
+        },
+        {
+          "kind": "line",
+          "speaker": "mira",
+          "emotion": "neutral",
+          "text": "Хорошее начало. Зафиксируй принцип — после этого рабочая станция откроет первую улику."
+        }
+      ]
+    },
+    {
+      "id": "web-security-testing-evidence",
+      "title": "Улика не сходится",
+      "trigger": {
+        "on": "afterMission",
+        "missionId": "WST-003"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "alexey",
+          "emotion": "worried",
+          "text": "Проверка изменила число. Значит, первая версия была удобной, но неверной."
+        },
+        {
+          "kind": "line",
+          "speaker": "mira",
+          "emotion": "happy",
+          "text": "Именно поэтому мы оставляем воспроизводимые шаги. Ошибка, найденная до решения, — полезная улика."
+        }
+      ]
+    },
+    {
+      "id": "web-security-testing-choice",
+      "title": "Давление срока",
+      "trigger": {
+        "on": "beforeMission",
+        "missionId": "WST-007"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "artem",
+          "emotion": "worried",
+          "text": "Мне нужна рекомендация через двадцать минут. Можно не показывать спорный сегмент?"
+        },
+        {
+          "kind": "choice",
+          "id": "web-security-testing-deadline-choice",
+          "prompt": "Как ты ответишь?",
+          "options": [
+            {
+              "id": "transparent",
+              "text": "Покажу спорный риск и объясню, как он влияет на решение.",
+              "reply": "Руководитель кивает: неприятный риск лучше скрытой ошибки.",
+              "trust": {
+                "artem": 2,
+                "mira": 1
+              },
+              "flags": [
+                "web-security-testing-transparent"
+              ]
+            },
+            {
+              "id": "fast",
+              "text": "Уберу спорный риск ради короткого ответа.",
+              "reply": "Наставник ничего не говорит, но просит сохранить эту версию отдельно.",
+              "trust": {
+                "mira": -1
+              },
+              "flags": [
+                "web-security-testing-rushed"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "web-security-testing-turn",
+      "title": "Решение выдерживает проверку",
+      "trigger": {
+        "on": "afterMission",
+        "missionId": "WST-010"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "alexey",
+          "emotion": "happy",
+          "text": "Теперь вывод не рассыпается, даже если изменить период и открыть сегменты."
+        },
+        {
+          "kind": "line",
+          "speaker": "artem",
+          "emotion": "determined",
+          "text": "Хорошо. Доводи доказательства до итоговой рекомендации — я защищу её перед командой."
+        }
+      ]
+    }
+  ],
+  "endings": [
+    {
+      "id": "web-security-testing-gold",
+      "title": "Доказательство принято",
+      "summary": "Команда получила воспроизводимый вывод и безопасный следующий шаг.",
+      "minTrust": {
+        "mira": 1,
+        "artem": 1
+      },
+      "rank": "золото"
+    },
+    {
+      "id": "web-security-testing-silver",
+      "title": "Решение с оговорками",
+      "summary": "Вывод принят, но часть рисков придётся перепроверить после запуска.",
+      "rank": "серебро"
+    }
+  ]
+}

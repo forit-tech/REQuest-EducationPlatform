@@ -1,0 +1,183 @@
+{
+  "caseId": "case-streaming-platforms",
+  "courseId": "streaming-platforms",
+  "number": "02",
+  "title": "События пришли дважды",
+  "logline": "Платёжный поток восстановился после сбоя, но часть сообщений обработалась повторно и не по порядку.",
+  "setting": "Продуктовая компания «Север»",
+  "cast": [
+    "anton",
+    "gleb",
+    "lena"
+  ],
+  "acts": [
+    {
+      "id": "streaming-platforms-start",
+      "title": "События пришли дважды",
+      "trigger": {
+        "on": "caseStart"
+      },
+      "beats": [
+        {
+          "kind": "comic",
+          "panels": [
+            {
+              "speaker": "anton",
+              "emotion": "surprised",
+              "scene": "office",
+              "caption": "Платёжный поток восстановился после сбоя, но часть сообщений обработалась повторно и не по порядку."
+            },
+            {
+              "speaker": "gleb",
+              "emotion": "determined",
+              "scene": "screen",
+              "caption": "Сначала строим цепочку доказательств. Красивый ответ без проверки не принимается."
+            },
+            {
+              "speaker": "lena",
+              "emotion": "worried",
+              "scene": "meeting",
+              "caption": "Решение нужно сегодня. Ошибка изменит план команды на квартал."
+            }
+          ]
+        },
+        {
+          "kind": "line",
+          "speaker": "gleb",
+          "emotion": "determined",
+          "text": "Это дело про «Потоковые платформы». Не проходи уроки отдельно: каждый найденный факт станет уликой в общем расследовании."
+        }
+      ]
+    },
+    {
+      "id": "streaming-platforms-brief",
+      "title": "Первая версия",
+      "trigger": {
+        "on": "beforeMission",
+        "missionId": "DES-001"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "anton",
+          "emotion": "happy",
+          "text": "Я уже открыла выгрузку. Давай сначала договоримся, какой вопрос мы вообще пытаемся решить."
+        },
+        {
+          "kind": "line",
+          "speaker": "gleb",
+          "emotion": "neutral",
+          "text": "Хорошее начало. Зафиксируй принцип — после этого рабочая станция откроет первую улику."
+        }
+      ]
+    },
+    {
+      "id": "streaming-platforms-evidence",
+      "title": "Улика не сходится",
+      "trigger": {
+        "on": "afterMission",
+        "missionId": "DES-003"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "anton",
+          "emotion": "worried",
+          "text": "Проверка изменила число. Значит, первая версия была удобной, но неверной."
+        },
+        {
+          "kind": "line",
+          "speaker": "gleb",
+          "emotion": "happy",
+          "text": "Именно поэтому мы оставляем воспроизводимые шаги. Ошибка, найденная до решения, — полезная улика."
+        }
+      ]
+    },
+    {
+      "id": "streaming-platforms-choice",
+      "title": "Давление срока",
+      "trigger": {
+        "on": "beforeMission",
+        "missionId": "DES-007"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "lena",
+          "emotion": "worried",
+          "text": "Мне нужна рекомендация через двадцать минут. Можно не показывать спорный сегмент?"
+        },
+        {
+          "kind": "choice",
+          "id": "streaming-platforms-deadline-choice",
+          "prompt": "Как ты ответишь?",
+          "options": [
+            {
+              "id": "transparent",
+              "text": "Покажу сегмент и объясню, как он влияет на решение.",
+              "reply": "Лена кивает: неприятный риск лучше скрытой ошибки.",
+              "trust": {
+                "lena": 2,
+                "gleb": 1
+              },
+              "flags": [
+                "streaming-platforms-transparent"
+              ]
+            },
+            {
+              "id": "fast",
+              "text": "Уберу сегмент ради короткого ответа.",
+              "reply": "Олег ничего не говорит, но просит сохранить эту версию отдельно.",
+              "trust": {
+                "gleb": -1
+              },
+              "flags": [
+                "streaming-platforms-rushed"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "streaming-platforms-turn",
+      "title": "Решение выдерживает проверку",
+      "trigger": {
+        "on": "afterMission",
+        "missionId": "DES-010"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "anton",
+          "emotion": "happy",
+          "text": "Теперь вывод не рассыпается, даже если изменить период и открыть сегменты."
+        },
+        {
+          "kind": "line",
+          "speaker": "lena",
+          "emotion": "determined",
+          "text": "Хорошо. Доводи доказательства до итоговой рекомендации — я защищу её перед командой."
+        }
+      ]
+    }
+  ],
+  "endings": [
+    {
+      "id": "streaming-platforms-gold",
+      "title": "Доказательство принято",
+      "summary": "Команда получила воспроизводимый вывод и безопасный следующий шаг.",
+      "minTrust": {
+        "gleb": 1,
+        "lena": 1
+      },
+      "rank": "золото"
+    },
+    {
+      "id": "streaming-platforms-silver",
+      "title": "Решение с оговорками",
+      "summary": "Вывод принят, но часть рисков придётся перепроверить после запуска.",
+      "rank": "серебро"
+    }
+  ]
+}

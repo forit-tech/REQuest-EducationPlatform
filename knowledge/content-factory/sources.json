@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "verifiedAt": "2026-08-10",
+  "verifiedAt": "2026-08-21",
   "note": "Класс источника определяет, что с ним можно делать. ADAPTABLE_OER — можно адаптировать и переводить с атрибуцией. GROUNDING — только сверка фактов и API, пересказ запрещён. REFERENCE_ONLY — только ориентир по дидактике, содержание не переносится. Поле shareAlike означает вирусную лицензию: производный текст придётся отдать под той же лицензией, поэтому из таких источников берём только фактическую основу для Fact Digest, а не формулировки.",
   "sources": [
     {
@@ -546,6 +546,165 @@
         "career-tracks"
       ],
       "notes": "Только как ориентир по структуре карьерных треков. Контент не копировать."
+    },
+    {
+      "id": "dev-java-learn",
+      "class": "GROUNDING",
+      "title": "Dev.java Learn",
+      "url": "https://dev.java/learn/",
+      "license": "официальная документация",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": ["facts"],
+      "attributionRequired": true,
+      "coverage": ["java-core-jvm", "java-production"]
+    },
+    {
+      "id": "spring-guides",
+      "class": "GROUNDING",
+      "title": "Spring Guides",
+      "url": "https://spring.io/guides",
+      "license": "официальная документация",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": ["facts"],
+      "attributionRequired": true,
+      "coverage": ["spring-services", "java-production"]
+    },
+    {
+      "id": "python-asyncio-docs",
+      "class": "GROUNDING",
+      "title": "Python asyncio documentation",
+      "url": "https://docs.python.org/3/library/asyncio.html",
+      "license": "PSF",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": ["facts"],
+      "attributionRequired": true,
+      "coverage": ["python-databases-async", "python-service-production"]
+    },
+    {
+      "id": "fastapi-docs",
+      "class": "GROUNDING",
+      "title": "FastAPI documentation",
+      "url": "https://fastapi.tiangolo.com/",
+      "license": "MIT (код), документация — сверка фактов",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": ["facts"],
+      "attributionRequired": true,
+      "coverage": ["python-web-api", "python-service-production"]
+    },
+    {
+      "id": "go-documentation",
+      "class": "GROUNDING",
+      "title": "The Go Documentation",
+      "url": "https://go.dev/doc/",
+      "license": "BSD-3-Clause (исходные материалы)",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": ["facts"],
+      "attributionRequired": true,
+      "coverage": ["go-core-concurrency", "go-network-services", "go-production"]
+    },
+    {
+      "id": "mdn-curriculum",
+      "class": "GROUNDING",
+      "title": "MDN Curriculum",
+      "url": "https://developer.mozilla.org/en-US/curriculum/",
+      "license": "CC-BY-SA-2.5+ (текст)",
+      "shareAlike": true,
+      "russianAvailable": true,
+      "allowedUses": ["facts"],
+      "attributionRequired": true,
+      "coverage": ["web-platform-foundations", "frontend-quality", "frontend-delivery"],
+      "notes": "Используется только для сверки охвата web-стандартов; формулировки не адаптируются."
+    },
+    {
+      "id": "react-learn",
+      "class": "GROUNDING",
+      "title": "React Learn",
+      "url": "https://react.dev/learn",
+      "license": "CC-BY-4.0 (документация)",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": ["facts"],
+      "attributionRequired": true,
+      "coverage": ["react-core", "react-architecture", "react-production"]
+    },
+    {
+      "id": "kubernetes-docs",
+      "class": "GROUNDING",
+      "title": "Kubernetes Documentation",
+      "url": "https://kubernetes.io/docs/",
+      "license": "CC-BY-4.0",
+      "shareAlike": false,
+      "russianAvailable": true,
+      "allowedUses": ["facts"],
+      "attributionRequired": true,
+      "coverage": ["containers-kubernetes", "cicd-infrastructure"]
+    },
+    {
+      "id": "terraform-docs",
+      "class": "GROUNDING",
+      "title": "Terraform documentation",
+      "url": "https://developer.hashicorp.com/terraform/docs",
+      "license": "официальная документация",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": ["facts"],
+      "attributionRequired": true,
+      "coverage": ["cicd-infrastructure"]
+    },
+    {
+      "id": "google-sre-books",
+      "class": "GROUNDING",
+      "title": "Google SRE Books",
+      "url": "https://sre.google/books/",
+      "license": "онлайн-публикация, сверка фактов",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": ["facts"],
+      "attributionRequired": true,
+      "coverage": ["sre-foundations", "observability-incidents", "capacity-reliability"]
+    },
+    {
+      "id": "owasp-wstg",
+      "class": "GROUNDING",
+      "title": "OWASP Web Security Testing Guide",
+      "url": "https://owasp.org/www-project-web-security-testing-guide/",
+      "license": "CC-BY-SA-4.0",
+      "shareAlike": true,
+      "russianAvailable": false,
+      "allowedUses": ["facts"],
+      "attributionRequired": true,
+      "coverage": ["security-foundations", "web-security-testing", "pentest-reporting"],
+      "notes": "Только фактическая сверка методологии; текст не адаптируется."
+    },
+    {
+      "id": "portswigger-web-security-academy",
+      "class": "REFERENCE_ONLY",
+      "title": "PortSwigger Web Security Academy",
+      "url": "https://portswigger.net/web-security",
+      "license": "проприетарная",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": [],
+      "attributionRequired": true,
+      "coverage": ["web-security-testing"],
+      "notes": "Только ориентир по последовательности безопасных лабораторных тем; содержание и задания не переносятся."
+    },
+    {
+      "id": "mitre-attack",
+      "class": "GROUNDING",
+      "title": "MITRE ATT&CK",
+      "url": "https://attack.mitre.org/",
+      "license": "Apache-2.0",
+      "shareAlike": false,
+      "russianAvailable": false,
+      "allowedUses": ["facts"],
+      "attributionRequired": true,
+      "coverage": ["soc-detection", "threat-hunting", "incident-response"]
     }
   ]
 }

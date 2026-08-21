@@ -6,12 +6,24 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const missionsDir = resolve(root, 'knowledge/data/data-foundations/missions')
 const datasetsDir = resolve(root, 'knowledge/data/data-foundations/datasets')
 const sourcesPath = resolve(root, 'knowledge/content-factory/sources.json')
-const dataRoot = resolve(root, 'knowledge/data')
-const programsPath = resolve(dataRoot, 'programs.json')
-const manifestPath = resolve(dataRoot, 'manifest.json')
+const knowledgeRoot = resolve(root, 'knowledge')
+const professionProgramsPath = resolve(root, 'knowledge/professions/programs.json')
+const storyCasesRoot = resolve(root, 'knowledge/story/cases')
 const catalog = JSON.parse(await readFile(sourcesPath, 'utf8'))
-const programs = JSON.parse(await readFile(programsPath, 'utf8'))
-const manifest = JSON.parse(await readFile(manifestPath, 'utf8'))
+const professionPrograms = JSON.parse(await readFile(professionProgramsPath, 'utf8'))
+const domainConfigs = []
+for (const entry of await readdir(knowledgeRoot, { withFileTypes: true })) {
+  if (!entry.isDirectory() || ['content-factory', 'story', 'professions'].includes(entry.name)) continue
+  const domainRoot = resolve(knowledgeRoot, entry.name)
+  try {
+    const programs = JSON.parse(await readFile(resolve(domainRoot, 'programs.json'), 'utf8'))
+    const manifest = JSON.parse(await readFile(resolve(domainRoot, 'manifest.json'), 'utf8'))
+    domainConfigs.push({ id: entry.name, root: domainRoot, programs, manifest })
+  } catch {
+    // Каталог без manifest/programs не считается учебным доменом.
+  }
+}
+const programs = domainConfigs.flatMap(domain => domain.programs)
 const knownSourceIds = new Set(catalog.sources.map(source => source.id))
 const missionFiles = (await readdir(missionsDir)).filter(file => file.endsWith('.json')).sort()
 const errors = []
@@ -24,35 +36,37 @@ function validate(condition, missionId, message) {
 }
 
 const programIds = new Set(programs.map(program => program.id))
-const manifestCourseIds = new Set(manifest.courses)
+const manifestCourseIds = new Set(domainConfigs.flatMap(domain => domain.manifest.courses))
 const courseIds = new Set()
-for (const entry of await readdir(dataRoot, { withFileTypes: true })) {
-  if (!entry.isDirectory()) continue
-  const coursePath = resolve(dataRoot, entry.name, 'course.json')
-  try {
-    await access(coursePath)
-  } catch {
-    continue
-  }
-  const course = JSON.parse(await readFile(coursePath, 'utf8'))
-  const program = programs.find(item => item.id === course.id)
-  validate(course.id === entry.name, course.id ?? entry.name, 'id курса не совпадает с именем каталога')
-  validate(!courseIds.has(course.id), course.id, 'дублирующийся id курса')
-  validate(programIds.has(course.id), course.id, 'курс отсутствует в programs.json')
-  validate(manifestCourseIds.has(course.id), course.id, 'курс отсутствует в manifest.json')
-  validate(Boolean(course.title && course.description && course.category), course.id, 'не заполнены основные русские поля курса')
-  validate(course.missions?.length > 1, course.id, 'в курсе должно быть несколько миссий')
-  validate(!program || program.missionCount === course.missions?.length, course.id, `missionCount в programs.json не совпадает с course.json (${program?.missionCount} != ${course.missions?.length})`)
-  courseIds.add(course.id)
-  const missionIds = new Set()
-  for (const mission of course.missions ?? []) {
-    courseMissionCount += 1
-    validate(Boolean(mission.id && mission.title && mission.intro && mission.productionContext), mission.id ?? course.id, 'не заполнены обязательные поля миссии')
-    validate(!missionIds.has(mission.id), mission.id, 'дублирующийся id миссии внутри курса')
-    validate(mission.objectives?.length >= 1, mission.id, 'нет учебной цели')
-    validate(Boolean(mission.task?.prompt && mission.task?.answer && mission.task?.explanation), mission.id, 'задание или объяснение не заполнено')
-    if (mission.task?.options) validate(mission.task.options.includes(mission.task.answer), mission.id, 'правильный ответ отсутствует среди вариантов')
-    missionIds.add(mission.id)
+for (const domain of domainConfigs) {
+  for (const entry of await readdir(domain.root, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue
+    const coursePath = resolve(domain.root, entry.name, 'course.json')
+    try {
+      await access(coursePath)
+    } catch {
+      continue
+    }
+    const course = JSON.parse(await readFile(coursePath, 'utf8'))
+    const program = programs.find(item => item.id === course.id)
+    validate(course.id === entry.name, course.id ?? entry.name, 'id курса не совпадает с именем каталога')
+    validate(!courseIds.has(course.id), course.id, 'дублирующийся id курса')
+    validate(programIds.has(course.id), course.id, 'курс отсутствует в programs.json')
+    validate(manifestCourseIds.has(course.id), course.id, 'курс отсутствует в manifest.json')
+    validate(Boolean(course.title && course.description && course.category), course.id, 'не заполнены основные русские поля курса')
+    validate(course.missions?.length > 1, course.id, 'в курсе должно быть несколько миссий')
+    validate(!program || program.missionCount === course.missions?.length, course.id, `missionCount в programs.json не совпадает с course.json (${program?.missionCount} != ${course.missions?.length})`)
+    courseIds.add(course.id)
+    const missionIds = new Set()
+    for (const mission of course.missions ?? []) {
+      courseMissionCount += 1
+      validate(Boolean(mission.id && mission.title && mission.intro && mission.productionContext), mission.id ?? course.id, 'не заполнены обязательные поля миссии')
+      validate(!missionIds.has(mission.id), mission.id, 'дублирующийся id миссии внутри курса')
+      validate(mission.objectives?.length >= 1, mission.id, 'нет учебной цели')
+      validate(Boolean(mission.task?.prompt && mission.task?.answer && mission.task?.explanation), mission.id, 'задание или объяснение не заполнено')
+      if (mission.task?.options) validate(mission.task.options.includes(mission.task.answer), mission.id, 'правильный ответ отсутствует среди вариантов')
+      missionIds.add(mission.id)
+    }
   }
 }
 
@@ -62,6 +76,39 @@ for (const program of programs) {
     validate(prerequisite !== program.id, program.id, 'курс не может зависеть от самого себя')
   }
   if (program.status === 'ready') validate(courseIds.has(program.id), program.id, 'готовый курс не имеет course.json')
+}
+
+const runtimeCourseIds = new Set([...courseIds, 'linear-algebra', 'ml-baseline', 'boosting', 'production'])
+const professionIds = new Set()
+for (const profession of professionPrograms) {
+  validate(!professionIds.has(profession.professionId), profession.professionId, 'дублирующийся маршрут профессии')
+  validate(profession.status === 'ready', profession.professionId, 'профессия не переведена в ready')
+  validate(profession.stages?.length >= 3, profession.professionId, 'маршрут должен содержать минимум три этапа')
+  professionIds.add(profession.professionId)
+  const routeCourseIds = new Set()
+  for (const stage of profession.stages ?? []) {
+    validate(Boolean(stage.title && stage.goal), profession.professionId, 'у этапа не заполнены title или goal')
+    validate(stage.courseIds?.length >= 1, profession.professionId, `этап «${stage.title}» не содержит курсов`)
+    for (const courseId of stage.courseIds ?? []) {
+      validate(runtimeCourseIds.has(courseId), profession.professionId, `маршрут ссылается на неизвестный курс: ${courseId}`)
+      validate(!routeCourseIds.has(courseId), profession.professionId, `курс повторяется в маршруте: ${courseId}`)
+      routeCourseIds.add(courseId)
+    }
+    for (const prerequisite of stage.prerequisites ?? []) {
+      validate(runtimeCourseIds.has(prerequisite), profession.professionId, `неизвестная зависимость этапа: ${prerequisite}`)
+    }
+  }
+}
+
+const storyCourseIds = new Set()
+for (const file of (await readdir(storyCasesRoot)).filter(name => name.endsWith('.json') && name !== 'prologue.json')) {
+  const story = JSON.parse(await readFile(resolve(storyCasesRoot, file), 'utf8'))
+  validate(courseIds.has(story.courseId), story.caseId ?? file, `сюжет ссылается на неизвестный курс: ${story.courseId}`)
+  validate(!storyCourseIds.has(story.courseId), story.caseId ?? file, `для курса найдено несколько сюжетных дел: ${story.courseId}`)
+  validate(story.cast?.length >= 3, story.caseId ?? file, 'в сюжетном деле должно быть минимум три персонажа')
+  validate(story.acts?.length >= 4, story.caseId ?? file, 'сюжетное дело должно содержать минимум четыре акта')
+  validate(story.endings?.length >= 2, story.caseId ?? file, 'сюжетное дело должно содержать минимум две концовки')
+  storyCourseIds.add(story.courseId)
 }
 
 for (const missionFile of missionFiles) {

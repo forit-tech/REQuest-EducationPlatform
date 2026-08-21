@@ -1,0 +1,183 @@
+{
+  "caseId": "case-spring-services",
+  "courseId": "spring-services",
+  "number": "02",
+  "title": "Заказ создан дважды",
+  "logline": "После повторного запроса клиента в базе появились два заказа и два списания.",
+  "setting": "Продуктовая компания «Север»",
+  "cast": [
+    "sonya",
+    "artem",
+    "alexey"
+  ],
+  "acts": [
+    {
+      "id": "spring-services-start",
+      "title": "Заказ создан дважды",
+      "trigger": {
+        "on": "caseStart"
+      },
+      "beats": [
+        {
+          "kind": "comic",
+          "panels": [
+            {
+              "speaker": "sonya",
+              "emotion": "surprised",
+              "scene": "office",
+              "caption": "После повторного запроса клиента в базе появились два заказа и два списания."
+            },
+            {
+              "speaker": "artem",
+              "emotion": "determined",
+              "scene": "screen",
+              "caption": "Сначала строим цепочку доказательств. Красивый ответ без проверки не принимается."
+            },
+            {
+              "speaker": "alexey",
+              "emotion": "worried",
+              "scene": "meeting",
+              "caption": "Решение нужно сегодня. Ошибка изменит план команды на квартал."
+            }
+          ]
+        },
+        {
+          "kind": "line",
+          "speaker": "artem",
+          "emotion": "determined",
+          "text": "Это дело про «Сервисы на Spring». Не проходи уроки отдельно: каждый найденный факт станет уликой в общем расследовании."
+        }
+      ]
+    },
+    {
+      "id": "spring-services-brief",
+      "title": "Первая версия",
+      "trigger": {
+        "on": "beforeMission",
+        "missionId": "SPR-001"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "sonya",
+          "emotion": "happy",
+          "text": "Я уже собрала материалы. Давай сначала договоримся, какой вопрос мы вообще пытаемся решить."
+        },
+        {
+          "kind": "line",
+          "speaker": "artem",
+          "emotion": "neutral",
+          "text": "Хорошее начало. Зафиксируй принцип — после этого рабочая станция откроет первую улику."
+        }
+      ]
+    },
+    {
+      "id": "spring-services-evidence",
+      "title": "Улика не сходится",
+      "trigger": {
+        "on": "afterMission",
+        "missionId": "SPR-003"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "sonya",
+          "emotion": "worried",
+          "text": "Проверка изменила число. Значит, первая версия была удобной, но неверной."
+        },
+        {
+          "kind": "line",
+          "speaker": "artem",
+          "emotion": "happy",
+          "text": "Именно поэтому мы оставляем воспроизводимые шаги. Ошибка, найденная до решения, — полезная улика."
+        }
+      ]
+    },
+    {
+      "id": "spring-services-choice",
+      "title": "Давление срока",
+      "trigger": {
+        "on": "beforeMission",
+        "missionId": "SPR-007"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "alexey",
+          "emotion": "worried",
+          "text": "Мне нужна рекомендация через двадцать минут. Можно не показывать спорный сегмент?"
+        },
+        {
+          "kind": "choice",
+          "id": "spring-services-deadline-choice",
+          "prompt": "Как ты ответишь?",
+          "options": [
+            {
+              "id": "transparent",
+              "text": "Покажу спорный риск и объясню, как он влияет на решение.",
+              "reply": "Руководитель кивает: неприятный риск лучше скрытой ошибки.",
+              "trust": {
+                "alexey": 2,
+                "artem": 1
+              },
+              "flags": [
+                "spring-services-transparent"
+              ]
+            },
+            {
+              "id": "fast",
+              "text": "Уберу спорный риск ради короткого ответа.",
+              "reply": "Наставник ничего не говорит, но просит сохранить эту версию отдельно.",
+              "trust": {
+                "artem": -1
+              },
+              "flags": [
+                "spring-services-rushed"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spring-services-turn",
+      "title": "Решение выдерживает проверку",
+      "trigger": {
+        "on": "afterMission",
+        "missionId": "SPR-010"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "sonya",
+          "emotion": "happy",
+          "text": "Теперь вывод не рассыпается, даже если изменить период и открыть сегменты."
+        },
+        {
+          "kind": "line",
+          "speaker": "alexey",
+          "emotion": "determined",
+          "text": "Хорошо. Доводи доказательства до итоговой рекомендации — я защищу её перед командой."
+        }
+      ]
+    }
+  ],
+  "endings": [
+    {
+      "id": "spring-services-gold",
+      "title": "Доказательство принято",
+      "summary": "Команда получила воспроизводимый вывод и безопасный следующий шаг.",
+      "minTrust": {
+        "artem": 1,
+        "alexey": 1
+      },
+      "rank": "золото"
+    },
+    {
+      "id": "spring-services-silver",
+      "title": "Решение с оговорками",
+      "summary": "Вывод принят, но часть рисков придётся перепроверить после запуска.",
+      "rank": "серебро"
+    }
+  ]
+}

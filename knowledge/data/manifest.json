@@ -27,6 +27,18 @@
     "large-data",
     "etl-elt",
     "production-incidents",
-    "data-final-project"
+    "data-final-project",
+    "analyst-metrics",
+    "product-analytics",
+    "analytics-communication",
+    "ml-engineering",
+    "model-serving",
+    "ml-observability",
+    "data-pipelines",
+    "streaming-platforms",
+    "data-platform-reliability",
+    "llm-applications",
+    "rag-systems",
+    "ai-evaluation-safety"
   ]
 }
