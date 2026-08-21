@@ -1,19 +1,73 @@
 import { useEffect, useMemo, useState } from 'react'
 import { AlertTriangle, ChevronRight, Mail, MessageSquare, SkipForward, Ticket } from 'lucide-react'
+import officeMorning from '../../assets/scenes/office-morning-v1.png'
+import meetingRoom from '../../assets/scenes/meeting-room-v1.png'
+import serverRoom from '../../assets/scenes/server-room-night-v1.png'
+import dataLab from '../../assets/scenes/data-lab-rain-v1.png'
+import { Portrait } from './Portrait'
 import { Sprite } from './Sprite'
 import { character } from './engine'
-import type { ChoiceBeat, ComicBeat, LineBeat, NotificationBeat, StoryAct, StoryBeat } from './types'
+import type { ChoiceBeat, Emotion, NotificationBeat, StoryAct } from './types'
 import type { BeatEffects } from '../core/game'
 
 const channelIcons = { chat: MessageSquare, alert: AlertTriangle, mail: Mail, ticket: Ticket }
 const channelLabels = { chat: 'СООБЩЕНИЕ', alert: 'АЛЕРТ', mail: 'ПИСЬМО', ticket: 'ЗАДАЧА' }
 
+type StoryMoment =
+  | { kind: 'line'; speaker: string; emotion?: Emotion; text: string; scene: string }
+  | { kind: 'notification'; beat: NotificationBeat; scene: string }
+  | { kind: 'choice'; beat: ChoiceBeat; scene: string }
+
+const locationNames = {
+  office: 'Открытый офис',
+  meeting: 'Переговорная',
+  server: 'Серверная',
+  lab: 'Лаборатория данных',
+} as const
+
+function locationFor(scene: string) {
+  const value = scene.toLowerCase()
+  if (/server|incident|alert|night|pipeline|deploy|terminal|сбой|сервер|ноч/.test(value)) return 'server'
+  if (/meeting|review|brief|board|decision|переговор|совещ|защит/.test(value)) return 'meeting'
+  if (/lab|rain|research|model|experiment|archive|исслед|модел|эксперимент/.test(value)) return 'lab'
+  return 'office'
+}
+
+const locationImages = { office: officeMorning, meeting: meetingRoom, server: serverRoom, lab: dataLab }
+
+function expandAct(act: StoryAct): StoryMoment[] {
+  let scene = act.title
+  return act.beats.flatMap<StoryMoment>(beat => {
+    if (beat.kind === 'comic') {
+      return beat.panels.map(panel => {
+        scene = panel.scene || scene
+        return {
+          kind: 'line',
+          speaker: panel.speaker ?? 'narrator',
+          emotion: panel.emotion,
+          text: panel.caption,
+          scene,
+        }
+      })
+    }
+    if (beat.kind === 'line') return [{ ...beat, scene }]
+    if (beat.kind === 'notification') return [{ kind: 'notification', beat, scene }]
+    return [{ kind: 'choice', beat, scene }]
+  })
+}
+
 function useTypewriter(text: string) {
   const [shown, setShown] = useState(0)
   useEffect(() => {
     setShown(0)
-    const timer = setInterval(() => setShown(value => (value >= text.length ? (clearInterval(timer), value) : value + 2)), 12)
-    return () => clearInterval(timer)
+    const timer = window.setInterval(() => setShown(value => {
+      if (value >= text.length) {
+        window.clearInterval(timer)
+        return value
+      }
+      return value + 2
+    }), 12)
+    return () => window.clearInterval(timer)
   }, [text])
   return { visible: text.slice(0, shown), done: shown >= text.length, finish: () => setShown(text.length) }
 }
@@ -27,18 +81,6 @@ function NotificationCard({ beat }: { beat: NotificationBeat }) {
   </div>
 }
 
-function ComicCard({ beat, campaign = false }: { beat: ComicBeat; campaign?: boolean }) {
-  return <div className="story-comic">{beat.panels.map((panel, index) => {
-    const who = panel.speaker ? character(panel.speaker) : undefined
-    return <figure className="comic-panel" key={index} style={{ animationDelay: `${index * 140}ms` }}>
-      <div className="comic-art" data-scene={panel.scene}>
-        {who ? <Sprite character={who} emotion={panel.emotion ?? 'neutral'} height={campaign ? 250 : 150}/> : <div className="comic-establishing"><i/><i/><i/></div>}
-      </div>
-      <figcaption>{who && <b>{who.name}: </b>}{panel.caption}</figcaption>
-    </figure>
-  })}</div>
-}
-
 export function StoryScene({ act, chosenByChoiceId, onChoose, onFinish, campaign = false }: {
   act: StoryAct
   chosenByChoiceId: Record<string, string>
@@ -46,35 +88,39 @@ export function StoryScene({ act, chosenByChoiceId, onChoose, onFinish, campaign
   onFinish: () => void
   campaign?: boolean
 }) {
+  const moments = useMemo(() => expandAct(act), [act])
   const [step, setStep] = useState(0)
   const [replyShown, setReplyShown] = useState(false)
-  const beat: StoryBeat | undefined = act.beats[step]
-  const isLine = beat?.kind === 'line'
-  const lineBeat = isLine ? (beat as LineBeat) : undefined
-  const speaker = lineBeat ? character(lineBeat.speaker) : undefined
-  const isNarrator = lineBeat?.speaker === 'narrator'
-  const bodyText = lineBeat?.text ?? ''
-  const typed = useTypewriter(bodyText)
+  const moment = moments[step]
+  const line = moment?.kind === 'line' ? moment : undefined
+  const isNarrator = line?.speaker === 'narrator'
+  const activeId = line && !isNarrator ? line.speaker : undefined
+  const activeCharacter = activeId ? character(activeId) : undefined
+  const typed = useTypewriter(line?.text ?? '')
+  const location = locationFor(moment?.scene ?? act.title)
 
-  /** Кто стоит на сцене: последний говоривший персонаж остаётся, пока не сменится. */
-  const staged = useMemo(() => {
-    for (let index = step; index >= 0; index -= 1) {
-      const candidate = act.beats[index]
-      if (candidate.kind === 'line' && candidate.speaker !== 'narrator') return character(candidate.speaker)
+  const visibleIds = useMemo(() => {
+    const ids: string[] = []
+    for (const candidate of moments.slice(0, step + 1)) {
+      if (candidate.kind !== 'line' || candidate.speaker === 'narrator') continue
+      const existing = ids.indexOf(candidate.speaker)
+      if (existing >= 0) ids.splice(existing, 1)
+      ids.push(candidate.speaker)
     }
-    return undefined
-  }, [act, step])
+    return ids.slice(-3)
+  }, [moments, step])
 
-  const isChoice = beat?.kind === 'choice'
-  const choiceBeat = isChoice ? (beat as ChoiceBeat) : undefined
-  const chosen = choiceBeat ? chosenByChoiceId[choiceBeat.id] : undefined
-  const picked = choiceBeat?.options.find(option => option.id === chosen)
-  const blocked = Boolean(isChoice && (!chosen || !replyShown))
-  const last = step >= act.beats.length - 1
+  const slots = visibleIds.length === 1 ? ['center'] : visibleIds.length === 2 ? ['left', 'right'] : ['left', 'center', 'right']
+  const activeSlot = activeId ? slots[visibleIds.indexOf(activeId)] : undefined
+  const choice = moment?.kind === 'choice' ? moment.beat : undefined
+  const chosen = choice ? chosenByChoiceId[choice.id] : undefined
+  const picked = choice?.options.find(option => option.id === chosen)
+  const blocked = Boolean(choice && (!chosen || !replyShown))
+  const last = step >= moments.length - 1
 
   function advance() {
     if (blocked) return
-    if (isLine && !typed.done) { typed.finish(); return }
+    if (line && !typed.done) { typed.finish(); return }
     if (last) { onFinish(); return }
     setStep(value => value + 1)
     setReplyShown(false)
@@ -90,34 +136,43 @@ export function StoryScene({ act, chosenByChoiceId, onChoose, onFinish, campaign
   })
 
   return <div className={`vn-overlay ${campaign ? 'campaign' : ''}`} role="dialog" aria-label={act.title}>
-    <div className={`vn-stage ${campaign ? 'is-campaign' : ''}`}>
+    <main className="vn-stage">
+      <img className="vn-location" src={locationImages[location]} alt="" aria-hidden="true"/>
+      <div className="vn-light" aria-hidden="true"/>
+
       <header className="vn-head">
-        <div><span className="story-kicker">СЦЕНА</span><strong>{act.title}</strong></div>
-        {!campaign && <button className="story-skip" onClick={onFinish}><SkipForward size={15}/>Пропустить</button>}
+        <div><span className="story-kicker">{locationNames[location]}</span><strong>{act.title}</strong></div>
+        {!campaign && <button className="story-skip" onClick={onFinish}><SkipForward size={15}/>Пропустить сцену</button>}
       </header>
 
-      <div className={`vn-scene ${isNarrator ? 'is-narration' : ''}`} onClick={advance}>
-        <div className="vn-backdrop" aria-hidden="true"><i/><i/><i/></div>
-
-        {staged && !isChoice && beat?.kind !== 'comic' && (
-          <div className="vn-actor" key={staged.id}>
-            <Sprite character={staged} emotion={lineBeat?.emotion ?? 'neutral'} height={380} dimmed={isNarrator}/>
-          </div>
-        )}
-
-        <div className="vn-inserts">
-          {beat?.kind === 'notification' && <NotificationCard beat={beat as NotificationBeat}/>}
-          {beat?.kind === 'comic' && <ComicCard beat={beat as ComicBeat} campaign={campaign}/>} 
+      <section className="vn-scene" onClick={advance}>
+        <div className="vn-ensemble" aria-live="polite">
+          {visibleIds.map((id, index) => {
+            const actor = character(id)
+            const isActive = id === activeId
+            return <div className={`vn-actor slot-${slots[index]} ${isActive ? 'is-active' : 'is-idle'}`} key={id}>
+              <Sprite character={actor} emotion={isActive ? line?.emotion ?? 'neutral' : 'neutral'} height={660} dimmed={!isActive && Boolean(activeId)} side={slots[index] === 'right' ? 'right' : 'left'}/>
+            </div>
+          })}
         </div>
 
-        {isChoice && choiceBeat && <div className="vn-choice">
+        {line && <div className={`vn-speech ${isNarrator ? 'is-narrator' : `from-${activeSlot ?? 'center'}`}`}>
+          {!isNarrator && activeCharacter && <div className="vn-speaker">
+            <Portrait character={activeCharacter} emotion={line.emotion} size={68} speaking/>
+            <div><strong>{activeCharacter.name}</strong><span>{activeCharacter.role}</span></div>
+          </div>}
+          <p>{typed.visible}<span className={`caret ${typed.done ? 'done' : ''}`}/></p>
+        </div>}
+
+        {moment?.kind === 'notification' && <div className="vn-event"><NotificationCard beat={moment.beat}/></div>}
+
+        {choice && <div className="vn-choice" onClick={event => event.stopPropagation()}>
           <span className="choice-kicker">ТВОЙ ХОД</span>
-          <p className="choice-prompt">{choiceBeat.prompt}</p>
-          <div className="choice-options">{choiceBeat.options.map(option => (
+          <p className="choice-prompt">{choice.prompt}</p>
+          <div className="choice-options">{choice.options.map(option => (
             <button key={option.id} className={chosen === option.id ? 'picked' : ''} disabled={Boolean(chosen)}
-              onClick={event => {
-                event.stopPropagation()
-                onChoose(choiceBeat.id, option.id, { trust: option.trust, flags: option.flags, items: option.items })
+              onClick={() => {
+                onChoose(choice.id, option.id, { trust: option.trust, flags: option.flags, items: option.items })
                 setReplyShown(true)
               }}>
               <span>{option.text}</span>{chosen === option.id && <em>выбрано</em>}
@@ -125,27 +180,15 @@ export function StoryScene({ act, chosenByChoiceId, onChoose, onFinish, campaign
           ))}</div>
           {picked?.reply && <div className="choice-reply"><ChevronRight size={15}/><p>{picked.reply}</p></div>}
         </div>}
-      </div>
-
-      {(isLine || beat?.kind === 'notification' || beat?.kind === 'comic') && (
-        <div className="vn-dialogue" onClick={advance}>
-          {isLine && !isNarrator && speaker && (
-            <div className="vn-nameplate"><strong>{speaker.name}</strong><span>{speaker.role}</span></div>
-          )}
-          <p className={`vn-text ${isNarrator ? 'narration' : ''}`}>
-            {isLine ? typed.visible : beat?.kind === 'notification' ? 'Входящее сообщение.' : 'Кадры сцены.'}
-            {isLine && !typed.done && <span className="caret"/>}
-          </p>
-        </div>
-      )}
+      </section>
 
       <footer className="vn-foot">
-        <div className="story-dots">{act.beats.map((_, index) => <i key={index} className={index <= step ? 'on' : ''}/>)}</div>
-        <span className="vn-hint">{campaign ? 'Пробел или Enter — дальше' : 'Пробел или Enter — дальше, Esc — пропустить'}</span>
+        <div className="story-dots">{moments.map((_, index) => <i key={index} className={index <= step ? 'on' : ''}/>)}</div>
+        <span className="vn-hint">Пробел или Enter — дальше</span>
         <button className="story-next" onClick={advance} disabled={blocked}>
-          {blocked ? 'Выбери вариант' : last ? 'Продолжить' : 'Дальше'}<ChevronRight size={16}/>
+          {blocked ? 'Выбери вариант' : last ? 'Продолжить к заданию' : 'Дальше'}<ChevronRight size={16}/>
         </button>
       </footer>
-    </div>
+    </main>
   </div>
 }
