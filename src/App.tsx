@@ -15,9 +15,8 @@ import dataPrograms from '../knowledge/data/programs.json'
 import professionPrograms from '../knowledge/professions/programs.json'
 import { MissionRunner } from './MissionRunner'
 import { StoryScene } from './story/StoryScene'
-import { Portrait } from './story/Portrait'
 import { Sprite } from './story/Sprite'
-import { cases, caseActIds, caseChoiceIds, caseForCourse, caseProgress, cast, character, pendingAct, pendingPrologueAct, resolveEnding } from './story/engine'
+import { cases, caseActIds, caseChoiceIds, caseForCourse, caseProgress, cast, character, pendingAct, resolveEnding } from './story/engine'
 import { applyChoice, claimDaily, emptyGame, focusBonusXp, getGame, markActSeen, rankFor, recordEnding, replayCase, spendEnergy, spendFocus as spendFocusPoints, useItem, ITEMS, FOCUS_BONUS_THRESHOLD, type BeatEffects, type GameState, MAX_ENERGY } from './core/game'
 import type { StoryAct } from './story/types'
 import { notifyCaseEnding, notifyMissionDone, syncProgress } from './core/notify'
@@ -101,18 +100,6 @@ function currentAccessibleRoom(progress: UserProgress) {
   return saved && isRoomAccessible(saved, progress) ? saved : rooms.find(item => isRoomAccessible(item, progress)) ?? rooms[0]
 }
 
-function currentQuestRoom(progress: UserProgress, professionId: ProfessionId) {
-  const routeRooms = roomsForProfession(professionId)
-  const candidates = routeRooms.length ? routeRooms : rooms
-  const saved = candidates.find(room => room.id === progress.currentRoomId)
-  if (saved && isRoomAccessible(saved, progress) && !isRoomComplete(saved.id, progress)) return saved
-  return candidates.find(room => isRoomAccessible(room, progress) && !isRoomComplete(room.id, progress)) ?? saved ?? candidates[0] ?? currentAccessibleRoom(progress)
-}
-
-function currentQuestMission(room: Room, progress: UserProgress) {
-  return room.missions.find(mission => !progress.completedMissionIds.includes(mission.id)) ?? room.missions[room.missions.length - 1]
-}
-
 function GlobalSearch({ open, progress, onClose, onChoose }: { open: boolean; progress: UserProgress; onClose: () => void; onChoose: (target: SearchTarget) => void }) {
   const [query, setQuery] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
@@ -166,22 +153,6 @@ function GameHud({ game, xp }: { game: GameState; xp: number }) {
       <span>{game.energy}</span>
     </div>
   </div>
-}
-
-function CaseBanner({ roomId, game }: { roomId: string; game: GameState }) {
-  const story = caseForCourse(roomId)
-  if (!story) return null
-  const progress = caseProgress(story, game)
-  const ending = game.endings[story.caseId]
-  return <section className="case-banner">
-    <div>
-      <span className="case-number">{story.number} · {progress.seen} из {progress.total} сцен{ending ? ` · пройдено на «${ending}»` : ''}</span>
-      <h2>{story.title}</h2>
-      <p>{story.logline}</p>
-      <div className="case-progress"><i style={{ width: `${progress.percent}%` }}/></div>
-    </div>
-    <div className="case-cast">{story.cast.map(id => <Portrait key={id} character={character(id)} size={54}/>)}</div>
-  </section>
 }
 
 function EndingView({ roomId, game, onReplay, onClose }: { roomId: string; game: GameState; onReplay: () => void; onClose: () => void }) {
@@ -412,8 +383,8 @@ function PathView({ onOpen, header, progress, domainId, professionId, onDomainCh
         <div className="shared-skills-note"><GitBranch size={18}/><div><strong>Один навык — несколько карьерных путей</strong><span>Основы Python, SQL, Git, Linux и другие общие блоки засчитываются везде. Повторно проходить их не придётся.</span></div></div>
       </section>
       <section className="path-hero">
-        <div className="hero-copy"><div className="eyebrow"><Sparkles size={15}/> Выбранная профессия</div><h1>{profession.title}:<br/><span>{profession.subtitle}</span></h1><p>{profession.description} {isReady && 'Маршрут состоит из коротких миссий, рабочих кейсов и непрерывной сюжетной кампании.'}</p>
-          <div className="hero-actions">{isReady && routeStartRoom ? <><button className="primary-button" onClick={() => onOpen(routeStartRoom.id)}><Play size={16} fill="currentColor"/>{routeStarted ? 'Продолжить маршрут' : 'Начать маршрут'}</button><span>{routeStartRoom.title} · {routeStartRoom.missions[0]?.minutes ?? 6} минут</span></> : <button className="primary-button" disabled><LockKeyhole size={16}/>Маршрут готовится</button>}</div>
+        <div className="hero-copy"><div className="eyebrow"><Sparkles size={15}/> Выбранная профессия</div><h1>{profession.title}:<br/><span>{profession.subtitle}</span></h1><p>{profession.description} {isReady && 'Каждый учебный блок — отдельное приключение с миссиями, кодом и собственным прогрессом.'}</p>
+          <div className="hero-actions">{isReady && routeStartRoom ? <><button className="primary-button" onClick={() => onOpen(routeStartRoom.id)}><Play size={16} fill="currentColor"/>{routeStarted ? 'Продолжить блок' : 'Открыть первый блок'}</button><span>{routeStartRoom.title} · {routeStartRoom.missions[0]?.minutes ?? 6} минут</span></> : <button className="primary-button" disabled><LockKeyhole size={16}/>Маршрут готовится</button>}</div>
         </div>
         {isReady ? <div className="hero-stats"><ProgressRing percent={pathPercent}/><div className="stat-stack"><div><strong>{completedCount}</strong><span>миссий пройдено</span></div><div><strong>{totalMissions}</strong><span>всего в маршруте</span></div></div></div> : <div className="profession-modules"><span>Основной стек</span>{profession.stack.map(tool => <b key={tool}>{tool}</b>)}</div>}
       </section>
@@ -425,7 +396,7 @@ function PathView({ onOpen, header, progress, domainId, professionId, onDomainCh
         <div className="route-line" aria-hidden="true"/>
         {routeRooms.map(room => <RoomCard key={room.id} room={room} locked={!isRoomAccessible(room, progress)} completedMissionIds={progress.completedMissionIds} onOpen={() => onOpen(room.id)}/>)}
       </section>
-      <section className="next-path"><div><span className="section-kicker">ФИНАЛ ПРОФЕССИИ</span><h2>Защити итоговое дело</h2><p>Последняя глава связывает навыки маршрута в одно рабочее решение и фиксирует последствия твоих выборов.</p></div><div className="specialties"><span>Рабочий артефакт</span><span>Решение инцидента</span><span>Финал новеллы</span></div></section>
+      <section className="next-path"><div><span className="section-kicker">СБОРКА ПРОФЕССИИ</span><h2>Соедини пройденные блоки в итоговый проект</h2><p>SQL, Python, математика и ML изучаются отдельными приключениями, а в финале сходятся в одном рабочем решении.</p></div><div className="specialties"><span>Рабочий артефакт</span><span>Код и проверки</span><span>Защита решения</span></div></section>
       </> : <section className="profession-preview"><div className="preview-mark"><profession.Icon size={28}/></div><div><span className="section-kicker">МАРШРУТ В РАЗРАБОТКЕ</span><h2>{profession.title}</h2><p>Структура профессии уже предусмотрена платформой. Полноценные комнаты и практические миссии будут добавлены следующим контентным этапом.</p></div><button className="ds-button ds-secondary" onClick={() => onProfessionChange('data-scientist')}>Открыть готовый маршрут</button></section>}
     </main>
   </>
@@ -435,14 +406,14 @@ function SectionIntro({ kicker, title, description }: { kicker: string; title: s
   return <div className="section-intro"><span className="section-kicker">{kicker}</span><h1>{title}</h1><p>{description}</p></div>
 }
 
-function HomeView({ header, account, progress, onContinue, onOpenPath, onOpenPractice }: { header: React.ReactNode; account: UserAccount; progress: UserProgress; onContinue: () => void; onOpenPath: () => void; onOpenPractice: () => void }) {
+function HomeView({ header, account, progress, onContinue, onOpenPath, onOpenPractice }: { header: React.ReactNode; account: UserAccount; progress: UserProgress; onContinue: (roomId: string) => void; onOpenPath: () => void; onOpenPractice: () => void }) {
   const totalMissions = rooms.reduce((sum, room) => sum + room.missions.length, 0)
   const percent = Math.round(progress.completedMissionIds.length / totalMissions * 100)
   const currentRoom = currentAccessibleRoom(progress)
   return <>{header}<main className="main section-page">
-    <section className="home-command"><div><span className="section-kicker">ЦЕНТР УПРАВЛЕНИЯ ОБУЧЕНИЕМ</span><h1>С возвращением, {account.displayName}</h1><p>Продолжи текущую миссию или выбери, чему уделить время сегодня.</p><div className="hero-actions"><button className="primary-button" onClick={onContinue}><Play size={16} fill="currentColor"/>Продолжить обучение</button><button className="section-button" onClick={onOpenPath}><Map size={17}/>Открыть профессии</button></div></div><ProgressRing percent={percent}/></section>
+    <section className="home-command"><div><span className="section-kicker">ЦЕНТР УПРАВЛЕНИЯ ОБУЧЕНИЕМ</span><h1>С возвращением, {account.displayName}</h1><p>Выбери учебный блок или продолжи уже начатый. Приключение запускается только внутри выбранного блока.</p><div className="hero-actions"><button className="primary-button" onClick={() => onContinue(currentRoom.id)}><Play size={16} fill="currentColor"/>Продолжить блок</button><button className="section-button" onClick={onOpenPath}><Map size={17}/>Открыть карьерные пути</button></div></div><ProgressRing percent={percent}/></section>
     <section className="section-metrics"><article><span>Пройдено миссий</span><strong>{progress.completedMissionIds.length}</strong><small>из {totalMissions} в первом маршруте</small></article><article><span>Энергия опыта</span><strong>{progress.xp.toLocaleString('ru-RU')} XP</strong><small>общий прогресс профиля</small></article><article><span>Серия занятий</span><strong>{progress.streak} дней</strong><small>ритм сохранён</small></article></section>
-    <section className="home-grid"><article className="focus-card"><div className="section-card-icon"><Database size={20}/></div><span className="section-kicker">ТЕКУЩИЙ УЗЕЛ</span><h2>{currentRoom.title}</h2><p>{currentRoom.description}</p><button className="section-link" onClick={onContinue}>Открыть комнату <ArrowRight size={16}/></button></article><article className="focus-card"><div className="section-card-icon"><TerminalSquare size={20}/></div><span className="section-kicker">БЫСТРЫЙ РЕЖИМ</span><h2>Практика навыков</h2><p>Короткие упражнения из уже открытых учебных комнат.</p><button className="section-link" onClick={onOpenPractice}>Перейти к практике <ArrowRight size={16}/></button></article></section>
+    <section className="home-grid"><article className="focus-card"><div className="section-card-icon"><Database size={20}/></div><span className="section-kicker">ТЕКУЩИЙ БЛОК</span><h2>{currentRoom.title}</h2><p>{currentRoom.description}</p><button className="section-link" onClick={() => onContinue(currentRoom.id)}>Открыть программу блока <ArrowRight size={16}/></button></article><article className="focus-card"><div className="section-card-icon"><TerminalSquare size={20}/></div><span className="section-kicker">БЫСТРЫЙ РЕЖИМ</span><h2>Практика навыков</h2><p>Короткие упражнения из уже открытых учебных блоков.</p><button className="section-link" onClick={onOpenPractice}>Перейти к практике <ArrowRight size={16}/></button></article></section>
   </main></>
 }
 
@@ -479,7 +450,7 @@ function AchievementsView({ header, progress }: { header: React.ReactNode; progr
   })}</section></main></>
 }
 
-function RoomView({ room, onBack, header, banner, progress, onStart }: { room: Room; onBack: () => void; header: React.ReactNode; banner?: React.ReactNode; progress: UserProgress; onStart: (missionId: string) => void }) {
+function RoomView({ room, onBack, header, progress, onStart }: { room: Room; onBack: () => void; header: React.ReactNode; progress: UserProgress; onStart: (missionId: string) => void }) {
   const completed = room.missions.filter(mission => progress.completedMissionIds.includes(mission.id)).length
   const firstIncomplete = room.missions.findIndex(mission => !progress.completedMissionIds.includes(mission.id))
   const [selected, setSelected] = useState(firstIncomplete < 0 ? room.missions.length - 1 : firstIncomplete)
@@ -491,7 +462,6 @@ function RoomView({ room, onBack, header, banner, progress, onStart }: { room: R
   }, [current.id])
   const totalMinutes = useMemo(() => room.missions.reduce((sum, mission) => sum + mission.minutes, 0), [room])
   return <>{header}<main className="main room-page">
-    {banner}
     <section className="room-hero" style={{ '--room-accent': room.accent } as React.CSSProperties}>
       <div><div className="room-number">Комната {room.index} · {room.category}</div><h1>{room.title}</h1><p>{room.description}</p><div className="room-facts"><span><CircleDot size={15}/>{plural(room.missions.length, 'миссия', 'миссии', 'миссий')}</span><span>≈ {plural(totalMinutes, 'минута', 'минуты', 'минут')}</span><span>{plural(room.skills.length, 'навык', 'навыка', 'навыков')}</span></div></div>
       <div className="mastery"><span>Освоение</span><strong>{Math.round(completed / room.missions.length * 100)}%</strong><div className="bar"><i style={{ width: `${completed / room.missions.length * 100}%` }}/></div><small>{completed} из {room.missions.length} миссий</small></div>
@@ -521,10 +491,10 @@ export default function App() {
   const [account, setAccount] = useState<UserAccount | null>(() => activeAccount())
   const [theme, setTheme] = useState<ThemeId>(initial.theme)
   const [progress, setProgress] = useState<UserProgress | null>(() => account ? getProgress(account.id) : null)
-  const [view, setView] = useState<View>({ type: 'quest' })
+  const [view, setView] = useState<View>({ type: 'home' })
   const [searchOpen, setSearchOpen] = useState(false)
   const [game, setGame] = useState<GameState>(() => (account ? getGame(account.id) : emptyGame()))
-  const [scene, setScene] = useState<StoryAct | null>(() => account ? pendingPrologueAct(game) ?? null : null)
+  const [scene, setScene] = useState<StoryAct | null>(null)
   const [endingRoomId, setEndingRoomId] = useState<string | null>(null)
   const [professionId, setProfessionId] = useState<ProfessionId>(() => (localStorage.getItem('request.selected-profession') as ProfessionId) || 'data-scientist')
   const [domainId, setDomainId] = useState<CareerDomainId>(() => professions.find(item => item.id === ((localStorage.getItem('request.selected-profession') as ProfessionId) || 'data-scientist'))?.domainId || 'data-ai')
@@ -559,32 +529,18 @@ export default function App() {
   }
   useEffect(() => {
     if (!account || scene) return
-    // Пролог играет у всех и раньше всего остального, независимо от раздела и профессии.
-    const intro = pendingPrologueAct(game)
-    if (intro) { setScene(intro); return }
-    if (view.type === 'quest' && progress) {
-      const questRoom = currentQuestRoom(progress, professionId)
-      const questMission = currentQuestMission(questRoom, progress)
-      const questAct = pendingAct(questRoom.id, game, { on: 'caseStart' })
-        ?? pendingAct(questRoom.id, game, { on: 'beforeMission', missionId: questMission.id })
-      if (questAct) setScene(questAct)
-      return
-    }
-    const moment = view.type === 'room' ? { on: 'caseStart' as const }
-      : view.type === 'mission' ? { on: 'beforeMission' as const, missionId: view.missionId }
-      : undefined
-    if (!moment) return
-    const roomId = view.type === 'room' ? view.roomId : view.type === 'mission' ? view.roomId : ''
-    const act = pendingAct(roomId, game, moment)
+    if (view.type !== 'mission') return
+    const act = pendingAct(view.roomId, game, { on: 'caseStart' })
+      ?? pendingAct(view.roomId, game, { on: 'beforeMission', missionId: view.missionId })
     if (act) setScene(act)
-  }, [view, game, account, scene, progress, professionId])
+  }, [view, game, account, scene])
   function authenticated(next: UserAccount) {
     const nextGame = getGame(next.id)
     setAccount(next)
     setProgress(getProgress(next.id))
     setGame(nextGame)
-    setScene(pendingPrologueAct(nextGame) ?? null)
-    setView({ type: 'quest' })
+    setScene(null)
+    setView({ type: 'home' })
   }
   function signOut() { logout(); setAccount(null); setProgress(null) }
   function finishScene() {
@@ -637,7 +593,7 @@ export default function App() {
       setView({ type: 'path' })
     } else if (target.kind === 'section') {
       setSearchOpen(false)
-      setView(target.section === 'home' ? { type: 'quest' } : { type: target.section })
+      setView({ type: target.section })
     } else {
       const targetRoom = rooms.find(item => item.id === target.roomId)
       if (!targetRoom || !isRoomAccessible(targetRoom, progress)) return
@@ -647,20 +603,11 @@ export default function App() {
     }
   }
   if (!account || !progress) return <AuthView onAuthenticated={authenticated}/>
-  if (view.type === 'quest') {
-    const questRoom = currentQuestRoom(progress, professionId)
-    const questMission = currentQuestMission(questRoom, progress)
-    return <>
-      <MissionRunner key={`${questRoom.id}-${questMission.id}`} questMode room={questRoom} mission={questMission} completed={progress.completedMissionIds.includes(questMission.id)} energy={game.energy} inventory={game.inventory} onSpendFocus={spendFocus} onExit={() => setView({ type: 'path' })} onComplete={() => missionCompleted(questRoom, questMission.id, questMission.xp)}/>
-      {scene && <StoryScene campaign act={scene} chosenByChoiceId={game.choices} onChoose={pickChoice} onFinish={finishScene}/>}
-      {endingRoomId && <EndingView roomId={endingRoomId} game={game} onReplay={() => replayCurrentCase(endingRoomId)} onClose={() => setEndingRoomId(null)}/>}
-    </>
-  }
   if (view.type === 'mission') {
     const missionRoom = rooms.find(item => item.id === view.roomId)
     const mission = missionRoom?.missions.find(item => item.id === view.missionId)
     if (missionRoom && mission && isMissionAccessible(missionRoom, mission.id, progress)) return <>
-      <MissionRunner room={missionRoom} mission={mission} completed={progress.completedMissionIds.includes(mission.id)} energy={game.energy} inventory={game.inventory} onSpendFocus={spendFocus} onExit={() => setView({ type: 'room', roomId: missionRoom.id })} onComplete={() => missionCompleted(missionRoom, mission.id, mission.xp)}/>
+      <MissionRunner questMode={Boolean(caseForCourse(missionRoom.id))} room={missionRoom} mission={mission} completed={progress.completedMissionIds.includes(mission.id)} energy={game.energy} inventory={game.inventory} onSpendFocus={spendFocus} onExit={() => setView({ type: 'room', roomId: missionRoom.id })} onComplete={() => missionCompleted(missionRoom, mission.id, mission.xp)}/>
       {scene && <StoryScene act={scene} chosenByChoiceId={game.choices} onChoose={pickChoice} onFinish={finishScene}/>}
       {endingRoomId && <EndingView roomId={endingRoomId} game={game} onReplay={() => replayCurrentCase(endingRoomId)} onClose={() => setEndingRoomId(null)}/>}
     </>
@@ -670,10 +617,10 @@ export default function App() {
   const sectionTitles: Record<AppSection, string> = { home: 'Главная', path: 'Профессии', practice: 'Практика', projects: 'Проекты', achievements: 'Достижения', hq: 'Штаб' }
   const header = (title: string, roomValue?: Room) => <Header title={title} onBack={roomValue ? () => setView({ type: 'path' }) : undefined} room={roomValue} theme={theme} onThemeChange={changeTheme} xp={progress.xp} game={game} onOpenAccount={() => setView({ type: 'account' })} onOpenSearch={() => setSearchOpen(true)}/>
   const activeSection = view.type === 'room' ? 'path' : view.type === 'account' ? 'account' : view.type
-  return <><div className="app-shell"><Sidebar active={activeSection} account={account} progress={progress} onNavigate={section => setView(section === 'home' ? { type: 'quest' } : { type: section })} onOpenAccount={() => setView({ type: 'account' })}/><div className="content-shell">
+  return <><div className="app-shell"><Sidebar active={activeSection} account={account} progress={progress} onNavigate={section => setView({ type: section })} onOpenAccount={() => setView({ type: 'account' })}/><div className="content-shell">
     {view.type === 'account' ? <AccountView account={account} progress={progress} onAccountChange={setAccount} onBack={() => setView({ type: 'path' })} onLogout={signOut}/>
-      : room ? <RoomView room={room} onBack={() => setView({ type: 'path' })} header={header('Профессии', room)} banner={<CaseBanner roomId={room.id} game={game}/>} progress={progress} onStart={missionId => setView({ type: 'mission', roomId: room.id, missionId })}/>
-      : view.type === 'home' ? <HomeView header={header(sectionTitles.home)} account={account} progress={progress} onContinue={() => setView({ type: 'quest' })} onOpenPath={() => setView({ type: 'path' })} onOpenPractice={() => setView({ type: 'practice' })}/>
+      : room ? <RoomView room={room} onBack={() => setView({ type: 'path' })} header={header('Профессии', room)} progress={progress} onStart={missionId => setView({ type: 'mission', roomId: room.id, missionId })}/>
+      : view.type === 'home' ? <HomeView header={header(sectionTitles.home)} account={account} progress={progress} onContinue={roomId => setView({ type: 'room', roomId })} onOpenPath={() => setView({ type: 'path' })} onOpenPractice={() => setView({ type: 'practice' })}/>
       : view.type === 'practice' ? <PracticeView header={header(sectionTitles.practice)} progress={progress} onOpen={roomId => setView({ type: 'room', roomId })}/>
       : view.type === 'projects' ? <ProjectsView header={header(sectionTitles.projects)}/>
       : view.type === 'hq' ? <HqView header={header(sectionTitles.hq)} account={account} progress={progress} game={game} onGameChange={setGame} onOpenRoom={roomId => setView({ type: 'room', roomId })}/>

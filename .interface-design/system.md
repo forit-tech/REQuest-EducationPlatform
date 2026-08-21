@@ -4,11 +4,11 @@
 
 REQuest is a Russian-language practical career training station, not a conventional course catalog. The interface should feel like a focused scientific workstation aboard a near-future research vessel: technical, calm, and readable for long sessions.
 
-Core domain language: professions, campaigns, cases, episodes, characters, evidence, skill network, execution node, telemetry, REQuest ID, XP energy, production incidents. Rooms may remain an internal content grouping, but must not interrupt the active story.
+Core domain language: professions, blocks, expeditions, cases, episodes, characters, evidence, skill network, execution node, telemetry, REQuest ID, XP energy, production incidents. Rooms remain the ordinary, non-game course pages from which a learner deliberately starts or resumes a block adventure.
 
-The primary hierarchy is **Career domain → Profession/specialization → Campaign → Case → Episode**. The first choice must separate genuinely different fields (Data & AI, Backend, Frontend, DevOps, Cybersecurity); adjacent roles belong on the second level. Data Scientist is the first complete profession, never the entire identity of the platform.
+The primary hierarchy is **Career domain → Profession/specialization → Independent learning block → Case → Episode**. The first choice must separate genuinely different fields (Data & AI, Backend, Frontend, DevOps, Cybersecurity); adjacent roles belong on the second level. Data Scientist is the first complete profession, never the entire identity of the platform.
 
-The signature pattern is a **continuous playable case**: character scene → concrete objective → workstation action → consequence → next scene. The learner resumes the current episode immediately and never has to return to a room list between missions.
+The signature pattern is a **map of independent expeditions**. The authenticated app always opens as an ordinary learning product; no global prologue or novel may intercept Home, catalog, profession, account, or project pages. A novel begins only after the learner starts a mission inside a chosen professional block. Within that block the loop is continuous: character scene → concrete objective → workstation action → consequence → next scene. Several dependency-free blocks may be studied in parallel, while fine-grained prerequisites lock only the concepts that truly depend on completed foundations.
 
 ## Themes
 
@@ -51,10 +51,10 @@ Elevation:
 
 ## Reusable patterns
 
-- Continuous quest loop: the default authenticated destination resumes the current case. Completing an episode automatically advances story state and opens the next playable beat without a catalog or room transition.
+- Local quest loop: a block page is ordinary until the learner starts its mission. Completing an episode advances only that block's story; leaving it returns to the same ordinary block page, while other available blocks keep independent progress.
 - Persistent cast: the current guide and companion remain visible in the case workspace, while full-screen character scenes introduce objectives, conflict, choices, and consequences.
 - Workstation inside fiction: lecture notes, datasets, code, quizzes, and checks are tools used by the characters to solve the case. They must not read as a detached LMS page.
-- Rooms are metadata: room/course groupings may exist in curriculum and practice views, but never appear as required navigation during the active campaign.
+- Block boundaries are explicit: every profession shows concrete SQL, Python, ML, platform, or domain blocks as independently startable cards. A completed shared block propagates to every profession that references it.
 
 - Primary button: theme signal fill, dark signal text, 42 px minimum height.
 - Secondary button: transparent/panel surface with quiet border.
@@ -78,7 +78,7 @@ Elevation:
 - Mission detail panel: keep the selected mission in a viewport-bounded, independently scrollable panel with contained overscroll. Show `Начать миссию` directly under the mission identity and keep completion/progress controls sticky at the panel bottom.
 - Mission runner: the active case keeps its cast, episode, objective, and narrative context visible around a full-window execution station. The workstation uses a sequential brief on the left, task workspace in the center, context-sensitive answer/check surface on the right, and verification telemetry below. Completion immediately continues the story.
 - Runner accent discipline: use a 3–10% mix of the active `signal` token on the briefing identity, active file tab, data headers, task heading, terminal header, and verification footer. Pair these quiet fields with one solid signal edge; do not introduce decorative secondary hues.
-- Mission pedagogy: theory and quiz missions open on a Russian lecture-note tab, connect the concept to a specific visible datum, and do not show a terminal. Terminal/editor surfaces appear only when a lab, code task, case, or boss mission requires inspection or execution, and the note must explain why that tool is needed.
+- Mission pedagogy: at least 60% of every professional block requires editing a working file and passing three explicit checks. Theory and the occasional quiz provide orientation, connect the concept to a specific visible datum, and do not show a terminal. Historical or scientific facts carry a named primary/official source. Terminal/editor surfaces appear only when a lab, code task, case, or boss mission requires inspection or execution, and the note must explain why that tool is needed.
 - Investigation mission: when the learner must infer a concept from data, open on the dataset instead of the lecture. Keep the note locked until the learner collects explicit evidence (row, feature, value or equivalent), justifies the conclusion, and handles a second production dataset with changed granularity. The task rail shows completed evidence as a compact checklist; it must never state the inferred answer before verification.
 - Theme scrollbar: use the active semantic `signal` color for the thumb and the inset `control` surface for the track; apply consistently to page and nested learning panels.
 

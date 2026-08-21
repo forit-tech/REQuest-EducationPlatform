@@ -119,6 +119,7 @@ function ReadmeView({ mission, isCodeMission, hasTerminal, onOpenWorkspace }: { 
     <div className="readme-kicker">КРАТКАЯ ЛЕКЦИЯ // README.md</div>
     <h2>{mission.title}</h2>
     <p className="readme-lead">{isDataIntro ? 'Люди работали с данными задолго до компьютеров. Менялись носители и инструменты, но суть оставалась прежней: зафиксировать факт так, чтобы к нему можно было вернуться, сравнить его с другими и сделать вывод.' : mission.intro}</p>
+    {mission.historicalFact && <aside className="history-fact"><span>ИСТОРИЯ И НАУКА</span><h3>{mission.historicalFact.title}</h3><p>{mission.historicalFact.text}</p><a href={mission.historicalFact.sourceUrl} target="_blank" rel="noreferrer">Источник: {mission.historicalFact.sourceLabel}</a></aside>}
     {isDataIntro ? <>
       <section><h3>Как появилась работа с данными</h3><div className="data-history"><div><span>01</span><strong>Зарубки и переписи</strong><p>Количество товаров, людей и налогов фиксировали на глине, папирусе и бумаге.</p></div><div><span>02</span><strong>Журналы и ведомости</strong><p>Факты стали записывать по единым правилам: одна строка — одна операция или объект.</p></div><div><span>03</span><strong>Базы данных</strong><p>Компьютеры позволили хранить миллионы связанных записей и быстро находить нужные.</p></div><div><span>04</span><strong>Цифровые события</strong><p>Сегодня приложения автоматически фиксируют клики, покупки, платежи и показания датчиков.</p></div></div></section>
       <section><h3>Главная мысль</h3><div className="concept-contrast"><div><span>ДАННЫЕ</span><strong>Зафиксированные факты и наблюдения</strong><p>«Пользователь 104221 совершил покупку в 19:44:42 на сумму 3 490».</p></div><div><span>ПРЕДСТАВЛЕНИЕ</span><strong>Способ хранения этих фактов</strong><p>CSV-файл, таблица, JSON, база данных или запись на бумаге.</p></div></div><p className="lecture-rule"><strong>Формат можно поменять — факт останется тем же.</strong> Поэтому данные нельзя определять как «только числа» или «любой файл».</p></section>
@@ -134,7 +135,7 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
   const isObservationInvestigation = mission.id === 'DATA-002'
   const isFeatureInvestigation = mission.id === 'DATA-003'
   const isContentFactoryInvestigation = isObservationInvestigation || isFeatureInvestigation
-  const isCodeMission = mission.type === 'code' || mission.type === 'lab'
+  const isCodeMission = mission.type === 'code' || mission.type === 'lab' || Boolean(mission.task?.starterCode)
   const hasTerminal = isCodeMission || mission.type === 'case' || mission.type === 'boss'
   const dataFileName = mission.id === 'DATA-002' || mission.id === 'DATA-003' ? 'orders.csv' : 'events_sample.csv'
   const [activeTab, setActiveTab] = useState<'workspace' | 'readme'>(hasTerminal || isContentFactoryInvestigation ? 'workspace' : 'readme')

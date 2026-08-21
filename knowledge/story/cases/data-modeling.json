@@ -1,0 +1,183 @@
+{
+  "caseId": "case-data-modeling",
+  "courseId": "data-modeling",
+  "number": "06",
+  "title": "Сущность без имени",
+  "logline": "Два отдела по-разному считают клиента, заказ и возврат, поэтому их отчёты невозможно соединить.",
+  "setting": "Учебная экспедиция · Моделирование",
+  "cast": [
+    "mira",
+    "oleg",
+    "lena"
+  ],
+  "acts": [
+    {
+      "id": "data-modeling-start",
+      "title": "Новая экспедиция",
+      "trigger": {
+        "on": "caseStart"
+      },
+      "beats": [
+        {
+          "kind": "comic",
+          "panels": [
+            {
+              "speaker": "mira",
+              "emotion": "surprised",
+              "scene": "office",
+              "caption": "Два отдела по-разному считают клиента, заказ и возврат, поэтому их отчёты невозможно соединить."
+            },
+            {
+              "speaker": "oleg",
+              "emotion": "determined",
+              "scene": "screen",
+              "caption": "Курс «Моделирование данных» станет отдельным делом: каждую версию решения проверяем кодом."
+            },
+            {
+              "speaker": "lena",
+              "emotion": "worried",
+              "scene": "meeting",
+              "caption": "Результат нужен команде, но неподтверждённый ответ только ухудшит ситуацию."
+            }
+          ]
+        },
+        {
+          "kind": "line",
+          "speaker": "oleg",
+          "emotion": "determined",
+          "text": "Цель дела — собрать модель данных. Теория даст ориентир, но уликами станут только воспроизводимые действия и проверки."
+        }
+      ]
+    },
+    {
+      "id": "data-modeling-brief",
+      "title": "Первая гипотеза",
+      "trigger": {
+        "on": "beforeMission",
+        "missionId": "DMD-001"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "mira",
+          "emotion": "happy",
+          "text": "Я открыла материалы по теме «Сущности и связи». Сначала зафиксируем вопрос, потом напишем проверку."
+        },
+        {
+          "kind": "line",
+          "speaker": "oleg",
+          "emotion": "neutral",
+          "text": "Не подгоняй решение под красивый результат. Оставь следующий участник команды способ повторить каждый шаг."
+        }
+      ]
+    },
+    {
+      "id": "data-modeling-evidence",
+      "title": "След расходится",
+      "trigger": {
+        "on": "afterMission",
+        "missionId": "DMD-012"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "mira",
+          "emotion": "worried",
+          "text": "Первая проверка не подтвердила удобную гипотезу. Зато теперь мы знаем, где искать дальше."
+        },
+        {
+          "kind": "line",
+          "speaker": "oleg",
+          "emotion": "happy",
+          "text": "Отлично. Отрицательный результат — тоже улика, если код и исходные условия сохранены."
+        }
+      ]
+    },
+    {
+      "id": "data-modeling-choice",
+      "title": "Цена скорости",
+      "trigger": {
+        "on": "beforeMission",
+        "missionId": "DMD-023"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "lena",
+          "emotion": "worried",
+          "text": "Срок сжимается. Можно показать только итог и убрать неоднозначную проверку?"
+        },
+        {
+          "kind": "choice",
+          "id": "data-modeling-deadline-choice",
+          "prompt": "Как поступить?",
+          "options": [
+            {
+              "id": "transparent",
+              "text": "Покажу ограничение и приложу воспроизводимую проверку.",
+              "reply": "Команда видит риск и принимает решение осознанно.",
+              "trust": {
+                "lena": 2,
+                "oleg": 1
+              },
+              "flags": [
+                "data-modeling-transparent"
+              ]
+            },
+            {
+              "id": "fast",
+              "text": "Спрячу ограничение ради быстрого ответа.",
+              "reply": "Ответ принимают, но наставник просит сохранить сомнительную версию отдельно.",
+              "trust": {
+                "oleg": -1
+              },
+              "flags": [
+                "data-modeling-rushed"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "data-modeling-turn",
+      "title": "Доказательство собрано",
+      "trigger": {
+        "on": "afterMission",
+        "missionId": "DMD-042"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "mira",
+          "emotion": "happy",
+          "text": "Теперь модель данных можно повторить с нуля: исходные условия, код и проверки лежат рядом."
+        },
+        {
+          "kind": "line",
+          "speaker": "lena",
+          "emotion": "determined",
+          "text": "Такой результат я могу защищать. Заверши последнюю миссию и зафиксируй ограничения."
+        }
+      ]
+    }
+  ],
+  "endings": [
+    {
+      "id": "data-modeling-gold",
+      "title": "Дело выдержало проверку",
+      "summary": "Команда получила модель данных и понимает границы применимости решения.",
+      "minTrust": {
+        "oleg": 1,
+        "lena": 1
+      },
+      "rank": "золото"
+    },
+    {
+      "id": "data-modeling-silver",
+      "title": "Результат с оговорками",
+      "summary": "Рабочая версия принята, но спорные места придётся перепроверить перед следующим решением.",
+      "rank": "серебро"
+    }
+  ]
+}

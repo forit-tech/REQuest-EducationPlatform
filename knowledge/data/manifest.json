@@ -39,6 +39,10 @@
     "data-platform-reliability",
     "llm-applications",
     "rag-systems",
-    "ai-evaluation-safety"
+    "ai-evaluation-safety",
+    "linear-algebra",
+    "ml-baseline",
+    "boosting",
+    "production"
   ]
 }

@@ -4,6 +4,7 @@ import { backendCurricula } from './curricula/backend.mjs'
 import { frontendCurricula } from './curricula/frontend.mjs'
 import { devopsCurricula } from './curricula/devops.mjs'
 import { securityCurricula } from './curricula/security.mjs'
+import { dataScientistCurricula } from './curricula/data_scientist.mjs'
 
 const root = resolve(import.meta.dirname, '..')
 const knowledgeRoot = resolve(root, 'knowledge')
@@ -168,54 +169,128 @@ const curricula = {
   },
 }
 
-Object.assign(curricula, backendCurricula, frontendCurricula, devopsCurricula, securityCurricula)
+Object.assign(curricula, backendCurricula, frontendCurricula, devopsCurricula, securityCurricula, dataScientistCurricula)
 
-const missionTypes = ['story', 'quiz', 'case']
+const missionTypes = ['story', 'code', 'lab']
 
-function missionFor(course, topic, topicIndex, step) {
+const historyFacts = {
+  'data-scientist': { title: 'Перцептрон появился задолго до современных нейросетей', text: 'Идею обучаемого перцептрона Фрэнк Розенблатт развивал в конце 1950-х. Современные модели стали значительно сложнее, но обучение параметров на примерах осталось центральной идеей.', sourceLabel: 'Smithsonian Institution', sourceUrl: 'https://americanhistory.si.edu/collections/object/nmah_334414' },
+  'data-analyst': { title: 'Реляционная модель появилась раньше SQL', text: 'В 1970 году Эдгар Кодд описал реляционную модель данных. SQL появился позже как практический язык работы с этой моделью.', sourceLabel: 'IBM Research', sourceUrl: 'https://research.ibm.com/publications/a-relational-model-of-data-for-large-shared-data-banks' },
+  'ml-engineer': { title: 'Transformer начинался с машинного перевода', text: 'Архитектуру Transformer представили в 2017 году. В исходной работе она строилась только на механизме внимания и проверялась прежде всего на переводе.', sourceLabel: 'Google Research', sourceUrl: 'https://research.google/pubs/attention-is-all-you-need/' },
+  'data-engineer': { title: 'MapReduce превратил кластер в понятную модель', text: 'Работа Google 2004 года описала обработку больших данных через две операции — map и reduce — с автоматическим распределением задач и восстановлением после сбоев.', sourceLabel: 'Google Research', sourceUrl: 'https://research.google/pubs/mapreduce-simplified-data-processing-on-large-clusters/' },
+  'ai-engineer': { title: 'Современные LLM выросли из идеи внимания', text: 'В 2017 году исследователи предложили Transformer без рекуррентных и свёрточных слоёв. Параллельность обучения стала одной из причин влияния архитектуры.', sourceLabel: 'Google Research', sourceUrl: 'https://research.google/pubs/attention-is-all-you-need/' },
+  'java-developer': { title: 'Java сначала называлась Oak', text: 'Язык проектировали для встраиваемой бытовой электроники, а затем переориентировали на интернет, существенно переработали и переименовали в Java.', sourceLabel: 'Oracle Java Language Specification', sourceUrl: 'https://docs.oracle.com/javase/specs/jls/se6/html/j.preface.html' },
+  'python-backend': { title: 'Python родился во время рождественских каникул', text: 'Гвидо ван Россум начал реализацию в конце 1989 года, а в феврале 1991 года опубликовал Python в Usenet. Название связано с Monty Python, а не со змеёй.', sourceLabel: 'Python Documentation', sourceUrl: 'https://docs.python.org/3/faq/general.html' },
+  'go-developer': { title: 'Go проектировали для многопроцессорного мира', text: 'Работа над Go началась в Google в 2007 году, а 10 ноября 2009 года проект стал публичным. Конкурентность была одной из исходных задач языка.', sourceLabel: 'Go FAQ', sourceUrl: 'https://go.dev/doc/faq' },
+  'frontend-developer': { title: 'Первый сайт объяснял сам Web', text: 'Тим Бернерс-Ли создал Web в CERN в 1989 году. Первый сайт работал на его компьютере NeXT и рассказывал о проекте World Wide Web.', sourceLabel: 'CERN', sourceUrl: 'https://home.cern/science/computing/birth-web' },
+  'react-developer': { title: 'React отделил описание UI от ручного изменения DOM', text: 'Публичное развитие React закрепило декларативную модель: интерфейс описывается как функция состояния, а библиотека согласует результат с DOM.', sourceLabel: 'React Documentation', sourceUrl: 'https://react.dev/learn/describing-the-ui' },
+  'devops-engineer': { title: 'Контейнеры опираются на старые идеи изоляции', text: 'Современные контейнерные платформы объединили изоляцию процессов, контроль ресурсов и воспроизводимые образы в единый процесс доставки приложений.', sourceLabel: 'Kubernetes Documentation', sourceUrl: 'https://kubernetes.io/docs/concepts/containers/' },
+  'sre-engineer': { title: 'SRE началась как инженерный ответ эксплуатации', text: 'В 2003 году Бен Трейнор Слосс спроектировал production-команду Google так, как программный инженер проектировал бы операционную систему работы.', sourceLabel: 'Google SRE Book', sourceUrl: 'https://sre.google/sre-book/introduction/' },
+  'cybersecurity-specialist': { title: 'OWASP существует с 2001 года', text: 'OWASP запустили 1 декабря 2001 года как открытое сообщество для улучшения безопасности программного обеспечения.', sourceLabel: 'OWASP Foundation', sourceUrl: 'https://owasp.org/about/' },
+  pentester: { title: 'Web-проверка стала открытой методологией', text: 'OWASP Web Security Testing Guide систематизирует проверку приложений так, чтобы находки были воспроизводимыми, ограниченными scope и полезными для исправления.', sourceLabel: 'OWASP WSTG', sourceUrl: 'https://owasp.org/www-project-web-security-testing-guide/' },
+  'soc-analyst': { title: 'ATT&CK описывает поведение, а не список вредоносных файлов', text: 'Матрица MITRE ATT&CK связывает наблюдаемое поведение противника с тактиками и техниками, помогая строить проверяемое покрытие детектирования.', sourceLabel: 'MITRE ATT&CK', sourceUrl: 'https://attack.mitre.org/resources/' },
+}
+
+function practiceProfile(professionId) {
+  if (professionId === 'java-developer') return 'java'
+  if (professionId === 'go-developer') return 'go'
+  if (professionId === 'frontend-developer' || professionId === 'react-developer') return 'javascript'
+  if (professionId === 'devops-engineer' || professionId === 'sre-engineer' || professionId.includes('security') || professionId === 'pentester' || professionId === 'soc-analyst') return 'yaml'
+  return 'python'
+}
+
+function practiceTask(professionId, course, topic, advanced = false) {
+  const profile = practiceProfile(professionId)
+  const artifact = topic.artifact.replaceAll('"', '\\"')
+  const action = topic.action.replaceAll('"', '\\"')
+  if (profile === 'java') return {
+    workspaceFile: 'Solution.java',
+    starterCode: `import java.util.List;\n\npublic class Solution {\n    static Plan buildPlan() {\n        // TODO: назови артефакт и добавь проверяемое действие\n        String artifact = "";\n        List<String> steps = List.of();\n        return new Plan(artifact, steps);\n    }\n\n    record Plan(String artifact, List<String> steps) {}\n}\n`,
+    codeChecks: [
+      { label: `Создаётся ${topic.artifact}`, includes: `String artifact = "${artifact}"` },
+      { label: 'Действие записано в план', includes: `List.of("${action}")` },
+      { label: 'Метод возвращает типизированный результат', includes: 'return new Plan(artifact, steps)' },
+    ],
+  }
+  if (profile === 'go') return {
+    workspaceFile: 'solution.go',
+    starterCode: `package main\n\nimport "fmt"\n\ntype Plan struct {\n    Artifact string\n    Steps []string\n}\n\nfunc buildPlan() Plan {\n    // TODO: собери проверяемый план решения\n    return Plan{}\n}\n\nfunc main() { fmt.Printf("%+v\\n", buildPlan()) }\n`,
+    codeChecks: [
+      { label: `Создаётся ${topic.artifact}`, includes: `Artifact: "${artifact}"` },
+      { label: 'Действие записано в срез', includes: `Steps: []string{"${action}"}` },
+      { label: 'Функция возвращает Plan', includes: 'return Plan{' },
+    ],
+  }
+  if (profile === 'javascript') return {
+    workspaceFile: professionId === 'react-developer' ? 'solution.jsx' : 'solution.js',
+    starterCode: `const incident = ${JSON.stringify(course.setting)};\n\nfunction buildPlan() {\n  // TODO: верни артефакт и массив проверяемых действий\n  const artifact = "";\n  const steps = [];\n  return { artifact, steps };\n}\n\nconsole.log(buildPlan());\n`,
+    codeChecks: [
+      { label: `Создаётся ${topic.artifact}`, includes: `const artifact = "${artifact}"` },
+      { label: 'Действие записано в массив', includes: `const steps = ["${action}"]` },
+      { label: 'Результат возвращается из функции', includes: 'return { artifact, steps }' },
+    ],
+  }
+  if (profile === 'yaml') return {
+    workspaceFile: professionId === 'devops-engineer' || professionId === 'sre-engineer' ? 'plan.yaml' : 'control.yaml',
+    starterCode: `apiVersion: request.dev/v1\nkind: InvestigationPlan\nmetadata:\n  name: ${course.id}\nspec:\n  artifact: ""\n  actions: []\n  verification:\n    enabled: false\n`,
+    codeChecks: [
+      { label: `Назван артефакт «${topic.artifact}»`, includes: `artifact: "${artifact}"` },
+      { label: 'Добавлено проверяемое действие', includes: `- "${action}"` },
+      { label: 'Включена автоматическая проверка', includes: 'enabled: true' },
+    ],
+  }
+  return {
+    workspaceFile: 'solution.py',
+    starterCode: `case_context = ${JSON.stringify(course.setting)}\n\ndef build_plan():\n    # TODO: назови артефакт и добавь воспроизводимый шаг\n    artifact = ""\n    steps = []\n    return {"artifact": artifact, "steps": steps}\n\nplan = build_plan()\n${advanced ? '# TODO: добавь проверку результата через assert\n' : ''}print(plan)\n`,
+    codeChecks: [
+      { label: `Создаётся ${topic.artifact}`, includes: `artifact = "${artifact}"` },
+      { label: 'Действие записано в список', includes: `steps = ["${action}"]` },
+      { label: advanced ? 'Результат защищён проверкой' : 'Функция возвращает структуру результата', includes: advanced ? 'assert plan["steps"]' : 'return {"artifact": artifact, "steps": steps}' },
+    ],
+  }
+}
+
+function missionFor(professionId, course, topic, topicIndex, step) {
   const serial = topicIndex * 3 + step + 1
   const id = `${course.prefix}-${String(serial).padStart(3, '0')}`
   const type = missionTypes[step]
-  const titles = [`Разведка: ${topic.title}`, `Проверка: ${topic.title}`, `Решение: ${topic.title}`]
+  const titles = [`Сцена: ${topic.title}`, `Код: ${topic.title}`, `Лаборатория: ${topic.title}`]
   const prompts = [
     `Какой принцип поможет команде правильно разобрать блок «${topic.title}»?`,
     `Какое действие нужно выполнить, чтобы вывод можно было воспроизвести и проверить?`,
     `Что следует положить в ${topic.artifact}, прежде чем передавать результат Лене?`,
   ]
-  const answers = [topic.fact, topic.action, `${topic.action} Затем зафиксировать результат и ограничение.`]
+  const answers = [topic.fact, 'Код проходит обязательные проверки.', 'Решение воспроизводимо и защищено автоматической проверкой.']
   const options = [
     [topic.fact, ...topic.wrong],
     [topic.action, 'Сразу показать итоговое число без промежуточной проверки.', 'Отложить определение до конца исследования.'],
     [`${topic.action} Затем зафиксировать результат и ограничение.`, 'Добавить только красивый график без источника.', 'Передать устный вывод без проверяемого артефакта.'],
   ]
+  const practice = step > 0 ? practiceTask(professionId, course, topic, step === 2) : undefined
   return {
     id, title: titles[step], type, minutes: 8 + step * 3, xp: 65 + step * 20 + topicIndex * 5,
     difficulty: topicIndex < 1 ? 'начальный' : topicIndex < 3 ? 'средний' : 'продвинутый',
     objectives: [`понять принцип «${topic.title}»`, `применить его в рабочем решении`],
     intro: `${course.setting} ${step === 0 ? 'Наставник просит сначала назвать принцип, а не угадывать ответ.' : step === 1 ? 'Команда собрала факты, но результат нужно сделать воспроизводимым.' : `Команда готовит ${topic.artifact}; от твоего выбора зависит следующий шаг дела.`}`,
     productionContext: `${topic.fact} В этой миссии ошибка не учебная: неверное решение попадёт в рабочую систему.`,
-    task: { prompt: prompts[step], options: options[step], answer: answers[step], explanation: `${topic.fact} Практический следующий шаг: ${topic.action}` },
+    historicalFact: topicIndex === 0 && step === 0 ? historyFacts[professionId] : undefined,
+    task: step === 0
+      ? { prompt: prompts[step], options: options[step], answer: answers[step], explanation: `${topic.fact} Практический следующий шаг: ${topic.action}` }
+      : { prompt: `${topic.action} Заполни рабочий файл так, чтобы все автоматические проверки стали зелёными.`, answer: answers[step], explanation: `${topic.fact} Код оставляет воспроизводимый ${topic.artifact}.`, ...practice },
     hints: [`Отдели наблюдение от решения. ${topic.fact}`],
   }
 }
 
-function buildCourse(course) {
-  const missions = course.topics.flatMap((topic, topicIndex) => [0, 1, 2].map(step => missionFor(course, topic, topicIndex, step)))
+function buildCourse(course, professionId) {
+  const missions = course.topics.flatMap((topic, topicIndex) => [0, 1, 2].map(step => missionFor(professionId, course, topic, topicIndex, step)))
+  const finalTopic = { title: course.caseTitle, action: course.topics.map(topic => topic.action).join('; '), artifact: 'итоговый план дела' }
+  const finalPractice = practiceTask(professionId, course, finalTopic, true)
   missions.push({
     id: `${course.prefix}-013`, title: `Итоговое дело: ${course.caseTitle}`, type: 'boss', minutes: 24, xp: 320, difficulty: 'продвинутый',
     objectives: course.topics.map(topic => `связать «${topic.title}» с итоговым решением`),
     intro: `${course.setting} До финального созвона остался час: нужно собрать доказательства в одну непротиворечивую версию.`,
     productionContext: 'Итог должен выдержать повторный расчёт, вопрос руководителя и изменение исходных данных.',
-    task: {
-      prompt: 'Какой порядок работы даёт наиболее надёжное решение?',
-      options: [
-        'Зафиксировать вопрос и детализацию, проверить расчёт, назвать ограничения и предложить контролируемое действие.',
-        'Сначала выбрать самый убедительный график, затем подобрать под него цифры.',
-        'Показать среднее значение и скрыть сегменты, чтобы не усложнять обсуждение.',
-      ],
-      answer: 'Зафиксировать вопрос и детализацию, проверить расчёт, назвать ограничения и предложить контролируемое действие.',
-      explanation: 'Надёжная аналитика связывает вопрос, данные, проверку, ограничения и действие. Каждый этап оставляет проверяемый артефакт.',
-    },
+    task: { prompt: 'Собери итоговый план дела в коде или конфигурации и защити его автоматической проверкой.', answer: 'Итоговый файл проходит все обязательные проверки.', explanation: 'Финальное решение связывает артефакты блока в воспроизводимый технический результат.', ...finalPractice },
     hints: ['Вернись к четырём артефактам дела и выстрой их от вопроса к решению.'],
   })
   return {
@@ -285,7 +360,7 @@ async function registerCourses(domain, professionId, courses) {
       goal: course.description,
       missionCount: 13,
       status: 'ready',
-      prerequisites: [],
+      prerequisites: course.prerequisites ?? [],
       blocks: course.topics.map(topic => topic.title),
     }
     const index = programs.findIndex(item => item.id === course.id)
@@ -305,7 +380,7 @@ for (const professionId of professionIds) {
   for (const [courseIndex, course] of profession.courses.entries()) {
     const courseDir = resolve(knowledgeRoot, profession.domain, course.id)
     await mkdir(courseDir, { recursive: true })
-    await writeFile(resolve(courseDir, 'course.json'), `${JSON.stringify(buildCourse(course), null, 2)}\n`, 'utf8')
+    await writeFile(resolve(courseDir, 'course.json'), `${JSON.stringify(buildCourse(course, professionId), null, 2)}\n`, 'utf8')
     await mkdir(storyRoot, { recursive: true })
     await writeFile(resolve(storyRoot, `${course.id}.json`), `${JSON.stringify(buildStory(profession, course, courseIndex), null, 2)}\n`, 'utf8')
   }

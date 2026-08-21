@@ -38,6 +38,7 @@ function validate(condition, missionId, message) {
 const programIds = new Set(programs.map(program => program.id))
 const manifestCourseIds = new Set(domainConfigs.flatMap(domain => domain.manifest.courses))
 const courseIds = new Set()
+const coursesById = new Map()
 for (const domain of domainConfigs) {
   for (const entry of await readdir(domain.root, { withFileTypes: true })) {
     if (!entry.isDirectory()) continue
@@ -57,6 +58,7 @@ for (const domain of domainConfigs) {
     validate(course.missions?.length > 1, course.id, 'в курсе должно быть несколько миссий')
     validate(!program || program.missionCount === course.missions?.length, course.id, `missionCount в programs.json не совпадает с course.json (${program?.missionCount} != ${course.missions?.length})`)
     courseIds.add(course.id)
+    coursesById.set(course.id, course)
     const missionIds = new Set()
     for (const mission of course.missions ?? []) {
       courseMissionCount += 1
@@ -66,6 +68,15 @@ for (const domain of domainConfigs) {
       validate(Boolean(mission.task?.prompt && mission.task?.answer && mission.task?.explanation), mission.id, 'задание или объяснение не заполнено')
       if (mission.task?.options) validate(mission.task.options.includes(mission.task.answer), mission.id, 'правильный ответ отсутствует среди вариантов')
       missionIds.add(mission.id)
+    }
+    if (program?.phase?.startsWith('Профессия')) {
+      const practical = course.missions.filter(mission => ['code', 'lab'].includes(mission.type) || mission.task?.starterCode)
+      validate(practical.length / course.missions.length >= 0.6, course.id, 'в профессиональном блоке практика должна занимать не менее 60% миссий')
+      validate(course.missions.some(mission => mission.historicalFact?.sourceUrl), course.id, 'нет исторического или научного факта с источником')
+      for (const mission of practical) {
+        validate(Boolean(mission.task?.starterCode), mission.id, 'практическая миссия не содержит стартовый рабочий файл')
+        validate(mission.task?.codeChecks?.length >= 3, mission.id, 'практическая миссия должна иметь минимум три автоматические проверки')
+      }
     }
   }
 }
@@ -78,8 +89,9 @@ for (const program of programs) {
   if (program.status === 'ready') validate(courseIds.has(program.id), program.id, 'готовый курс не имеет course.json')
 }
 
-const runtimeCourseIds = new Set([...courseIds, 'linear-algebra', 'ml-baseline', 'boosting', 'production'])
+const runtimeCourseIds = new Set(courseIds)
 const professionIds = new Set()
+const professionRouteCourseIds = new Set()
 for (const profession of professionPrograms) {
   validate(!professionIds.has(profession.professionId), profession.professionId, 'дублирующийся маршрут профессии')
   validate(profession.status === 'ready', profession.professionId, 'профессия не переведена в ready')
@@ -93,6 +105,7 @@ for (const profession of professionPrograms) {
       validate(runtimeCourseIds.has(courseId), profession.professionId, `маршрут ссылается на неизвестный курс: ${courseId}`)
       validate(!routeCourseIds.has(courseId), profession.professionId, `курс повторяется в маршруте: ${courseId}`)
       routeCourseIds.add(courseId)
+      professionRouteCourseIds.add(courseId)
     }
     for (const prerequisite of stage.prerequisites ?? []) {
       validate(runtimeCourseIds.has(prerequisite), profession.professionId, `неизвестная зависимость этапа: ${prerequisite}`)
@@ -109,6 +122,18 @@ for (const file of (await readdir(storyCasesRoot)).filter(name => name.endsWith(
   validate(story.acts?.length >= 4, story.caseId ?? file, 'сюжетное дело должно содержать минимум четыре акта')
   validate(story.endings?.length >= 2, story.caseId ?? file, 'сюжетное дело должно содержать минимум две концовки')
   storyCourseIds.add(story.courseId)
+}
+
+for (const courseId of professionRouteCourseIds) {
+  validate(storyCourseIds.has(courseId), courseId, 'профессиональный блок не имеет собственного сюжетного дела')
+  const course = coursesById.get(courseId)
+  if (!course) continue
+  const practical = course.missions.filter(mission => mission.task?.starterCode)
+  validate(practical.length / course.missions.length >= 0.6, courseId, 'в профессиональном блоке практика должна занимать не менее 60% миссий')
+  validate(course.missions.some(mission => mission.historicalFact?.sourceUrl), courseId, 'нет исторического или научного факта с источником')
+  for (const mission of practical) {
+    validate(mission.task?.codeChecks?.length >= 3, mission.id, 'практическая миссия должна иметь минимум три автоматические проверки')
+  }
 }
 
 for (const missionFile of missionFiles) {
