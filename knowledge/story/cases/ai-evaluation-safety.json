@@ -1,0 +1,183 @@
+{
+  "caseId": "case-ai-evaluation-safety",
+  "courseId": "ai-evaluation-safety",
+  "number": "03",
+  "title": "Успешный тест, опасный релиз",
+  "logline": "Средняя оценка ассистента выросла, но в одном сегменте он раскрывает служебные инструкции.",
+  "setting": "Продуктовая компания «Север»",
+  "cast": [
+    "mira",
+    "sonya",
+    "oleg"
+  ],
+  "acts": [
+    {
+      "id": "ai-evaluation-safety-start",
+      "title": "Успешный тест, опасный релиз",
+      "trigger": {
+        "on": "caseStart"
+      },
+      "beats": [
+        {
+          "kind": "comic",
+          "panels": [
+            {
+              "speaker": "mira",
+              "emotion": "surprised",
+              "scene": "office",
+              "caption": "Средняя оценка ассистента выросла, но в одном сегменте он раскрывает служебные инструкции."
+            },
+            {
+              "speaker": "sonya",
+              "emotion": "determined",
+              "scene": "screen",
+              "caption": "Сначала строим цепочку доказательств. Красивый ответ без проверки не принимается."
+            },
+            {
+              "speaker": "oleg",
+              "emotion": "worried",
+              "scene": "meeting",
+              "caption": "Решение нужно сегодня. Ошибка изменит план команды на квартал."
+            }
+          ]
+        },
+        {
+          "kind": "line",
+          "speaker": "sonya",
+          "emotion": "determined",
+          "text": "Это дело про «Оценка и безопасность ИИ». Не проходи уроки отдельно: каждый найденный факт станет уликой в общем расследовании."
+        }
+      ]
+    },
+    {
+      "id": "ai-evaluation-safety-brief",
+      "title": "Первая версия",
+      "trigger": {
+        "on": "beforeMission",
+        "missionId": "AIE-001"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "mira",
+          "emotion": "happy",
+          "text": "Я уже открыла выгрузку. Давай сначала договоримся, какой вопрос мы вообще пытаемся решить."
+        },
+        {
+          "kind": "line",
+          "speaker": "sonya",
+          "emotion": "neutral",
+          "text": "Хорошее начало. Зафиксируй принцип — после этого рабочая станция откроет первую улику."
+        }
+      ]
+    },
+    {
+      "id": "ai-evaluation-safety-evidence",
+      "title": "Улика не сходится",
+      "trigger": {
+        "on": "afterMission",
+        "missionId": "AIE-003"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "mira",
+          "emotion": "worried",
+          "text": "Проверка изменила число. Значит, первая версия была удобной, но неверной."
+        },
+        {
+          "kind": "line",
+          "speaker": "sonya",
+          "emotion": "happy",
+          "text": "Именно поэтому мы оставляем воспроизводимые шаги. Ошибка, найденная до решения, — полезная улика."
+        }
+      ]
+    },
+    {
+      "id": "ai-evaluation-safety-choice",
+      "title": "Давление срока",
+      "trigger": {
+        "on": "beforeMission",
+        "missionId": "AIE-007"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "oleg",
+          "emotion": "worried",
+          "text": "Мне нужна рекомендация через двадцать минут. Можно не показывать спорный сегмент?"
+        },
+        {
+          "kind": "choice",
+          "id": "ai-evaluation-safety-deadline-choice",
+          "prompt": "Как ты ответишь?",
+          "options": [
+            {
+              "id": "transparent",
+              "text": "Покажу сегмент и объясню, как он влияет на решение.",
+              "reply": "Лена кивает: неприятный риск лучше скрытой ошибки.",
+              "trust": {
+                "oleg": 2,
+                "sonya": 1
+              },
+              "flags": [
+                "ai-evaluation-safety-transparent"
+              ]
+            },
+            {
+              "id": "fast",
+              "text": "Уберу сегмент ради короткого ответа.",
+              "reply": "Олег ничего не говорит, но просит сохранить эту версию отдельно.",
+              "trust": {
+                "sonya": -1
+              },
+              "flags": [
+                "ai-evaluation-safety-rushed"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ai-evaluation-safety-turn",
+      "title": "Решение выдерживает проверку",
+      "trigger": {
+        "on": "afterMission",
+        "missionId": "AIE-010"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "mira",
+          "emotion": "happy",
+          "text": "Теперь вывод не рассыпается, даже если изменить период и открыть сегменты."
+        },
+        {
+          "kind": "line",
+          "speaker": "oleg",
+          "emotion": "determined",
+          "text": "Хорошо. Доводи доказательства до итоговой рекомендации — я защищу её перед командой."
+        }
+      ]
+    }
+  ],
+  "endings": [
+    {
+      "id": "ai-evaluation-safety-gold",
+      "title": "Доказательство принято",
+      "summary": "Команда получила воспроизводимый вывод и безопасный следующий шаг.",
+      "minTrust": {
+        "sonya": 1,
+        "oleg": 1
+      },
+      "rank": "золото"
+    },
+    {
+      "id": "ai-evaluation-safety-silver",
+      "title": "Решение с оговорками",
+      "summary": "Вывод принят, но часть рисков придётся перепроверить после запуска.",
+      "rank": "серебро"
+    }
+  ]
+}

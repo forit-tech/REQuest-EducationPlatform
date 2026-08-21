@@ -1,0 +1,13 @@
+{
+  "domain": "frontend",
+  "title": "Frontend-разработка",
+  "version": "1.0.0",
+  "courses": [
+    "web-platform-foundations",
+    "frontend-quality",
+    "frontend-delivery",
+    "react-core",
+    "react-architecture",
+    "react-production"
+  ]
+}

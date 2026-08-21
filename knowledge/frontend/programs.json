@@ -1,0 +1,92 @@
+[
+  {
+    "id": "web-platform-foundations",
+    "phase": "Профессия · frontend-developer",
+    "title": "Web-платформа",
+    "goal": "Создаём семантичные, адаптивные интерфейсы и понимаем выполнение JavaScript, сеть и браузерные API.",
+    "missionCount": 13,
+    "status": "ready",
+    "prerequisites": [],
+    "blocks": [
+      "Семантический HTML",
+      "CSS и адаптивный layout",
+      "JavaScript и event loop",
+      "HTTP и Web API"
+    ]
+  },
+  {
+    "id": "frontend-quality",
+    "phase": "Профессия · frontend-developer",
+    "title": "Качество frontend",
+    "goal": "Проверяем доступность, производительность, поведение интерфейса и защиту браузерной границы.",
+    "missionCount": 13,
+    "status": "ready",
+    "prerequisites": [],
+    "blocks": [
+      "Доступность интерфейса",
+      "Web performance",
+      "Тестовая стратегия UI",
+      "Безопасность браузера"
+    ]
+  },
+  {
+    "id": "frontend-delivery",
+    "phase": "Профессия · frontend-developer",
+    "title": "Frontend как продукт",
+    "goal": "Проектируем состояние и компоненты, собираем приложение и выпускаем его наблюдаемо и обратимо.",
+    "missionCount": 13,
+    "status": "ready",
+    "prerequisites": [],
+    "blocks": [
+      "Состояние и поток данных",
+      "Компоненты и дизайн-система",
+      "Сборка и доставка",
+      "Наблюдаемый релиз"
+    ]
+  },
+  {
+    "id": "react-core",
+    "phase": "Профессия · react-developer",
+    "title": "React: модель интерфейса",
+    "goal": "Осваиваем декларативный render, состояние, события, эффекты и управляемые формы.",
+    "missionCount": 13,
+    "status": "ready",
+    "prerequisites": [],
+    "blocks": [
+      "Компоненты и render",
+      "State и события",
+      "Effects",
+      "Формы и доступность"
+    ]
+  },
+  {
+    "id": "react-architecture",
+    "phase": "Профессия · react-developer",
+    "title": "Архитектура React-приложения",
+    "goal": "Строим композицию, маршрутизацию, серверный кэш и производительность без хрупких эффектов.",
+    "missionCount": 13,
+    "status": "ready",
+    "prerequisites": [],
+    "blocks": [
+      "Композиция и границы",
+      "Серверное состояние",
+      "Маршрутизация и загрузка",
+      "Производительность React"
+    ]
+  },
+  {
+    "id": "react-production",
+    "phase": "Профессия · react-developer",
+    "title": "React в продакшене",
+    "goal": "Проверяем пользовательские сценарии, доступность, обработку сбоев и безопасную доставку React-приложения.",
+    "missionCount": 13,
+    "status": "ready",
+    "prerequisites": [],
+    "blocks": [
+      "Тестирование поведения",
+      "Доступность динамического UI",
+      "Ошибки и восстановление",
+      "Доставка и мониторинг"
+    ]
+  }
+]

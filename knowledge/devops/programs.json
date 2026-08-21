@@ -1,0 +1,92 @@
+[
+  {
+    "id": "linux-network-ops",
+    "phase": "Профессия · devops-engineer",
+    "title": "Linux и сети для эксплуатации",
+    "goal": "Диагностируем процессы, ресурсы, файловую систему, DNS и сетевые соединения по наблюдаемым фактам.",
+    "missionCount": 13,
+    "status": "ready",
+    "prerequisites": [],
+    "blocks": [
+      "Процессы и сигналы",
+      "Память, CPU и диск",
+      "TCP, маршрутизация и DNS",
+      "Права и безопасная конфигурация"
+    ]
+  },
+  {
+    "id": "containers-kubernetes",
+    "phase": "Профессия · devops-engineer",
+    "title": "Контейнеры и Kubernetes",
+    "goal": "Собираем минимальные образы, задаём ресурсы и управляем workload, сетью, конфигурацией и rollout.",
+    "missionCount": 13,
+    "status": "ready",
+    "prerequisites": [],
+    "blocks": [
+      "Образ и контейнер",
+      "Pod, ресурсы и probes",
+      "Service, ingress и конфигурация",
+      "Deployment и rollout"
+    ]
+  },
+  {
+    "id": "cicd-infrastructure",
+    "phase": "Профессия · devops-engineer",
+    "title": "CI/CD и инфраструктура как код",
+    "goal": "Строим проверяемый pipeline, управляем артефактами, Terraform-состоянием, секретами и безопасным продвижением.",
+    "missionCount": 13,
+    "status": "ready",
+    "prerequisites": [],
+    "blocks": [
+      "Pipeline и quality gates",
+      "Артефакты и среды",
+      "Terraform и состояние",
+      "Секреты и безопасный deploy"
+    ]
+  },
+  {
+    "id": "sre-foundations",
+    "phase": "Профессия · sre-engineer",
+    "title": "Основы SRE и SLO",
+    "goal": "Определяем SLI/SLO, бюджет ошибок, toil и инженерные правила изменения надёжности.",
+    "missionCount": 13,
+    "status": "ready",
+    "prerequisites": [],
+    "blocks": [
+      "Пользовательский SLI",
+      "SLO и окно",
+      "Бюджет ошибок",
+      "Toil и автоматизация"
+    ]
+  },
+  {
+    "id": "observability-incidents",
+    "phase": "Профессия · sre-engineer",
+    "title": "Наблюдаемость и инциденты",
+    "goal": "Строим сигналы, алерты, расследование и командное управление инцидентом без поиска виноватых.",
+    "missionCount": 13,
+    "status": "ready",
+    "prerequisites": [],
+    "blocks": [
+      "Метрики, логи и трассы",
+      "Алерты по симптомам",
+      "Управление инцидентом",
+      "Postmortem и обучение"
+    ]
+  },
+  {
+    "id": "capacity-reliability",
+    "phase": "Профессия · sre-engineer",
+    "title": "Ёмкость и инженерия надёжности",
+    "goal": "Моделируем нагрузку, деградацию, зависимости, восстановление и безопасные эксперименты с отказами.",
+    "missionCount": 13,
+    "status": "ready",
+    "prerequisites": [],
+    "blocks": [
+      "Ёмкость и насыщение",
+      "Нагрузочное тестирование",
+      "Деградация и зависимости",
+      "Восстановление и game day"
+    ]
+  }
+]

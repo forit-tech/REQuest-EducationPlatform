@@ -1,0 +1,16 @@
+{
+  "domain": "cybersecurity",
+  "title": "Кибербезопасность",
+  "version": "1.0.0",
+  "courses": [
+    "security-foundations",
+    "defensive-engineering",
+    "risk-iam",
+    "pentest-methodology",
+    "web-security-testing",
+    "pentest-reporting",
+    "soc-detection",
+    "threat-hunting",
+    "incident-response"
+  ]
+}

@@ -1,0 +1,183 @@
+{
+  "caseId": "case-defensive-engineering",
+  "courseId": "defensive-engineering",
+  "number": "02",
+  "title": "Секрет в трёх логах",
+  "logline": "Токен был отозван, но его копии остались в pipeline, трассах и резервной выгрузке.",
+  "setting": "Продуктовая компания «Север»",
+  "cast": [
+    "alexey",
+    "anton",
+    "lena"
+  ],
+  "acts": [
+    {
+      "id": "defensive-engineering-start",
+      "title": "Секрет в трёх логах",
+      "trigger": {
+        "on": "caseStart"
+      },
+      "beats": [
+        {
+          "kind": "comic",
+          "panels": [
+            {
+              "speaker": "alexey",
+              "emotion": "surprised",
+              "scene": "office",
+              "caption": "Токен был отозван, но его копии остались в pipeline, трассах и резервной выгрузке."
+            },
+            {
+              "speaker": "anton",
+              "emotion": "determined",
+              "scene": "screen",
+              "caption": "Сначала строим цепочку доказательств. Красивый ответ без проверки не принимается."
+            },
+            {
+              "speaker": "lena",
+              "emotion": "worried",
+              "scene": "meeting",
+              "caption": "Решение нужно сегодня. Ошибка изменит план команды на квартал."
+            }
+          ]
+        },
+        {
+          "kind": "line",
+          "speaker": "anton",
+          "emotion": "determined",
+          "text": "Это дело про «Инженерия защитных мер». Не проходи уроки отдельно: каждый найденный факт станет уликой в общем расследовании."
+        }
+      ]
+    },
+    {
+      "id": "defensive-engineering-brief",
+      "title": "Первая версия",
+      "trigger": {
+        "on": "beforeMission",
+        "missionId": "DSE-001"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "alexey",
+          "emotion": "happy",
+          "text": "Я уже собрала материалы. Давай сначала договоримся, какой вопрос мы вообще пытаемся решить."
+        },
+        {
+          "kind": "line",
+          "speaker": "anton",
+          "emotion": "neutral",
+          "text": "Хорошее начало. Зафиксируй принцип — после этого рабочая станция откроет первую улику."
+        }
+      ]
+    },
+    {
+      "id": "defensive-engineering-evidence",
+      "title": "Улика не сходится",
+      "trigger": {
+        "on": "afterMission",
+        "missionId": "DSE-003"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "alexey",
+          "emotion": "worried",
+          "text": "Проверка изменила число. Значит, первая версия была удобной, но неверной."
+        },
+        {
+          "kind": "line",
+          "speaker": "anton",
+          "emotion": "happy",
+          "text": "Именно поэтому мы оставляем воспроизводимые шаги. Ошибка, найденная до решения, — полезная улика."
+        }
+      ]
+    },
+    {
+      "id": "defensive-engineering-choice",
+      "title": "Давление срока",
+      "trigger": {
+        "on": "beforeMission",
+        "missionId": "DSE-007"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "lena",
+          "emotion": "worried",
+          "text": "Мне нужна рекомендация через двадцать минут. Можно не показывать спорный сегмент?"
+        },
+        {
+          "kind": "choice",
+          "id": "defensive-engineering-deadline-choice",
+          "prompt": "Как ты ответишь?",
+          "options": [
+            {
+              "id": "transparent",
+              "text": "Покажу спорный риск и объясню, как он влияет на решение.",
+              "reply": "Руководитель кивает: неприятный риск лучше скрытой ошибки.",
+              "trust": {
+                "lena": 2,
+                "anton": 1
+              },
+              "flags": [
+                "defensive-engineering-transparent"
+              ]
+            },
+            {
+              "id": "fast",
+              "text": "Уберу спорный риск ради короткого ответа.",
+              "reply": "Наставник ничего не говорит, но просит сохранить эту версию отдельно.",
+              "trust": {
+                "anton": -1
+              },
+              "flags": [
+                "defensive-engineering-rushed"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "defensive-engineering-turn",
+      "title": "Решение выдерживает проверку",
+      "trigger": {
+        "on": "afterMission",
+        "missionId": "DSE-010"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "alexey",
+          "emotion": "happy",
+          "text": "Теперь вывод не рассыпается, даже если изменить период и открыть сегменты."
+        },
+        {
+          "kind": "line",
+          "speaker": "lena",
+          "emotion": "determined",
+          "text": "Хорошо. Доводи доказательства до итоговой рекомендации — я защищу её перед командой."
+        }
+      ]
+    }
+  ],
+  "endings": [
+    {
+      "id": "defensive-engineering-gold",
+      "title": "Доказательство принято",
+      "summary": "Команда получила воспроизводимый вывод и безопасный следующий шаг.",
+      "minTrust": {
+        "anton": 1,
+        "lena": 1
+      },
+      "rank": "золото"
+    },
+    {
+      "id": "defensive-engineering-silver",
+      "title": "Решение с оговорками",
+      "summary": "Вывод принят, но часть рисков придётся перепроверить после запуска.",
+      "rank": "серебро"
+    }
+  ]
+}
