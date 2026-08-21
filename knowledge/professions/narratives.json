@@ -1,0 +1,107 @@
+[
+  {
+    "professionId": "data-scientist",
+    "protagonist": { "name": "Дарья Лебедева", "description": "молодая исследовательница данных, пришедшая в команду городских сервисов" },
+    "premise": "Дарья должна превратить разрозненные городские данные в модель, которой диспетчеры смогут доверять в реальной чрезвычайной ситуации.",
+    "cast": ["mira", "oleg", "lena"],
+    "locations": ["office", "trip-station", "industrial", "lab", "conference"]
+  },
+  {
+    "professionId": "data-analyst",
+    "protagonist": { "name": "Алина Воронцова", "description": "новая аналитик маркетплейса, для которой это первая неделя в профессии" },
+    "premise": "Алина начинает с непонятного падения продаж, едет на склад, встречается с региональной командой и готовит решение для совета директоров.",
+    "cast": ["mira", "oleg", "lena"],
+    "locations": ["office", "industrial", "trip-station", "meeting", "conference"]
+  },
+  {
+    "professionId": "ml-engineer",
+    "protagonist": { "name": "Тимур Сафин", "description": "инженер, которому впервые доверили промышленный контур машинного обучения" },
+    "premise": "Тимур проводит экспериментальную модель от ноутбука до сервиса под нагрузкой и расследует её первое серьёзное падение.",
+    "cast": ["artem", "anton", "alexey"],
+    "locations": ["lab", "office", "industrial", "server", "conference"]
+  },
+  {
+    "professionId": "data-engineer",
+    "protagonist": { "name": "Вера Соколова", "description": "инженер данных, собранная и упрямая в поиске первопричин" },
+    "premise": "Вера восстанавливает цепочку данных федеральной логистики: от сломанного источника на площадке до устойчивой платформы.",
+    "cast": ["anton", "gleb", "lena"],
+    "locations": ["office", "industrial", "trip-station", "server", "meeting"]
+  },
+  {
+    "professionId": "ai-engineer",
+    "protagonist": { "name": "Илья Кравцов", "description": "разработчик прототипов ИИ, которому предстоит доказать их безопасность" },
+    "premise": "Илья создаёт помощника для врачей, отправляется к пилотной команде и учится отличать эффектную демонстрацию от надёжного продукта.",
+    "cast": ["mira", "sonya", "oleg"],
+    "locations": ["lab", "conference", "trip-station", "meeting", "server"]
+  },
+  {
+    "professionId": "java-developer",
+    "protagonist": { "name": "Максим Орлов", "description": "стажёр backend-команды платёжной платформы" },
+    "premise": "Максим принимает старый платёжный сервис, распутывает его устройство и доводит новую версию до ночного релиза.",
+    "cast": ["artem", "sonya", "alexey"],
+    "locations": ["office", "lab", "meeting", "industrial", "server"]
+  },
+  {
+    "professionId": "python-backend",
+    "protagonist": { "name": "Ника Белова", "description": "backend-разработчица сервиса срочной доставки" },
+    "premise": "Ника строит API для нового города, едет к операционной команде и встречает первый настоящий пик заказов.",
+    "cast": ["mira", "artem", "sonya"],
+    "locations": ["office", "trip-station", "industrial", "lab", "server"]
+  },
+  {
+    "professionId": "go-developer",
+    "protagonist": { "name": "Денис Волков", "description": "инженер сетевого сервиса для транспорта" },
+    "premise": "Денис переписывает критический шлюз, проверяет его на транспортном узле и выдерживает запуск под реальной нагрузкой.",
+    "cast": ["gleb", "artem", "alexey"],
+    "locations": ["office", "lab", "industrial", "trip-station", "server"]
+  },
+  {
+    "professionId": "frontend-developer",
+    "protagonist": { "name": "Лера Каменева", "description": "дизайнер-разработчица интерфейса культурного фестиваля" },
+    "premise": "Лера собирает сайт большого фестиваля, тестирует его прямо на площадке и спасает интерфейс в вечер открытия.",
+    "cast": ["sonya", "gleb", "lena"],
+    "locations": ["office", "conference", "trip-station", "meeting", "conference"]
+  },
+  {
+    "professionId": "react-developer",
+    "protagonist": { "name": "Кирилл Зимин", "description": "React-разработчик сложного диспетчерского приложения" },
+    "premise": "Кирилл превращает хрупкий прототип в рабочую систему и защищает архитектуру на отраслевой демонстрации.",
+    "cast": ["sonya", "gleb", "alexey"],
+    "locations": ["office", "lab", "industrial", "meeting", "conference"]
+  },
+  {
+    "professionId": "devops-engineer",
+    "protagonist": { "name": "Ася Нестерова", "description": "инженер инфраструктуры, вышедшая на первое дежурство" },
+    "premise": "Ася автоматизирует путь релиза, едет в резервный дата-центр и проводит команду через сложное переключение площадок.",
+    "cast": ["artem", "gleb", "lena"],
+    "locations": ["server", "industrial", "trip-station", "server", "meeting"]
+  },
+  {
+    "professionId": "sre-engineer",
+    "protagonist": { "name": "Роман Чернов", "description": "SRE-инженер глобального сервиса трансляций" },
+    "premise": "Роман готовит платформу к международному эфиру, летит к удалённой площадке и управляет инцидентом во время события.",
+    "cast": ["anton", "artem", "lena"],
+    "locations": ["server", "meeting", "conference", "trip-station", "server"]
+  },
+  {
+    "professionId": "cybersecurity-specialist",
+    "protagonist": { "name": "Марина Руденко", "description": "инженер защиты новой производственной сети" },
+    "premise": "Марина строит защиту завода, выезжает на объект и расследует признаки проникновения до остановки линии.",
+    "cast": ["alexey", "anton", "lena"],
+    "locations": ["office", "industrial", "trip-station", "lab", "server"]
+  },
+  {
+    "professionId": "pentester",
+    "protagonist": { "name": "Марк Громов", "description": "начинающий пентестер в первой разрешённой проверке" },
+    "premise": "Марк получает официальный допуск, исследует периметр клиента в командировке и должен доказать каждую находку без вреда системе.",
+    "cast": ["alexey", "mira", "artem"],
+    "locations": ["meeting", "trip-station", "lab", "industrial", "conference"]
+  },
+  {
+    "professionId": "soc-analyst",
+    "protagonist": { "name": "Елизавета Тихонова", "description": "аналитик ночной смены центра мониторинга" },
+    "premise": "Елизавета начинает с одиночного алерта, связывает его с большой атакой и координирует реагирование нескольких площадок.",
+    "cast": ["anton", "alexey", "sonya"],
+    "locations": ["server", "lab", "industrial", "trip-station", "meeting"]
+  }
+]

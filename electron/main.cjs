@@ -22,7 +22,10 @@ function createWindow() {
   })
 
   window.loadFile(path.join(__dirname, '..', 'dist', 'index.html'))
-  window.once('ready-to-show', () => window.show())
+  window.once('ready-to-show', () => {
+    window.maximize()
+    window.show()
+  })
   window.webContents.setWindowOpenHandler(({ url }) => {
     if (url.startsWith('https://')) shell.openExternal(url)
     return { action: 'deny' }

@@ -1,13 +1,16 @@
 import { useEffect, useMemo, useState } from 'react'
-import { AlertTriangle, ChevronRight, Mail, MessageSquare, SkipForward, Ticket } from 'lucide-react'
+import { AlertTriangle, ChevronLeft, ChevronRight, Home, Mail, MessageSquare, SkipForward, Ticket } from 'lucide-react'
 import officeMorning from '../../assets/scenes/office-morning-v1.png'
 import meetingRoom from '../../assets/scenes/meeting-room-v1.png'
 import serverRoom from '../../assets/scenes/server-room-night-v1.png'
 import dataLab from '../../assets/scenes/data-lab-rain-v1.png'
+import conferenceHall from '../../assets/scenes/tech-conference-v1.png'
+import tripStation from '../../assets/scenes/business-trip-station-v1.png'
+import industrialHub from '../../assets/scenes/industrial-hub-v1.png'
 import { Portrait } from './Portrait'
 import { Sprite } from './Sprite'
 import { character } from './engine'
-import type { ChoiceBeat, Emotion, NotificationBeat, StoryAct } from './types'
+import type { ChoiceBeat, Emotion, NotificationBeat, StoryAct, StoryCase } from './types'
 import type { BeatEffects } from '../core/game'
 
 const channelIcons = { chat: MessageSquare, alert: AlertTriangle, mail: Mail, ticket: Ticket }
@@ -23,17 +26,23 @@ const locationNames = {
   meeting: 'Переговорная',
   server: 'Серверная',
   lab: 'Лаборатория данных',
+  conference: 'Технологическая конференция',
+  trip: 'Командировка',
+  industrial: 'Площадка клиента',
 } as const
 
 function locationFor(scene: string) {
   const value = scene.toLowerCase()
+  if (/conference|festival|event|demo|конферен|фестивал|мероприят/.test(value)) return 'conference'
+  if (/trip|station|airport|travel|поезд|вокзал|командиров/.test(value)) return 'trip'
+  if (/industrial|factory|warehouse|plant|склад|завод|площадк/.test(value)) return 'industrial'
   if (/server|incident|alert|night|pipeline|deploy|terminal|сбой|сервер|ноч/.test(value)) return 'server'
   if (/meeting|review|brief|board|decision|переговор|совещ|защит/.test(value)) return 'meeting'
   if (/lab|rain|research|model|experiment|archive|исслед|модел|эксперимент/.test(value)) return 'lab'
   return 'office'
 }
 
-const locationImages = { office: officeMorning, meeting: meetingRoom, server: serverRoom, lab: dataLab }
+const locationImages = { office: officeMorning, meeting: meetingRoom, server: serverRoom, lab: dataLab, conference: conferenceHall, trip: tripStation, industrial: industrialHub }
 
 function expandAct(act: StoryAct): StoryMoment[] {
   let scene = act.title
@@ -81,11 +90,13 @@ function NotificationCard({ beat }: { beat: NotificationBeat }) {
   </div>
 }
 
-export function StoryScene({ act, chosenByChoiceId, onChoose, onFinish, campaign = false }: {
+export function StoryScene({ act, career, chosenByChoiceId, onChoose, onFinish, onHome, campaign = false }: {
   act: StoryAct
+  career?: StoryCase['career']
   chosenByChoiceId: Record<string, string>
   onChoose: (choiceId: string, optionId: string, effects: BeatEffects) => void
   onFinish: () => void
+  onHome?: () => void
   campaign?: boolean
 }) {
   const moments = useMemo(() => expandAct(act), [act])
@@ -140,8 +151,12 @@ export function StoryScene({ act, chosenByChoiceId, onChoose, onFinish, campaign
       <img className="vn-location" src={locationImages[location]} alt="" aria-hidden="true"/>
       <div className="vn-light" aria-hidden="true"/>
 
+      {onHome && <button className="vn-home" onClick={onHome} aria-label="На главную">
+        <ChevronLeft size={20}/><Home size={15}/><span>На главную</span>
+      </button>}
+
       <header className="vn-head">
-        <div><span className="story-kicker">{locationNames[location]}</span><strong>{act.title}</strong></div>
+        <div><span className="story-kicker">{career ? `${career.protagonistName} · глава ${career.chapterNumber}/${career.chapterCount} · ${locationNames[location]}` : locationNames[location]}</span><strong>{act.title}</strong></div>
         {!campaign && <button className="story-skip" onClick={onFinish}><SkipForward size={15}/>Пропустить сцену</button>}
       </header>
 
