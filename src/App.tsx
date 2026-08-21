@@ -16,7 +16,7 @@ import professionPrograms from '../knowledge/professions/programs.json'
 import { MissionRunner } from './MissionRunner'
 import { StoryScene } from './story/StoryScene'
 import { Sprite } from './story/Sprite'
-import { cases, caseActIds, caseChoiceIds, caseForCourse, caseProgress, cast, character, pendingAct, resolveEnding } from './story/engine'
+import { caseActIds, caseChoiceIds, caseForCourse, caseProgress, cast, character, pendingAct, resolveEnding } from './story/engine'
 import { applyChoice, claimDaily, emptyGame, focusBonusXp, getGame, markActSeen, rankFor, recordEnding, replayCase, spendEnergy, spendFocus as spendFocusPoints, useItem, ITEMS, FOCUS_BONUS_THRESHOLD, type BeatEffects, type GameState, MAX_ENERGY } from './core/game'
 import type { StoryAct } from './story/types'
 import { notifyCaseEnding, notifyMissionDone, syncProgress } from './core/notify'
@@ -155,8 +155,8 @@ function GameHud({ game, xp }: { game: GameState; xp: number }) {
   </div>
 }
 
-function EndingView({ roomId, game, onReplay, onClose }: { roomId: string; game: GameState; onReplay: () => void; onClose: () => void }) {
-  const story = caseForCourse(roomId)
+function EndingView({ roomId, professionId, game, onReplay, onClose }: { roomId: string; professionId: ProfessionId; game: GameState; onReplay: () => void; onClose: () => void }) {
+  const story = caseForCourse(roomId, professionId)
   if (!story) return null
   const ending = resolveEnding(story, game)
   return <div className="story-overlay" role="dialog" aria-label="Финал дела">
@@ -174,13 +174,15 @@ function EndingView({ roomId, game, onReplay, onClose }: { roomId: string; game:
   </div>
 }
 
-function HqView({ header, account, progress, game, onGameChange, onOpenRoom }: { header: React.ReactNode; account: UserAccount; progress: UserProgress; game: GameState; onGameChange: (game: GameState) => void; onOpenRoom: (roomId: string) => void }) {
+function HqView({ header, account, progress, professionId, game, onGameChange, onOpenRoom }: { header: React.ReactNode; account: UserAccount; progress: UserProgress; professionId: ProfessionId; game: GameState; onGameChange: (game: GameState) => void; onOpenRoom: (roomId: string) => void }) {
   const rank = rankFor(progress.xp)
   const today = new Date().toISOString().slice(0, 10)
   const dailyReady = game.dailyClaimedOn !== today
-  const relations = cast.filter(item => item.id !== 'narrator')
   const coffeeCount = game.inventory.filter(item => item === 'coffee').length
   const owned = [...new Set(game.inventory)]
+  const careerProgram = (professionPrograms as Array<{ professionId: string; stages: Array<{ courseIds: string[] }> }>).find(item => item.professionId === professionId)
+  const careerStories = careerProgram?.stages.flatMap(stage => stage.courseIds).map(courseId => caseForCourse(courseId, professionId)).filter(Boolean) ?? []
+  const relations = careerStories[0]?.cast.map(character) ?? cast.filter(item => item.id !== 'narrator')
   return <>{header}<main className="main section-page">
     <SectionIntro kicker="ШТАБ" title="Снаряжение и связи" description="Здесь собрано всё, что ты заработал вне миссий: энергия, предметы, отношения с командой и закрытые дела."/>
 
@@ -250,7 +252,8 @@ function HqView({ header, account, progress, game, onGameChange, onOpenRoom }: {
 
     <section className="hq-block">
       <div className="mission-list-head"><div><span className="section-kicker">АРХИВ</span><h2>Закрытые дела</h2></div><span>концовки можно пересобрать</span></div>
-      <div className="endings-grid">{cases.map(story => {
+      <div className="endings-grid">{careerStories.map(story => {
+        if (!story) return null
         const endingId = game.endings[story.caseId]
         const ending = story.endings.find(item => item.id === endingId)
         const progressInCase = caseProgress(story, game)
@@ -530,10 +533,10 @@ export default function App() {
   useEffect(() => {
     if (!account || scene) return
     if (view.type !== 'mission') return
-    const act = pendingAct(view.roomId, game, { on: 'caseStart' })
-      ?? pendingAct(view.roomId, game, { on: 'beforeMission', missionId: view.missionId })
+    const act = pendingAct(view.roomId, game, { on: 'caseStart' }, professionId)
+      ?? pendingAct(view.roomId, game, { on: 'beforeMission', missionId: view.missionId }, professionId)
     if (act) setScene(act)
-  }, [view, game, account, scene])
+  }, [view, game, account, scene, professionId])
   function authenticated(next: UserAccount) {
     const nextGame = getGame(next.id)
     setAccount(next)
@@ -568,9 +571,9 @@ export default function App() {
     const missionTitle = missionRoom.missions.find(item => item.id === missionId)?.title ?? missionId
     notifyMissionDone(missionTitle, xp + bonus)
     syncProgress({ missions: nextProgress.completedMissionIds.length, xp: nextProgress.xp, streak: nextProgress.streak })
-    const after = pendingAct(missionRoom.id, afterEnergy, { on: 'afterMission', missionId })
+    const after = pendingAct(missionRoom.id, afterEnergy, { on: 'afterMission', missionId }, professionId)
     if (after) setScene(after)
-    const story = caseForCourse(missionRoom.id)
+    const story = caseForCourse(missionRoom.id, professionId)
     const allDone = missionRoom.missions.every(item => nextProgress.completedMissionIds.includes(item.id))
     if (story && allDone) {
       const ending = resolveEnding(story, afterEnergy)
@@ -580,7 +583,7 @@ export default function App() {
     }
   }
   function replayCurrentCase(roomId: string) {
-    const story = caseForCourse(roomId)
+    const story = caseForCourse(roomId, professionId)
     if (!account || !story) return
     setGame(replayCase(account.id, story.caseId, caseActIds(story), caseChoiceIds(story)))
     setEndingRoomId(null)
@@ -607,9 +610,13 @@ export default function App() {
     const missionRoom = rooms.find(item => item.id === view.roomId)
     const mission = missionRoom?.missions.find(item => item.id === view.missionId)
     if (missionRoom && mission && isMissionAccessible(missionRoom, mission.id, progress)) return <>
-      <MissionRunner questMode={Boolean(caseForCourse(missionRoom.id))} room={missionRoom} mission={mission} completed={progress.completedMissionIds.includes(mission.id)} energy={game.energy} inventory={game.inventory} onSpendFocus={spendFocus} onExit={() => setView({ type: 'room', roomId: missionRoom.id })} onComplete={() => missionCompleted(missionRoom, mission.id, mission.xp)}/>
-      {scene && <StoryScene act={scene} chosenByChoiceId={game.choices} onChoose={pickChoice} onFinish={finishScene}/>}
-      {endingRoomId && <EndingView roomId={endingRoomId} game={game} onReplay={() => replayCurrentCase(endingRoomId)} onClose={() => setEndingRoomId(null)}/>}
+      <MissionRunner professionId={professionId} questMode={Boolean(caseForCourse(missionRoom.id, professionId))} room={missionRoom} mission={mission} completed={progress.completedMissionIds.includes(mission.id)} energy={game.energy} inventory={game.inventory} onSpendFocus={spendFocus} onExit={() => setView({ type: 'room', roomId: missionRoom.id })} onComplete={() => missionCompleted(missionRoom, mission.id, mission.xp)}/>
+      {scene && (
+        <StoryScene act={scene} career={caseForCourse(view.roomId, professionId)?.career} chosenByChoiceId={game.choices} onChoose={pickChoice} onFinish={finishScene} onHome={() => { setScene(null); setView({ type: 'home' }) }}/>
+      )}
+      {endingRoomId && (
+        <EndingView roomId={endingRoomId} professionId={professionId} game={game} onReplay={() => replayCurrentCase(endingRoomId)} onClose={() => setEndingRoomId(null)}/>
+      )}
     </>
   }
   const requestedRoom = view.type === 'room' ? rooms.find(item => item.id === view.roomId) : undefined
@@ -623,10 +630,12 @@ export default function App() {
       : view.type === 'home' ? <HomeView header={header(sectionTitles.home)} account={account} progress={progress} onContinue={roomId => setView({ type: 'room', roomId })} onOpenPath={() => setView({ type: 'path' })} onOpenPractice={() => setView({ type: 'practice' })}/>
       : view.type === 'practice' ? <PracticeView header={header(sectionTitles.practice)} progress={progress} onOpen={roomId => setView({ type: 'room', roomId })}/>
       : view.type === 'projects' ? <ProjectsView header={header(sectionTitles.projects)}/>
-      : view.type === 'hq' ? <HqView header={header(sectionTitles.hq)} account={account} progress={progress} game={game} onGameChange={setGame} onOpenRoom={roomId => setView({ type: 'room', roomId })}/>
+      : view.type === 'hq' ? <HqView header={header(sectionTitles.hq)} account={account} progress={progress} professionId={professionId} game={game} onGameChange={setGame} onOpenRoom={roomId => setView({ type: 'room', roomId })}/>
       : view.type === 'achievements' ? <AchievementsView header={header(sectionTitles.achievements)} progress={progress}/>
       : <PathView header={header(sectionTitles.path)} progress={progress} domainId={domainId} professionId={professionId} onDomainChange={changeDomain} onProfessionChange={changeProfession} onOpen={roomId => setView({ type: 'room', roomId })}/>} 
   </div></div><GlobalSearch open={searchOpen} progress={progress} onClose={() => setSearchOpen(false)} onChoose={chooseSearchResult}/>
-  {scene && <StoryScene act={scene} chosenByChoiceId={game.choices} onChoose={pickChoice} onFinish={finishScene}/>}
-  {endingRoomId && <EndingView roomId={endingRoomId} game={game} onReplay={() => replayCurrentCase(endingRoomId)} onClose={() => setEndingRoomId(null)}/>}</>
+  {scene && (
+    <StoryScene act={scene} career={view.type === 'mission' ? caseForCourse(view.roomId, professionId)?.career : undefined} chosenByChoiceId={game.choices} onChoose={pickChoice} onFinish={finishScene} onHome={() => { setScene(null); setView({ type: 'home' }) }}/>
+  )}
+  {endingRoomId && <EndingView roomId={endingRoomId} professionId={professionId} game={game} onReplay={() => replayCurrentCase(endingRoomId)} onClose={() => setEndingRoomId(null)}/>}</>
 }

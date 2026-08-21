@@ -228,6 +228,13 @@
 .vn-head, .vn-stage.is-campaign .vn-head { position: absolute; inset: 0 0 auto; z-index: 12; min-height: 0; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 24px 30px 42px; border: 0; background: linear-gradient(rgba(2, 8, 14, .84), transparent); pointer-events: none; }
 .vn-head strong { display: block; font-size: clamp(17px, 1.5vw, 24px); text-shadow: 0 2px 12px #000; }
 .vn-head .story-skip { pointer-events: auto; background: rgba(5, 14, 22, .6); backdrop-filter: blur(10px); }
+.vn-head > div { margin-left: 42px; }
+.vn-home { position: absolute; z-index: 15; top: 17px; left: 0; display: flex; align-items: center; gap: 7px; box-sizing: border-box; width: 42px; height: 42px; padding: 0 10px; overflow: hidden; color: #9bdcf5; border: 1px solid rgba(123, 220, 255, .3); border-left: 0; border-radius: 0 12px 12px 0; background: rgba(4, 14, 22, .78); backdrop-filter: blur(12px); cursor: pointer; transition: width .2s ease, color .2s ease, background .2s ease; }
+.vn-home svg:first-child { flex: 0 0 20px; opacity: 1; }
+.vn-home svg:nth-of-type(2), .vn-home span { flex: 0 0 auto; opacity: 0; transition: opacity .15s ease; }
+.vn-home span { font-size: 12px; white-space: nowrap; }
+.vn-home:hover, .vn-home:focus-visible { width: 132px; color: #eaf8ff; background: rgba(4, 14, 22, .9); }
+.vn-home:hover svg:nth-of-type(2), .vn-home:hover span, .vn-home:focus-visible svg:nth-of-type(2), .vn-home:focus-visible span { opacity: 1; }
 .vn-scene, .vn-stage.is-campaign .vn-scene { position: absolute; inset: 0; display: block; min-height: 0; overflow: hidden; cursor: pointer; background: none; }
 .vn-ensemble { position: absolute; inset: 8% 2% 0; z-index: 2; pointer-events: none; }
 .vn-actor, .vn-stage.is-campaign .vn-actor { position: absolute; bottom: -2%; height: 88%; width: 44%; display: grid; place-items: end center; padding: 0; transform-origin: center bottom; animation: vn-enter .42s cubic-bezier(.2, .8, .3, 1) both; transition: left .35s ease, right .35s ease, transform .25s ease, opacity .25s ease; }

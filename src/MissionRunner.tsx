@@ -8,6 +8,7 @@ import data002 from '../knowledge/data/data-foundations/missions/DATA-002.json'
 import data003 from '../knowledge/data/data-foundations/missions/DATA-003.json'
 import { caseForCourse, character } from './story/engine'
 import { Sprite } from './story/Sprite'
+import type { ProfessionId } from './professions'
 
 type RunnerProps = {
   room: Room
@@ -20,6 +21,7 @@ type RunnerProps = {
   onExit: () => void
   onComplete: () => void
   questMode?: boolean
+  professionId?: ProfessionId
 }
 
 const eventRows = [
@@ -131,7 +133,7 @@ function ReadmeView({ mission, isCodeMission, hasTerminal, onOpenWorkspace }: { 
   </article>
 }
 
-export function MissionRunner({ room, mission, completed, energy, inventory, onSpendFocus, onExit, onComplete, questMode = false }: RunnerProps) {
+export function MissionRunner({ room, mission, completed, energy, inventory, onSpendFocus, onExit, onComplete, questMode = false, professionId }: RunnerProps) {
   const isObservationInvestigation = mission.id === 'DATA-002'
   const isFeatureInvestigation = mission.id === 'DATA-003'
   const isContentFactoryInvestigation = isObservationInvestigation || isFeatureInvestigation
@@ -155,7 +157,7 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
   const hasNotebook = inventory.includes('notebook')
   const focusBonus = energy >= FOCUS_BONUS_THRESHOLD
   const hintAffordable = hasDuck || hintPaid || energy >= HINT_FOCUS_COST
-  const story = questMode ? caseForCourse(room.id) : undefined
+  const story = questMode ? caseForCourse(room.id, professionId) : undefined
   const companion = character(story?.cast[0] ?? 'mira')
   const guide = character(story?.cast[1] ?? 'oleg')
   const episode = room.missions.findIndex(item => item.id === mission.id) + 1
@@ -230,7 +232,7 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
     <header className="runner-topbar">
       <div className="runner-brand"><span className="runner-mark">∿</span><strong>RE<span>Quest</span></strong></div>
       {questMode ? <>
-        <div className="quest-case-location"><span>{story?.number ?? `ДЕЛО ${room.index}`}</span><strong>{story?.title ?? room.title}</strong></div>
+        <div className="quest-case-location"><span>{story?.career ? `${story.career.protagonistName} · ГЛАВА ${story.career.chapterNumber}/${story.career.chapterCount}` : story?.number ?? `ДЕЛО ${room.index}`}</span><strong>{story?.title ?? room.title}</strong></div>
         <div className="quest-episode-location"><span>ЭПИЗОД {String(episode).padStart(2, '0')} / {room.missions.length}</span><strong>{mission.title}</strong></div>
         <div className="runner-telemetry"><span><CircleDot size={14}/>{mission.minutes}:00</span><span><Star size={14}/>+{mission.xp} XP</span><button onClick={onExit} aria-label="Поставить дело на паузу"><X size={18}/></button></div>
       </> : <>

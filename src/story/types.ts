@@ -96,6 +96,15 @@ export interface StoryCase {
   logline: string
   setting: string
   cast: string[]
+  career?: {
+    professionId: string
+    protagonistName: string
+    protagonistDescription: string
+    chapterNumber: number
+    chapterCount: number
+    stageTitle: string
+    location: string
+  }
   acts: StoryAct[]
   /** Проверяются сверху вниз, первая подходящая — итоговая. */
   endings: StoryEnding[]
