@@ -245,6 +245,9 @@
 .vn-actor.is-idle { z-index: 1; transform: scale(.93); }
 @keyframes vn-enter { from { opacity: 0; transform: translateY(30px) scale(.96) } to { opacity: 1; } }
 .vn-sprite, .vn-stage.is-campaign .vn-sprite { display: block; width: auto; max-width: 100%; height: min(86vh, 900px); max-height: 100%; object-fit: contain; object-position: center bottom; user-select: none; filter: drop-shadow(0 22px 30px rgba(0, 0, 0, .58)); transition: opacity .25s, filter .25s; }
+.vn-sprite.height-short, .vn-stage.is-campaign .vn-sprite.height-short { height: min(78vh, 810px); }
+.vn-sprite.height-average, .vn-stage.is-campaign .vn-sprite.height-average { height: min(84vh, 870px); }
+.vn-sprite.height-tall, .vn-stage.is-campaign .vn-sprite.height-tall { height: min(90vh, 940px); }
 .vn-sprite.is-dimmed { opacity: .6; filter: saturate(.65) brightness(.68) drop-shadow(0 18px 25px rgba(0, 0, 0, .62)); }
 
 .vn-speech { position: absolute; z-index: 8; top: clamp(112px, 17vh, 190px); width: min(440px, 38vw); padding: 16px 19px 17px; border: 1px solid rgba(123, 220, 255, .34); border-radius: var(--r-panel); background: rgba(5, 16, 25, .88); box-shadow: 0 18px 50px rgba(0, 0, 0, .42); backdrop-filter: blur(16px); cursor: pointer; }

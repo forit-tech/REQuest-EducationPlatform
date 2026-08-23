@@ -29,11 +29,11 @@ import artemHappy from '../../assets/characters/generated/artem-happy-v3.png'
 import artemWorried from '../../assets/characters/generated/artem-worried-v3.png'
 import artemSurprised from '../../assets/characters/generated/artem-surprised-v3.png'
 import artemDetermined from '../../assets/characters/generated/artem-determined-v3.png'
-import antonNeutral from '../../assets/characters/generated/anton-neutral-v3.png'
-import antonHappy from '../../assets/characters/generated/anton-happy-v3.png'
-import antonWorried from '../../assets/characters/generated/anton-worried-v3.png'
-import antonSurprised from '../../assets/characters/generated/anton-surprised-v3.png'
-import antonDetermined from '../../assets/characters/generated/anton-determined-v3.png'
+import vadimNeutral from '../../assets/characters/generated/vadim-neutral-v3.png'
+import vadimHappy from '../../assets/characters/generated/vadim-happy-v3.png'
+import vadimWorried from '../../assets/characters/generated/vadim-worried-v3.png'
+import vadimSurprised from '../../assets/characters/generated/vadim-surprised-v3.png'
+import vadimDetermined from '../../assets/characters/generated/vadim-determined-v3.png'
 import alexeyNeutral from '../../assets/characters/generated/alexey-neutral-v3.png'
 import alexeyHappy from '../../assets/characters/generated/alexey-happy-v3.png'
 import alexeyWorried from '../../assets/characters/generated/alexey-worried-v3.png'
@@ -49,6 +49,16 @@ import pavelHappy from '../../assets/characters/generated/pavel-happy-v3.png'
 import pavelWorried from '../../assets/characters/generated/pavel-worried-v3.png'
 import pavelSurprised from '../../assets/characters/generated/pavel-surprised-v3.png'
 import pavelDetermined from '../../assets/characters/generated/pavel-determined-v3.png'
+import irinaNeutral from '../../assets/characters/generated/irina-neutral-v3.png'
+import irinaHappy from '../../assets/characters/generated/irina-happy-v3.png'
+import irinaWorried from '../../assets/characters/generated/irina-worried-v3.png'
+import irinaSurprised from '../../assets/characters/generated/irina-surprised-v3.png'
+import irinaDetermined from '../../assets/characters/generated/irina-determined-v3.png'
+import damirNeutral from '../../assets/characters/generated/damir-neutral-v3.png'
+import damirHappy from '../../assets/characters/generated/damir-happy-v3.png'
+import damirWorried from '../../assets/characters/generated/damir-worried-v3.png'
+import damirSurprised from '../../assets/characters/generated/damir-surprised-v3.png'
+import damirDetermined from '../../assets/characters/generated/damir-determined-v3.png'
 
 const spriteCatalog: Record<string, Record<Emotion, string>> = {
   mira: { neutral: miraNeutral, happy: miraHappy, worried: miraWorried, surprised: miraSurprised, tired: miraWorried, determined: miraDetermined },
@@ -57,10 +67,12 @@ const spriteCatalog: Record<string, Record<Emotion, string>> = {
   gleb: { neutral: glebNeutral, happy: glebHappy, worried: glebWorried, surprised: glebSurprised, tired: glebWorried, determined: glebDetermined },
   sonya: { neutral: sonyaNeutral, happy: sonyaHappy, worried: sonyaWorried, surprised: sonyaSurprised, tired: sonyaWorried, determined: sonyaDetermined },
   artem: { neutral: artemNeutral, happy: artemHappy, worried: artemWorried, surprised: artemSurprised, tired: artemWorried, determined: artemDetermined },
-  anton: { neutral: antonNeutral, happy: antonHappy, worried: antonWorried, surprised: antonSurprised, tired: antonWorried, determined: antonDetermined },
+  vadim: { neutral: vadimNeutral, happy: vadimHappy, worried: vadimWorried, surprised: vadimSurprised, tired: vadimWorried, determined: vadimDetermined },
   alexey: { neutral: alexeyNeutral, happy: alexeyHappy, worried: alexeyWorried, surprised: alexeySurprised, tired: alexeyWorried, determined: alexeyDetermined },
   yana: { neutral: yanaNeutral, happy: yanaHappy, worried: yanaWorried, surprised: yanaSurprised, tired: yanaWorried, determined: yanaDetermined },
   pavel: { neutral: pavelNeutral, happy: pavelHappy, worried: pavelWorried, surprised: pavelSurprised, tired: pavelWorried, determined: pavelDetermined },
+  irina: { neutral: irinaNeutral, happy: irinaHappy, worried: irinaWorried, surprised: irinaSurprised, tired: irinaWorried, determined: irinaDetermined },
+  damir: { neutral: damirNeutral, happy: damirHappy, worried: damirWorried, surprised: damirSurprised, tired: damirWorried, determined: damirDetermined },
 }
 
 export const illustratedCharacterIds = Object.freeze(Object.keys(spriteCatalog))
@@ -80,7 +92,7 @@ export function Sprite({ character, emotion = 'neutral', height = 420, dimmed = 
   if (!source) return null
 
   return <img
-    className={`vn-sprite illustrated ${dimmed ? 'is-dimmed' : ''} side-${side}`}
+    className={`vn-sprite illustrated height-${character.traits.height ?? 'average'} ${dimmed ? 'is-dimmed' : ''} side-${side}`}
     src={source}
     height={height}
     data-character-id={character.id}

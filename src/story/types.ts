@@ -10,6 +10,7 @@ export interface CharacterTraits {
   eyeColor?: string
   style?: string
   tattoo?: string
+  distinguishingMark?: string
 }
 
 export interface Character {

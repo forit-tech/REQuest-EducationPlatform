@@ -12,6 +12,10 @@ import teamRestaurant from '../../assets/scenes/team-restaurant-v1.png'
 import airportLounge from '../../assets/scenes/airport-lounge-rain-v1.png'
 import libraryWorkshop from '../../assets/scenes/library-workshop-v1.png'
 import hackathonNight from '../../assets/scenes/hackathon-night-v1.png'
+import highSpeedTrain from '../../assets/scenes/high-speed-train-v1.png'
+import seasideResearchStation from '../../assets/scenes/seaside-research-station-v1.png'
+import festivalBackstage from '../../assets/scenes/festival-backstage-v1.png'
+import emergencyOperationsStorm from '../../assets/scenes/emergency-operations-storm-v1.png'
 import { Portrait } from './Portrait'
 import { Sprite } from './Sprite'
 import { character } from './engine'
@@ -39,10 +43,18 @@ const locationNames = {
   airport: 'Аэропорт',
   library: 'Вечерний воркшоп',
   hackathon: 'Ночной хакатон',
+  train: 'Скоростной поезд',
+  coast: 'Прибрежная станция',
+  backstage: 'Закулисье фестиваля',
+  operations: 'Штаб реагирования',
 } as const
 
 function locationFor(scene: string) {
   const value = scene.toLowerCase()
+  if (/festival-backstage|backstage|закулис/.test(value)) return 'backstage'
+  if (/emergency-operations|operations-storm|штаб реаг|шторм/.test(value)) return 'operations'
+  if (/seaside-research|coastal-station|прибреж|морская станц/.test(value)) return 'coast'
+  if (/high-speed-train|скоростн.*поезд/.test(value)) return 'train'
   if (/hackathon|хакатон/.test(value)) return 'hackathon'
   if (/library|workshop|библиот|воркшоп/.test(value)) return 'library'
   if (/airport|departure|аэропорт|вылет/.test(value)) return 'airport'
@@ -57,7 +69,7 @@ function locationFor(scene: string) {
   return 'office'
 }
 
-const locationImages = { office: officeMorning, meeting: meetingRoom, server: serverRoom, lab: dataLab, conference: conferenceHall, trip: tripStation, industrial: industrialHub, cafe: cityCoffeeShop, restaurant: teamRestaurant, airport: airportLounge, library: libraryWorkshop, hackathon: hackathonNight }
+const locationImages = { office: officeMorning, meeting: meetingRoom, server: serverRoom, lab: dataLab, conference: conferenceHall, trip: tripStation, industrial: industrialHub, cafe: cityCoffeeShop, restaurant: teamRestaurant, airport: airportLounge, library: libraryWorkshop, hackathon: hackathonNight, train: highSpeedTrain, coast: seasideResearchStation, backstage: festivalBackstage, operations: emergencyOperationsStorm }
 
 function expandAct(act: StoryAct): StoryMoment[] {
   let scene = act.title

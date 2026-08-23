@@ -16,7 +16,7 @@ const professionPrograms = JSON.parse(await readFile(professionProgramsPath, 'ut
 const professionNarratives = JSON.parse(await readFile(professionNarrativesPath, 'utf8'))
 const storyCast = JSON.parse(await readFile(castPath, 'utf8'))
 const castIds = new Set(storyCast.map(member => member.id))
-const illustratedCastIds = new Set(['mira', 'oleg', 'lena', 'gleb', 'sonya', 'artem', 'anton', 'alexey'])
+const illustratedCastIds = new Set(['mira', 'oleg', 'lena', 'gleb', 'sonya', 'artem', 'vadim', 'alexey'])
 const domainConfigs = []
 for (const entry of await readdir(knowledgeRoot, { withFileTypes: true })) {
   if (!entry.isDirectory() || ['content-factory', 'story', 'professions'].includes(entry.name)) continue

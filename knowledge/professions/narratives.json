@@ -17,14 +17,14 @@
     "professionId": "ml-engineer",
     "protagonist": { "name": "Тимур Сафин", "description": "инженер, которому впервые доверили промышленный контур машинного обучения" },
     "premise": "Тимур проводит экспериментальную модель от ноутбука до сервиса под нагрузкой и расследует её первое серьёзное падение.",
-    "cast": ["artem", "anton", "alexey"],
+    "cast": ["artem", "vadim", "alexey"],
     "locations": ["lab", "office", "industrial", "server", "conference"]
   },
   {
     "professionId": "data-engineer",
     "protagonist": { "name": "Вера Соколова", "description": "инженер данных, собранная и упрямая в поиске первопричин" },
     "premise": "Вера восстанавливает цепочку данных федеральной логистики: от сломанного источника на площадке до устойчивой платформы.",
-    "cast": ["anton", "gleb", "lena"],
+    "cast": ["vadim", "gleb", "lena"],
     "locations": ["office", "industrial", "trip-station", "server", "meeting"]
   },
   {
@@ -80,14 +80,14 @@
     "professionId": "sre-engineer",
     "protagonist": { "name": "Роман Чернов", "description": "SRE-инженер глобального сервиса трансляций" },
     "premise": "Роман готовит платформу к международному эфиру, летит к удалённой площадке и управляет инцидентом во время события.",
-    "cast": ["anton", "artem", "lena"],
+    "cast": ["vadim", "artem", "lena"],
     "locations": ["server", "meeting", "conference", "trip-station", "server"]
   },
   {
     "professionId": "cybersecurity-specialist",
     "protagonist": { "name": "Марина Руденко", "description": "инженер защиты новой производственной сети" },
     "premise": "Марина строит защиту завода, выезжает на объект и расследует признаки проникновения до остановки линии.",
-    "cast": ["alexey", "anton", "lena"],
+    "cast": ["alexey", "vadim", "lena"],
     "locations": ["office", "industrial", "trip-station", "lab", "server"]
   },
   {
@@ -101,7 +101,7 @@
     "professionId": "soc-analyst",
     "protagonist": { "name": "Елизавета Тихонова", "description": "аналитик ночной смены центра мониторинга" },
     "premise": "Елизавета начинает с одиночного алерта, связывает его с большой атакой и координирует реагирование нескольких площадок.",
-    "cast": ["anton", "alexey", "sonya"],
+    "cast": ["vadim", "alexey", "sonya"],
     "locations": ["server", "lab", "industrial", "trip-station", "meeting"]
   }
 ]

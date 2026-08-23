@@ -52,7 +52,7 @@ const curricula = {
   },
   'ml-engineer': {
     domain: 'data',
-    cast: ['mira', 'oleg', 'anton'],
+    cast: ['mira', 'oleg', 'vadim'],
     courses: [
       {
         id: 'ml-engineering', prefix: 'MLE', title: 'Инженерия обучения моделей', category: 'ML Engineering', level: 'Средний',
@@ -91,7 +91,7 @@ const curricula = {
   },
   'data-engineer': {
     domain: 'data',
-    cast: ['anton', 'gleb', 'lena'],
+    cast: ['vadim', 'gleb', 'lena'],
     courses: [
       {
         id: 'data-pipelines', prefix: 'DEP', title: 'Надёжные конвейеры данных', category: 'Data Engineering', level: 'Средний',
