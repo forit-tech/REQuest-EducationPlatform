@@ -3,6 +3,7 @@
   "title": "Основы SRE и SLO",
   "description": "Определяем SLI/SLO, бюджет ошибок, toil и инженерные правила изменения надёжности.",
   "category": "Reliability",
+  "technology": "yaml",
   "level": "База",
   "skills": [
     "Пользовательский SLI",

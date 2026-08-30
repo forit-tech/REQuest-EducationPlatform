@@ -3,6 +3,7 @@
   "title": "Go и конкурентность",
   "description": "Осваиваем интерфейсы, ошибки, context, goroutine, channel и безопасное завершение конкурентной работы.",
   "category": "Go Core",
+  "technology": "go",
   "level": "База",
   "skills": [
     "Типы и малые интерфейсы",

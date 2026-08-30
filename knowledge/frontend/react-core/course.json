@@ -3,6 +3,7 @@
   "title": "React: модель интерфейса",
   "description": "Осваиваем декларативный render, состояние, события, эффекты и управляемые формы.",
   "category": "React",
+  "technology": "javascript",
   "level": "База",
   "skills": [
     "Компоненты и render",

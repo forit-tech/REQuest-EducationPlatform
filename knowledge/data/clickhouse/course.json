@@ -3,6 +3,7 @@
   "title": "ClickHouse",
   "description": "Проектирование таблиц и быстрых аналитических запросов в ClickHouse.",
   "category": "Базы данных",
+  "technology": "sql",
   "level": "Продвинутый",
   "skills": [
     "Архитектура ClickHouse",

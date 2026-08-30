@@ -3,6 +3,7 @@
   "title": "Pandas",
   "description": "Практический курс по надёжной обработке табличных данных в Pandas: от загрузки до профилирования и оптимизации.",
   "category": "Обработка данных",
+  "technology": "python",
   "level": "База",
   "skills": [
     "DataFrame и Series",

@@ -45,6 +45,7 @@ for (const name of spriteFiles) {
 const illustratedCastIds = new Set(
   [...posesByCharacter].filter(([, poses]) => spriteEmotions.every(emotion => poses.has(emotion))).map(([id]) => id),
 )
+const skillsRegistry = JSON.parse(await readFile(resolve(root, 'knowledge/skills-registry.json'), 'utf8'))
 const domainConfigs = []
 for (const entry of await readdir(knowledgeRoot, { withFileTypes: true })) {
   if (!entry.isDirectory() || ['content-factory', 'story', 'professions'].includes(entry.name)) continue
@@ -109,6 +110,13 @@ for (const domain of domainConfigs) {
       validate(Boolean(mission.id && mission.title && mission.intro && mission.productionContext), mission.id ?? course.id, 'не заполнены обязательные поля миссии')
       validate(!missionIds.has(mission.id), mission.id, 'дублирующийся id миссии внутри курса')
       validate(mission.objectives?.length >= 1, mission.id, 'нет учебной цели')
+      // Технология курса — третья ступень определения языка. Если она спорит с рабочим
+      // файлом миссии, любая проверка порядка знаний становится недостоверной.
+      const missionLanguage = skillsRegistry.languageByExtension?.[(mission.task?.workspaceFile ?? '').slice((mission.task?.workspaceFile ?? '').lastIndexOf('.'))]
+      if (missionLanguage && course.technology) {
+        validate(missionLanguage === course.technology, mission.id,
+          `рабочий файл на языке ${missionLanguage}, а курс объявлен как ${course.technology}`)
+      }
       validate(Boolean(mission.task?.prompt && mission.task?.answer && mission.task?.explanation), mission.id, 'задание или объяснение не заполнено')
       if (mission.task?.options) validate(mission.task.options.includes(mission.task.answer), mission.id, 'правильный ответ отсутствует среди вариантов')
       missionIds.add(mission.id)
@@ -174,7 +182,6 @@ for (const profession of professionPrograms) {
 // Реестр знает, где вводится каждый навык. Идём по маршруту профессии и сверяем,
 // что к моменту миссии всё требуемое уже было. Это ловит педагогические скачки вроде
 // «тема про процессор, а проверка требует def solve(».
-const skillsRegistry = JSON.parse(await readFile(resolve(root, 'knowledge/skills-registry.json'), 'utf8'))
 // Совпадение по границе слова: «print(» не должно считаться использованием «int(».
 // Граница проверяется только для токенов, начинающихся с буквы — для « * » или «.append(»
 // предыдущий символ значения не имеет.
@@ -197,9 +204,34 @@ for (const skill of skillsRegistry.skills) {
     errors.push(`Реестр навыков: навык ${skill.id} ссылается на несуществующую миссию ${skill.introducedIn.course}/${skill.introducedIn.mission}`)
 }
 
-const languageOf = mission => skillsRegistry.languageByFile?.[mission.task?.workspaceFile ?? ''] ?? null
-const skillFor = (fragment, language) => skillsRegistry.skills.filter(skill =>
-  skill.language === language && skill.detect.some(token => usesToken(fragment, token)))
+const EXTENSION_LANGUAGE = skillsRegistry.languageByExtension ?? {}
+const extensionOf = file => (file ?? '').slice((file ?? '').lastIndexOf('.'))
+/**
+ * Язык миссии по цепочке: рабочий файл → явное поле миссии → технология курса.
+ * Угадывания по содержимому нет: слово Promise внутри русского предложения
+ * и «исключения» в описании SLI давали ложные срабатывания.
+ */
+const languageOf = (mission, course) =>
+  EXTENSION_LANGUAGE[extensionOf(mission.task?.workspaceFile)]
+  ?? mission.language
+  ?? course?.technology
+  ?? null
+
+const COMMENTS = { python: /#.*$/gm, sql: /--.*$/gm, yaml: /#.*$/gm,
+  go: /\/\/.*$/gm, java: /\/\/.*$/gm, javascript: /\/\/.*$/gm }
+const STRINGS = { python: /"[^"]*"|'[^']*'/g, sql: /'[^']*'/g, yaml: /"[^"]*"|'[^']*'/g,
+  go: /"[^"]*"|`[^`]*`/g, java: /"[^"]*"/g, javascript: /"[^"]*"|'[^']*'|`[^`]*`/g }
+/** Навык ищется только в коде: комментарии и содержимое строк убираются. */
+const codeOnly = (fragment, language) => {
+  const withoutComments = fragment.replace(COMMENTS[language] ?? /$^/g, ' ')
+  return withoutComments.replace(STRINGS[language] ?? /$^/g, match => match[0] + match[0])
+}
+const skillFor = (fragment, language) => {
+  if (!language) return []
+  const code = codeOnly(fragment, language)
+  return skillsRegistry.skills.filter(skill =>
+    skill.language === language && skill.detect.some(token => usesToken(code, token)))
+}
 const auditedCourses = new Set(skillsRegistry.auditedCourses ?? [])
 const pendingKnowledgeGaps = new Set()
 
@@ -209,7 +241,7 @@ for (const program of professionPrograms) {
   for (const courseId of route) {
     const course = coursesById.get(courseId)
     if (!course) continue
-    for (const mission of course.missions ?? []) sequence.push({ courseId, mission })
+    for (const mission of course.missions ?? []) sequence.push({ courseId, course, mission })
   }
   const introducedAt = new Map()
   sequence.forEach(({ courseId, mission }, index) => {
@@ -218,9 +250,9 @@ for (const program of professionPrograms) {
       if (skill.introducedIn.course === courseId && skill.introducedIn.mission === mission.id) introducedAt.set(skill.id, index)
     }
   })
-  sequence.forEach(({ courseId, mission }, index) => {
+  sequence.forEach(({ courseId, course, mission }, index) => {
     const required = new Set()
-    const language = languageOf(mission)
+    const language = languageOf(mission, course)
     if (language) for (const check of mission.task?.codeChecks ?? []) for (const skill of skillFor(check.includes, language)) required.add(skill.id)
     for (const skillId of required) {
       const at = introducedAt.get(skillId)

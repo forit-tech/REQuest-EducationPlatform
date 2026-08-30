@@ -3,6 +3,7 @@
   "title": "Web API на Python",
   "description": "Создаём ясные HTTP-контракты, схемы данных, слои приложения и проверку доступа.",
   "category": "Backend",
+  "technology": "python",
   "level": "База",
   "skills": [
     "HTTP и ресурсный API",

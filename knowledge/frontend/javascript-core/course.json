@@ -3,6 +3,7 @@
   "title": "JavaScript: основы языка",
   "description": "Значения, переменные, операторы, условия, циклы, массивы, объекты, функции, деструктуризация, модули и асинхронность — до всякого React и DOM.",
   "category": "JavaScript Core",
+  "technology": "javascript",
   "level": "Старт",
   "skills": [
     "синтаксис JavaScript",

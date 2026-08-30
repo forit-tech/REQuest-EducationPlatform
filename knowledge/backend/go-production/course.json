@@ -3,6 +3,7 @@
   "title": "Go-сервис в продакшене",
   "description": "Используем тесты и fuzzing, профилирование, наблюдаемость и graceful shutdown для безопасного релиза.",
   "category": "Production",
+  "technology": "go",
   "level": "Продвинутый",
   "skills": [
     "Тесты, race и fuzzing",

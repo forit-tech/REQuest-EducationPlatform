@@ -3,6 +3,7 @@
   "title": "Первая модель машинного обучения",
   "description": "Формулируем целевую переменную, строим baseline и честно проверяем качество без утечки данных.",
   "category": "Machine Learning",
+  "technology": "python",
   "level": "Средний",
   "skills": [
     "Постановка задачи и target",

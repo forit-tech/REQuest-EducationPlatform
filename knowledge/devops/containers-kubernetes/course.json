@@ -3,6 +3,7 @@
   "title": "Контейнеры и Kubernetes",
   "description": "Собираем минимальные образы, задаём ресурсы и управляем workload, сетью, конфигурацией и rollout.",
   "category": "Platform",
+  "technology": "yaml",
   "level": "Средний",
   "skills": [
     "Образ и контейнер",

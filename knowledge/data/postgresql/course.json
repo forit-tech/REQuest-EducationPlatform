@@ -3,6 +3,7 @@
   "title": "PostgreSQL",
   "description": "Практическая эксплуатация PostgreSQL: типы, транзакции, индексы, планы и восстановление.",
   "category": "Базы данных",
+  "technology": "sql",
   "level": "Средний",
   "skills": [
     "Типы PostgreSQL",

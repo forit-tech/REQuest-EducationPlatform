@@ -3,6 +3,7 @@
   "title": "Polars",
   "description": "Выражения, ленивые планы и потоковая обработка больших таблиц в Polars.",
   "category": "Обработка данных",
+  "technology": "python",
   "level": "Средний",
   "skills": [
     "Основы Polars",

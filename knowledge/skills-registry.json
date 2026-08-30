@@ -75,7 +75,9 @@
         "[]",
         "{}",
         ".append(",
-        ".items()"
+        ".items()",
+        "[",
+        "{"
       ],
       "introducedIn": {
         "course": "python-core",
@@ -268,6 +270,711 @@
         "mission": "ASQ-002"
       },
       "language": "sql"
+    },
+    {
+      "id": "go-package",
+      "title": "Пакет и импорт",
+      "detect": [
+        "package ",
+        "import "
+      ],
+      "introducedIn": {
+        "course": "go-core",
+        "mission": "GOC-001"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-print",
+      "title": "Вывод в консоль",
+      "detect": [
+        "fmt.Print",
+        "fmt.Println(",
+        "Println("
+      ],
+      "introducedIn": {
+        "course": "go-core",
+        "mission": "GOC-003"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-vars",
+      "title": "Короткое объявление переменной",
+      "detect": [
+        ":="
+      ],
+      "introducedIn": {
+        "course": "go-core",
+        "mission": "GOC-004"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-func",
+      "title": "Функции и возврат значения",
+      "detect": [
+        "func ",
+        "return "
+      ],
+      "introducedIn": {
+        "course": "go-core",
+        "mission": "GOC-006"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-multi-return",
+      "title": "Несколько возвращаемых значений",
+      "detect": [
+        "(int, int)",
+        "(int, error)"
+      ],
+      "introducedIn": {
+        "course": "go-core",
+        "mission": "GOC-007"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-conditions",
+      "title": "Условия",
+      "detect": [
+        "if ",
+        "else"
+      ],
+      "introducedIn": {
+        "course": "go-core",
+        "mission": "GOC-008"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-loops",
+      "title": "Циклы",
+      "detect": [
+        "for "
+      ],
+      "introducedIn": {
+        "course": "go-core",
+        "mission": "GOC-009"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-slices",
+      "title": "Слайсы",
+      "detect": [
+        "[]int",
+        "[]string",
+        "[]byte",
+        "append("
+      ],
+      "introducedIn": {
+        "course": "go-core",
+        "mission": "GOC-011"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-maps",
+      "title": "Карты и range",
+      "detect": [
+        "map[",
+        "range "
+      ],
+      "introducedIn": {
+        "course": "go-core",
+        "mission": "GOC-012"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-structs",
+      "title": "Структуры",
+      "detect": [
+        "struct {",
+        "type "
+      ],
+      "introducedIn": {
+        "course": "go-core",
+        "mission": "GOC-013"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-methods",
+      "title": "Методы с получателем",
+      "detect": [
+        "func ("
+      ],
+      "introducedIn": {
+        "course": "go-core",
+        "mission": "GOC-014"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-interfaces",
+      "title": "Интерфейсы",
+      "detect": [
+        "interface {"
+      ],
+      "introducedIn": {
+        "course": "go-core",
+        "mission": "GOC-015"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-errors",
+      "title": "Ошибки как значения",
+      "detect": [
+        "error)",
+        "errors.New(",
+        "fmt.Errorf("
+      ],
+      "introducedIn": {
+        "course": "go-core",
+        "mission": "GOC-016"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-defer",
+      "title": "Отложенный вызов",
+      "detect": [
+        "defer "
+      ],
+      "introducedIn": {
+        "course": "go-core",
+        "mission": "GOC-016"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-goroutines",
+      "title": "Горутины",
+      "detect": [
+        "go func",
+        "sync.WaitGroup"
+      ],
+      "introducedIn": {
+        "course": "go-core-concurrency",
+        "mission": "GCC-011"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-channels",
+      "title": "Каналы",
+      "detect": [
+        "chan ",
+        "<-"
+      ],
+      "introducedIn": {
+        "course": "go-core-concurrency",
+        "mission": "GCC-011"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-select",
+      "title": "Оператор select",
+      "detect": [
+        "select {"
+      ],
+      "introducedIn": {
+        "course": "go-core-concurrency",
+        "mission": "GCC-012"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-context",
+      "title": "Контекст и отмена",
+      "detect": [
+        "context.",
+        "ctx "
+      ],
+      "introducedIn": {
+        "course": "go-core-concurrency",
+        "mission": "GCC-008"
+      },
+      "language": "go"
+    },
+    {
+      "id": "java-print",
+      "title": "Вывод в консоль",
+      "detect": [
+        "System.out.print",
+        "println("
+      ],
+      "introducedIn": {
+        "course": "java-core",
+        "mission": "JAV-003"
+      },
+      "language": "java"
+    },
+    {
+      "id": "java-types",
+      "title": "Типы и переменные",
+      "detect": [
+        "String ",
+        "int ",
+        "double ",
+        "boolean "
+      ],
+      "introducedIn": {
+        "course": "java-core",
+        "mission": "JAV-004"
+      },
+      "language": "java"
+    },
+    {
+      "id": "java-arithmetic",
+      "title": "Арифметика",
+      "detect": [
+        " * ",
+        " / "
+      ],
+      "introducedIn": {
+        "course": "java-core",
+        "mission": "JAV-006"
+      },
+      "language": "java"
+    },
+    {
+      "id": "java-conditions",
+      "title": "Условия",
+      "detect": [
+        "if (",
+        "else"
+      ],
+      "introducedIn": {
+        "course": "java-core",
+        "mission": "JAV-007"
+      },
+      "language": "java"
+    },
+    {
+      "id": "java-loops",
+      "title": "Циклы",
+      "detect": [
+        "for (",
+        "while (",
+        "+="
+      ],
+      "introducedIn": {
+        "course": "java-core",
+        "mission": "JAV-008"
+      },
+      "language": "java"
+    },
+    {
+      "id": "java-arrays",
+      "title": "Массивы",
+      "detect": [
+        "[]",
+        ".length"
+      ],
+      "introducedIn": {
+        "course": "java-core",
+        "mission": "JAV-009"
+      },
+      "language": "java"
+    },
+    {
+      "id": "java-methods",
+      "title": "Методы и возврат значения",
+      "detect": [
+        "static ",
+        "return "
+      ],
+      "introducedIn": {
+        "course": "java-core",
+        "mission": "JAV-010"
+      },
+      "language": "java"
+    },
+    {
+      "id": "java-classes",
+      "title": "Классы и объекты",
+      "detect": [
+        "class ",
+        "new "
+      ],
+      "introducedIn": {
+        "course": "java-core",
+        "mission": "JAV-012"
+      },
+      "language": "java"
+    },
+    {
+      "id": "java-collections",
+      "title": "Коллекции",
+      "detect": [
+        "List<",
+        "List.of(",
+        "ArrayList",
+        "Map<",
+        ".add(",
+        ".size()"
+      ],
+      "introducedIn": {
+        "course": "java-core",
+        "mission": "JAV-013"
+      },
+      "language": "java"
+    },
+    {
+      "id": "java-exceptions",
+      "title": "Исключения",
+      "detect": [
+        "try {",
+        "catch ("
+      ],
+      "introducedIn": {
+        "course": "java-core",
+        "mission": "JAV-014"
+      },
+      "language": "java"
+    },
+    {
+      "id": "java-interfaces",
+      "title": "Интерфейсы",
+      "detect": [
+        "interface ",
+        "implements "
+      ],
+      "introducedIn": {
+        "course": "java-core",
+        "mission": "JAV-015"
+      },
+      "language": "java"
+    },
+    {
+      "id": "java-generics",
+      "title": "Обобщения",
+      "detect": [
+        "static <T>",
+        "List<T>"
+      ],
+      "introducedIn": {
+        "course": "java-core",
+        "mission": "JAV-016"
+      },
+      "language": "java"
+    },
+    {
+      "id": "java-streams",
+      "title": "Потоки",
+      "detect": [
+        ".stream()",
+        "Collectors.",
+        ".filter(",
+        ".sum()"
+      ],
+      "introducedIn": {
+        "course": "java-core",
+        "mission": "JAV-017"
+      },
+      "language": "java"
+    },
+    {
+      "id": "js-console",
+      "title": "Вывод в консоль",
+      "detect": [
+        "console.log("
+      ],
+      "introducedIn": {
+        "course": "javascript-core",
+        "mission": "JSC-001"
+      },
+      "language": "javascript"
+    },
+    {
+      "id": "js-vars",
+      "title": "let и const",
+      "detect": [
+        "const ",
+        "let "
+      ],
+      "introducedIn": {
+        "course": "javascript-core",
+        "mission": "JSC-003"
+      },
+      "language": "javascript"
+    },
+    {
+      "id": "js-operators",
+      "title": "Арифметика",
+      "detect": [
+        " * ",
+        " / "
+      ],
+      "introducedIn": {
+        "course": "javascript-core",
+        "mission": "JSC-005"
+      },
+      "language": "javascript"
+    },
+    {
+      "id": "js-template",
+      "title": "Шаблонная строка",
+      "detect": [
+        "${"
+      ],
+      "introducedIn": {
+        "course": "javascript-core",
+        "mission": "JSC-006"
+      },
+      "language": "javascript"
+    },
+    {
+      "id": "js-arrays",
+      "title": "Массивы",
+      "detect": [
+        ".push(",
+        ".length"
+      ],
+      "introducedIn": {
+        "course": "javascript-core",
+        "mission": "JSC-007"
+      },
+      "language": "javascript"
+    },
+    {
+      "id": "js-conditions",
+      "title": "Условия",
+      "detect": [
+        "if (",
+        "else"
+      ],
+      "introducedIn": {
+        "course": "javascript-core",
+        "mission": "JSC-008"
+      },
+      "language": "javascript"
+    },
+    {
+      "id": "js-loops",
+      "title": "Циклы и накопление",
+      "detect": [
+        "for (",
+        "while (",
+        "+="
+      ],
+      "introducedIn": {
+        "course": "javascript-core",
+        "mission": "JSC-009"
+      },
+      "language": "javascript"
+    },
+    {
+      "id": "js-functions",
+      "title": "Функции и возврат значения",
+      "detect": [
+        "function ",
+        "return "
+      ],
+      "introducedIn": {
+        "course": "javascript-core",
+        "mission": "JSC-010"
+      },
+      "language": "javascript"
+    },
+    {
+      "id": "js-arrow",
+      "title": "Стрелочные функции",
+      "detect": [
+        "=>"
+      ],
+      "introducedIn": {
+        "course": "javascript-core",
+        "mission": "JSC-011"
+      },
+      "language": "javascript"
+    },
+    {
+      "id": "js-destructuring",
+      "title": "Деструктуризация",
+      "detect": [
+        "const {",
+        "let {"
+      ],
+      "introducedIn": {
+        "course": "javascript-core",
+        "mission": "JSC-013"
+      },
+      "language": "javascript"
+    },
+    {
+      "id": "js-spread",
+      "title": "Копирование через spread",
+      "detect": [
+        "..."
+      ],
+      "introducedIn": {
+        "course": "javascript-core",
+        "mission": "JSC-013"
+      },
+      "language": "javascript"
+    },
+    {
+      "id": "js-array-methods",
+      "title": "map, filter и reduce",
+      "detect": [
+        ".filter(",
+        ".map(",
+        ".reduce("
+      ],
+      "introducedIn": {
+        "course": "javascript-core",
+        "mission": "JSC-014"
+      },
+      "language": "javascript"
+    },
+    {
+      "id": "js-modules",
+      "title": "Модули",
+      "detect": [
+        "export ",
+        "import "
+      ],
+      "introducedIn": {
+        "course": "javascript-core",
+        "mission": "JSC-015"
+      },
+      "language": "javascript"
+    },
+    {
+      "id": "js-async",
+      "title": "Промисы и async/await",
+      "detect": [
+        "async ",
+        "await ",
+        "Promise"
+      ],
+      "introducedIn": {
+        "course": "javascript-core",
+        "mission": "JSC-017"
+      },
+      "language": "javascript"
+    },
+    {
+      "id": "react-jsx",
+      "title": "JSX-разметка",
+      "detect": [
+        "</",
+        "/>"
+      ],
+      "introducedIn": {
+        "course": "react-core",
+        "mission": "RCT-002"
+      },
+      "language": "javascript"
+    },
+    {
+      "id": "react-hooks",
+      "title": "Хуки состояния и эффектов",
+      "detect": [
+        "useState(",
+        "useEffect("
+      ],
+      "introducedIn": {
+        "course": "react-core",
+        "mission": "RCT-005"
+      },
+      "language": "javascript"
+    },
+    {
+      "id": "yaml-mapping",
+      "title": "Пара ключ-значение",
+      "detect": [
+        ": ",
+        ":"
+      ],
+      "introducedIn": {
+        "course": "yaml-basics",
+        "mission": "YML-003"
+      },
+      "language": "yaml"
+    },
+    {
+      "id": "yaml-scalars",
+      "title": "Скаляры и булевы значения",
+      "detect": [
+        "true",
+        "false"
+      ],
+      "introducedIn": {
+        "course": "yaml-basics",
+        "mission": "YML-002"
+      },
+      "language": "yaml"
+    },
+    {
+      "id": "yaml-sequence",
+      "title": "Блочная последовательность",
+      "detect": [
+        "- "
+      ],
+      "introducedIn": {
+        "course": "yaml-basics",
+        "mission": "YML-006"
+      },
+      "language": "yaml"
+    },
+    {
+      "id": "yaml-quotes",
+      "title": "Кавычки против приведения типа",
+      "detect": [
+        "\""
+      ],
+      "introducedIn": {
+        "course": "yaml-basics",
+        "mission": "YML-008"
+      },
+      "language": "yaml"
+    },
+    {
+      "id": "yaml-multiline",
+      "title": "Многострочные значения",
+      "detect": [
+        ": |",
+        ": >"
+      ],
+      "introducedIn": {
+        "course": "yaml-basics",
+        "mission": "YML-010"
+      },
+      "language": "yaml"
+    },
+    {
+      "id": "yaml-anchors",
+      "title": "Якоря и алиасы",
+      "detect": [
+        "&",
+        "*"
+      ],
+      "introducedIn": {
+        "course": "yaml-basics",
+        "mission": "YML-011"
+      },
+      "language": "yaml"
+    },
+    {
+      "id": "sql-order",
+      "title": "Сортировка результата",
+      "detect": [
+        "ORDER BY"
+      ],
+      "introducedIn": {
+        "course": "sql-foundations",
+        "mission": "SQL-023"
+      },
+      "language": "sql"
     }
   ],
   "auditedCourses": [
@@ -279,9 +986,18 @@
     "yaml-basics"
   ],
   "$auditedComment": "Курсы, прошедшие ручной аудит порядка выдачи знаний. Для них нарушение — ошибка сборки. Для остальных — предупреждение, пока идёт массовая правка.",
-  "$languageComment": "Навык проверяется только в миссиях на своём языке: язык определяется по task.workspaceFile. «return» в Java — не питоновская функция.",
-  "languageByFile": {
-    "solution.py": "python",
-    "solution.sql": "sql"
-  }
+  "$languageComment": "Язык миссии определяется по цепочке: расширение рабочего файла → поле language у миссии → поле technology у курса. Угадывания по содержимому нет намеренно: слово Promise внутри русского предложения и слово «исключения» в описании SLI давали ложные срабатывания.",
+  "languageByExtension": {
+    ".py": "python",
+    ".sql": "sql",
+    ".go": "go",
+    ".java": "java",
+    ".js": "javascript",
+    ".jsx": "javascript",
+    ".yaml": "yaml",
+    ".yml": "yaml"
+  },
+  "$detectComment": "Навык ищется только в коде: перед сопоставлением из проверки убираются комментарии и содержимое строковых литералов. Иначе «return» в русском тексте считался бы требованием к синтаксису.",
+  "$coverageComment": "Литерал объекта в JavaScript и вложенность отступом в YAML не зарегистрированы: у них нет надёжного подстрочного признака. Их порядок проверяется вручную в эталонных курсах.",
+  "$uncoveredComment": "Намеренно не покрыты: точка с запятой в SQL и заготовки Artifact/Steps из прежнего шаблона — это не конструкции языка и порядка выдачи знаний не задают."
 }

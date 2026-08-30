@@ -3,6 +3,7 @@
   "title": "Threat hunting",
   "description": "Формулируем гипотезу, исследуем baseline и последовательности событий, фиксируем результат и улучшаем детекты.",
   "category": "Blue Team",
+  "technology": "yaml",
   "level": "Средний",
   "skills": [
     "Гипотеза hunting",

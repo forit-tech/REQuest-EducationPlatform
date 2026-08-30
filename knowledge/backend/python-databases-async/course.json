@@ -3,6 +3,7 @@
   "title": "Асинхронный Python и данные",
   "description": "Разбираем event loop, отмену задач, пулы соединений, транзакции и фоновые очереди.",
   "category": "Backend",
+  "technology": "python",
   "level": "Средний",
   "skills": [
     "Event loop и неблокирующий ввод-вывод",

@@ -3,6 +3,7 @@
   "title": "Сетевые сервисы на Go",
   "description": "Строим HTTP API, middleware, доступ к SQL и транзакционные бизнес-сценарии.",
   "category": "Backend",
+  "technology": "go",
   "level": "Средний",
   "skills": [
     "net/http и контракт",

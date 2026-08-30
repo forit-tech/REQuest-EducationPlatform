@@ -3,6 +3,7 @@
   "title": "CI/CD и инфраструктура как код",
   "description": "Строим проверяемый pipeline, управляем артефактами, Terraform-состоянием, секретами и безопасным продвижением.",
   "category": "Delivery",
+  "technology": "yaml",
   "level": "Продвинутый",
   "skills": [
     "Pipeline и quality gates",

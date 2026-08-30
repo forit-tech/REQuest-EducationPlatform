@@ -3,6 +3,7 @@
   "title": "YAML: основы формата",
   "description": "Скаляры, пары, отступы, последовательности, два стиля записи, кавычки, многострочные значения и якоря — формат сам по себе, до Kubernetes, CI и Compose.",
   "category": "Platform",
+  "technology": "yaml",
   "level": "Старт",
   "skills": [
     "синтаксис YAML",

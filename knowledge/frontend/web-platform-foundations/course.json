@@ -3,6 +3,7 @@
   "title": "Web-платформа",
   "description": "Создаём семантичные, адаптивные интерфейсы и понимаем выполнение JavaScript, сеть и браузерные API.",
   "category": "Frontend",
+  "technology": "javascript",
   "level": "База",
   "skills": [
     "Семантический HTML",

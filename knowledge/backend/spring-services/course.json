@@ -3,6 +3,7 @@
   "title": "Сервисы на Spring",
   "description": "Проектируем HTTP API, слои приложения, транзакции, валидацию и безопасные границы сервиса.",
   "category": "Backend",
+  "technology": "java",
   "level": "Средний",
   "skills": [
     "HTTP-контракт и контроллер",

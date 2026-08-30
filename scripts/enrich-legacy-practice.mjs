@@ -35,9 +35,34 @@ const usesToken = (fragment, token) => {
     from = at + 1
   }
 }
-const languageOf = mission => registry.languageByFile?.[mission.task?.workspaceFile ?? ''] ?? null
-const skillsFor = (fragment, language) => registry.skills.filter(skill =>
-  skill.language === language && skill.detect.some(token => usesToken(fragment, token)))
+const EXTENSION_LANGUAGE = registry.languageByExtension ?? {}
+const extensionOf = file => (file ?? '').slice((file ?? '').lastIndexOf('.'))
+/**
+ * Язык миссии по цепочке: рабочий файл → явное поле миссии → технология курса.
+ * Угадывания по содержимому нет: слово Promise внутри русского предложения
+ * и «исключения» в описании SLI давали ложные срабатывания.
+ */
+const languageOf = (mission, course) =>
+  EXTENSION_LANGUAGE[extensionOf(mission.task?.workspaceFile)]
+  ?? mission.language
+  ?? course?.technology
+  ?? null
+
+const COMMENTS = { python: /#.*$/gm, sql: /--.*$/gm, yaml: /#.*$/gm,
+  go: /\/\/.*$/gm, java: /\/\/.*$/gm, javascript: /\/\/.*$/gm }
+const STRINGS = { python: /"[^"]*"|'[^']*'/g, sql: /'[^']*'/g, yaml: /"[^"]*"|'[^']*'/g,
+  go: /"[^"]*"|`[^`]*`/g, java: /"[^"]*"/g, javascript: /"[^"]*"|'[^']*'|`[^`]*`/g }
+/** Навык ищется только в коде: комментарии и содержимое строк убираются. */
+const codeOnly = (fragment, language) => {
+  const withoutComments = fragment.replace(COMMENTS[language] ?? /$^/g, ' ')
+  return withoutComments.replace(STRINGS[language] ?? /$^/g, match => match[0] + match[0])
+}
+const skillsFor = (fragment, language) => {
+  if (!language) return []
+  const code = codeOnly(fragment, language)
+  return registry.skills.filter(skill =>
+    skill.language === language && skill.detect.some(token => usesToken(code, token)))
+}
 
 const facts = {
   python: { title: 'Python назван не в честь змеи', text: 'Гвидо ван Россум начал писать Python в конце 1989 года, а название выбрал под впечатлением от комедийного шоу Monty Python.', sourceLabel: 'Python Documentation', sourceUrl: 'https://docs.python.org/3/faq/general.html' },
@@ -194,7 +219,7 @@ function codeChecks(course, mission, index) {
             { label: 'Значение сохранено в переменную', includes: '=' },
             { label: 'Результат виден в выводе', includes: 'print(' },
           ]
-  const language = sqlCourses.has(course.id) ? 'sql' : 'python'
+  const language = course.technology ?? (sqlCourses.has(course.id) ? 'sql' : 'python')
   const usable = candidates.filter(check => skillsFor(check.includes, language).every(skill => allowed.has(skill.id)))
   return usable.length >= 2 ? usable : null
 }
@@ -259,7 +284,7 @@ for (const { course, coursePath } of courseFiles) {
     if (mission.task?.codeChecks?.length) {
       // Проверки уже есть: оставляем только те, что опираются на введённые конструкции.
       const allowed = introducedBefore(course, index)
-      const language = languageOf(mission)
+      const language = languageOf(mission, course)
       const safe = mission.task.codeChecks.filter(check => skillsFor(check.includes, language).every(skill => allowed.has(skill.id)))
       // Проверки исправны, но тема названа узнаванием: редактор здесь проверяет не ту
       // компетенцию, которой учит миссия. Такой код навешен квотой, его надо снять.

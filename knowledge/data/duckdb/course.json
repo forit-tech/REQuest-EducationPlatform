@@ -3,6 +3,7 @@
   "title": "DuckDB",
   "description": "Локальная аналитика CSV и Parquet с помощью встраиваемого SQL-движка DuckDB.",
   "category": "Базы данных",
+  "technology": "sql",
   "level": "Средний",
   "skills": [
     "Локальная аналитика",
