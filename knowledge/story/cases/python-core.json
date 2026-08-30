@@ -17,7 +17,7 @@
           {"speaker": "mira", "emotion": "worried", "caption": "Выручка выросла в семнадцать раз. Либо мы гении, либо таблица врёт.", "scene": "revenue-screen"},
           {"speaker": "oleg", "emotion": "determined", "caption": "Таблица не врёт. Врут наши предположения о том, что в ней лежит.", "scene": "desk-wide"}
         ]},
-        {"kind": "notification", "channel": "alert", "from": "REQuest Monitor", "title": "Аномалия квартальной выручки", "text": "Значение выше медианы последних 12 недель на 1 640%. Скрипт завершён с кодом 0."},
+        {"kind": "notification", "channel": "alert", "from": "REduQuest Monitor", "title": "Аномалия квартальной выручки", "text": "Значение выше медианы последних 12 недель на 1 640%. Скрипт завершён с кодом 0."},
         {"kind": "line", "speaker": "oleg", "emotion": "neutral", "text": "Код 0 означает только то, что программа не упала. Он ничего не говорит о правдивости результата."},
         {"kind": "line", "speaker": "mira", "emotion": "worried", "text": "Лена ждёт цифру к девяти. С чего начнём?"},
         {"kind": "choice", "id": "py-c0", "prompt": "Твой первый ход в расследовании.", "options": [
@@ -137,7 +137,7 @@
       "title": "Дело готово к передаче",
       "trigger": {"on": "afterMission", "missionId": "PYC-050"},
       "beats": [
-        {"kind": "notification", "channel": "ticket", "from": "REQuest Review", "title": "Отчёт принят", "text": "Расчёт воспроизводится в чистом окружении. Ошибочные записи изолируются. Критические правила покрыты тестами."},
+        {"kind": "notification", "channel": "ticket", "from": "REduQuest Review", "title": "Отчёт принят", "text": "Расчёт воспроизводится в чистом окружении. Ошибочные записи изолируются. Критические правила покрыты тестами."},
         {"kind": "line", "speaker": "lena", "emotion": "happy", "text": "Теперь я могу показать цифру руководству и объяснить, откуда она взялась."},
         {"kind": "line", "speaker": "oleg", "emotion": "happy", "text": "Python вы освоили не тогда, когда запомнили синтаксис. А когда превратили сомнительную цифру в доказуемый результат."}
       ]

@@ -10,7 +10,7 @@
     "professionId": "data-analyst",
     "protagonist": { "name": "Алина Воронцова", "description": "новая аналитик маркетплейса, для которой это первая неделя в профессии" },
     "premise": "Алина начинает с непонятного падения продаж, едет на склад, встречается с региональной командой и готовит решение для совета директоров.",
-    "cast": ["mira", "oleg", "lena"],
+    "cast": ["mira", "oleg", "yana"],
     "locations": ["office", "industrial", "trip-station", "meeting", "conference"]
   },
   {
@@ -59,14 +59,14 @@
     "professionId": "frontend-developer",
     "protagonist": { "name": "Лера Каменева", "description": "дизайнер-разработчица интерфейса культурного фестиваля" },
     "premise": "Лера собирает сайт большого фестиваля, тестирует его прямо на площадке и спасает интерфейс в вечер открытия.",
-    "cast": ["sonya", "gleb", "lena"],
+    "cast": ["irina", "gleb", "lena"],
     "locations": ["office", "conference", "trip-station", "meeting", "conference"]
   },
   {
     "professionId": "react-developer",
     "protagonist": { "name": "Кирилл Зимин", "description": "React-разработчик сложного диспетчерского приложения" },
     "premise": "Кирилл превращает хрупкий прототип в рабочую систему и защищает архитектуру на отраслевой демонстрации.",
-    "cast": ["sonya", "gleb", "alexey"],
+    "cast": ["irina", "gleb", "alexey"],
     "locations": ["office", "lab", "industrial", "meeting", "conference"]
   },
   {
@@ -80,14 +80,14 @@
     "professionId": "sre-engineer",
     "protagonist": { "name": "Роман Чернов", "description": "SRE-инженер глобального сервиса трансляций" },
     "premise": "Роман готовит платформу к международному эфиру, летит к удалённой площадке и управляет инцидентом во время события.",
-    "cast": ["vadim", "artem", "lena"],
+    "cast": ["pavel", "artem", "lena"],
     "locations": ["server", "meeting", "conference", "trip-station", "server"]
   },
   {
     "professionId": "cybersecurity-specialist",
     "protagonist": { "name": "Марина Руденко", "description": "инженер защиты новой производственной сети" },
     "premise": "Марина строит защиту завода, выезжает на объект и расследует признаки проникновения до остановки линии.",
-    "cast": ["alexey", "vadim", "lena"],
+    "cast": ["sonya", "alexey", "lena"],
     "locations": ["office", "industrial", "trip-station", "lab", "server"]
   },
   {
@@ -101,7 +101,7 @@
     "professionId": "soc-analyst",
     "protagonist": { "name": "Елизавета Тихонова", "description": "аналитик ночной смены центра мониторинга" },
     "premise": "Елизавета начинает с одиночного алерта, связывает его с большой атакой и координирует реагирование нескольких площадок.",
-    "cast": ["vadim", "alexey", "sonya"],
+    "cast": ["damir", "alexey", "sonya"],
     "locations": ["server", "lab", "industrial", "trip-station", "meeting"]
   }
 ]

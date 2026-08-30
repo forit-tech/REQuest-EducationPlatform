@@ -24,10 +24,10 @@
     }
   ],
   "originality": {
-    "story": "REQuest",
-    "datasets": "REQuest synthetic",
-    "tasks": "REQuest",
-    "tests": "REQuest"
+    "story": "REduQuest",
+    "datasets": "REduQuest synthetic",
+    "tasks": "REduQuest",
+    "tests": "REduQuest"
   },
   "datasets": [
     {

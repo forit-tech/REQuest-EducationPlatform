@@ -16,7 +16,35 @@ const professionPrograms = JSON.parse(await readFile(professionProgramsPath, 'ut
 const professionNarratives = JSON.parse(await readFile(professionNarrativesPath, 'utf8'))
 const storyCast = JSON.parse(await readFile(castPath, 'utf8'))
 const castIds = new Set(storyCast.map(member => member.id))
-const illustratedCastIds = new Set(['mira', 'oleg', 'lena', 'gleb', 'sonya', 'artem', 'vadim', 'alexey'])
+const castGender = new Map(storyCast.map(member => [member.id, member.gender]))
+// Реплики написаны от первого лица: шаблон, собранный для героини, звучал в устах
+// мужчины как «Я уже собрала материалы». В JS  не знает кириллицы, поэтому границу
+// слова задаём просмотром назад и вперёд.
+const femininePast = /(?<![а-яёА-ЯЁ])Я\s+(?:уже\s+|только что\s+|сама\s+)?([а-яё]+ла)(?![а-яё])/
+const masculinePast = /(?<![а-яёА-ЯЁ])Я\s+(?:уже\s+|только что\s+|сам\s+)?([а-яё]+(?:ал|ил|ыл|ел|ёл))(?![а-яё])/
+const notVerbs = new Set(['сначала', 'дотла', 'пока'])
+function genderSlip(speaker, text) {
+  const gender = castGender.get(speaker)
+  if (!text || !gender || gender === 'neutral') return null
+  const wrong = gender === 'male' ? femininePast : masculinePast
+  const match = wrong.exec(text)
+  if (!match || notVerbs.has(match[1])) return null
+  return match[1]
+}
+// Иллюстрированным считается герой, у которого лежат все пять поз. Зашитый
+// список устаревал молча и держал нарисованных героев вне сюжетов.
+const spriteEmotions = ['neutral', 'happy', 'worried', 'surprised', 'determined']
+const spriteFiles = await readdir(resolve(root, 'assets/characters/generated'))
+const posesByCharacter = new Map()
+for (const name of spriteFiles) {
+  const match = /^([a-z]+)-(neutral|happy|worried|surprised|determined)-v\d+\.png$/.exec(name)
+  if (!match) continue
+  if (!posesByCharacter.has(match[1])) posesByCharacter.set(match[1], new Set())
+  posesByCharacter.get(match[1]).add(match[2])
+}
+const illustratedCastIds = new Set(
+  [...posesByCharacter].filter(([, poses]) => spriteEmotions.every(emotion => poses.has(emotion))).map(([id]) => id),
+)
 const domainConfigs = []
 for (const entry of await readdir(knowledgeRoot, { withFileTypes: true })) {
   if (!entry.isDirectory() || ['content-factory', 'story', 'professions'].includes(entry.name)) continue
@@ -155,6 +183,15 @@ for (const file of (await readdir(storyCasesRoot)).filter(name => name.endsWith(
         validate(castIds.has(speaker), act.id, `неизвестный speaker: ${speaker}`)
         validate(speaker === 'narrator' || story.cast.includes(speaker), act.id, `speaker ${speaker} отсутствует в составе дела`)
         validate(speaker === 'narrator' || illustratedCastIds.has(speaker), act.id, `у speaker ${speaker} нет иллюстрированного спрайта`)
+      }
+      const spoken = beat.kind === 'line'
+        ? [[beat.speaker, beat.text]]
+        : beat.kind === 'comic'
+          ? beat.panels.map(panel => [panel.speaker, panel.caption])
+          : []
+      for (const [speaker, text] of spoken) {
+        const slip = genderSlip(speaker, text)
+        validate(!slip, act.id, `${speaker} говорит о себе в чужом роде: «${slip}»`)
       }
     }
   }

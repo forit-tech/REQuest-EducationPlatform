@@ -10,10 +10,14 @@ const root = resolve(import.meta.dirname, '..')
 const knowledgeRoot = resolve(root, 'knowledge')
 const storyRoot = resolve(knowledgeRoot, 'story/cases')
 
+// Реплики пишутся от первого лица, поэтому шаблон обязан согласовываться с полом героя.
+const femaleCast = new Set(['mira', 'lena', 'sonya', 'yana', 'irina'])
+const pastTense = (characterId, feminine, masculine) => (femaleCast.has(characterId) ? feminine : masculine)
+
 const curricula = {
   'data-analyst': {
     domain: 'data',
-    cast: ['mira', 'oleg', 'lena'],
+    cast: ['mira', 'oleg', 'yana'],
     courses: [
       {
         id: 'analyst-metrics', prefix: 'ANM', title: 'Метрики без самообмана', category: 'Основы аналитики', level: 'База',
@@ -320,7 +324,7 @@ function buildStory(profession, course, courseIndex) {
         ],
       },
       { id: `${course.id}-brief`, title: 'Первая версия', trigger: { on: 'beforeMission', missionId: first }, beats: [
-        { kind: 'line', speaker: companion, emotion: 'happy', text: 'Я уже собрала материалы. Давай сначала договоримся, какой вопрос мы вообще пытаемся решить.' },
+        { kind: 'line', speaker: companion, emotion: 'happy', text: `Я уже ${pastTense(companion, 'собрала', 'собрал')} материалы. Давай сначала договоримся, какой вопрос мы вообще пытаемся решить.` },
         { kind: 'line', speaker: mentor, emotion: 'neutral', text: 'Хорошее начало. Зафиксируй принцип — после этого рабочая станция откроет первую улику.' },
       ] },
       { id: `${course.id}-evidence`, title: 'Улика не сходится', trigger: { on: 'afterMission', missionId: third }, beats: [
