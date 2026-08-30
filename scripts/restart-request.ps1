@@ -1,6 +1,6 @@
 $ErrorActionPreference = 'SilentlyContinue'
 $projectRoot = Split-Path -Parent $PSScriptRoot
-$exePath = Join-Path $projectRoot 'release\REQuest Desktop\REQuest.exe'
+$exePath = Join-Path $projectRoot 'release\REduQuest Desktop\REduQuest.exe'
 
 if (-not (Test-Path -LiteralPath $exePath)) { exit 1 }
 

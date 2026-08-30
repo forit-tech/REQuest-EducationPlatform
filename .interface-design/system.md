@@ -1,10 +1,10 @@
-# REQuest Interface System
+# REduQuest Interface System
 
 ## Direction
 
-REQuest is a Russian-language practical career training station, not a conventional course catalog. The interface should feel like a focused scientific workstation aboard a near-future research vessel: technical, calm, and readable for long sessions.
+REduQuest is a Russian-language practical career training station, not a conventional course catalog. The interface should feel like a focused scientific workstation aboard a near-future research vessel: technical, calm, and readable for long sessions.
 
-Core domain language: professions, blocks, expeditions, cases, episodes, characters, evidence, skill network, execution node, telemetry, REQuest ID, XP energy, production incidents. Rooms remain the ordinary, non-game course pages from which a learner deliberately starts or resumes a block adventure.
+Core domain language: professions, blocks, expeditions, cases, episodes, characters, evidence, skill network, execution node, telemetry, REduQuest ID, XP energy, production incidents. Rooms remain the ordinary, non-game course pages from which a learner deliberately starts or resumes a block adventure.
 
 The primary hierarchy is **Career domain → Profession/specialization → Independent learning block → Case → Episode**. The first choice must separate genuinely different fields (Data & AI, Backend, Frontend, DevOps, Cybersecurity); adjacent roles belong on the second level. Data Scientist is the first complete profession, never the entire identity of the platform.
 
@@ -70,7 +70,7 @@ Elevation:
 - Career domain selector: five prominent soft-square cards for genuinely different fields; selecting a domain reveals only its related profession cards.
 - Shared skill: one canonical learning node may belong to several profession routes. Completion propagates across every route that references it; never ask a learner to repeat Основы Python, SQL, Git, Linux, or another identical block.
 - Technical footnote: first use a natural Russian term, then the original in parentheses when it helps recognition (for example, `переобучение (overfitting)`). Mission panels expose a quiet inset glossary note with a short practical definition.
-- REQuest ID: avatar and identity first, then security, contacts, reminders, and learning telemetry.
+- REduQuest ID: avatar and identity first, then security, contacts, reminders, and learning telemetry.
 - Primary navigation: every sidebar item opens a real application section, updates the header context, and exposes `aria-current`; never render a navigation-shaped button without a destination.
 - Global search: the top-bar search control opens a focused command surface with real results for sections, professions, courses, and missions. Every result navigates to its destination; support `Ctrl/⌘ + /` to open, `Escape` and backdrop click to close, and never leave a search-shaped control inert.
 - Section dashboard: a concise mission-oriented intro followed by domain-specific surfaces—current learning on Home, room drills in Practice, portfolio briefs in Projects, and progress milestones in Achievements.

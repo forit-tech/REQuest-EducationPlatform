@@ -69,7 +69,7 @@ export async function broadcast(text) {
 }
 
 const HELP = [
-  '<b>REQuest — напоминания об обучении</b>',
+  '<b>REduQuest — напоминания об обучении</b>',
   '',
   '/start — подписаться на напоминания',
   '/stop — отписаться',

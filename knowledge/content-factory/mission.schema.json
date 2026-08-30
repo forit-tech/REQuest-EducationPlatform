@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://request.local/schemas/mission-v1.json",
-  "title": "REQuest Content Factory Mission",
+  "title": "REduQuest Content Factory Mission",
   "type": "object",
   "required": ["schemaVersion", "id", "locale", "sourceIds", "factDigest", "datasets", "activities", "acceptance", "executionTests", "review"],
   "properties": {
