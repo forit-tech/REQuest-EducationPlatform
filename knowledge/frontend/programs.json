@@ -1,5 +1,20 @@
 [
   {
+    "id": "javascript-core",
+    "phase": "Профессия · frontend-developer",
+    "title": "JavaScript: основы языка",
+    "goal": "Осваиваем значения, переменные, условия, циклы, массивы, объекты, функции, деструктуризацию, модули и асинхронность — до React и DOM.",
+    "missionCount": 17,
+    "status": "ready",
+    "prerequisites": [],
+    "blocks": [
+      "Значения и переменные",
+      "Условия, циклы и массивы",
+      "Функции и объекты",
+      "Модули и асинхронность"
+    ]
+  },
+  {
     "id": "web-platform-foundations",
     "phase": "Профессия · frontend-developer",
     "title": "Web-платформа",

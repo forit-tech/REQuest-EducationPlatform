@@ -1,0 +1,183 @@
+{
+  "caseId": "case-yaml-basics",
+  "courseId": "yaml-basics",
+  "number": "64",
+  "title": "Пробел, который остановил релиз",
+  "logline": "Выкладка не проходит из-за конфигурации: один отступ и одни потерянные кавычки.",
+  "setting": "Учебная экспедиция · Platform",
+  "cast": [
+    "oleg",
+    "damir",
+    "yana"
+  ],
+  "acts": [
+    {
+      "id": "yaml-basics-start",
+      "title": "Новое дело",
+      "trigger": {
+        "on": "caseStart"
+      },
+      "beats": [
+        {
+          "kind": "comic",
+          "panels": [
+            {
+              "speaker": "yana",
+              "emotion": "worried",
+              "scene": "screen",
+              "caption": "Выкладка остановлена: конфигурация не читается, а сервис уже выключен."
+            },
+            {
+              "speaker": "damir",
+              "emotion": "determined",
+              "scene": "office",
+              "caption": "Разбирать надо сам формат. Kubernetes здесь ни при чём — ошибка в отступе и кавычках."
+            },
+            {
+              "speaker": "oleg",
+              "emotion": "neutral",
+              "scene": "meeting",
+              "caption": "Значит, сначала YAML как формат: пары, отступы, списки, кавычки. Схемы потом."
+            }
+          ]
+        },
+        {
+          "kind": "line",
+          "speaker": "oleg",
+          "emotion": "determined",
+          "text": "Цель дела — читать конфигурацию и понимать, что именно получит программа. Compose, CI и Kubernetes будут отдельными делами."
+        }
+      ]
+    },
+    {
+      "id": "yaml-basics-brief",
+      "title": "Двоеточие с пробелом",
+      "trigger": {
+        "on": "beforeMission",
+        "missionId": "YML-003"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "damir",
+          "emotion": "happy",
+          "text": "Разделитель здесь не двоеточие, а двоеточие с пробелом. Без пробела пары просто не будет."
+        },
+        {
+          "kind": "line",
+          "speaker": "oleg",
+          "emotion": "neutral",
+          "text": "И ошибки при этом не случится. Параметр молча не применится — это худший вид сбоя."
+        }
+      ]
+    },
+    {
+      "id": "yaml-basics-evidence",
+      "title": "Список, которого не было",
+      "trigger": {
+        "on": "afterMission",
+        "missionId": "YML-006"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "yana",
+          "emotion": "surprised",
+          "text": "Пустые квадратные скобки и блочный список — одно и то же. Раньше это выглядело как разные вещи."
+        },
+        {
+          "kind": "line",
+          "speaker": "damir",
+          "emotion": "happy",
+          "text": "Именно. Один формат, два стиля записи. Выбор влияет только на чтение и на историю правок."
+        }
+      ]
+    },
+    {
+      "id": "yaml-basics-choice",
+      "title": "Версия без кавычек",
+      "trigger": {
+        "on": "beforeMission",
+        "missionId": "YML-008"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "yana",
+          "emotion": "worried",
+          "text": "Версия 1.10 в файле выглядит нормально. Может, оставить как есть и не загромождать кавычками?"
+        },
+        {
+          "kind": "choice",
+          "id": "yaml-basics-quotes-choice",
+          "prompt": "Как поступить?",
+          "options": [
+            {
+              "id": "careful",
+              "text": "Возьму версию в кавычки — иначе она станет числом 1.1.",
+              "reply": "Выкладка возьмёт ту сборку, которая указана.",
+              "trust": {
+                "damir": 2,
+                "oleg": 1
+              },
+              "flags": [
+                "yaml-basics-quotes-careful"
+              ]
+            },
+            {
+              "id": "rushed",
+              "text": "Оставлю без кавычек, выглядит чище.",
+              "reply": "Файл прочитается, но версия сборки окажется другой.",
+              "trust": {
+                "oleg": -1
+              },
+              "flags": [
+                "yaml-basics-quotes-rushed"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "yaml-basics-turn",
+      "title": "Конфигурация читается",
+      "trigger": {
+        "on": "afterMission",
+        "missionId": "YML-013"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "damir",
+          "emotion": "happy",
+          "text": "Теперь видно, что получит программа: где отображение, где список, где строка, а где число."
+        },
+        {
+          "kind": "line",
+          "speaker": "oleg",
+          "emotion": "determined",
+          "text": "Осталось собрать полный файл выкладки. После этого можно браться за Kubernetes и CI."
+        }
+      ]
+    }
+  ],
+  "endings": [
+    {
+      "id": "yaml-basics-gold",
+      "title": "Релиз пошёл",
+      "summary": "Формат освоен, конфигурация читается осознанно, маршрут открыт к предметным схемам.",
+      "minTrust": {
+        "damir": 1,
+        "oleg": 1
+      },
+      "rank": "золото"
+    },
+    {
+      "id": "yaml-basics-silver",
+      "title": "Релиз пошёл с оговорками",
+      "summary": "Файл исправлен, но часть значений стоит перепроверить на приведение типов.",
+      "rank": "серебро"
+    }
+  ]
+}

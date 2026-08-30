@@ -1,0 +1,183 @@
+{
+  "caseId": "case-javascript-core",
+  "courseId": "javascript-core",
+  "number": "63",
+  "title": "Корзина, которая показывает пустоту",
+  "logline": "Корзина отрисовывается пустой, хотя данные приходят: причина в самом языке, а не в интерфейсе.",
+  "setting": "Учебная экспедиция · JavaScript Core",
+  "cast": [
+    "lena",
+    "sonya",
+    "gleb"
+  ],
+  "acts": [
+    {
+      "id": "javascript-core-start",
+      "title": "Новое дело",
+      "trigger": {
+        "on": "caseStart"
+      },
+      "beats": [
+        {
+          "kind": "comic",
+          "panels": [
+            {
+              "speaker": "lena",
+              "emotion": "worried",
+              "scene": "screen",
+              "caption": "Корзина показывает пустой экран, хотя ответ сервера приходит и данные в нём есть."
+            },
+            {
+              "speaker": "gleb",
+              "emotion": "determined",
+              "scene": "office",
+              "caption": "В React лезть рано. Сначала язык: значения, функции, объекты и то, как работает ожидание."
+            },
+            {
+              "speaker": "sonya",
+              "emotion": "neutral",
+              "scene": "meeting",
+              "caption": "Документация React прямо перечисляет, что нужно знать заранее. Начнём с этого списка."
+            }
+          ]
+        },
+        {
+          "kind": "line",
+          "speaker": "gleb",
+          "emotion": "determined",
+          "text": "Цель дела — читать и писать JavaScript без подсказок. Компоненты и хуки будут отдельным делом."
+        }
+      ]
+    },
+    {
+      "id": "javascript-core-brief",
+      "title": "Две буквы разницы",
+      "trigger": {
+        "on": "beforeMission",
+        "missionId": "JSC-003"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "sonya",
+          "emotion": "happy",
+          "text": "Начнём с объявлений. По умолчанию берём const, а let только там, где значение точно изменится."
+        },
+        {
+          "kind": "line",
+          "speaker": "gleb",
+          "emotion": "neutral",
+          "text": "Это не вкусовщина. Константа сообщает читателю кода, что значение дальше не поедет."
+        }
+      ]
+    },
+    {
+      "id": "javascript-core-evidence",
+      "title": "Склейка вместо суммы",
+      "trigger": {
+        "on": "afterMission",
+        "missionId": "JSC-005"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "lena",
+          "emotion": "surprised",
+          "text": "Сумма заказа получилась строкой. Одно значение пришло в кавычках, и плюс склеил их."
+        },
+        {
+          "kind": "line",
+          "speaker": "gleb",
+          "emotion": "happy",
+          "text": "Теперь понятно, почему в корзине попадались суммы вида «1990450». Это не сервер, это тип."
+        }
+      ]
+    },
+    {
+      "id": "javascript-core-choice",
+      "title": "Копия или ссылка",
+      "trigger": {
+        "on": "beforeMission",
+        "missionId": "JSC-013"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "lena",
+          "emotion": "worried",
+          "text": "Проще изменить пришедший объект заказа на месте. Так ведь короче?"
+        },
+        {
+          "kind": "choice",
+          "id": "javascript-core-spread-choice",
+          "prompt": "Как поступить?",
+          "options": [
+            {
+              "id": "careful",
+              "text": "Соберу копию с изменением и оставлю исходный объект нетронутым.",
+              "reply": "Другие части интерфейса продолжат видеть прежние данные.",
+              "trust": {
+                "gleb": 2,
+                "sonya": 1
+              },
+              "flags": [
+                "javascript-core-spread-careful"
+              ]
+            },
+            {
+              "id": "rushed",
+              "text": "Изменю объект на месте, так меньше кода.",
+              "reply": "Экран заказа обновится, но соседний список покажет старое.",
+              "trust": {
+                "gleb": -1
+              },
+              "flags": [
+                "javascript-core-spread-rushed"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "javascript-core-turn",
+      "title": "Пустой экран объяснён",
+      "trigger": {
+        "on": "afterMission",
+        "missionId": "JSC-016"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "sonya",
+          "emotion": "happy",
+          "text": "Вот и причина: вывод случился раньше ответа. Запрос не останавливает программу."
+        },
+        {
+          "kind": "line",
+          "speaker": "gleb",
+          "emotion": "determined",
+          "text": "Последняя миссия — научиться дожидаться результата. После неё можно открывать React."
+        }
+      ]
+    }
+  ],
+  "endings": [
+    {
+      "id": "javascript-core-gold",
+      "title": "Корзина ожила",
+      "summary": "Язык освоен, пустой экран объяснён асинхронностью, маршрут открыт к React.",
+      "minTrust": {
+        "gleb": 1,
+        "sonya": 1
+      },
+      "rank": "золото"
+    },
+    {
+      "id": "javascript-core-silver",
+      "title": "Причина найдена с оговорками",
+      "summary": "Корзина работает, но часть асинхронного кода стоит перечитать перед React.",
+      "rank": "серебро"
+    }
+  ]
+}

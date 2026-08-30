@@ -1,0 +1,183 @@
+{
+  "caseId": "case-java-core",
+  "courseId": "java-core",
+  "number": "62",
+  "title": "Сверка, которая разошлась на копейку",
+  "logline": "Расчёт сервиса и банковская выписка расходятся на копейку — и вся сверка встаёт.",
+  "setting": "Учебная экспедиция · Java Core",
+  "cast": [
+    "artem",
+    "irina",
+    "oleg"
+  ],
+  "acts": [
+    {
+      "id": "java-core-start",
+      "title": "Новое дело",
+      "trigger": {
+        "on": "caseStart"
+      },
+      "beats": [
+        {
+          "kind": "comic",
+          "panels": [
+            {
+              "speaker": "irina",
+              "emotion": "worried",
+              "scene": "office",
+              "caption": "Сверка встала: расчёт сервиса и выписка банка расходятся ровно на копейку."
+            },
+            {
+              "speaker": "artem",
+              "emotion": "determined",
+              "scene": "screen",
+              "caption": "Копейка берётся из типов. Пока непонятно, чем int отличается от double, причину не найти."
+            },
+            {
+              "speaker": "oleg",
+              "emotion": "neutral",
+              "scene": "meeting",
+              "caption": "Значит, разбираем язык по порядку: типы, условия, циклы, методы — и только потом классы."
+            }
+          ]
+        },
+        {
+          "kind": "line",
+          "speaker": "oleg",
+          "emotion": "determined",
+          "text": "Цель дела — писать на Java осознанно, а не копировать рамку из чужого файла. Что такое класс, узнаем ближе к середине."
+        }
+      ]
+    },
+    {
+      "id": "java-core-brief",
+      "title": "Рамка перестаёт пугать",
+      "trigger": {
+        "on": "beforeMission",
+        "missionId": "JAV-003"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "irina",
+          "emotion": "happy",
+          "text": "Первые две строки пока просто рамка. Смотрим только на то, что внутри неё."
+        },
+        {
+          "kind": "line",
+          "speaker": "oleg",
+          "emotion": "neutral",
+          "text": "Так и надо. Объяснять класс до того, как понадобится, — значит перегрузить первую же миссию."
+        }
+      ]
+    },
+    {
+      "id": "java-core-evidence",
+      "title": "Копейка найдена",
+      "trigger": {
+        "on": "afterMission",
+        "missionId": "JAV-005"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "artem",
+          "emotion": "surprised",
+          "text": "Вот она: деление двух целых отбрасывает дробную часть. Расхождение накопилось за тысячи операций."
+        },
+        {
+          "kind": "line",
+          "speaker": "irina",
+          "emotion": "determined",
+          "text": "Значит, дальше внимательнее с типами. Ошибка была не в логике, а в объявлении переменной."
+        }
+      ]
+    },
+    {
+      "id": "java-core-choice",
+      "title": "Перехватить или пропустить",
+      "trigger": {
+        "on": "beforeMission",
+        "missionId": "JAV-014"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "irina",
+          "emotion": "worried",
+          "text": "Одна битая запись роняет разбор всего пакета. Может, просто пропускать такие строки молча?"
+        },
+        {
+          "kind": "choice",
+          "id": "java-core-exception-choice",
+          "prompt": "Как поступить?",
+          "options": [
+            {
+              "id": "careful",
+              "text": "Перехвачу сбой и запишу, какая строка не разобралась.",
+              "reply": "Сверка продолжится, а испорченные записи останутся видны.",
+              "trust": {
+                "irina": 2,
+                "oleg": 1
+              },
+              "flags": [
+                "java-core-exception-careful"
+              ]
+            },
+            {
+              "id": "rushed",
+              "text": "Пропущу молча, чтобы не тормозить пакет.",
+              "reply": "Пакет пройдёт, но о потерянных записях никто не узнает.",
+              "trust": {
+                "oleg": -1
+              },
+              "flags": [
+                "java-core-exception-rushed"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "java-core-turn",
+      "title": "Отчёт собирается",
+      "trigger": {
+        "on": "afterMission",
+        "missionId": "JAV-016"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "artem",
+          "emotion": "happy",
+          "text": "Классы, коллекции и обобщения на месте. Отчёт по сверке можно собрать без единой копии кода."
+        },
+        {
+          "kind": "line",
+          "speaker": "oleg",
+          "emotion": "determined",
+          "text": "Последний шаг — потоки. После него язык закрыт и можно браться за фреймворк."
+        }
+      ]
+    }
+  ],
+  "endings": [
+    {
+      "id": "java-core-gold",
+      "title": "Сверка сошлась",
+      "summary": "Язык освоен, расхождение объяснено типами, маршрут открыт к Spring.",
+      "minTrust": {
+        "irina": 1,
+        "oleg": 1
+      },
+      "rank": "золото"
+    },
+    {
+      "id": "java-core-silver",
+      "title": "Сверка сошлась с оговорками",
+      "summary": "Расчёт исправлен, но часть решений о типах стоит перепроверить.",
+      "rank": "серебро"
+    }
+  ]
+}

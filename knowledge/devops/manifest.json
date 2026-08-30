@@ -3,6 +3,7 @@
   "title": "DevOps и SRE",
   "version": "1.0.0",
   "courses": [
+    "yaml-basics",
     "linux-network-ops",
     "containers-kubernetes",
     "cicd-infrastructure",

@@ -59,7 +59,7 @@
     "status": "ready",
     "stages": [
       { "title": "Инженерный фундамент", "goal": "Понимать выполнение программ, Git и рабочее окружение.", "courseIds": ["technical-foundations"], "prerequisites": [] },
-      { "title": "Java Core", "goal": "Проектировать типобезопасный и корректный конкурентный код.", "courseIds": ["java-core-jvm"], "prerequisites": ["technical-foundations"] },
+      { "title": "Java Core", "goal": "Проектировать типобезопасный и корректный конкурентный код.", "courseIds": ["java-core", "java-core-jvm"], "prerequisites": ["technical-foundations"] },
       { "title": "Данные", "goal": "Моделировать данные и писать надёжные SQL-запросы.", "courseIds": ["sql-foundations", "relational-databases", "postgresql"], "prerequisites": ["java-core-jvm"] },
       { "title": "Spring Backend", "goal": "Создавать транзакционные и защищённые HTTP-сервисы.", "courseIds": ["spring-services"], "prerequisites": ["postgresql"] },
       { "title": "Продакшен", "goal": "Тестировать, наблюдать и безопасно выпускать Java-сервис.", "courseIds": ["java-production"], "prerequisites": ["spring-services"] }
@@ -81,7 +81,7 @@
     "status": "ready",
     "stages": [
       { "title": "Инженерный фундамент", "goal": "Понимать систему, сеть и жизненный цикл программы.", "courseIds": ["technical-foundations"], "prerequisites": [] },
-      { "title": "Go Core", "goal": "Писать ясный конкурентный код без утечек и гонок.", "courseIds": ["go-core-concurrency"], "prerequisites": ["technical-foundations"] },
+      { "title": "Go Core", "goal": "Писать ясный конкурентный код без утечек и гонок.", "courseIds": ["go-core", "go-core-concurrency"], "prerequisites": ["technical-foundations"] },
       { "title": "Сетевой backend", "goal": "Создавать HTTP-сервисы с транзакционным хранением.", "courseIds": ["sql-foundations", "relational-databases", "postgresql", "go-network-services"], "prerequisites": ["go-core-concurrency"] },
       { "title": "Продакшен", "goal": "Профилировать, наблюдать и корректно останавливать сервис.", "courseIds": ["go-production"], "prerequisites": ["go-network-services"] }
     ]
@@ -91,7 +91,7 @@
     "status": "ready",
     "stages": [
       { "title": "Технический фундамент", "goal": "Понимать выполнение программы, сеть и инструменты разработчика.", "courseIds": ["technical-foundations"], "prerequisites": [] },
-      { "title": "Web-платформа", "goal": "Создавать семантичные, адаптивные и интерактивные страницы.", "courseIds": ["web-platform-foundations"], "prerequisites": ["technical-foundations"] },
+      { "title": "Web-платформа", "goal": "Создавать семантичные, адаптивные и интерактивные страницы.", "courseIds": ["javascript-core", "web-platform-foundations"], "prerequisites": ["technical-foundations"] },
       { "title": "Качество", "goal": "Обеспечивать доступность, скорость, тестируемость и безопасность.", "courseIds": ["frontend-quality"], "prerequisites": ["web-platform-foundations"] },
       { "title": "Продуктовый frontend", "goal": "Проектировать состояние, компоненты и безопасную доставку.", "courseIds": ["frontend-delivery"], "prerequisites": ["frontend-quality"] }
     ]
@@ -100,7 +100,7 @@
     "professionId": "react-developer",
     "status": "ready",
     "stages": [
-      { "title": "Web-фундамент", "goal": "Освоить браузерную платформу до абстракций библиотеки.", "courseIds": ["technical-foundations", "web-platform-foundations"], "prerequisites": [] },
+      { "title": "Web-фундамент", "goal": "Освоить браузерную платформу до абстракций библиотеки.", "courseIds": ["technical-foundations", "javascript-core", "web-platform-foundations"], "prerequisites": [] },
       { "title": "Модель React", "goal": "Строить интерфейс из чистого render, состояния и управляемых эффектов.", "courseIds": ["react-core"], "prerequisites": ["web-platform-foundations"] },
       { "title": "Архитектура", "goal": "Управлять маршрутизацией, серверным состоянием и границами модулей.", "courseIds": ["react-architecture"], "prerequisites": ["react-core"] },
       { "title": "Продакшен", "goal": "Тестировать, восстанавливать и наблюдаемо выпускать React-приложение.", "courseIds": ["react-production"], "prerequisites": ["react-architecture"] }
@@ -110,7 +110,7 @@
     "professionId": "devops-engineer",
     "status": "ready",
     "stages": [
-      { "title": "Система и сеть", "goal": "Диагностировать Linux-систему и сетевой путь по фактам.", "courseIds": ["technical-foundations", "linux-network-ops"], "prerequisites": [] },
+      { "title": "Система и сеть", "goal": "Диагностировать Linux-систему и сетевой путь по фактам.", "courseIds": ["technical-foundations", "yaml-basics", "linux-network-ops"], "prerequisites": [] },
       { "title": "Контейнерная платформа", "goal": "Собирать образы и управлять workload в Kubernetes.", "courseIds": ["containers-kubernetes"], "prerequisites": ["linux-network-ops"] },
       { "title": "Данные для эксплуатации", "goal": "Понимать транзакции и поведение хранилища при изменениях.", "courseIds": ["sql-foundations", "relational-databases", "postgresql"], "prerequisites": ["containers-kubernetes"] },
       { "title": "Доставка и инфраструктура", "goal": "Автоматизировать проверяемый и безопасный выпуск инфраструктуры и кода.", "courseIds": ["cicd-infrastructure"], "prerequisites": ["containers-kubernetes"] }
@@ -120,7 +120,7 @@
     "professionId": "sre-engineer",
     "status": "ready",
     "stages": [
-      { "title": "Операционный фундамент", "goal": "Понимать систему, сеть, процессы и диагностику ресурсов.", "courseIds": ["technical-foundations", "linux-network-ops"], "prerequisites": [] },
+      { "title": "Операционный фундамент", "goal": "Понимать систему, сеть, процессы и диагностику ресурсов.", "courseIds": ["technical-foundations", "yaml-basics", "linux-network-ops"], "prerequisites": [] },
       { "title": "Надёжность как продукт", "goal": "Определять SLI, SLO и управлять бюджетом ошибок.", "courseIds": ["sre-foundations"], "prerequisites": ["linux-network-ops"] },
       { "title": "Инциденты", "goal": "Обнаруживать пользовательские симптомы и координировать восстановление.", "courseIds": ["observability-incidents"], "prerequisites": ["sre-foundations"] },
       { "title": "Ёмкость и восстановление", "goal": "Готовить сервис к росту, деградации и проверяемому восстановлению.", "courseIds": ["capacity-reliability"], "prerequisites": ["observability-incidents"] }
@@ -130,7 +130,7 @@
     "professionId": "cybersecurity-specialist",
     "status": "ready",
     "stages": [
-      { "title": "Технический фундамент", "goal": "Понимать систему, сеть и выполнение программ.", "courseIds": ["technical-foundations", "linux-network-ops"], "prerequisites": [] },
+      { "title": "Технический фундамент", "goal": "Понимать систему, сеть и выполнение программ.", "courseIds": ["technical-foundations", "yaml-basics", "linux-network-ops"], "prerequisites": [] },
       { "title": "Модель защиты", "goal": "Определять активы, угрозы, границы доверия и защиту в глубину.", "courseIds": ["security-foundations"], "prerequisites": ["linux-network-ops"] },
       { "title": "Защитная инженерия", "goal": "Проектировать секреты, сегментацию и проверяемую телеметрию.", "courseIds": ["defensive-engineering"], "prerequisites": ["security-foundations"] },
       { "title": "Риск и доступ", "goal": "Управлять идентичностью, привилегиями, рисками и контролями.", "courseIds": ["risk-iam"], "prerequisites": ["defensive-engineering"] }
@@ -140,9 +140,9 @@
     "professionId": "pentester",
     "status": "ready",
     "stages": [
-      { "title": "Технический фундамент", "goal": "Понимать систему, сеть и безопасную лабораторную среду.", "courseIds": ["technical-foundations", "linux-network-ops"], "prerequisites": [] },
+      { "title": "Технический фундамент", "goal": "Понимать систему, сеть и безопасную лабораторную среду.", "courseIds": ["technical-foundations", "yaml-basics", "linux-network-ops"], "prerequisites": [] },
       { "title": "Разрешённая проверка", "goal": "Работать строго в scope и получать минимальные безопасные доказательства.", "courseIds": ["pentest-methodology"], "prerequisites": ["linux-network-ops"] },
-      { "title": "Web-безопасность", "goal": "Проверять защитные контракты приложения по OWASP-методологии.", "courseIds": ["web-platform-foundations", "web-security-testing"], "prerequisites": ["pentest-methodology"] },
+      { "title": "Web-безопасность", "goal": "Проверять защитные контракты приложения по OWASP-методологии.", "courseIds": ["javascript-core", "web-platform-foundations", "web-security-testing"], "prerequisites": ["pentest-methodology"] },
       { "title": "Отчёт и retest", "goal": "Превращать доказательство в исправление и проверять результат.", "courseIds": ["pentest-reporting"], "prerequisites": ["web-security-testing"] }
     ]
   },
@@ -150,7 +150,7 @@
     "professionId": "soc-analyst",
     "status": "ready",
     "stages": [
-      { "title": "Операционный фундамент", "goal": "Понимать систему, сеть и источники событий.", "courseIds": ["technical-foundations", "linux-network-ops"], "prerequisites": [] },
+      { "title": "Операционный фундамент", "goal": "Понимать систему, сеть и источники событий.", "courseIds": ["technical-foundations", "yaml-basics", "linux-network-ops"], "prerequisites": [] },
       { "title": "Детектирование", "goal": "Строить качественную телеметрию, правила и триаж сигналов.", "courseIds": ["soc-detection"], "prerequisites": ["linux-network-ops"] },
       { "title": "Threat hunting", "goal": "Проверять гипотезы и превращать находки в устойчивое покрытие.", "courseIds": ["threat-hunting"], "prerequisites": ["soc-detection"] },
       { "title": "Реагирование", "goal": "Сохранять доказательства, сдерживать угрозу и восстанавливать сервис.", "courseIds": ["incident-response"], "prerequisites": ["threat-hunting"] }

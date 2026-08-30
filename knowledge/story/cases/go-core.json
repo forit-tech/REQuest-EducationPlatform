@@ -1,0 +1,183 @@
+{
+  "caseId": "case-go-core",
+  "courseId": "go-core",
+  "number": "61",
+  "title": "Сервис, который не умеет останавливаться",
+  "logline": "Сервис доставки перестал отвечать, но процесс живёт: разбирать придётся с самого языка.",
+  "setting": "Учебная экспедиция · Go Core",
+  "cast": [
+    "mira",
+    "oleg",
+    "artem"
+  ],
+  "acts": [
+    {
+      "id": "go-core-start",
+      "title": "Новое дело",
+      "trigger": {
+        "on": "caseStart"
+      },
+      "beats": [
+        {
+          "kind": "comic",
+          "panels": [
+            {
+              "speaker": "artem",
+              "emotion": "worried",
+              "scene": "screen",
+              "caption": "Сервис доставки не отвечает третий час, а процесс в системе всё ещё числится живым."
+            },
+            {
+              "speaker": "oleg",
+              "emotion": "determined",
+              "scene": "office",
+              "caption": "Разбирать будем с языка. Пока непонятно, что такое пакет и функция, любая догадка о причине — угадывание."
+            },
+            {
+              "speaker": "mira",
+              "emotion": "neutral",
+              "scene": "meeting",
+              "caption": "Значит, начинаем с самой короткой работающей программы и добираемся до интерфейсов и ошибок."
+            }
+          ]
+        },
+        {
+          "kind": "line",
+          "speaker": "oleg",
+          "emotion": "determined",
+          "text": "Цель дела — прочитать и написать код на Go самостоятельно. Горутины подождут: сначала язык, потом конкурентность."
+        }
+      ]
+    },
+    {
+      "id": "go-core-brief",
+      "title": "Первая программа",
+      "trigger": {
+        "on": "beforeMission",
+        "missionId": "GOC-003"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "mira",
+          "emotion": "happy",
+          "text": "Материалы по выводу открыты. Начнём с двух строк, которые уже работают, и посмотрим, что изменится."
+        },
+        {
+          "kind": "line",
+          "speaker": "oleg",
+          "emotion": "neutral",
+          "text": "Не переписывай файл целиком. Меняй по одной строке и смотри на результат — так видно причину."
+        }
+      ]
+    },
+    {
+      "id": "go-core-evidence",
+      "title": "Компилятор не согласен",
+      "trigger": {
+        "on": "afterMission",
+        "missionId": "GOC-005"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "artem",
+          "emotion": "surprised",
+          "text": "Сборка падает из-за переменной, которую никто не использует. В других языках это было бы предупреждением."
+        },
+        {
+          "kind": "line",
+          "speaker": "oleg",
+          "emotion": "happy",
+          "text": "В Go это ошибка намеренно. Забытая переменная почти всегда означает недописанную логику."
+        }
+      ]
+    },
+    {
+      "id": "go-core-choice",
+      "title": "Срок против понимания",
+      "trigger": {
+        "on": "beforeMission",
+        "missionId": "GOC-013"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "artem",
+          "emotion": "worried",
+          "text": "Сервис лежит третий час. Может, скопировать структуру из соседнего проекта и не разбираться?"
+        },
+        {
+          "kind": "choice",
+          "id": "go-core-structs-choice",
+          "prompt": "Как поступить?",
+          "options": [
+            {
+              "id": "careful",
+              "text": "Разберу, из чего состоит структура, и напишу свою.",
+              "reply": "Понимание типа окупится на разборе инцидента.",
+              "trust": {
+                "oleg": 2,
+                "mira": 1
+              },
+              "flags": [
+                "go-core-structs-careful"
+              ]
+            },
+            {
+              "id": "rushed",
+              "text": "Скопирую готовое и пойду дальше.",
+              "reply": "Код заработает, но объяснить его на разборе будет нечем.",
+              "trust": {
+                "oleg": -1
+              },
+              "flags": [
+                "go-core-structs-rushed"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "go-core-turn",
+      "title": "Язык прочитан",
+      "trigger": {
+        "on": "afterMission",
+        "missionId": "GOC-015"
+      },
+      "beats": [
+        {
+          "kind": "line",
+          "speaker": "mira",
+          "emotion": "happy",
+          "text": "Теперь код сервиса читается целиком: типы, методы и интерфейс на месте."
+        },
+        {
+          "kind": "line",
+          "speaker": "oleg",
+          "emotion": "determined",
+          "text": "Осталось последнее — ошибки и отложенные действия. После этого можно браться за конкурентность."
+        }
+      ]
+    }
+  ],
+  "endings": [
+    {
+      "id": "go-core-gold",
+      "title": "Язык освоен",
+      "summary": "Код на Go читается и пишется самостоятельно, маршрут открыт к конкурентности.",
+      "minTrust": {
+        "oleg": 1,
+        "mira": 1
+      },
+      "rank": "золото"
+    },
+    {
+      "id": "go-core-silver",
+      "title": "Основа заложена с оговорками",
+      "summary": "Программы работают, но часть решений придётся перепроверить перед конкурентностью.",
+      "rank": "серебро"
+    }
+  ]
+}

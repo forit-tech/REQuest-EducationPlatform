@@ -271,8 +271,12 @@
     }
   ],
   "auditedCourses": [
+    "go-core",
+    "java-core",
+    "javascript-core",
+    "python-core",
     "technical-foundations",
-    "python-core"
+    "yaml-basics"
   ],
   "$auditedComment": "Курсы, прошедшие ручной аудит порядка выдачи знаний. Для них нарушение — ошибка сборки. Для остальных — предупреждение, пока идёт массовая правка.",
   "$languageComment": "Навык проверяется только в миссиях на своём языке: язык определяется по task.workspaceFile. «return» в Java — не питоновская функция.",

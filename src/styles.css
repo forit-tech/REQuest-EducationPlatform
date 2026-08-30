@@ -393,3 +393,7 @@ h1,h2,h3,p { margin-top: 0; }.hero-copy h1 { font-size: clamp(36px, 4vw, 55px); 
 
 /* Мелкие control-элементы шапки — одно семейство форм. */
 .search,.theme-toggle,.xp-pill,.rank-chip,.energy-meter,.icon-button { box-shadow: inset 0 1px 0 rgba(255,255,255,.04); }
+
+/* Текст миссии может содержать пример кода: переводы строк и отступы в нём значимы. */
+.mission-panel p, .mission-task > p, .production-context p,
+.runner-brief-head p, .runner-context p, .runner-brief > p { white-space: pre-wrap; }

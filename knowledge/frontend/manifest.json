@@ -3,6 +3,7 @@
   "title": "Frontend-разработка",
   "version": "1.0.0",
   "courses": [
+    "javascript-core",
     "web-platform-foundations",
     "frontend-quality",
     "frontend-delivery",
