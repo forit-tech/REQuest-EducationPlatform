@@ -1,0 +1,76 @@
+[
+  {
+    "id": "fund-computer",
+    "title": "Как работает компьютер",
+    "domain": "foundation",
+    "level": 0,
+    "status": "authored",
+    "goal": "Понимать, что происходит с программой от файла на диске до работы процессора.",
+    "prerequisites": [],
+    "skills": ["computer-model", "client-server", "terminal-basics"],
+    "modules": [
+      { "id": "fund-program", "title": "Программа и код", "class": "простая", "concepts": ["код как текст", "программа как выполнение", "язык программирования"], "practice": ["read", "quiz"], "interactions": 4, "skills": ["computer-model"], "prerequisites": [] },
+      { "id": "fund-cpu-ram-disk", "title": "Процессор, память и диск", "class": "важная", "concepts": ["CPU считает", "RAM держит активное", "диск хранит"], "practice": ["read", "quiz", "case"], "interactions": 6, "skills": ["computer-model"], "prerequisites": ["fund-program"] },
+      { "id": "fund-files", "title": "Файл и каталог", "class": "простая", "concepts": ["путь", "абсолютный и относительный", "расширение"], "practice": ["read", "modify", "quiz"], "interactions": 5, "skills": ["computer-model"], "prerequisites": ["fund-cpu-ram-disk"] },
+      { "id": "fund-process", "title": "Процесс", "class": "простая", "concepts": ["запущенная программа", "память процесса", "завершение"], "practice": ["read", "quiz"], "interactions": 4, "skills": ["computer-model"], "prerequisites": ["fund-cpu-ram-disk"] },
+      { "id": "fund-client-server", "title": "Клиент и сервер", "class": "важная", "concepts": ["кто просит", "кто отвечает", "сеть между ними"], "practice": ["read", "quiz", "case"], "interactions": 6, "skills": ["client-server"], "prerequisites": ["fund-process"] },
+      { "id": "fund-terminal", "title": "Терминал", "class": "важная", "concepts": ["команда", "аргумент", "текущая папка", "вывод и ошибка"], "practice": ["read", "modify", "write", "fix", "quiz"], "interactions": 8, "skills": ["terminal-basics"], "prerequisites": ["fund-files"] }
+    ]
+  },
+  {
+    "id": "fund-ide",
+    "title": "Работа в редакторе кода",
+    "domain": "foundation",
+    "level": 0,
+    "status": "authored",
+    "goal": "Уверенно создавать проект, запускать программу и читать ошибку, а не бояться её.",
+    "prerequisites": ["fund-computer"],
+    "skills": ["ide-basics", "read-errors", "debugger"],
+    "modules": [
+      { "id": "fund-ide-project", "title": "Создать проект и файл", "class": "простая", "concepts": ["папка проекта", "новый файл", "сохранение"], "practice": ["read", "write"], "interactions": 4, "skills": ["ide-basics"], "prerequisites": ["fund-files"] },
+      { "id": "fund-ide-run", "title": "Запустить программу", "class": "простая", "concepts": ["кнопка запуска", "запуск из терминала", "вывод"], "practice": ["read", "modify", "write"], "interactions": 5, "skills": ["ide-basics"], "prerequisites": ["fund-ide-project", "fund-terminal"] },
+      { "id": "fund-ide-error", "title": "Прочитать ошибку", "class": "важная", "concepts": ["traceback", "номер строки", "тип ошибки", "последняя строка важнее всего"], "practice": ["read", "fix", "quiz", "case"], "interactions": 8, "skills": ["read-errors"], "prerequisites": ["fund-ide-run"] },
+      { "id": "fund-ide-debugger", "title": "Отладчик", "class": "важная", "concepts": ["точка останова", "шаг", "значения переменных"], "practice": ["read", "modify", "fix", "quiz"], "interactions": 7, "skills": ["debugger"], "prerequisites": ["fund-ide-error"] }
+    ]
+  },
+  {
+    "id": "fund-git",
+    "title": "Git",
+    "domain": "foundation",
+    "level": 0,
+    "status": "authored",
+    "goal": "Хранить историю работы и не терять её, работать вместе с другими без страха.",
+    "prerequisites": ["fund-computer"],
+    "skills": ["git-local", "git-branches", "git-remote"],
+    "modules": [
+      { "id": "git-why", "title": "Зачем нужна история изменений", "class": "простая", "concepts": ["сохранение поверх", "версия", "откат"], "practice": ["read", "quiz"], "interactions": 4, "skills": ["git-local"], "prerequisites": ["fund-terminal"] },
+      { "id": "git-repo", "title": "Репозиторий", "class": "простая", "concepts": ["git init", "рабочая копия", "служебная папка"], "practice": ["read", "write", "quiz"], "interactions": 5, "skills": ["git-local"], "prerequisites": ["git-why"] },
+      { "id": "git-commit", "title": "Коммит", "class": "важная", "concepts": ["git add", "git commit", "сообщение коммита"], "practice": ["read", "modify", "write", "fix", "quiz"], "interactions": 8, "skills": ["git-local"], "prerequisites": ["git-repo"] },
+      { "id": "git-status-diff", "title": "Status и diff", "class": "важная", "concepts": ["что изменено", "что подготовлено", "чтение diff"], "practice": ["read", "write", "quiz"], "interactions": 6, "skills": ["git-local"], "prerequisites": ["git-commit"] },
+      { "id": "git-branch", "title": "Ветки", "class": "важная", "concepts": ["зачем ветка", "создать", "переключиться"], "practice": ["read", "modify", "write", "quiz"], "interactions": 7, "skills": ["git-branches"], "prerequisites": ["git-status-diff"] },
+      { "id": "git-merge", "title": "Слияние", "class": "важная", "concepts": ["merge", "быстрая перемотка", "история после слияния"], "practice": ["read", "write", "quiz"], "interactions": 6, "skills": ["git-branches"], "prerequisites": ["git-branch"] },
+      { "id": "git-conflict", "title": "Конфликты", "class": "сложная", "concepts": ["почему возникает", "маркеры конфликта", "разрешение", "инструмент не выбирает за тебя"], "practice": ["read", "fix", "write", "quiz", "case"], "interactions": 10, "skills": ["git-branches"], "prerequisites": ["git-merge"] },
+      { "id": "git-remote", "title": "Удалённый репозиторий", "class": "важная", "concepts": ["remote", "clone", "pull", "push"], "practice": ["read", "write", "fix", "quiz"], "interactions": 7, "skills": ["git-remote"], "prerequisites": ["git-merge"] },
+      { "id": "git-pull-request", "title": "Pull request", "class": "важная", "concepts": ["предложение изменений", "ревью", "обсуждение в коде"], "practice": ["read", "write", "quiz", "case"], "interactions": 6, "skills": ["git-remote"], "prerequisites": ["git-remote"] }
+    ]
+  },
+  {
+    "id": "fund-algo",
+    "title": "Алгоритмическое мышление",
+    "domain": "foundation",
+    "level": 0,
+    "status": "authored",
+    "goal": "Раскладывать задачу на шаги и понимать, почему одно решение медленнее другого. Без реализации красно-чёрных деревьев.",
+    "prerequisites": ["fund-ide"],
+    "skills": ["algo-thinking", "complexity-intuition", "data-structures-intuition"],
+    "modules": [
+      { "id": "algo-sequence", "title": "Последовательность действий", "class": "простая", "concepts": ["шаг за шагом", "порядок важен", "алгоритм словами"], "practice": ["read", "modify", "write"], "interactions": 5, "skills": ["algo-thinking"], "prerequisites": [] },
+      { "id": "algo-condition", "title": "Ветвление", "class": "простая", "concepts": ["если — то", "иначе", "развилка"], "practice": ["read", "modify", "write", "quiz"], "interactions": 5, "skills": ["algo-thinking"], "prerequisites": ["algo-sequence"] },
+      { "id": "algo-loop", "title": "Повторение", "class": "важная", "concepts": ["повторить N раз", "повторять пока", "бесконечный цикл"], "practice": ["read", "modify", "fix", "write", "quiz"], "interactions": 7, "skills": ["algo-thinking"], "prerequisites": ["algo-condition"] },
+      { "id": "algo-search", "title": "Поиск", "class": "важная", "concepts": ["перебор", "поиск по отсортированному", "почему второе быстрее"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 8, "skills": ["complexity-intuition"], "prerequisites": ["algo-loop"] },
+      { "id": "algo-sort-idea", "title": "Сортировка как идея", "class": "важная", "concepts": ["зачем сортировать", "готовая сортировка", "ключ сортировки"], "practice": ["read", "modify", "write", "quiz"], "interactions": 6, "skills": ["complexity-intuition"], "prerequisites": ["algo-search"] },
+      { "id": "algo-complexity", "title": "Сложность на пальцах", "class": "важная", "concepts": ["десять элементов против миллиона", "линейно против квадратично", "оценка без формул"], "practice": ["read", "quiz", "case"], "interactions": 6, "skills": ["complexity-intuition"], "prerequisites": ["algo-sort-idea"] },
+      { "id": "algo-structures", "title": "Структуры данных на пальцах", "class": "важная", "concepts": ["список", "словарь", "множество", "что для чего быстрее"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 8, "skills": ["data-structures-intuition"], "prerequisites": ["algo-complexity"] }
+    ]
+  }
+]

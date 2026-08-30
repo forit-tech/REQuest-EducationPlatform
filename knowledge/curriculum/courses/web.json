@@ -1,0 +1,413 @@
+[
+  {
+    "id": "web-http",
+    "title": "HTTP и как устроен веб",
+    "domain": "web",
+    "level": 2,
+    "status": "authored",
+    "goal": "Что происходит после ввода адреса: запрос, ответ, методы, коды, заголовки, JSON, REST, cookies и сессии.",
+    "prerequisites": ["fund-computer"],
+    "skills": ["http-basics", "rest"],
+    "modules": [
+      { "id": "http-url", "title": "Что происходит после ввода адреса", "class": "важная", "concepts": ["адрес и его части", "поиск сервера", "кто кому что отправляет"], "practice": ["read", "modify", "quiz", "case"], "interactions": 7, "skills": ["http-basics"], "prerequisites": [] },
+      { "id": "http-request-response", "title": "Запрос и ответ", "class": "важная", "concepts": ["строка запроса", "тело", "ответ сервера", "один запрос — один ответ"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 8, "skills": ["http-basics"], "prerequisites": ["http-url"] },
+      { "id": "http-methods", "title": "Методы", "class": "важная", "concepts": ["GET и POST", "PUT, PATCH, DELETE", "безопасные и изменяющие методы"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 8, "skills": ["http-basics"], "prerequisites": ["http-request-response"] },
+      { "id": "http-status", "title": "Коды состояния", "class": "важная", "concepts": ["группы 2xx, 4xx, 5xx", "кто виноват — клиент или сервер", "самые частые коды"], "practice": ["read", "modify", "fix", "quiz", "case"], "interactions": 8, "skills": ["http-basics"], "prerequisites": ["http-methods"] },
+      { "id": "http-headers", "title": "Заголовки", "class": "важная", "concepts": ["тип содержимого", "авторизация", "кеширование"], "practice": ["read", "modify", "write", "quiz"], "interactions": 7, "skills": ["http-basics"], "prerequisites": ["http-status"] },
+      { "id": "http-json", "title": "JSON в обмене", "class": "важная", "concepts": ["формат тела запроса и ответа", "структура вместо текста", "разбор ответа в коде"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 8, "skills": ["http-basics"], "prerequisites": ["http-headers"] },
+      { "id": "http-rest", "title": "REST", "class": "важная", "concepts": ["ресурс и его адрес", "метод описывает действие", "предсказуемый интерфейс"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 8, "skills": ["rest"], "prerequisites": ["http-json"] },
+      { "id": "http-sessions", "title": "Cookies и сессии", "class": "сложная", "concepts": ["HTTP не помнит клиента", "cookie как пропуск", "сессия на сервере", "почему это важно для входа"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["rest"], "prerequisites": ["http-rest"] }
+    ]
+  },
+
+  {
+    "id": "fe-html",
+    "title": "HTML",
+    "domain": "frontend",
+    "level": 1,
+    "status": "authored",
+    "goal": "Структура документа, текст, ссылки, изображения, списки, таблицы, формы, семантика и доступность.",
+    "prerequisites": ["fund-ide"],
+    "skills": ["html-basics", "semantics-a11y"],
+    "modules": [
+      { "id": "html-document", "title": "Скелет страницы", "class": "простая", "concepts": ["теги и элементы", "head и body", "как браузер читает файл"], "practice": ["read", "modify", "quiz"], "interactions": 5, "skills": ["html-basics"], "prerequisites": [] },
+      { "id": "html-text", "title": "Текст и заголовки", "class": "простая", "concepts": ["заголовки от h1 до h6", "абзац", "пробелы и переносы работают не как в редакторе"], "practice": ["read", "modify", "fill", "quiz"], "interactions": 6, "skills": ["html-basics"], "prerequisites": ["html-document"] },
+      { "id": "html-links", "title": "Ссылки", "class": "важная", "concepts": ["href", "относительный и абсолютный путь", "ссылка внутрь страницы"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 7, "skills": ["html-basics"], "prerequisites": ["html-text"] },
+      { "id": "html-images", "title": "Изображения", "class": "важная", "concepts": ["src и alt", "размеры и вес", "картинка, которая не загрузилась"], "practice": ["read", "modify", "fill", "fix", "quiz"], "interactions": 7, "skills": ["html-basics"], "prerequisites": ["html-links"] },
+      { "id": "html-lists", "title": "Списки", "class": "простая", "concepts": ["маркированный и нумерованный", "вложенность", "список как основа меню"], "practice": ["read", "modify", "fill", "quiz"], "interactions": 6, "skills": ["html-basics"], "prerequisites": ["html-images"] },
+      { "id": "html-tables", "title": "Таблицы", "class": "важная", "concepts": ["строки и ячейки", "заголовки таблицы", "таблица для данных, а не для вёрстки"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 7, "skills": ["html-basics"], "prerequisites": ["html-lists"] },
+      { "id": "html-attributes", "title": "Атрибуты, id и class", "class": "важная", "concepts": ["атрибут как настройка элемента", "id уникален, class повторяется", "крючки для стилей и скриптов"], "practice": ["read", "modify", "fill", "fix", "quiz"], "interactions": 7, "skills": ["html-basics"], "prerequisites": ["html-tables"] },
+      { "id": "html-forms", "title": "Формы", "class": "сложная", "concepts": ["form, input, label", "типы полей", "кнопка отправки и куда уходят данные"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["html-basics"], "prerequisites": ["html-attributes"] },
+      { "id": "html-semantics", "title": "Семантика", "class": "важная", "concepts": ["header, nav, main, footer", "div как последнее средство", "структура читается и без стилей"], "practice": ["read", "modify", "fix", "quiz", "case"], "interactions": 8, "skills": ["semantics-a11y"], "prerequisites": ["html-forms"] },
+      { "id": "html-a11y", "title": "Доступность разметки", "class": "важная", "concepts": ["скринридер и порядок фокуса", "подпись к полю", "контраст и осмысленный alt"], "practice": ["read", "modify", "fix", "quiz", "case"], "interactions": 8, "skills": ["semantics-a11y"], "prerequisites": ["html-semantics"] }
+    ]
+  },
+  {
+    "id": "fe-css",
+    "title": "CSS",
+    "domain": "frontend",
+    "level": 1,
+    "status": "authored",
+    "goal": "Селекторы, блочная модель, отступы, типографика, позиционирование, flexbox, grid, адаптивность, анимации.",
+    "prerequisites": ["fe-html"],
+    "skills": ["css-basics", "css-layout", "css-responsive"],
+    "modules": [
+      { "id": "css-connect", "title": "Как подключить стиль", "class": "простая", "concepts": ["внешний файл стилей", "правило: селектор и объявления", "инструменты разработчика"], "practice": ["read", "modify", "quiz"], "interactions": 5, "skills": ["css-basics"], "prerequisites": [] },
+      { "id": "css-selectors", "title": "Селекторы", "class": "важная", "concepts": ["по тегу, классу, идентификатору", "вложенные и групповые", "что победит при конфликте"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 8, "skills": ["css-basics"], "prerequisites": ["css-connect"] },
+      { "id": "css-cascade", "title": "Каскад и наследование", "class": "сложная", "concepts": ["специфичность", "порядок правил", "наследуемые свойства"], "practice": ["read", "modify", "fill", "fix", "quiz", "case"], "interactions": 10, "skills": ["css-basics"], "prerequisites": ["css-selectors"] },
+      { "id": "css-box", "title": "Блочная модель", "class": "сложная", "concepts": ["content, padding, border, margin", "box-sizing", "схлопывание отступов"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["css-basics"], "prerequisites": ["css-cascade"] },
+      { "id": "css-display", "title": "Поток документа", "class": "важная", "concepts": ["блочные и строчные элементы", "display", "почему элемент не принимает высоту"], "practice": ["read", "modify", "fix", "quiz"], "interactions": 8, "skills": ["css-layout"], "prerequisites": ["css-box"] },
+      { "id": "css-typography", "title": "Типографика и цвет", "class": "простая", "concepts": ["шрифт, размер, межстрочный интервал", "единицы px, rem, em", "цвет и прозрачность"], "practice": ["read", "modify", "fill", "quiz"], "interactions": 6, "skills": ["css-basics"], "prerequisites": ["css-display"] },
+      { "id": "css-position", "title": "Позиционирование", "class": "важная", "concepts": ["relative, absolute, fixed, sticky", "система координат", "z-index"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 9, "skills": ["css-layout"], "prerequisites": ["css-typography"] },
+      { "id": "css-flex", "title": "Flexbox", "class": "сложная", "concepts": ["ось и выравнивание", "растягивание и сжатие", "перенос строк"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 12, "skills": ["css-layout"], "prerequisites": ["css-position"] },
+      { "id": "css-grid", "title": "Grid", "class": "сложная", "concepts": ["колонки и строки", "именованные области", "grid против flex"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["css-layout"], "prerequisites": ["css-flex"] },
+      { "id": "css-responsive", "title": "Адаптивность", "class": "сложная", "concepts": ["медиазапросы", "сначала мобильный экран", "гибкие размеры вместо фиксированных"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["css-responsive"], "prerequisites": ["css-grid"] },
+      { "id": "css-variables", "title": "Переменные и темы", "class": "важная", "concepts": ["пользовательские свойства", "тёмная тема", "одно значение в одном месте"], "practice": ["read", "modify", "fill", "fix", "quiz"], "interactions": 8, "skills": ["css-basics"], "prerequisites": ["css-responsive"] },
+      { "id": "css-animation", "title": "Переходы и анимации", "class": "важная", "concepts": ["transition", "ключевые кадры", "анимация не должна мешать работе"], "practice": ["read", "modify", "fill", "quiz", "case"], "interactions": 8, "skills": ["css-basics"], "prerequisites": ["css-variables"] }
+    ]
+  },
+  {
+    "id": "fe-js-core",
+    "title": "JavaScript с нуля",
+    "domain": "frontend",
+    "level": 1,
+    "status": "authored",
+    "goal": "Та же лестница, что в Python: вывод, переменные, типы, операторы, условия, массивы, циклы, функции, объекты.",
+    "prerequisites": ["fe-css"],
+    "skills": ["js-syntax", "js-functions", "js-objects"],
+    "modules": [
+      { "id": "js-output", "title": "Первый скрипт", "class": "простая", "concepts": ["подключение скрипта к странице", "вывод в консоль", "ошибка в консоли — это подсказка"], "practice": ["read", "modify", "fill", "quiz"], "interactions": 6, "skills": ["js-syntax"], "prerequisites": [] },
+      { "id": "js-variables", "title": "Переменные", "class": "важная", "concepts": ["let и const", "имя как обещание", "почему не var"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 7, "skills": ["js-syntax"], "prerequisites": ["js-output"] },
+      { "id": "js-types", "title": "Типы", "class": "важная", "concepts": ["число, строка, булево, null и undefined", "динамическая типизация", "неявное преобразование"], "practice": ["read", "modify", "fill", "fix", "quiz"], "interactions": 8, "skills": ["js-syntax"], "prerequisites": ["js-variables"] },
+      { "id": "js-operators", "title": "Операторы", "class": "важная", "concepts": ["арифметика", "строгое сравнение против нестрогого", "логические операторы"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 8, "skills": ["js-syntax"], "prerequisites": ["js-types"] },
+      { "id": "js-strings", "title": "Строки", "class": "простая", "concepts": ["шаблонные строки", "методы строки", "строка неизменяема"], "practice": ["read", "modify", "fill", "quiz"], "interactions": 6, "skills": ["js-syntax"], "prerequisites": ["js-operators"] },
+      { "id": "js-conditions", "title": "Условия", "class": "важная", "concepts": ["if и else", "истинные и ложные значения", "тернарный оператор"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 8, "skills": ["js-syntax"], "prerequisites": ["js-strings"] },
+      { "id": "js-arrays", "title": "Массивы", "class": "важная", "concepts": ["индекс и длина", "добавление и удаление", "перебор"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 8, "skills": ["js-syntax"], "prerequisites": ["js-conditions"] },
+      { "id": "js-loops", "title": "Циклы", "class": "важная", "concepts": ["for и while", "перебор for..of", "выход из цикла"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 8, "skills": ["js-syntax"], "prerequisites": ["js-arrays"] },
+      { "id": "js-array-methods", "title": "map, filter, reduce", "class": "сложная", "concepts": ["новый массив вместо изменения старого", "цепочка преобразований", "reduce как свёртка"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["js-functions"], "prerequisites": ["js-loops"] },
+      { "id": "js-functions", "title": "Функции", "class": "важная", "concepts": ["объявление и вызов", "аргументы и возврат", "стрелочные функции"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 9, "skills": ["js-functions"], "prerequisites": ["js-array-methods"] },
+      { "id": "js-objects", "title": "Объекты", "class": "важная", "concepts": ["ключ и значение", "доступ и изменение", "вложенные структуры"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 8, "skills": ["js-objects"], "prerequisites": ["js-functions"] },
+      { "id": "js-modules", "title": "Модули", "class": "важная", "concepts": ["export и import", "файл как единица кода", "почему не всё в одном файле"], "practice": ["read", "modify", "fill", "fix", "quiz"], "interactions": 7, "skills": ["js-objects"], "prerequisites": ["js-objects"] }
+    ]
+  },
+  {
+    "id": "fe-js-browser",
+    "title": "JavaScript в браузере",
+    "domain": "frontend",
+    "level": 2,
+    "status": "authored",
+    "goal": "DOM, поиск элементов, события, формы, валидация, localStorage.",
+    "prerequisites": ["fe-js-core"],
+    "skills": ["dom-basics", "dom-events", "forms-validation", "browser-storage"],
+    "modules": [
+      { "id": "dom-tree", "title": "Страница как дерево", "class": "важная", "concepts": ["DOM против исходного HTML", "узел и элемент", "инспектор элементов"], "practice": ["read", "modify", "quiz", "case"], "interactions": 7, "skills": ["dom-basics"], "prerequisites": [] },
+      { "id": "dom-select", "title": "Поиск элементов", "class": "важная", "concepts": ["querySelector", "коллекция элементов", "элемента ещё нет на странице"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 8, "skills": ["dom-basics"], "prerequisites": ["dom-tree"] },
+      { "id": "dom-change", "title": "Изменение страницы", "class": "важная", "concepts": ["текст и разметка", "классы и стили", "создание и удаление узлов"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 9, "skills": ["dom-basics"], "prerequisites": ["dom-select"] },
+      { "id": "dom-events", "title": "События", "class": "сложная", "concepts": ["слушатель", "объект события", "всплытие и делегирование"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["dom-events"], "prerequisites": ["dom-change"] },
+      { "id": "dom-forms", "title": "Формы из скрипта", "class": "важная", "concepts": ["чтение значений", "отправка и отмена поведения по умолчанию", "сброс и фокус"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 9, "skills": ["forms-validation"], "prerequisites": ["dom-events"] },
+      { "id": "dom-validation", "title": "Валидация", "class": "важная", "concepts": ["проверка на клиенте — удобство, а не защита", "сообщение рядом с полем", "блокировка кнопки"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 9, "skills": ["forms-validation"], "prerequisites": ["dom-forms"] },
+      { "id": "dom-storage", "title": "localStorage", "class": "важная", "concepts": ["хранение между визитами", "только строки", "что туда нельзя класть"], "practice": ["read", "modify", "fill", "fix", "quiz", "case"], "interactions": 8, "skills": ["browser-storage"], "prerequisites": ["dom-validation"] },
+      { "id": "dom-timers", "title": "Таймеры", "class": "важная", "concepts": ["отложенный и повторяющийся вызов", "очистка таймера", "антидребезг ввода"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 8, "skills": ["dom-events"], "prerequisites": ["dom-storage"] },
+      { "id": "dom-render-list", "title": "Отрисовка списка из данных", "class": "сложная", "concepts": ["данные отдельно, разметка отдельно", "перерисовка вместо ручных правок", "ключ элемента"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["dom-basics"], "prerequisites": ["dom-timers"] }
+    ]
+  },
+  {
+    "id": "fe-js-async",
+    "title": "Асинхронность в браузере",
+    "domain": "frontend",
+    "level": 2,
+    "status": "authored",
+    "goal": "API, JSON, Promise, fetch, async/await, обработка ошибок сети.",
+    "prerequisites": ["fe-js-browser", "web-http"],
+    "skills": ["async-js", "fetch-api"],
+    "modules": [
+      { "id": "fetch-json", "title": "JSON", "class": "простая", "concepts": ["формат обмена", "разбор и сериализация", "JSON против объекта в коде"], "practice": ["read", "modify", "fill", "quiz"], "interactions": 6, "skills": ["fetch-api"], "prerequisites": [] },
+      { "id": "fetch-sync-async", "title": "Почему нельзя просто подождать", "class": "важная", "concepts": ["один поток и зависший интерфейс", "событийный цикл простыми словами", "колбэк"], "practice": ["read", "modify", "quiz", "case"], "interactions": 7, "skills": ["async-js"], "prerequisites": ["fetch-json"] },
+      { "id": "fetch-promise", "title": "Promise", "class": "сложная", "concepts": ["обещание результата", "then и catch", "состояния обещания"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["async-js"], "prerequisites": ["fetch-sync-async"] },
+      { "id": "fetch-async-await", "title": "async и await", "class": "сложная", "concepts": ["тот же Promise, но читаемо", "await только внутри async", "последовательно против параллельно"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["async-js"], "prerequisites": ["fetch-promise"] },
+      { "id": "fetch-request", "title": "Запрос к API", "class": "важная", "concepts": ["метод, заголовки, тело", "чтение ответа", "код ошибки — это не исключение"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 9, "skills": ["fetch-api"], "prerequisites": ["fetch-async-await"] },
+      { "id": "fetch-errors", "title": "Ошибки сети", "class": "важная", "concepts": ["сеть отвалилась", "таймаут и повтор", "что показать пользователю"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 9, "skills": ["fetch-api"], "prerequisites": ["fetch-request"] },
+      { "id": "fetch-cors", "title": "CORS", "class": "важная", "concepts": ["браузер защищает пользователя", "предварительный запрос", "почему это чинится на сервере"], "practice": ["read", "modify", "fix", "quiz", "case"], "interactions": 8, "skills": ["fetch-api"], "prerequisites": ["fetch-errors"] },
+      { "id": "fetch-parallel", "title": "Несколько запросов сразу", "class": "важная", "concepts": ["ожидание всех сразу", "частичный отказ", "отмена запроса"], "practice": ["read", "modify", "fill", "write", "quiz", "case"], "interactions": 9, "skills": ["async-js"], "prerequisites": ["fetch-cors"] }
+    ]
+  },
+  {
+    "id": "fe-ts",
+    "title": "TypeScript",
+    "domain": "frontend",
+    "level": 2,
+    "status": "authored",
+    "goal": "Типы, интерфейсы, объединения, дженерики, сужение типов.",
+    "prerequisites": ["fe-js-async"],
+    "skills": ["ts-basics", "ts-generics"],
+    "modules": [
+      { "id": "ts-why", "title": "Зачем типы в JavaScript", "class": "важная", "concepts": ["ошибка до запуска", "тип как документация", "цена типизации"], "practice": ["read", "modify", "quiz", "case"], "interactions": 7, "skills": ["ts-basics"], "prerequisites": [] },
+      { "id": "ts-primitives", "title": "Базовые типы", "class": "важная", "concepts": ["строка, число, булево", "вывод типа", "any как капитуляция"], "practice": ["read", "modify", "fill", "fix", "quiz"], "interactions": 8, "skills": ["ts-basics"], "prerequisites": ["ts-why"] },
+      { "id": "ts-objects-interfaces", "title": "Объекты и интерфейсы", "class": "важная", "concepts": ["описание формы объекта", "необязательные поля", "type против interface"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 8, "skills": ["ts-basics"], "prerequisites": ["ts-primitives"] },
+      { "id": "ts-arrays-tuples", "title": "Массивы и кортежи", "class": "простая", "concepts": ["массив однотипных значений", "кортеж фиксированной формы", "только для чтения"], "practice": ["read", "modify", "fill", "quiz"], "interactions": 6, "skills": ["ts-basics"], "prerequisites": ["ts-objects-interfaces"] },
+      { "id": "ts-unions", "title": "Объединения и литералы", "class": "сложная", "concepts": ["одно из нескольких", "литеральные типы вместо строк наугад", "исчерпывающий разбор вариантов"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["ts-basics"], "prerequisites": ["ts-arrays-tuples"] },
+      { "id": "ts-narrowing", "title": "Сужение типов", "class": "сложная", "concepts": ["проверка сужает тип", "typeof и in", "null и undefined под контролем"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["ts-basics"], "prerequisites": ["ts-unions"] },
+      { "id": "ts-functions", "title": "Типы функций", "class": "важная", "concepts": ["типы аргументов и возврата", "необязательные параметры", "функция как значение"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 8, "skills": ["ts-basics"], "prerequisites": ["ts-narrowing"] },
+      { "id": "ts-generics", "title": "Дженерики", "class": "сложная", "concepts": ["тип как параметр", "переиспользование без any", "ограничение параметра"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["ts-generics"], "prerequisites": ["ts-functions"] },
+      { "id": "ts-external-data", "title": "Типы для чужих данных", "class": "важная", "concepts": ["ответ API — это не гарантия", "проверка на границе", "unknown вместо any"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 9, "skills": ["ts-generics"], "prerequisites": ["ts-generics"] }
+    ]
+  },
+  {
+    "id": "fe-react",
+    "title": "React: основы",
+    "domain": "frontend",
+    "level": 2,
+    "status": "authored",
+    "goal": "Компонент, JSX, props, state, события, формы, условный рендеринг, списки, первые хуки.",
+    "prerequisites": ["fe-ts"],
+    "skills": ["react-basics"],
+    "modules": [
+      { "id": "react-why", "title": "Зачем React", "class": "важная", "concepts": ["ручные правки DOM не масштабируются", "интерфейс как функция от данных", "компонент"], "practice": ["read", "modify", "quiz", "case"], "interactions": 7, "skills": ["react-basics"], "prerequisites": [] },
+      { "id": "react-jsx", "title": "JSX", "class": "важная", "concepts": ["разметка внутри кода", "выражения в фигурных скобках", "один корневой элемент"], "practice": ["read", "modify", "fill", "fix", "quiz"], "interactions": 8, "skills": ["react-basics"], "prerequisites": ["react-why"] },
+      { "id": "react-props", "title": "Props", "class": "важная", "concepts": ["данные сверху вниз", "props только для чтения", "children"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 9, "skills": ["react-basics"], "prerequisites": ["react-jsx"] },
+      { "id": "react-state", "title": "Состояние", "class": "сложная", "concepts": ["useState", "перерисовка при изменении состояния", "состояние не меняют напрямую"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["react-basics"], "prerequisites": ["react-props"] },
+      { "id": "react-events", "title": "События", "class": "важная", "concepts": ["обработчик приходит как props", "передача аргумента", "функция против её вызова"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 8, "skills": ["react-basics"], "prerequisites": ["react-state"] },
+      { "id": "react-conditional", "title": "Условный рендеринг", "class": "важная", "concepts": ["тернарник и логическое И", "пустое состояние экрана", "ноль, который случайно отрисовался"], "practice": ["read", "modify", "fill", "fix", "quiz"], "interactions": 8, "skills": ["react-basics"], "prerequisites": ["react-events"] },
+      { "id": "react-lists", "title": "Списки и ключи", "class": "важная", "concepts": ["отрисовка по данным", "зачем нужен key", "индекс как ключ — плохая идея"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 9, "skills": ["react-basics"], "prerequisites": ["react-conditional"] },
+      { "id": "react-forms", "title": "Формы", "class": "сложная", "concepts": ["управляемое поле", "состояние формы", "валидация и отправка"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["react-basics"], "prerequisites": ["react-lists"] },
+      { "id": "react-lifting", "title": "Подъём состояния", "class": "сложная", "concepts": ["общее состояние живёт у родителя", "обработчик вниз", "где должно жить состояние"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["react-basics"], "prerequisites": ["react-forms"] },
+      { "id": "react-composition", "title": "Композиция компонентов", "class": "важная", "concepts": ["мелкие компоненты", "props вместо копипасты", "когда компонент пора делить"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 9, "skills": ["react-basics"], "prerequisites": ["react-lifting"] }
+    ]
+  },
+  {
+    "id": "fe-react-deep",
+    "title": "React глубже",
+    "domain": "frontend",
+    "level": 3,
+    "status": "authored",
+    "goal": "useEffect, useMemo, useCallback, context, свои хуки, архитектура компонентов.",
+    "prerequisites": ["fe-react"],
+    "skills": ["react-hooks", "react-architecture"],
+    "modules": [
+      { "id": "hooks-rules", "title": "Правила хуков", "class": "важная", "concepts": ["порядок вызова", "только на верхнем уровне", "хук — это не магия"], "practice": ["read", "modify", "fix", "quiz"], "interactions": 8, "skills": ["react-hooks"], "prerequisites": [] },
+      { "id": "hooks-effect", "title": "useEffect", "class": "сложная", "concepts": ["побочный эффект вне рендера", "массив зависимостей", "очистка эффекта"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 12, "skills": ["react-hooks"], "prerequisites": ["hooks-rules"] },
+      { "id": "hooks-effect-traps", "title": "Ловушки эффектов", "class": "сложная", "concepts": ["бесконечный цикл перерисовок", "гонка запросов", "эффект, которого не должно было быть"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["react-hooks"], "prerequisites": ["hooks-effect"] },
+      { "id": "hooks-ref", "title": "useRef", "class": "важная", "concepts": ["ссылка на элемент", "значение без перерисовки", "ref против состояния"], "practice": ["read", "modify", "fill", "fix", "quiz"], "interactions": 8, "skills": ["react-hooks"], "prerequisites": ["hooks-effect-traps"] },
+      { "id": "hooks-memo", "title": "useMemo и useCallback", "class": "сложная", "concepts": ["стабильная ссылка", "цена оптимизации", "сначала измерь"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["react-hooks"], "prerequisites": ["hooks-ref"] },
+      { "id": "hooks-reducer", "title": "useReducer", "class": "важная", "concepts": ["состояние с правилами перехода", "действие", "когда useState перестаёт хватать"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 9, "skills": ["react-hooks"], "prerequisites": ["hooks-memo"] },
+      { "id": "hooks-context", "title": "Context", "class": "сложная", "concepts": ["данные мимо пропсов", "провайдер", "context не заменяет состояние приложения"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["react-hooks"], "prerequisites": ["hooks-reducer"] },
+      { "id": "hooks-custom", "title": "Свои хуки", "class": "сложная", "concepts": ["логика отдельно от разметки", "переиспользование", "правило именования"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["react-hooks"], "prerequisites": ["hooks-context"] },
+      { "id": "hooks-architecture", "title": "Архитектура компонентов", "class": "важная", "concepts": ["умные и глупые компоненты", "граница ответственности", "структура папок"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 9, "skills": ["react-architecture"], "prerequisites": ["hooks-custom"] }
+    ]
+  },
+  {
+    "id": "fe-react-api",
+    "title": "Работа с бэкендом",
+    "domain": "frontend",
+    "level": 3,
+    "status": "authored",
+    "goal": "REST из интерфейса, состояния загрузки и ошибки, аутентификация, токен, пагинация, фильтры.",
+    "prerequisites": ["fe-react-deep"],
+    "skills": ["react-data"],
+    "modules": [
+      { "id": "feapi-client", "title": "Клиент API", "class": "важная", "concepts": ["один слой для всех запросов", "базовый адрес и заголовки", "типы ответов"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 9, "skills": ["react-data"], "prerequisites": [] },
+      { "id": "feapi-loading", "title": "Загрузка и ошибка", "class": "сложная", "concepts": ["три состояния экрана", "заглушка вместо пустоты", "понятное сообщение об ошибке"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["react-data"], "prerequisites": ["feapi-client"] },
+      { "id": "feapi-mutations", "title": "Изменение данных", "class": "важная", "concepts": ["отправка формы на сервер", "защита от повторной отправки", "обновление списка после изменения"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 9, "skills": ["react-data"], "prerequisites": ["feapi-loading"] },
+      { "id": "feapi-auth", "title": "Вход в интерфейсе", "class": "сложная", "concepts": ["форма входа и получение токена", "приватные страницы", "истёкший токен"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["react-data"], "prerequisites": ["feapi-mutations"] },
+      { "id": "feapi-token-storage", "title": "Где держать токен", "class": "важная", "concepts": ["localStorage против cookie", "XSS и кража токена", "выход из аккаунта"], "practice": ["read", "modify", "fix", "quiz", "case"], "interactions": 8, "skills": ["react-data"], "prerequisites": ["feapi-auth"] },
+      { "id": "feapi-pagination", "title": "Пагинация", "class": "важная", "concepts": ["страницы и курсор", "подгрузка по прокрутке", "состояние в адресе страницы"], "practice": ["read", "modify", "fill", "write", "quiz", "case"], "interactions": 9, "skills": ["react-data"], "prerequisites": ["feapi-token-storage"] },
+      { "id": "feapi-filters", "title": "Фильтры и поиск", "class": "важная", "concepts": ["параметры запроса", "антидребезг ввода", "ссылка, которой можно поделиться"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 9, "skills": ["react-data"], "prerequisites": ["feapi-pagination"] },
+      { "id": "feapi-optimistic", "title": "Оптимистичное обновление", "class": "сложная", "concepts": ["показать результат до ответа сервера", "откат при ошибке", "когда так делать нельзя"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["react-data"], "prerequisites": ["feapi-filters"] },
+      { "id": "feapi-contract", "title": "Договор с бэкендом", "class": "важная", "concepts": ["формат ошибки", "версии API", "что делать, когда контракт нарушен"], "practice": ["read", "write", "quiz", "case"], "interactions": 8, "skills": ["react-data"], "prerequisites": ["feapi-optimistic"] }
+    ]
+  },
+  {
+    "id": "fe-routing-state",
+    "title": "Роутинг и состояние",
+    "domain": "frontend",
+    "level": 3,
+    "status": "authored",
+    "goal": "React Router, клиентское состояние, серверное состояние, кеш запросов.",
+    "prerequisites": ["fe-react-api"],
+    "skills": ["routing", "client-state", "server-state"],
+    "modules": [
+      { "id": "route-basics", "title": "Роутинг", "class": "важная", "concepts": ["адрес определяет экран", "переход без перезагрузки", "404 внутри приложения"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 9, "skills": ["routing"], "prerequisites": [] },
+      { "id": "route-params", "title": "Параметры маршрута", "class": "важная", "concepts": ["динамическая часть адреса", "параметры запроса", "адрес как состояние"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 8, "skills": ["routing"], "prerequisites": ["route-basics"] },
+      { "id": "route-nested", "title": "Вложенные маршруты", "class": "важная", "concepts": ["общий макет", "вложенный вывод", "хлебные крошки"], "practice": ["read", "modify", "fill", "fix", "quiz"], "interactions": 8, "skills": ["routing"], "prerequisites": ["route-params"] },
+      { "id": "route-guards", "title": "Закрытые маршруты", "class": "важная", "concepts": ["проверка входа перед экраном", "возврат туда, куда шёл", "мигание защищённой страницы"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 9, "skills": ["routing"], "prerequisites": ["route-nested"] },
+      { "id": "route-state-kinds", "title": "Два вида состояния", "class": "сложная", "concepts": ["клиентское против серверного", "кто владелец истины", "копия сервера в глобальном хранилище как типичная ошибка"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 10, "skills": ["client-state"], "prerequisites": ["route-guards"] },
+      { "id": "route-client-state", "title": "Клиентское состояние", "class": "важная", "concepts": ["глобальное хранилище", "когда оно вообще нужно", "локальное состояние по умолчанию"], "practice": ["read", "modify", "write", "fix", "quiz"], "interactions": 9, "skills": ["client-state"], "prerequisites": ["route-state-kinds"] },
+      { "id": "route-server-state", "title": "Серверное состояние и кеш", "class": "сложная", "concepts": ["кеш запросов", "устаревание и повторная загрузка", "инвалидация после изменения"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 12, "skills": ["server-state"], "prerequisites": ["route-client-state"] },
+      { "id": "route-persist", "title": "Сохранение состояния", "class": "важная", "concepts": ["восстановление после перезагрузки", "адрес, localStorage или сервер", "что восстанавливать нельзя"], "practice": ["read", "modify", "fix", "quiz", "case"], "interactions": 8, "skills": ["client-state"], "prerequisites": ["route-server-state"] }
+    ]
+  },
+  {
+    "id": "fe-testing",
+    "title": "Тестирование фронтенда",
+    "domain": "frontend",
+    "level": 3,
+    "status": "authored",
+    "goal": "Модульные тесты, тесты компонентов, сквозные сценарии.",
+    "prerequisites": ["fe-routing-state"],
+    "skills": ["frontend-testing", "e2e-testing"],
+    "modules": [
+      { "id": "fetest-what", "title": "Что тестировать во фронтенде", "class": "важная", "concepts": ["поведение, а не разметка", "пирамида тестов", "тест, который ломается от смены класса"], "practice": ["read", "modify", "quiz", "case"], "interactions": 8, "skills": ["frontend-testing"], "prerequisites": [] },
+      { "id": "fetest-unit", "title": "Модульные тесты", "class": "важная", "concepts": ["чистые функции", "утверждения", "запуск тестов в проекте"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 9, "skills": ["frontend-testing"], "prerequisites": ["fetest-what"] },
+      { "id": "fetest-component", "title": "Тесты компонентов", "class": "сложная", "concepts": ["рендер в тесте", "поиск элемента как это делает пользователь", "проверка результата, а не внутренностей"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["frontend-testing"], "prerequisites": ["fetest-unit"] },
+      { "id": "fetest-events", "title": "Тест взаимодействия", "class": "важная", "concepts": ["клик и ввод текста", "ожидание появления", "асинхронные проверки"], "practice": ["read", "modify", "write", "fix", "quiz"], "interactions": 9, "skills": ["frontend-testing"], "prerequisites": ["fetest-component"] },
+      { "id": "fetest-mock-api", "title": "Подмена сети", "class": "сложная", "concepts": ["мок запросов", "проверка состояний загрузки и ошибки", "почему не бьём по настоящему API"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["frontend-testing"], "prerequisites": ["fetest-events"] },
+      { "id": "fetest-e2e", "title": "Сквозные тесты", "class": "сложная", "concepts": ["сценарий целиком в браузере", "устойчивые селекторы", "цена и хрупкость"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["e2e-testing"], "prerequisites": ["fetest-mock-api"] },
+      { "id": "fetest-a11y", "title": "Проверка доступности", "class": "важная", "concepts": ["автоматические проверки", "клавиатурный сценарий", "чего автопроверка не увидит"], "practice": ["read", "modify", "fix", "quiz", "case"], "interactions": 8, "skills": ["e2e-testing"], "prerequisites": ["fetest-e2e"] },
+      { "id": "fetest-ci", "title": "Тесты в конвейере", "class": "важная", "concepts": ["запуск на каждый push", "падающий тест блокирует слияние", "нестабильный тест хуже отсутствующего"], "practice": ["read", "modify", "fix", "quiz", "case"], "interactions": 8, "skills": ["e2e-testing"], "prerequisites": ["fetest-a11y"] }
+    ]
+  },
+  {
+    "id": "fe-production",
+    "title": "Фронтенд в проде",
+    "domain": "frontend",
+    "level": 4,
+    "status": "authored",
+    "goal": "Сборка, переменные окружения, производительность, доступность, безопасность, деплой.",
+    "prerequisites": ["fe-testing"],
+    "skills": ["frontend-build", "web-performance", "accessibility", "frontend-security", "frontend-deploy"],
+    "modules": [
+      { "id": "feprod-build", "title": "Сборка", "class": "важная", "concepts": ["dev-сервер против production-сборки", "бандл и хеши в именах файлов", "что попадает в итоговые файлы"], "practice": ["read", "modify", "fill", "fix", "quiz"], "interactions": 8, "skills": ["frontend-build"], "prerequisites": [] },
+      { "id": "feprod-env", "title": "Переменные окружения", "class": "важная", "concepts": ["разные адреса API", "секрет на клиенте — не секрет", "конфигурация на этапе сборки"], "practice": ["read", "modify", "fix", "quiz", "case"], "interactions": 8, "skills": ["frontend-build"], "prerequisites": ["feprod-build"] },
+      { "id": "feprod-perf-measure", "title": "Измерение скорости", "class": "сложная", "concepts": ["метрики загрузки", "профиль в инструментах разработчика", "измерять до оптимизации"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["web-performance"], "prerequisites": ["feprod-env"] },
+      { "id": "feprod-perf-fix", "title": "Ускорение интерфейса", "class": "сложная", "concepts": ["разделение кода", "ленивая загрузка", "картинки и шрифты"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["web-performance"], "prerequisites": ["feprod-perf-measure"] },
+      { "id": "feprod-rerender", "title": "Лишние перерисовки", "class": "важная", "concepts": ["поиск виновника", "стабильные пропсы", "виртуализация длинных списков"], "practice": ["read", "modify", "write", "fix", "quiz"], "interactions": 9, "skills": ["web-performance"], "prerequisites": ["feprod-perf-fix"] },
+      { "id": "feprod-a11y", "title": "Доступность в проде", "class": "важная", "concepts": ["фокус и клавиатура", "ARIA только там, где нужно", "проверка на реальном сценарии"], "practice": ["read", "modify", "fix", "quiz", "case"], "interactions": 9, "skills": ["accessibility"], "prerequisites": ["feprod-rerender"] },
+      { "id": "feprod-security", "title": "Безопасность клиента", "class": "сложная", "concepts": ["XSS и опасный HTML", "политика безопасности контента", "чужой код в зависимостях"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["frontend-security"], "prerequisites": ["feprod-a11y"] },
+      { "id": "feprod-errors", "title": "Ошибки у пользователя", "class": "важная", "concepts": ["границы ошибок", "сбор ошибок с клиента", "экран, который не белый"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 9, "skills": ["frontend-security"], "prerequisites": ["feprod-security"] },
+      { "id": "feprod-deploy", "title": "Деплой", "class": "важная", "concepts": ["статика и CDN", "кеш и его инвалидация", "маршруты на стороне сервера"], "practice": ["read", "modify", "fill", "fix", "quiz", "case"], "interactions": 9, "skills": ["frontend-deploy"], "prerequisites": ["feprod-errors"] },
+      { "id": "feprod-monitoring", "title": "Наблюдение за фронтендом", "class": "важная", "concepts": ["метрики реальных пользователей", "версия сборки в отчёте", "что смотреть сразу после релиза"], "practice": ["read", "modify", "quiz", "case"], "interactions": 8, "skills": ["frontend-deploy"], "prerequisites": ["feprod-deploy"] }
+    ]
+  },
+  {
+    "id": "fe-final",
+    "title": "Итоговый интерфейс",
+    "domain": "frontend",
+    "level": 5,
+    "status": "authored",
+    "goal": "Рабочее приложение с авторизацией, списками, формами, тестами и деплоем.",
+    "prerequisites": ["fe-production"],
+    "skills": ["frontend-product"],
+    "modules": [
+      { "id": "ui-scope", "title": "Постановка и экраны", "class": "важная", "concepts": ["кому и зачем интерфейс", "список экранов", "критерий готовности"], "practice": ["read", "write", "quiz", "case"], "interactions": 8, "skills": ["frontend-product"], "prerequisites": [] },
+      { "id": "ui-design-system", "title": "Общий язык интерфейса", "class": "важная", "concepts": ["цвета, отступы, типографика", "переиспользуемые компоненты", "единообразие важнее красоты"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 9, "skills": ["frontend-product"], "prerequisites": ["ui-scope"] },
+      { "id": "ui-routing", "title": "Каркас и маршруты", "class": "важная", "concepts": ["макет и навигация", "закрытые страницы", "состояние в адресе"], "practice": ["read", "modify", "write", "fix", "quiz"], "interactions": 9, "skills": ["frontend-product"], "prerequisites": ["ui-design-system"] },
+      { "id": "ui-auth", "title": "Вход и профиль", "class": "важная", "concepts": ["форма входа", "хранение токена и выход", "истёкшая сессия"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 9, "skills": ["frontend-product"], "prerequisites": ["ui-routing"] },
+      { "id": "ui-lists-forms", "title": "Списки, фильтры и формы", "class": "сложная", "concepts": ["загрузка и пустые состояния", "создание и редактирование", "обратная связь после действия"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["frontend-product"], "prerequisites": ["ui-auth"] },
+      { "id": "ui-tests", "title": "Тесты интерфейса", "class": "сложная", "concepts": ["ключевые сценарии", "подмена API", "один сквозной тест"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["frontend-product"], "prerequisites": ["ui-lists-forms"] },
+      { "id": "ui-polish", "title": "Скорость и доступность", "class": "важная", "concepts": ["измерение и две правки по итогу", "клавиатурный проход", "мобильный экран"], "practice": ["read", "modify", "fix", "quiz", "case"], "interactions": 9, "skills": ["frontend-product"], "prerequisites": ["ui-tests"] },
+      { "id": "ui-release", "title": "Деплой и защита", "class": "важная", "concepts": ["публикация сборки", "README, по которому запустит чужой человек", "рассказ о принятых решениях"], "practice": ["read", "write", "quiz", "case"], "interactions": 8, "skills": ["frontend-product"], "prerequisites": ["ui-polish"] }
+    ]
+  },
+
+  {
+    "id": "be-fastapi",
+    "title": "FastAPI",
+    "domain": "backend",
+    "level": 2,
+    "status": "authored",
+    "goal": "От первого маршрута до валидации, CRUD, зависимостей, роутеров и автодокументации.",
+    "prerequisites": ["py-oop", "web-http"],
+    "skills": ["api-basics", "api-structure"],
+    "modules": [
+      { "id": "api-first-route", "title": "Первый маршрут", "class": "важная", "concepts": ["приложение", "декоратор маршрута", "запуск сервера", "ответ словарём"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 8, "skills": ["api-basics"], "prerequisites": [] },
+      { "id": "api-path-params", "title": "Параметры пути", "class": "важная", "concepts": ["часть адреса как аргумент", "тип параметра", "порядок маршрутов"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 8, "skills": ["api-basics"], "prerequisites": ["api-first-route"] },
+      { "id": "api-query-params", "title": "Параметры запроса", "class": "важная", "concepts": ["необязательные аргументы", "значения по умолчанию", "фильтры и пагинация"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 8, "skills": ["api-basics"], "prerequisites": ["api-path-params"] },
+      { "id": "api-body", "title": "Тело запроса и схема", "class": "сложная", "concepts": ["модель данных", "разбор JSON в объект", "обязательные и необязательные поля"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["api-basics"], "prerequisites": ["api-query-params"] },
+      { "id": "api-validation", "title": "Валидация и ошибки", "class": "сложная", "concepts": ["проверка на границе сервиса", "понятное сообщение об ошибке", "код 422 и почему он полезен"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["api-basics"], "prerequisites": ["api-body"] },
+      { "id": "api-response-model", "title": "Модель ответа", "class": "важная", "concepts": ["что отдаём наружу", "скрытие лишних полей", "стабильный контракт"], "practice": ["read", "modify", "write", "fix", "quiz"], "interactions": 8, "skills": ["api-basics"], "prerequisites": ["api-validation"] },
+      { "id": "api-crud", "title": "CRUD целиком", "class": "сложная", "concepts": ["создание, чтение, изменение, удаление", "хранение в памяти на этом шаге", "коды ответов под операции"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 12, "skills": ["api-basics"], "prerequisites": ["api-response-model"] },
+      { "id": "api-dependencies", "title": "Зависимости", "class": "сложная", "concepts": ["общая подготовка для маршрутов", "переиспользование проверки", "подмена в тестах"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["api-structure"], "prerequisites": ["api-crud"] },
+      { "id": "api-routers", "title": "Роутеры и структура проекта", "class": "важная", "concepts": ["разделение по областям", "префиксы", "файл на сотню маршрутов — это боль"], "practice": ["read", "modify", "write", "fix", "quiz"], "interactions": 8, "skills": ["api-structure"], "prerequisites": ["api-dependencies"] },
+      { "id": "api-errors", "title": "Обработчики ошибок и middleware", "class": "сложная", "concepts": ["единый формат ошибки", "перехват исключений", "сквозная обработка запроса"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["api-structure"], "prerequisites": ["api-routers"] },
+      { "id": "api-openapi", "title": "Автодокументация", "class": "простая", "concepts": ["схема из кода", "интерактивная страница", "документация как побочный эффект типов"], "practice": ["read", "modify", "quiz"], "interactions": 6, "skills": ["api-structure"], "prerequisites": ["api-errors"] }
+    ]
+  },
+  {
+    "id": "be-orm",
+    "title": "Бэкенд и база данных",
+    "domain": "backend",
+    "level": 3,
+    "status": "authored",
+    "goal": "PostgreSQL из приложения, ORM, модели, миграции, связи, слои репозиториев и сервисов, пул соединений.",
+    "prerequisites": ["be-fastapi", "sql-write"],
+    "skills": ["orm-basics", "db-migrations", "backend-layers"],
+    "modules": [
+      { "id": "orm-connect", "title": "Приложение и PostgreSQL", "class": "важная", "concepts": ["драйвер и строка подключения", "доступы не лежат в коде", "первый запрос из Python"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 8, "skills": ["orm-basics"], "prerequisites": [] },
+      { "id": "orm-why", "title": "Зачем ORM", "class": "важная", "concepts": ["строки результата против объектов", "что ORM экономит", "когда честнее написать SQL"], "practice": ["read", "modify", "quiz", "case"], "interactions": 7, "skills": ["orm-basics"], "prerequisites": ["orm-connect"] },
+      { "id": "orm-model", "title": "Модель как таблица", "class": "важная", "concepts": ["класс — таблица, атрибут — столбец", "типы и ограничения в модели", "модель базы против схемы ответа"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 9, "skills": ["orm-basics"], "prerequisites": ["orm-why"] },
+      { "id": "orm-session", "title": "Сессия и жизнь объекта", "class": "сложная", "concepts": ["сессия как единица работы", "новый, изменённый, сохранённый объект", "commit и flush"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["orm-basics"], "prerequisites": ["orm-model"] },
+      { "id": "orm-crud", "title": "CRUD через ORM", "class": "важная", "concepts": ["создать, прочитать, изменить, удалить", "выборка с фильтром", "одна запись или честный 404"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 9, "skills": ["orm-basics"], "prerequisites": ["orm-session"] },
+      { "id": "orm-relations", "title": "Связи между моделями", "class": "сложная", "concepts": ["один-ко-многим в коде", "многие-ко-многим", "каскадное удаление"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["orm-basics"], "prerequisites": ["orm-crud"] },
+      { "id": "orm-n-plus-one", "title": "Проблема N+1", "class": "сложная", "concepts": ["ленивая загрузка связи", "сто запросов вместо одного", "предзагрузка связей"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["orm-basics"], "prerequisites": ["orm-relations"] },
+      { "id": "orm-migrations", "title": "Миграции", "class": "сложная", "concepts": ["схема меняется вместе с кодом", "автогенерация и ручная правка", "откат и необратимые шаги"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["db-migrations"], "prerequisites": ["orm-n-plus-one"] },
+      { "id": "orm-repository", "title": "Слой репозитория", "class": "важная", "concepts": ["доступ к данным в одном месте", "маршрут не знает про SQL", "подмена репозитория в тестах"], "practice": ["read", "modify", "write", "fix", "quiz"], "interactions": 9, "skills": ["backend-layers"], "prerequisites": ["orm-migrations"] },
+      { "id": "orm-service", "title": "Слой сервиса", "class": "важная", "concepts": ["бизнес-правило вне маршрута", "одна транзакция на операцию", "где место валидации"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 9, "skills": ["backend-layers"], "prerequisites": ["orm-repository"] },
+      { "id": "orm-pool", "title": "Пул соединений", "class": "важная", "concepts": ["соединение — дорогой ресурс", "размер пула", "утечка соединений"], "practice": ["read", "modify", "fix", "quiz", "case"], "interactions": 8, "skills": ["backend-layers"], "prerequisites": ["orm-service"] }
+    ]
+  },
+  {
+    "id": "be-auth",
+    "title": "Аутентификация и доступ",
+    "domain": "backend",
+    "level": 3,
+    "status": "authored",
+    "goal": "Хеширование паролей, сессии, JWT, access и refresh, роли и права, основы OAuth.",
+    "prerequisites": ["be-orm"],
+    "skills": ["auth-basics", "auth-tokens", "authz"],
+    "modules": [
+      { "id": "auth-passwords", "title": "Пароли и хеширование", "class": "сложная", "concepts": ["пароль не хранят никогда", "соль и намеренно медленный хеш", "проверка без расшифровки"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["auth-basics"], "prerequisites": [] },
+      { "id": "auth-register-login", "title": "Регистрация и вход", "class": "важная", "concepts": ["создание пользователя", "проверка пары логин-пароль", "одинаковая ошибка на неверный логин и на неверный пароль"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 9, "skills": ["auth-basics"], "prerequisites": ["auth-passwords"] },
+      { "id": "auth-sessions", "title": "Сессии и cookie", "class": "важная", "concepts": ["идентификатор сессии на сервере", "флаги cookie", "выход и срок жизни"], "practice": ["read", "modify", "fill", "fix", "quiz"], "interactions": 8, "skills": ["auth-basics"], "prerequisites": ["auth-register-login"] },
+      { "id": "auth-jwt", "title": "JWT", "class": "сложная", "concepts": ["заголовок, полезная нагрузка, подпись", "токен читают все, подделать не может никто", "что нельзя класть в токен"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["auth-tokens"], "prerequisites": ["auth-sessions"] },
+      { "id": "auth-access-refresh", "title": "Access и refresh", "class": "важная", "concepts": ["короткий access", "длинный refresh", "обновление без повторного входа"], "practice": ["read", "modify", "fill", "write", "quiz", "case"], "interactions": 9, "skills": ["auth-tokens"], "prerequisites": ["auth-jwt"] },
+      { "id": "auth-revoke", "title": "Отзыв доступа", "class": "важная", "concepts": ["подписанный токен нельзя забрать назад", "чёрный список и версия токена", "выход со всех устройств"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 9, "skills": ["auth-tokens"], "prerequisites": ["auth-access-refresh"] },
+      { "id": "auth-current-user", "title": "Текущий пользователь в API", "class": "важная", "concepts": ["зависимость, которая достаёт пользователя", "401 против 403", "защита маршрута"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 9, "skills": ["authz"], "prerequisites": ["auth-revoke"] },
+      { "id": "auth-roles", "title": "Роли", "class": "важная", "concepts": ["роль как набор прав", "проверка роли в одном месте", "почему ролей становится слишком много"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 8, "skills": ["authz"], "prerequisites": ["auth-current-user"] },
+      { "id": "auth-object-permissions", "title": "Права на объект", "class": "сложная", "concepts": ["владелец записи", "чужой идентификатор в запросе", "проверка права рядом с данными"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["authz"], "prerequisites": ["auth-roles"] },
+      { "id": "auth-oauth", "title": "OAuth и вход через провайдера", "class": "важная", "concepts": ["зачем чужой вход", "поток авторизации", "чужой токен не заменяет твою сессию"], "practice": ["read", "modify", "quiz", "case"], "interactions": 8, "skills": ["auth-tokens"], "prerequisites": ["auth-object-permissions"] }
+    ]
+  },
+  {
+    "id": "be-production",
+    "title": "Бэкенд в проде",
+    "domain": "backend",
+    "level": 4,
+    "status": "authored",
+    "goal": "Конфигурация и переменные окружения, логирование, Docker, сервер приложений, Nginx, CI/CD, мониторинг, базовая безопасность.",
+    "prerequisites": ["be-auth", "py-testing"],
+    "skills": ["backend-config", "backend-deploy", "backend-observability", "backend-security"],
+    "modules": [
+      { "id": "beprod-config", "title": "Конфигурация и секреты", "class": "важная", "concepts": ["переменные окружения", "разные окружения из одного кода", "секрет не попадает в репозиторий"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 9, "skills": ["backend-config"], "prerequisites": [] },
+      { "id": "beprod-logging", "title": "Логи", "class": "важная", "concepts": ["уровни", "структурный лог вместо print", "идентификатор запроса сквозь всю обработку"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 9, "skills": ["backend-observability"], "prerequisites": ["beprod-config"] },
+      { "id": "beprod-errors", "title": "Ошибки наружу", "class": "важная", "concepts": ["единый формат ошибки", "что нельзя показывать клиенту", "необработанное исключение как 500"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 9, "skills": ["backend-observability"], "prerequisites": ["beprod-logging"] },
+      { "id": "beprod-docker", "title": "Образ приложения", "class": "сложная", "concepts": ["Dockerfile", "слои и кеш сборки", "образ без секретов и мусора"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["backend-deploy"], "prerequisites": ["beprod-errors"] },
+      { "id": "beprod-compose", "title": "Приложение и база рядом", "class": "важная", "concepts": ["несколько сервисов вместе", "сеть и тома", "ожидание готовности базы"], "practice": ["read", "modify", "fill", "fix", "quiz", "case"], "interactions": 9, "skills": ["backend-deploy"], "prerequisites": ["beprod-docker"] },
+      { "id": "beprod-server", "title": "Сервер приложений", "class": "важная", "concepts": ["воркеры и процессы", "сколько запросов держит один процесс", "перезапуск без потери запросов"], "practice": ["read", "modify", "fix", "quiz", "case"], "interactions": 9, "skills": ["backend-deploy"], "prerequisites": ["beprod-compose"] },
+      { "id": "beprod-proxy", "title": "Обратный прокси", "class": "важная", "concepts": ["Nginx перед приложением", "TLS и заголовки", "статика и таймауты"], "practice": ["read", "modify", "fill", "fix", "quiz"], "interactions": 8, "skills": ["backend-deploy"], "prerequisites": ["beprod-server"] },
+      { "id": "beprod-ci", "title": "CI: тесты и сборка", "class": "важная", "concepts": ["проверка на каждый push", "сборка образа в конвейере", "красный конвейер блокирует слияние"], "practice": ["read", "modify", "fill", "fix", "quiz", "case"], "interactions": 9, "skills": ["backend-deploy"], "prerequisites": ["beprod-proxy"] },
+      { "id": "beprod-deploy", "title": "Выкладка и миграции", "class": "сложная", "concepts": ["что раньше: миграция или код", "совместимость старой и новой версии", "откат"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["backend-deploy"], "prerequisites": ["beprod-ci"] },
+      { "id": "beprod-monitoring", "title": "Мониторинг", "class": "важная", "concepts": ["health-проверка", "метрики запросов и ошибок", "алерт, на который действительно реагируют"], "practice": ["read", "modify", "fill", "write", "quiz", "case"], "interactions": 9, "skills": ["backend-observability"], "prerequisites": ["beprod-deploy"] },
+      { "id": "beprod-security", "title": "Базовая безопасность сервиса", "class": "сложная", "concepts": ["валидация входа и лимит запросов", "CORS и заголовки", "обновление зависимостей"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["backend-security"], "prerequisites": ["beprod-monitoring"] }
+    ]
+  },
+  {
+    "id": "be-final",
+    "title": "Итоговый API-сервис",
+    "domain": "backend",
+    "level": 5,
+    "status": "authored",
+    "goal": "Настоящий сервис с PostgreSQL, авторизацией, тестами и Docker.",
+    "prerequisites": ["be-production"],
+    "skills": ["backend-product"],
+    "modules": [
+      { "id": "svc-scope", "title": "Постановка и границы", "class": "важная", "concepts": ["чью задачу решает сервис", "что он делать не будет", "критерий готовности"], "practice": ["read", "write", "quiz", "case"], "interactions": 8, "skills": ["backend-product"], "prerequisites": [] },
+      { "id": "svc-schema", "title": "Схема данных", "class": "сложная", "concepts": ["сущности и связи", "ключи и ограничения", "первая миграция"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["backend-product"], "prerequisites": ["svc-scope"] },
+      { "id": "svc-api", "title": "Контракт API", "class": "сложная", "concepts": ["маршруты и коды ответов", "схемы запроса и ответа", "версия и обратная совместимость"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["backend-product"], "prerequisites": ["svc-schema"] },
+      { "id": "svc-auth", "title": "Доступ в сервисе", "class": "важная", "concepts": ["вход и токены", "права на чужие записи", "проверка в одном месте"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 9, "skills": ["backend-product"], "prerequisites": ["svc-api"] },
+      { "id": "svc-tests", "title": "Тесты сервиса", "class": "сложная", "concepts": ["юнит и интеграционные", "тестовая база", "тест на право доступа"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["backend-product"], "prerequisites": ["svc-auth"] },
+      { "id": "svc-package", "title": "Упаковка и запуск", "class": "важная", "concepts": ["образ и compose", "конфигурация окружением", "запуск с нуля одной командой"], "practice": ["read", "modify", "fix", "quiz", "case"], "interactions": 9, "skills": ["backend-product"], "prerequisites": ["svc-tests"] },
+      { "id": "svc-observability", "title": "Логи, метрики, ошибки", "class": "важная", "concepts": ["что смотреть первым при сбое", "полезная запись в логе", "health и метрики"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 8, "skills": ["backend-product"], "prerequisites": ["svc-package"] },
+      { "id": "svc-release", "title": "Релиз и защита", "class": "важная", "concepts": ["README, по которому запустит чужой человек", "известные ограничения", "рассказ о принятых решениях"], "practice": ["read", "write", "quiz", "case"], "interactions": 8, "skills": ["backend-product"], "prerequisites": ["svc-observability"] }
+    ]
+  }
+]

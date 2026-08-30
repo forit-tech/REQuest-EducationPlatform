@@ -1,0 +1,77 @@
+[
+  {
+    "id": "ops-ml-lifecycle",
+    "title": "Жизненный цикл ML",
+    "domain": "mlops",
+    "level": 3,
+    "status": "outline",
+    "goal": "От идеи до вывода из эксплуатации: этапы, роли, артефакты, точки контроля.",
+    "prerequisites": [
+      "mle-tracking"
+    ],
+    "modules": []
+  },
+  {
+    "id": "ops-data-versioning",
+    "title": "Версионирование данных",
+    "domain": "mlops",
+    "level": 3,
+    "status": "outline",
+    "goal": "Версия датасета, хеши, воспроизводимость эксперимента через полгода.",
+    "prerequisites": [
+      "ops-ml-lifecycle"
+    ],
+    "modules": []
+  },
+  {
+    "id": "ops-model-registry",
+    "title": "Реестр моделей",
+    "domain": "mlops",
+    "level": 4,
+    "status": "outline",
+    "goal": "Стадии модели, метаданные, продвижение в прод, откат к предыдущей версии.",
+    "prerequisites": [
+      "ops-data-versioning"
+    ],
+    "modules": []
+  },
+  {
+    "id": "ops-feature-store",
+    "title": "Хранилище признаков",
+    "domain": "mlops",
+    "level": 4,
+    "status": "outline",
+    "goal": "Одни и те же признаки на обучении и в проде, обучающе-служебный разрыв.",
+    "prerequisites": [
+      "ops-model-registry"
+    ],
+    "modules": []
+  },
+  {
+    "id": "ops-ml-cicd",
+    "title": "CI/CD для моделей",
+    "domain": "mlops",
+    "level": 4,
+    "status": "outline",
+    "goal": "Автотесты данных и модели, сборка образа, выкатка, канареечный выпуск.",
+    "prerequisites": [
+      "ops-model-registry",
+      "do-cd"
+    ],
+    "modules": []
+  },
+  {
+    "id": "ops-platform-final",
+    "title": "Итоговая MLOps-платформа",
+    "domain": "mlops",
+    "level": 5,
+    "status": "outline",
+    "goal": "Полный контур: данные, обучение, реестр, выкатка, мониторинг, переобучение.",
+    "prerequisites": [
+      "ops-ml-cicd",
+      "ops-feature-store",
+      "mle-retraining"
+    ],
+    "modules": []
+  }
+]

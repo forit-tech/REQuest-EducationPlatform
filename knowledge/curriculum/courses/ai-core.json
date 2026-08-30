@@ -1,0 +1,240 @@
+[
+  {
+    "id": "ai-intro",
+    "title": "Что вообще такое AI",
+    "domain": "ai",
+    "level": 1,
+    "status": "authored",
+    "goal": "Словарь до всякой практики: AI, ML, глубокое обучение, генеративные модели, параметр, датасет, обучение, вывод, контекст.",
+    "prerequisites": ["fund-computer"],
+    "skills": ["ai-vocabulary"],
+    "modules": [
+      { "id": "ai-what-is", "title": "AI, ML и глубокое обучение", "class": "простая", "concepts": ["матрёшка понятий", "правила против обучения на данных", "где что применяют"], "practice": ["read", "quiz"], "interactions": 5, "skills": ["ai-vocabulary"], "prerequisites": [] },
+      { "id": "ai-model-concept", "title": "Что такое модель", "class": "важная", "concepts": ["функция с настраиваемыми числами", "параметр", "веса как результат обучения"], "practice": ["read", "modify", "quiz"], "interactions": 6, "skills": ["ai-vocabulary"], "prerequisites": ["ai-what-is"] },
+      { "id": "ai-generative", "title": "Генеративные модели", "class": "простая", "concepts": ["предсказать метку против сгенерировать продолжение", "текст, изображение, звук"], "practice": ["read", "quiz"], "interactions": 5, "skills": ["ai-vocabulary"], "prerequisites": ["ai-model-concept"] },
+      { "id": "ai-dataset", "title": "Датасет", "class": "простая", "concepts": ["примеры", "разметка", "качество данных решает"], "practice": ["read", "modify", "quiz"], "interactions": 5, "skills": ["ai-vocabulary"], "prerequisites": ["ai-model-concept"] },
+      { "id": "ai-training-vs-inference", "title": "Обучение и вывод", "class": "важная", "concepts": ["дорогое обучение один раз", "дешёвый вывод много раз", "веса не меняются при ответе"], "practice": ["read", "quiz", "case"], "interactions": 7, "skills": ["ai-vocabulary"], "prerequisites": ["ai-dataset"] },
+      { "id": "ai-context-concept", "title": "Контекст", "class": "важная", "concepts": ["модель не помнит прошлый диалог сама", "всё нужное подаётся на вход", "окно ограничено"], "practice": ["read", "modify", "quiz", "case"], "interactions": 7, "skills": ["ai-vocabulary"], "prerequisites": ["ai-training-vs-inference"] },
+      { "id": "ai-limits", "title": "Чего модель не умеет", "class": "важная", "concepts": ["уверенный неверный ответ", "устаревшие знания", "отсутствие доступа к твоим данным"], "practice": ["read", "quiz", "case"], "interactions": 6, "skills": ["ai-vocabulary"], "prerequisites": ["ai-context-concept"] }
+    ]
+  },
+  {
+    "id": "ai-math",
+    "title": "Математика для AI: быстрый разбор",
+    "domain": "ai",
+    "level": 2,
+    "status": "authored",
+    "goal": "Компактный разбор того минимума, который встречается в AI-курсах: вектор, матрица, производная, градиент, вероятность. Это мост и напоминание, а не замена: глубина живёт в mth-linear, mth-calculus, mth-optimization и mth-probability.",
+    "prerequisites": ["py-basics", "ai-intro"],
+    "skills": ["math-linear", "math-calculus", "math-probability"],
+    "modules": [
+      { "id": "math-vector", "title": "Вектор — это список чисел", "class": "важная", "concepts": ["вектор как признаки объекта", "размерность", "вектор в Python"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 7, "skills": ["math-linear"], "prerequisites": [] },
+      { "id": "math-vector-ops", "title": "Операции над векторами", "class": "важная", "concepts": ["сложение", "умножение на число", "длина вектора"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 8, "skills": ["math-linear"], "prerequisites": ["math-vector"] },
+      { "id": "math-dot-product", "title": "Скалярное произведение", "class": "важная", "concepts": ["сумма произведений", "мера совпадения направлений", "основа всего дальнейшего"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 9, "skills": ["math-linear"], "prerequisites": ["math-vector-ops"] },
+      { "id": "math-matrix", "title": "Матрица", "class": "важная", "concepts": ["таблица чисел", "строки и столбцы", "форма"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 8, "skills": ["math-linear"], "prerequisites": ["math-dot-product"] },
+      { "id": "math-matmul", "title": "Умножение матриц", "class": "сложная", "concepts": ["строка на столбец", "правило совпадения форм", "почему это ядро нейросети"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["math-linear"], "prerequisites": ["math-matrix"] },
+      { "id": "math-function", "title": "Функция и график", "class": "простая", "concepts": ["вход и выход", "график", "минимум функции"], "practice": ["read", "modify", "quiz"], "interactions": 6, "skills": ["math-calculus"], "prerequisites": ["math-matmul"] },
+      { "id": "math-derivative", "title": "Производная как наклон", "class": "сложная", "concepts": ["скорость изменения", "знак наклона", "численная производная в коде"], "practice": ["read", "modify", "fill", "write", "quiz", "case"], "interactions": 10, "skills": ["math-calculus"], "prerequisites": ["math-function"] },
+      { "id": "math-gradient", "title": "Градиент", "class": "сложная", "concepts": ["производные по каждому параметру", "направление роста", "антиградиент как путь вниз"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["math-calculus"], "prerequisites": ["math-derivative"] },
+      { "id": "math-optimization", "title": "Градиентный спуск", "class": "сложная", "concepts": ["шаг обучения", "итерации", "застревание и расхождение"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 12, "skills": ["math-calculus"], "prerequisites": ["math-gradient"] },
+      { "id": "math-probability", "title": "Вероятность и распределение", "class": "важная", "concepts": ["сумма вероятностей равна единице", "распределение по вариантам", "как числа превращаются в вероятности"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 9, "skills": ["math-probability"], "prerequisites": ["math-optimization"] }
+    ]
+  },
+  {
+    "id": "ai-ml-fundamentals",
+    "title": "Основы машинного обучения",
+    "domain": "ai",
+    "level": 2,
+    "status": "authored",
+    "goal": "Понять, что вообще значит «модель обучилась», прежде чем идти к нейросетям и языковым моделям.",
+    "prerequisites": ["ai-math"],
+    "skills": ["ml-basics"],
+    "modules": [
+      { "id": "ml-task", "title": "Задача обучения", "class": "простая", "concepts": ["есть примеры — есть задача", "предсказание против правил", "типы задач"], "practice": ["read", "quiz"], "interactions": 5, "skills": ["ml-basics"], "prerequisites": [] },
+      { "id": "ml-features-labels", "title": "Признаки и ответ", "class": "важная", "concepts": ["X и y", "один объект — одна строка", "что модель видит на входе"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 7, "skills": ["ml-basics"], "prerequisites": ["ml-task"] },
+      { "id": "ml-train-test", "title": "Обучающая и тестовая выборка", "class": "важная", "concepts": ["разделение данных", "честная проверка", "почему нельзя мерить на обучении"], "practice": ["read", "modify", "write", "fix", "quiz"], "interactions": 8, "skills": ["ml-basics"], "prerequisites": ["ml-features-labels"] },
+      { "id": "ml-loss", "title": "Ошибка и метрика", "class": "важная", "concepts": ["функция потерь для обучения", "метрика для человека", "разные цели"], "practice": ["read", "modify", "write", "quiz"], "interactions": 8, "skills": ["ml-basics"], "prerequisites": ["ml-train-test"] },
+      { "id": "ml-first-model", "title": "Первая обученная модель", "class": "важная", "concepts": ["fit", "predict", "оценка результата"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 9, "skills": ["ml-basics"], "prerequisites": ["ml-loss"] },
+      { "id": "ml-overfitting", "title": "Переобучение", "class": "сложная", "concepts": ["выучил примеры наизусть", "разрыв обучения и теста", "как заметить по графику"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["ml-basics"], "prerequisites": ["ml-first-model"] },
+      { "id": "ml-generalization", "title": "Обобщение и валидация", "class": "важная", "concepts": ["третья выборка", "подбор без подглядывания", "честный итог"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 8, "skills": ["ml-basics"], "prerequisites": ["ml-overfitting"] }
+    ]
+  },
+  {
+    "id": "ai-neural-networks",
+    "title": "Нейросети по шагам",
+    "domain": "ai",
+    "level": 3,
+    "status": "authored",
+    "goal": "Как учится нейросеть: нейрон, слой, прямой проход, функция потерь, обратное распространение, оптимизатор и цикл обучения. Матанализ и оптимизация не переобъясняются — они в mth-calculus, mth-optimization и mth-ml-models.",
+    "prerequisites": ["ai-ml-fundamentals"],
+    "skills": ["nn-forward", "nn-training"],
+    "modules": [
+      { "id": "nn-neuron", "title": "Один нейрон", "class": "важная", "concepts": ["вход", "вес", "смещение", "сумма"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 8, "skills": ["nn-forward"], "prerequisites": [] },
+      { "id": "nn-activation", "title": "Функция активации", "class": "важная", "concepts": ["зачем нелинейность", "ReLU", "сигмоида"], "practice": ["read", "modify", "write", "quiz"], "interactions": 7, "skills": ["nn-forward"], "prerequisites": ["nn-neuron"] },
+      { "id": "nn-layer", "title": "Слой", "class": "важная", "concepts": ["много нейронов сразу", "матрица весов", "форма тензора"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 8, "skills": ["nn-forward"], "prerequisites": ["nn-activation"] },
+      { "id": "nn-forward", "title": "Прямой проход", "class": "важная", "concepts": ["слой за слоем", "выход сети", "предсказание"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 8, "skills": ["nn-forward"], "prerequisites": ["nn-layer"] },
+      { "id": "nn-loss", "title": "Функция потерь", "class": "важная", "concepts": ["насколько сеть ошиблась", "MSE", "кросс-энтропия"], "practice": ["read", "modify", "write", "quiz"], "interactions": 7, "skills": ["nn-training"], "prerequisites": ["nn-forward"] },
+      { "id": "nn-gradient", "title": "Градиент", "class": "сложная", "concepts": ["куда двигать вес", "производная как направление", "шаг обучения"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["nn-training"], "prerequisites": ["nn-loss"] },
+      { "id": "nn-backprop", "title": "Обратное распространение", "class": "сложная", "concepts": ["ошибка назад по слоям", "цепное правило на пальцах", "обновление весов"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 12, "skills": ["nn-training"], "prerequisites": ["nn-gradient"] },
+      { "id": "nn-optimizer", "title": "Оптимизатор", "class": "важная", "concepts": ["SGD", "момент", "Adam", "скорость обучения"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 8, "skills": ["nn-training"], "prerequisites": ["nn-backprop"] },
+      { "id": "nn-init", "title": "Инициализация весов", "class": "важная", "concepts": ["нулями нельзя", "масштаб начальных весов", "затухание и взрыв градиентов"], "practice": ["read", "modify", "fix", "quiz", "case"], "interactions": 9, "skills": ["nn-forward", "nn-training"], "prerequisites": ["nn-optimizer"] },
+      { "id": "nn-normalization", "title": "Нормализация внутри сети", "class": "важная", "concepts": ["зачем нормализовать активации", "нормализация по батчу и по слою", "что меняется в обучении"], "practice": ["read", "modify", "fix", "quiz", "case"], "interactions": 9, "skills": ["nn-forward", "nn-training"], "prerequisites": ["nn-init"] },
+      { "id": "nn-regularization", "title": "Регуляризация", "class": "важная", "concepts": ["случайное отключение нейронов", "штраф на веса", "ранняя остановка"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 9, "skills": ["nn-forward", "nn-training"], "prerequisites": ["nn-normalization"] },
+      { "id": "nn-training-loop", "title": "Цикл обучения целиком", "class": "сложная", "concepts": ["эпоха", "батч", "валидация", "переобучение видно на графике"], "practice": ["read", "write", "fix", "quiz", "case"], "interactions": 12, "skills": ["nn-training"], "prerequisites": ["nn-regularization"] }
+    ]
+  },
+  {
+    "id": "ai-pytorch",
+    "title": "PyTorch",
+    "domain": "ai",
+    "level": 3,
+    "status": "authored",
+    "goal": "Сначала тензор. Потом операции, устройство, данные, модули, цикл обучения и режим вывода.",
+    "prerequisites": ["ai-neural-networks"],
+    "skills": ["pytorch-tensors", "pytorch-training"],
+    "modules": [
+      { "id": "pt-tensor", "title": "Тензор", "class": "важная", "concepts": ["массив с градиентами", "создание", "тип и форма"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 8, "skills": ["pytorch-tensors"], "prerequisites": [] },
+      { "id": "pt-ops", "title": "Операции и формы", "class": "важная", "concepts": ["поэлементные операции", "матричное умножение", "reshape и view"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 9, "skills": ["pytorch-tensors"], "prerequisites": ["pt-tensor"] },
+      { "id": "pt-broadcast", "title": "Броадкастинг", "class": "важная", "concepts": ["автоматическое растягивание формы", "правила совместимости", "ошибка размерностей"], "practice": ["read", "modify", "fix", "quiz", "case"], "interactions": 8, "skills": ["pytorch-tensors"], "prerequisites": ["pt-ops"] },
+      { "id": "pt-autograd", "title": "Автоматические градиенты", "class": "сложная", "concepts": ["requires_grad", "backward", "накопление градиента и обнуление"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["pytorch-training"], "prerequisites": ["pt-broadcast"] },
+      { "id": "pt-device", "title": "CPU и GPU", "class": "важная", "concepts": ["device", "перенос тензора", "модель и данные на одном устройстве"], "practice": ["read", "modify", "fix", "quiz"], "interactions": 7, "skills": ["pytorch-tensors"], "prerequisites": ["pt-autograd"] },
+      { "id": "pt-dataset", "title": "Dataset", "class": "важная", "concepts": ["свой класс данных", "len и getitem", "преобразования"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 7, "skills": ["pytorch-training"], "prerequisites": ["pt-device"] },
+      { "id": "pt-dataloader", "title": "DataLoader и батчи", "class": "важная", "concepts": ["батч", "перемешивание", "почему батчами быстрее"], "practice": ["read", "modify", "write", "fix", "quiz"], "interactions": 8, "skills": ["pytorch-training"], "prerequisites": ["pt-dataset"] },
+      { "id": "pt-module", "title": "Модель как модуль", "class": "важная", "concepts": ["nn.Module", "слои внутри", "forward", "параметры модели"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 9, "skills": ["pytorch-training"], "prerequisites": ["pt-dataloader"] },
+      { "id": "pt-training", "title": "Цикл обучения на PyTorch", "class": "сложная", "concepts": ["прямой проход", "потери", "backward", "шаг оптимизатора", "обнуление градиентов"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 13, "skills": ["pytorch-training"], "prerequisites": ["pt-module"] },
+      { "id": "pt-inference", "title": "Режим вывода и сохранение", "class": "важная", "concepts": ["eval", "no_grad", "сохранение и загрузка весов"], "practice": ["read", "modify", "write", "fix", "quiz"], "interactions": 8, "skills": ["pytorch-training"], "prerequisites": ["pt-training"] }
+    ]
+  },
+  {
+    "id": "ai-nlp-fundamentals",
+    "title": "Текст как данные",
+    "domain": "ai",
+    "level": 3,
+    "status": "authored",
+    "goal": "Почему текст нельзя просто скормить сети: токен, словарь, подслова, эмбеддинги, последовательность.",
+    "prerequisites": ["ai-pytorch"],
+    "skills": ["nlp-basics"],
+    "modules": [
+      { "id": "nlp-text-data", "title": "Текст как данные", "class": "простая", "concepts": ["сеть работает с числами", "нужен перевод текста в числа", "порядок слов важен"], "practice": ["read", "quiz"], "interactions": 5, "skills": ["nlp-basics"], "prerequisites": [] },
+      { "id": "nlp-token", "title": "Токен", "class": "важная", "concepts": ["кусок текста", "не всегда слово", "разбиение своей строки"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 8, "skills": ["nlp-basics"], "prerequisites": ["nlp-text-data"] },
+      { "id": "nlp-vocab", "title": "Словарь и идентификаторы", "class": "важная", "concepts": ["токен → число", "число → токен", "неизвестный токен"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 8, "skills": ["nlp-basics"], "prerequisites": ["nlp-token"] },
+      { "id": "nlp-subword", "title": "Подслова", "class": "сложная", "concepts": ["редкие слова", "BPE на пальцах", "почему русский текст дороже английского"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 10, "skills": ["nlp-basics"], "prerequisites": ["nlp-vocab"] },
+      { "id": "nlp-embedding-table", "title": "Таблица эмбеддингов", "class": "важная", "concepts": ["каждому токену вектор", "обучаемые векторы", "поиск по индексу"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 9, "skills": ["nlp-basics"], "prerequisites": ["nlp-subword"] },
+      { "id": "nlp-sequence", "title": "Последовательность и маска", "class": "важная", "concepts": ["разная длина", "дополнение до одной длины", "маска внимания"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 9, "skills": ["nlp-basics"], "prerequisites": ["nlp-embedding-table"] }
+    ]
+  },
+  {
+    "id": "ai-attention",
+    "title": "Внимание",
+    "domain": "ai",
+    "level": 4,
+    "status": "authored",
+    "goal": "Разжевать механизм внимания: проблема старых архитектур, query, key, value, оценка внимания, self-attention, многоголовое внимание.",
+    "prerequisites": ["ai-nlp-fundamentals"],
+    "skills": ["attention"],
+    "modules": [
+      { "id": "attn-problem", "title": "Проблема старых архитектур", "class": "важная", "concepts": ["последовательная обработка", "забывание длинного контекста", "узкое горлышко"], "practice": ["read", "quiz", "case"], "interactions": 6, "skills": ["attention"], "prerequisites": [] },
+      { "id": "attn-idea", "title": "Идея внимания на пальцах", "class": "важная", "concepts": ["на какие слова смотреть", "вес важности", "взвешенная сумма"], "practice": ["read", "modify", "quiz"], "interactions": 6, "skills": ["attention"], "prerequisites": ["attn-problem"] },
+      { "id": "attn-qkv", "title": "Query, key, value", "class": "сложная", "concepts": ["запрос", "ключ", "значение", "аналогия с поиском"], "practice": ["read", "modify", "fill", "write", "quiz", "case"], "interactions": 10, "skills": ["attention"], "prerequisites": ["attn-idea"] },
+      { "id": "attn-score", "title": "Оценка внимания", "class": "сложная", "concepts": ["скалярное произведение", "масштабирование", "softmax по строке"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 10, "skills": ["attention"], "prerequisites": ["attn-qkv"] },
+      { "id": "attn-self", "title": "Self-attention", "class": "сложная", "concepts": ["последовательность смотрит на себя", "матрица внимания", "реализация руками"], "practice": ["read", "write", "fix", "quiz", "case"], "interactions": 12, "skills": ["attention"], "prerequisites": ["attn-score"] },
+      { "id": "attn-multihead", "title": "Многоголовое внимание", "class": "сложная", "concepts": ["несколько голов", "разные отношения", "склейка и проекция"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 10, "skills": ["attention"], "prerequisites": ["attn-self"] }
+    ]
+  },
+  {
+    "id": "ai-transformers",
+    "title": "Трансформеры",
+    "domain": "ai",
+    "level": 4,
+    "status": "authored",
+    "goal": "Собрать блок трансформера из внимания, нормализации и полносвязного слоя и понять, чем энкодер отличается от декодера.",
+    "prerequisites": ["ai-attention"],
+    "skills": ["transformer"],
+    "modules": [
+      { "id": "tr-block", "title": "Блок трансформера", "class": "важная", "concepts": ["внимание плюс полносвязный слой", "что идёт за чем", "вход и выход одной формы"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 9, "skills": ["transformer"], "prerequisites": [] },
+      { "id": "tr-residual", "title": "Остаточная связь и нормализация", "class": "важная", "concepts": ["прибавить вход к выходу", "зачем это для глубины", "нормализация слоя"], "practice": ["read", "modify", "write", "fix", "quiz"], "interactions": 8, "skills": ["transformer"], "prerequisites": ["tr-block"] },
+      { "id": "tr-ffn", "title": "Полносвязный слой внутри блока", "class": "важная", "concepts": ["расширение и сжатие", "нелинейность", "где живёт большая часть параметров"], "practice": ["read", "modify", "write", "quiz"], "interactions": 7, "skills": ["transformer"], "prerequisites": ["tr-residual"] },
+      { "id": "tr-positional", "title": "Позиционное кодирование", "class": "сложная", "concepts": ["внимание само по себе не знает порядок", "добавление позиции", "современные варианты"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["transformer"], "prerequisites": ["tr-ffn"] },
+      { "id": "tr-causal", "title": "Причинная маска", "class": "сложная", "concepts": ["нельзя подглядывать вперёд", "маска будущего", "почему без неё обучение бессмысленно"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["transformer"], "prerequisites": ["tr-positional"] },
+      { "id": "tr-encoder-decoder", "title": "Энкодер и декодер", "class": "важная", "concepts": ["понимание против генерации", "перекрёстное внимание", "какие модели к чему относятся"], "practice": ["read", "quiz", "case"], "interactions": 8, "skills": ["transformer"], "prerequisites": ["tr-causal"] },
+      { "id": "tr-stack", "title": "Стек блоков", "class": "важная", "concepts": ["глубина", "размерность модели", "откуда берутся миллиарды параметров"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 9, "skills": ["transformer"], "prerequisites": ["tr-encoder-decoder"] }
+    ]
+  },
+  {
+    "id": "ai-llm-anatomy",
+    "title": "Как устроена языковая модель",
+    "domain": "ai",
+    "level": 4,
+    "status": "authored",
+    "goal": "Пройти путь текста через модель целиком: токенизатор → идентификаторы → эмбеддинги → слои → логиты → softmax → следующий токен.",
+    "prerequisites": ["ai-transformers"],
+    "skills": ["llm-anatomy"],
+    "modules": [
+      { "id": "llm-tokenizer", "title": "Токенизатор на своём тексте", "class": "важная", "concepts": ["разбиение реальной строки", "сколько токенов в предложении", "цена языка"], "practice": ["read", "modify", "write", "quiz"], "interactions": 8, "skills": ["llm-anatomy"], "prerequisites": [] },
+      { "id": "llm-token-ids", "title": "Идентификаторы токенов", "class": "важная", "concepts": ["текст в числа и обратно", "специальные токены", "шаблон диалога"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 8, "skills": ["llm-anatomy"], "prerequisites": ["llm-tokenizer"] },
+      { "id": "llm-embeddings-in", "title": "Вход модели", "class": "важная", "concepts": ["идентификатор в вектор", "позиция", "что реально видит первый слой"], "practice": ["read", "modify", "write", "quiz"], "interactions": 7, "skills": ["llm-anatomy"], "prerequisites": ["llm-token-ids"] },
+      { "id": "llm-layers", "title": "Проход по слоям", "class": "важная", "concepts": ["десятки блоков подряд", "состояние на каждом слое", "вычислительная стоимость"], "practice": ["read", "modify", "quiz", "case"], "interactions": 8, "skills": ["llm-anatomy"], "prerequisites": ["llm-embeddings-in"] },
+      { "id": "llm-logits", "title": "Логиты", "class": "сложная", "concepts": ["число на каждый токен словаря", "ещё не вероятности", "форма выхода"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["llm-anatomy"], "prerequisites": ["llm-layers"] },
+      { "id": "llm-softmax", "title": "Softmax", "class": "сложная", "concepts": ["логиты в вероятности", "сумма равна единице", "влияние масштаба"], "practice": ["read", "modify", "fill", "write", "quiz", "case"], "interactions": 10, "skills": ["llm-anatomy"], "prerequisites": ["llm-logits"] },
+      { "id": "llm-next-token", "title": "Предсказание следующего токена", "class": "сложная", "concepts": ["выбор токена", "дописывание к последовательности", "повтор шага в цикле"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 13, "skills": ["llm-anatomy"], "prerequisites": ["llm-softmax"] },
+      { "id": "llm-context-window", "title": "Окно контекста", "class": "важная", "concepts": ["предел длины", "что происходит при переполнении", "квадратичная цена внимания"], "practice": ["read", "modify", "quiz", "case"], "interactions": 9, "skills": ["llm-anatomy"], "prerequisites": ["llm-next-token"] }
+    ]
+  },
+  {
+    "id": "ai-llm-training",
+    "title": "Как языковая модель обучается",
+    "domain": "ai",
+    "level": 4,
+    "status": "authored",
+    "goal": "Понять предобучение: корпус, целевая функция, батчи, шаги, чекпойнты, валидация и стоимость масштаба.",
+    "prerequisites": ["ai-llm-anatomy"],
+    "skills": ["llm-training"],
+    "modules": [
+      { "id": "train-corpus", "title": "Корпус", "class": "важная", "concepts": ["откуда берут текст", "очистка и дедупликация", "чем корпус определяет модель"], "practice": ["read", "quiz", "case"], "interactions": 6, "skills": ["llm-training"], "prerequisites": [] },
+      { "id": "train-objective", "title": "Задача предсказания следующего токена", "class": "сложная", "concepts": ["сдвиг на один токен", "потери по всем позициям", "самообучение без разметки"], "practice": ["read", "modify", "fill", "write", "quiz", "case"], "interactions": 11, "skills": ["llm-training"], "prerequisites": ["train-corpus"] },
+      { "id": "train-batches", "title": "Батчи и длина последовательности", "class": "важная", "concepts": ["сколько текста за шаг", "память против скорости", "накопление градиента"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 8, "skills": ["llm-training"], "prerequisites": ["train-objective"] },
+      { "id": "train-steps", "title": "Шаги, эпохи и расписание", "class": "важная", "concepts": ["шаг обучения", "прогрев", "затухание скорости обучения"], "practice": ["read", "modify", "write", "quiz"], "interactions": 8, "skills": ["llm-training"], "prerequisites": ["train-batches"] },
+      { "id": "train-checkpoints", "title": "Чекпойнты", "class": "простая", "concepts": ["сохранение состояния", "продолжение после сбоя", "размер чекпойнта"], "practice": ["read", "modify", "quiz"], "interactions": 6, "skills": ["llm-training"], "prerequisites": ["train-steps"] },
+      { "id": "train-validation", "title": "Валидация и перплексия", "class": "важная", "concepts": ["отложенный текст", "перплексия на пальцах", "когда останавливать"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 9, "skills": ["llm-training"], "prerequisites": ["train-checkpoints"] },
+      { "id": "train-scale", "title": "Масштаб и его цена", "class": "важная", "concepts": ["параметры, данные, вычисления", "почему растёт качество", "во что это обходится"], "practice": ["read", "quiz", "case"], "interactions": 7, "skills": ["llm-training"], "prerequisites": ["train-validation"] }
+    ]
+  },
+  {
+    "id": "ai-post-training",
+    "title": "Дообучение после предобучения",
+    "domain": "ai",
+    "level": 4,
+    "status": "authored",
+    "goal": "Понять, как сырая модель превращается в ассистента: SFT, данные предпочтений, RLHF, DPO, рассуждающие модели.",
+    "prerequisites": ["ai-llm-training"],
+    "skills": ["post-training"],
+    "modules": [
+      { "id": "post-why", "title": "Почему базовая модель неудобна", "class": "важная", "concepts": ["продолжает текст вместо ответа", "не следует инструкции", "что нужно добавить"], "practice": ["read", "modify", "quiz", "case"], "interactions": 7, "skills": ["post-training"], "prerequisites": [] },
+      { "id": "post-sft", "title": "Обучение на инструкциях", "class": "важная", "concepts": ["пары вопрос-ответ", "шаблон диалога", "что меняется в поведении"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 9, "skills": ["post-training"], "prerequisites": ["post-why"] },
+      { "id": "post-preference", "title": "Данные предпочтений", "class": "важная", "concepts": ["ответ лучше и хуже", "разметка людьми", "что такое хороший ответ"], "practice": ["read", "modify", "quiz", "case"], "interactions": 8, "skills": ["post-training"], "prerequisites": ["post-sft"] },
+      { "id": "post-rlhf", "title": "RLHF", "class": "сложная", "concepts": ["модель награды", "обучение с подкреплением на пальцах", "почему это дорого и хрупко"], "practice": ["read", "quiz", "case"], "interactions": 10, "skills": ["post-training"], "prerequisites": ["post-preference"] },
+      { "id": "post-dpo", "title": "DPO", "class": "сложная", "concepts": ["прямая оптимизация предпочтений", "без отдельной модели награды", "сравнение с RLHF"], "practice": ["read", "modify", "quiz", "case"], "interactions": 10, "skills": ["post-training"], "prerequisites": ["post-rlhf"] },
+      { "id": "post-reasoning", "title": "Рассуждающие модели", "class": "важная", "concepts": ["длинная цепочка рассуждения", "обучение на процессе, а не только на ответе", "цена в токенах и времени"], "practice": ["read", "modify", "quiz", "case"], "interactions": 8, "skills": ["post-training"], "prerequisites": ["post-dpo"] }
+    ]
+  },
+  {
+    "id": "ai-inference",
+    "title": "Генерация текста",
+    "domain": "ai",
+    "level": 4,
+    "status": "authored",
+    "goal": "Управлять выдачей осознанно: жадный выбор, температура, top-k и top-p, штрафы, остановка, KV-кеш, батчинг, стриминг.",
+    "prerequisites": ["ai-llm-anatomy"],
+    "skills": ["llm-inference"],
+    "modules": [
+      { "id": "inf-greedy", "title": "Жадная генерация", "class": "важная", "concepts": ["всегда самый вероятный токен", "детерминированность", "скучный и зацикленный текст"], "practice": ["read", "modify", "write", "quiz"], "interactions": 8, "skills": ["llm-inference"], "prerequisites": [] },
+      { "id": "inf-temperature", "title": "Температура", "class": "важная", "concepts": ["сглаживание распределения", "ноль против единицы", "когда нужен предсказуемый ответ"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 9, "skills": ["llm-inference"], "prerequisites": ["inf-greedy"] },
+      { "id": "inf-topk-topp", "title": "Top-k и top-p", "class": "сложная", "concepts": ["обрезка хвоста", "ядро вероятности", "совместное действие с температурой"], "practice": ["read", "modify", "fill", "write", "quiz", "case"], "interactions": 10, "skills": ["llm-inference"], "prerequisites": ["inf-temperature"] },
+      { "id": "inf-repetition", "title": "Штраф за повтор", "class": "важная", "concepts": ["зацикливание", "штраф присутствия и частоты", "побочные эффекты"], "practice": ["read", "modify", "write", "fix", "quiz"], "interactions": 7, "skills": ["llm-inference"], "prerequisites": ["inf-topk-topp"] },
+      { "id": "inf-stop", "title": "Остановка генерации", "class": "простая", "concepts": ["стоп-последовательности", "максимум токенов", "обрыв на полуслове"], "practice": ["read", "modify", "write", "quiz"], "interactions": 6, "skills": ["llm-inference"], "prerequisites": ["inf-repetition"] },
+      { "id": "inf-kv-cache", "title": "KV-кеш", "class": "сложная", "concepts": ["зачем пересчитывать прошлое", "память под кеш", "почему длинный контекст дорожает"], "practice": ["read", "modify", "quiz", "case"], "interactions": 10, "skills": ["llm-inference"], "prerequisites": ["inf-stop"] },
+      { "id": "inf-batching", "title": "Батчинг запросов", "class": "важная", "concepts": ["несколько запросов за проход", "непрерывный батчинг", "задержка против пропускной способности"], "practice": ["read", "modify", "quiz", "case"], "interactions": 8, "skills": ["llm-inference"], "prerequisites": ["inf-kv-cache"] },
+      { "id": "inf-streaming", "title": "Потоковая выдача", "class": "важная", "concepts": ["токен за токеном", "время до первого токена", "как это меняет ощущение скорости"], "practice": ["read", "modify", "write", "quiz"], "interactions": 7, "skills": ["llm-inference"], "prerequisites": ["inf-batching"] }
+    ]
+  }
+]

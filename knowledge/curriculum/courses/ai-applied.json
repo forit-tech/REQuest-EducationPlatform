@@ -1,0 +1,347 @@
+[
+  {
+    "id": "ai-open-source-llm",
+    "title": "Открытые модели",
+    "domain": "ai",
+    "level": 4,
+    "status": "authored",
+    "goal": "Запустить модель у себя: репозиторий весов, форматы, среды выполнения, осознанный выбор модели под задачу и железо.",
+    "prerequisites": ["ai-inference"],
+    "skills": ["oss-llm"],
+    "modules": [
+      { "id": "oss-hub", "title": "Где живут модели", "class": "важная", "concepts": ["карточка модели", "лицензия", "размер и версия"], "practice": ["read", "modify", "quiz"], "interactions": 7, "skills": ["oss-llm"], "prerequisites": [] },
+      { "id": "oss-weights", "title": "Веса и форматы", "class": "важная", "concepts": ["что такое веса", "safetensors", "почему не pickle"], "practice": ["read", "modify", "quiz", "case"], "interactions": 7, "skills": ["oss-llm"], "prerequisites": ["oss-hub"] },
+      { "id": "oss-transformers", "title": "Запуск через transformers", "class": "важная", "concepts": ["загрузка модели и токенизатора", "generate", "параметры генерации в коде"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 9, "skills": ["oss-llm"], "prerequisites": ["oss-weights"] },
+      { "id": "oss-gguf", "title": "GGUF и запуск на CPU", "class": "важная", "concepts": ["формат для локального вывода", "llama.cpp", "модель на ноутбуке"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 8, "skills": ["oss-llm"], "prerequisites": ["oss-transformers"] },
+      { "id": "oss-runtimes", "title": "Среды выполнения", "class": "важная", "concepts": ["локальный сервер модели", "серверная среда под нагрузку", "совместимый API"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 8, "skills": ["oss-llm"], "prerequisites": ["oss-gguf"] },
+      { "id": "oss-choose", "title": "Выбор модели", "class": "сложная", "concepts": ["размер против качества", "язык и домен", "лицензия и ограничения"], "practice": ["read", "quiz", "case"], "interactions": 10, "skills": ["oss-llm"], "prerequisites": ["oss-runtimes"] }
+    ]
+  },
+  {
+    "id": "ai-quantization",
+    "title": "Квантизация",
+    "domain": "ai",
+    "level": 4,
+    "status": "authored",
+    "goal": "Понять, чем платишь за уменьшение модели: точность чисел, методы, деградация качества, расчёт памяти.",
+    "prerequisites": ["ai-open-source-llm"],
+    "skills": ["quantization"],
+    "modules": [
+      { "id": "q-precision", "title": "Точность чисел", "class": "важная", "concepts": ["FP32", "FP16 и BF16", "сколько байт на параметр"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 8, "skills": ["quantization"], "prerequisites": [] },
+      { "id": "q-memory-math", "title": "Сколько модель весит в памяти", "class": "важная", "concepts": ["параметры на байты", "запас под KV-кеш", "расчёт под свою видеокарту"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 9, "skills": ["quantization"], "prerequisites": ["q-precision"] },
+      { "id": "q-int8-int4", "title": "Целочисленная квантизация", "class": "сложная", "concepts": ["INT8 и INT4", "масштаб и смещение", "что теряется"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 10, "skills": ["quantization"], "prerequisites": ["q-memory-math"] },
+      { "id": "q-methods", "title": "Методы квантизации", "class": "важная", "concepts": ["после обучения", "калибровочные данные", "популярные схемы весов"], "practice": ["read", "modify", "quiz", "case"], "interactions": 8, "skills": ["quantization"], "prerequisites": ["q-int8-int4"] },
+      { "id": "q-quality", "title": "Замер деградации", "class": "сложная", "concepts": ["сравнение до и после", "свои задачи вместо бенчмарка", "где квантизация недопустима"], "practice": ["read", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["quantization"], "prerequisites": ["q-methods"] }
+    ]
+  },
+  {
+    "id": "ai-hardware",
+    "title": "Железо для моделей",
+    "domain": "ai",
+    "level": 4,
+    "status": "authored",
+    "goal": "Считать, а не гадать: почему GPU, что съедает VRAM, где узкое место и как подобрать конфигурацию под сценарий.",
+    "prerequisites": ["ai-quantization"],
+    "skills": ["ai-hardware"],
+    "modules": [
+      { "id": "hw-cpu-gpu", "title": "Почему GPU", "class": "важная", "concepts": ["много одинаковых умножений", "параллелизм", "когда достаточно CPU"], "practice": ["read", "quiz", "case"], "interactions": 8, "skills": ["ai-hardware"], "prerequisites": [] },
+      { "id": "hw-vram", "title": "VRAM", "class": "важная", "concepts": ["веса, активации, кеш", "нехватка памяти", "выгрузка на CPU и её цена"], "practice": ["read", "modify", "fill", "quiz", "case"], "interactions": 9, "skills": ["ai-hardware"], "prerequisites": ["hw-cpu-gpu"] },
+      { "id": "hw-bandwidth", "title": "Пропускная способность памяти", "class": "сложная", "concepts": ["генерация упирается в память, а не в вычисления", "почему батч помогает", "оценка предела"], "practice": ["read", "modify", "quiz", "case"], "interactions": 10, "skills": ["ai-hardware"], "prerequisites": ["hw-vram"] },
+      { "id": "hw-latency-throughput", "title": "Задержка и пропускная способность", "class": "важная", "concepts": ["время до первого токена", "токенов в секунду", "разные цели для чата и пакетной обработки"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 8, "skills": ["ai-hardware"], "prerequisites": ["hw-bandwidth"] },
+      { "id": "hw-stack", "title": "Драйверы и совместимость", "class": "простая", "concepts": ["версии драйвера и библиотек", "типичные ошибки запуска", "проверка доступности устройства"], "practice": ["read", "fix", "quiz"], "interactions": 6, "skills": ["ai-hardware"], "prerequisites": ["hw-latency-throughput"] },
+      { "id": "hw-sizing", "title": "Подбор конфигурации", "class": "сложная", "concepts": ["сценарий и нагрузка", "расчёт памяти и скорости", "что взять под пять пользователей и под пятьсот"], "practice": ["read", "write", "quiz", "case"], "interactions": 10, "skills": ["ai-hardware"], "prerequisites": ["hw-stack"] }
+    ]
+  },
+  {
+    "id": "ai-prompting",
+    "title": "Промптинг",
+    "domain": "ai",
+    "level": 3,
+    "status": "authored",
+    "goal": "Управлять моделью текстом осознанно — уже понимая, что происходит внутри, а не по списку заклинаний.",
+    "prerequisites": ["ai-inference"],
+    "skills": ["prompting"],
+    "modules": [
+      { "id": "pr-roles", "title": "Роли сообщений", "class": "важная", "concepts": ["системное сообщение", "пользователь и ассистент", "как роли складываются в один вход"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 7, "skills": ["prompting"], "prerequisites": [] },
+      { "id": "pr-instructions", "title": "Инструкция вместо намёка", "class": "важная", "concepts": ["конкретная задача", "формат ответа", "ограничения и запреты"], "practice": ["read", "modify", "write", "fix", "quiz"], "interactions": 8, "skills": ["prompting"], "prerequisites": ["pr-roles"] },
+      { "id": "pr-examples", "title": "Примеры в промпте", "class": "важная", "concepts": ["один пример", "несколько примеров", "чем пример сильнее описания"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 8, "skills": ["prompting"], "prerequisites": ["pr-instructions"] },
+      { "id": "pr-structured", "title": "Структурированный вывод", "class": "сложная", "concepts": ["ответ по схеме", "разбор JSON без падения", "проверка и повтор при ошибке"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["prompting"], "prerequisites": ["pr-examples"] },
+      { "id": "pr-context", "title": "Что класть в контекст", "class": "сложная", "concepts": ["порядок важен", "лишнее мешает", "бюджет токенов на запрос"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 10, "skills": ["prompting"], "prerequisites": ["pr-structured"] },
+      { "id": "pr-antipatterns", "title": "Что не работает", "class": "важная", "concepts": ["вежливые заклинания", "противоречивые требования", "проверка гипотезы вместо веры"], "practice": ["read", "fix", "quiz", "case"], "interactions": 7, "skills": ["prompting"], "prerequisites": ["pr-context"] }
+    ]
+  },
+  {
+    "id": "ai-embeddings",
+    "title": "Эмбеддинги",
+    "domain": "ai",
+    "level": 3,
+    "status": "authored",
+    "goal": "Сделать семантический поиск руками: вектор смысла, близость, поиск по своим текстам и границы метода.",
+    "prerequisites": ["ai-nlp-fundamentals"],
+    "skills": ["embeddings"],
+    "modules": [
+      { "id": "emb-what", "title": "Вектор смысла", "class": "важная", "concepts": ["текст в один вектор", "близкие тексты — близкие векторы", "отличие от поиска по словам"], "practice": ["read", "modify", "quiz", "case"], "interactions": 7, "skills": ["embeddings"], "prerequisites": [] },
+      { "id": "emb-model", "title": "Модель эмбеддингов", "class": "важная", "concepts": ["отдельная модель", "размерность вектора", "нормализация"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 7, "skills": ["embeddings"], "prerequisites": ["emb-what"] },
+      { "id": "emb-cosine", "title": "Косинусная близость", "class": "сложная", "concepts": ["скалярное произведение нормированных векторов", "диапазон значений", "реализация руками"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["embeddings"], "prerequisites": ["emb-model"] },
+      { "id": "emb-search", "title": "Поиск по своим текстам", "class": "сложная", "concepts": ["векторизация набора", "поиск ближайших", "порог отсечения"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["embeddings"], "prerequisites": ["emb-cosine"] },
+      { "id": "emb-limits", "title": "Где эмбеддинги врут", "class": "важная", "concepts": ["отрицание и антонимы", "числа и даты", "разный домен и язык"], "practice": ["read", "fix", "quiz", "case"], "interactions": 7, "skills": ["embeddings"], "prerequisites": ["emb-search"] }
+    ]
+  },
+  {
+    "id": "ai-vector-db",
+    "title": "Векторные базы",
+    "domain": "ai",
+    "level": 3,
+    "status": "authored",
+    "goal": "Хранить и искать векторы, когда их больше, чем помещается в список: индекс, метаданные, компромиссы.",
+    "prerequisites": ["ai-embeddings"],
+    "skills": ["vector-db"],
+    "modules": [
+      { "id": "vdb-why", "title": "Зачем отдельная база", "class": "важная", "concepts": ["перебор не масштабируется", "миллион векторов", "что даёт индекс"], "practice": ["read", "modify", "quiz", "case"], "interactions": 6, "skills": ["vector-db"], "prerequisites": [] },
+      { "id": "vdb-crud", "title": "Запись и обновление", "class": "важная", "concepts": ["коллекция", "добавление векторов", "обновление и удаление документа"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 8, "skills": ["vector-db"], "prerequisites": ["vdb-why"] },
+      { "id": "vdb-index", "title": "Приближённый поиск", "class": "сложная", "concepts": ["точный против приближённого", "граф соседей на пальцах", "параметры качества поиска"], "practice": ["read", "modify", "quiz", "case"], "interactions": 10, "skills": ["vector-db"], "prerequisites": ["vdb-crud"] },
+      { "id": "vdb-metadata", "title": "Метаданные и фильтры", "class": "важная", "concepts": ["источник и дата", "фильтр до и после поиска", "права доступа к документу"], "practice": ["read", "modify", "write", "fix", "quiz"], "interactions": 8, "skills": ["vector-db"], "prerequisites": ["vdb-index"] },
+      { "id": "vdb-tradeoffs", "title": "Компромиссы", "class": "важная", "concepts": ["точность против скорости", "память под индекс", "когда хватит обычной базы"], "practice": ["read", "quiz", "case"], "interactions": 8, "skills": ["vector-db"], "prerequisites": ["vdb-metadata"] }
+    ]
+  },
+  {
+    "id": "ai-rag",
+    "title": "RAG руками",
+    "domain": "ai",
+    "level": 4,
+    "status": "authored",
+    "goal": "Собрать поиск по документам без фреймворков: вопрос → эмбеддинг → поиск → контекст → промпт → ответ со ссылкой.",
+    "prerequisites": ["ai-vector-db", "ai-prompting"],
+    "skills": ["rag"],
+    "modules": [
+      { "id": "rag-problem", "title": "Модель не знает твои документы", "class": "важная", "concepts": ["знания зафиксированы обучением", "почему дообучение не первый ответ", "подать знание в контекст"], "practice": ["read", "quiz", "case"], "interactions": 6, "skills": ["rag"], "prerequisites": [] },
+      { "id": "rag-pipeline", "title": "Схема целиком", "class": "важная", "concepts": ["шаги конвейера", "что происходит на каждом", "где обычно ломается"], "practice": ["read", "modify", "quiz", "case"], "interactions": 8, "skills": ["rag"], "prerequisites": ["rag-problem"] },
+      { "id": "rag-ingest", "title": "Загрузка документов", "class": "важная", "concepts": ["чтение файлов", "нарезка на куски", "сохранение источника"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 9, "skills": ["rag"], "prerequisites": ["rag-pipeline"] },
+      { "id": "rag-retrieve", "title": "Поиск по вопросу", "class": "сложная", "concepts": ["эмбеддинг вопроса", "ближайшие куски", "сколько брать"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["rag"], "prerequisites": ["rag-ingest"] },
+      { "id": "rag-prompt", "title": "Сборка промпта с контекстом", "class": "сложная", "concepts": ["куски в системное сообщение", "инструкция отвечать только по контексту", "бюджет токенов"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["rag"], "prerequisites": ["rag-retrieve"] },
+      { "id": "rag-answer", "title": "Ответ и источник", "class": "важная", "concepts": ["ссылка на документ", "признание незнания", "проверка ответа человеком"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 9, "skills": ["rag"], "prerequisites": ["rag-prompt"] },
+      { "id": "rag-frameworks", "title": "Когда брать фреймворк", "class": "простая", "concepts": ["что он делает за тебя", "чем платишь", "перенос своего конвейера"], "practice": ["read", "quiz", "case"], "interactions": 6, "skills": ["rag"], "prerequisites": ["rag-answer"] }
+    ]
+  },
+  {
+    "id": "ai-rag-advanced",
+    "title": "RAG глубже",
+    "domain": "ai",
+    "level": 4,
+    "status": "authored",
+    "goal": "Довести поиск до рабочего качества: нарезка, гибридный поиск, переранжирование, переписывание запроса, цитаты и измеримая оценка.",
+    "prerequisites": ["ai-rag"],
+    "skills": ["rag-advanced"],
+    "modules": [
+      { "id": "rag-chunking", "title": "Стратегии нарезки", "class": "сложная", "concepts": ["по размеру, по абзацам, по структуре", "слишком мелко и слишком крупно", "заголовок как часть куска"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["rag-advanced"], "prerequisites": [] },
+      { "id": "rag-overlap", "title": "Перекрытие", "class": "важная", "concepts": ["разрыв мысли на границе", "сколько перекрывать", "цена дублирования"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 8, "skills": ["rag-advanced"], "prerequisites": ["rag-chunking"] },
+      { "id": "rag-metadata-filter", "title": "Фильтрация по метаданным", "class": "важная", "concepts": ["раздел, дата, доступ", "сужение до поиска", "утечка чужих документов"], "practice": ["read", "modify", "write", "fix", "quiz"], "interactions": 8, "skills": ["rag-advanced"], "prerequisites": ["rag-overlap"] },
+      { "id": "rag-hybrid", "title": "Гибридный поиск", "class": "сложная", "concepts": ["ключевые слова против векторов", "точные термины и артикулы", "объединение результатов"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["rag-advanced"], "prerequisites": ["rag-metadata-filter"] },
+      { "id": "rag-rerank", "title": "Переранжирование", "class": "сложная", "concepts": ["взять шире, отсортировать точнее", "модель-переранжировщик", "цена и выигрыш"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 10, "skills": ["rag-advanced"], "prerequisites": ["rag-hybrid"] },
+      { "id": "rag-query-rewrite", "title": "Переписывание запроса", "class": "важная", "concepts": ["вопрос из диалога без контекста", "разбиение сложного вопроса", "несколько формулировок"], "practice": ["read", "modify", "write", "fix", "quiz"], "interactions": 9, "skills": ["rag-advanced"], "prerequisites": ["rag-rerank"] },
+      { "id": "rag-citations", "title": "Цитаты и проверяемость", "class": "важная", "concepts": ["ссылка на кусок", "подсветка фрагмента", "ответ, который можно перепроверить"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 8, "skills": ["rag-advanced"], "prerequisites": ["rag-query-rewrite"] },
+      { "id": "rag-eval-basic", "title": "Оценка поиска и ответа", "class": "сложная", "concepts": ["набор вопросов с эталонами", "нашёлся ли нужный кусок", "отдельно поиск, отдельно ответ"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 12, "skills": ["rag-advanced"], "prerequisites": ["rag-citations"] }
+    ]
+  },
+  {
+    "id": "ai-evaluation",
+    "title": "Оценка языковых моделей",
+    "domain": "ai",
+    "level": 4,
+    "status": "authored",
+    "goal": "Заменить «вроде отвечает нормально» на измеримый набор проверок, который ловит ухудшения при смене модели.",
+    "prerequisites": ["ai-rag-advanced"],
+    "skills": ["llm-eval"],
+    "modules": [
+      { "id": "ev-why", "title": "Почему на глаз не работает", "class": "важная", "concepts": ["десять примеров ничего не доказывают", "случайность генерации", "ухудшение замечают пользователи"], "practice": ["read", "quiz", "case"], "interactions": 6, "skills": ["llm-eval"], "prerequisites": [] },
+      { "id": "ev-dataset", "title": "Свой набор проверок", "class": "важная", "concepts": ["реальные вопросы", "эталонный ответ или критерий", "покрытие сложных случаев"], "practice": ["read", "modify", "write", "fix", "quiz"], "interactions": 9, "skills": ["llm-eval"], "prerequisites": ["ev-why"] },
+      { "id": "ev-metrics", "title": "Метрики под задачу", "class": "сложная", "concepts": ["точное совпадение", "проверка по правилам", "оценка по критериям"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["llm-eval"], "prerequisites": ["ev-dataset"] },
+      { "id": "ev-hallucinations", "title": "Измерение галлюцинаций", "class": "сложная", "concepts": ["ответ без опоры на источник", "проверка утверждений по контексту", "доля выдуманного"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 10, "skills": ["llm-eval"], "prerequisites": ["ev-metrics"] },
+      { "id": "ev-judge", "title": "Модель-судья", "class": "сложная", "concepts": ["критерии в промпте судьи", "смещения судьи", "калибровка по людям"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["llm-eval"], "prerequisites": ["ev-hallucinations"] },
+      { "id": "ev-pairwise", "title": "Попарное сравнение", "class": "важная", "concepts": ["A против B", "порядок вариантов влияет", "когда сравнение честнее оценки"], "practice": ["read", "modify", "write", "quiz"], "interactions": 8, "skills": ["llm-eval"], "prerequisites": ["ev-judge"] },
+      { "id": "ev-regression", "title": "Регрессионный прогон", "class": "важная", "concepts": ["прогон при смене модели или промпта", "порог допустимого падения", "оценки в конвейере"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 9, "skills": ["llm-eval"], "prerequisites": ["ev-pairwise"] }
+    ]
+  },
+  {
+    "id": "ai-finetuning",
+    "title": "Дообучение своей модели",
+    "domain": "ai",
+    "level": 4,
+    "status": "authored",
+    "goal": "Понять, когда дообучение действительно нужно, и провести его: датасет, SFT, LoRA, QLoRA, валидация, выкатка.",
+    "prerequisites": ["ai-post-training", "ai-rag-advanced"],
+    "skills": ["finetuning"],
+    "modules": [
+      { "id": "ft-when", "title": "Когда дообучать, а когда нет", "class": "важная", "concepts": ["промпт, RAG или дообучение", "форма и стиль против знаний", "цена ошибки выбора"], "practice": ["read", "quiz", "case"], "interactions": 8, "skills": ["finetuning"], "prerequisites": [] },
+      { "id": "ft-dataset", "title": "Датасет для дообучения", "class": "сложная", "concepts": ["формат примеров", "сколько нужно", "качество важнее количества"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["finetuning"], "prerequisites": ["ft-when"] },
+      { "id": "ft-lora", "title": "LoRA", "class": "сложная", "concepts": ["обучаем маленькую добавку", "ранг адаптера", "почему это дёшево"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 10, "skills": ["finetuning"], "prerequisites": ["ft-dataset"] },
+      { "id": "ft-qlora", "title": "QLoRA", "class": "сложная", "concepts": ["квантованная база плюс адаптер", "экономия памяти", "ограничения подхода"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 10, "skills": ["finetuning"], "prerequisites": ["ft-lora"] },
+      { "id": "ft-run", "title": "Прогон обучения", "class": "сложная", "concepts": ["параметры запуска", "кривая потерь", "остановка вовремя"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 12, "skills": ["finetuning"], "prerequisites": ["ft-qlora"] },
+      { "id": "ft-validation", "title": "Проверка результата", "class": "важная", "concepts": ["отложенные примеры", "не сломалось ли остальное", "сравнение с исходной моделью"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 9, "skills": ["finetuning"], "prerequisites": ["ft-run"] },
+      { "id": "ft-deploy", "title": "Адаптер в работе", "class": "важная", "concepts": ["слияние с базовой моделью", "хранение версий адаптера", "откат к прежней"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 8, "skills": ["finetuning"], "prerequisites": ["ft-validation"] }
+    ]
+  },
+  {
+    "id": "ai-tools",
+    "title": "Инструменты и вызов функций",
+    "domain": "ai",
+    "level": 4,
+    "status": "authored",
+    "goal": "Дать модели руки: описание инструмента, разбор вызова, выполнение, возврат результата, ошибки и границы доверия.",
+    "prerequisites": ["ai-prompting"],
+    "skills": ["tool-use"],
+    "modules": [
+      { "id": "tools-why", "title": "Зачем модели инструменты", "class": "важная", "concepts": ["модель не считает и не ходит в базу", "внешнее действие", "актуальные данные"], "practice": ["read", "quiz", "case"], "interactions": 6, "skills": ["tool-use"], "prerequisites": [] },
+      { "id": "tools-schema", "title": "Описание инструмента", "class": "важная", "concepts": ["имя и назначение", "схема аргументов", "описание как часть промпта"], "practice": ["read", "modify", "fill", "write", "fix", "quiz"], "interactions": 9, "skills": ["tool-use"], "prerequisites": ["tools-why"] },
+      { "id": "tools-call", "title": "Разбор вызова", "class": "сложная", "concepts": ["модель возвращает намерение", "проверка аргументов", "несколько вызовов подряд"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["tool-use"], "prerequisites": ["tools-schema"] },
+      { "id": "tools-execute", "title": "Выполнение и возврат", "class": "сложная", "concepts": ["запуск своей функции", "результат обратно в диалог", "формат ответа инструмента"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["tool-use"], "prerequisites": ["tools-call"] },
+      { "id": "tools-errors", "title": "Ошибки инструмента", "class": "важная", "concepts": ["инструмент упал", "сообщение об ошибке для модели", "повтор и отказ"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 8, "skills": ["tool-use"], "prerequisites": ["tools-execute"] },
+      { "id": "tools-boundaries", "title": "Что нельзя давать модели", "class": "важная", "concepts": ["необратимые действия", "подтверждение человеком", "минимальные права инструмента"], "practice": ["read", "modify", "quiz", "case"], "interactions": 8, "skills": ["tool-use"], "prerequisites": ["tools-errors"] }
+    ]
+  },
+  {
+    "id": "ai-agents",
+    "title": "Агенты",
+    "domain": "ai",
+    "level": 4,
+    "status": "authored",
+    "goal": "Сначала честный цикл модель → инструмент → наблюдение → решение. Потом состояние, память, планирование и мультиагентность.",
+    "prerequisites": ["ai-tools", "ai-evaluation"],
+    "skills": ["agents"],
+    "modules": [
+      { "id": "ag-loop", "title": "Цикл агента", "class": "сложная", "concepts": ["вызов инструмента", "наблюдение результата", "решение о следующем шаге", "условие остановки"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 12, "skills": ["agents"], "prerequisites": [] },
+      { "id": "ag-state", "title": "Состояние и история", "class": "важная", "concepts": ["что помнит агент внутри задачи", "рост контекста", "сжатие истории"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 9, "skills": ["agents"], "prerequisites": ["ag-loop"] },
+      { "id": "ag-memory", "title": "Память между запусками", "class": "важная", "concepts": ["что сохранять надолго", "поиск по прошлым сессиям", "когда память вредит"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 9, "skills": ["agents"], "prerequisites": ["ag-state"] },
+      { "id": "ag-planner", "title": "Планирование", "class": "сложная", "concepts": ["разбиение задачи на шаги", "план до действия", "пересмотр плана"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["agents"], "prerequisites": ["ag-memory"] },
+      { "id": "ag-limits", "title": "Ограничения исполнителя", "class": "важная", "concepts": ["лимит шагов и токенов", "таймаут", "защита от бесконечного цикла"], "practice": ["read", "modify", "write", "fix", "quiz"], "interactions": 8, "skills": ["agents"], "prerequisites": ["ag-planner"] },
+      { "id": "ag-workflows", "title": "Сценарий против свободы", "class": "важная", "concepts": ["жёсткий конвейер", "свободный агент", "что надёжнее для продукта"], "practice": ["read", "modify", "quiz", "case"], "interactions": 8, "skills": ["agents"], "prerequisites": ["ag-limits"] },
+      { "id": "ag-multi", "title": "Несколько агентов", "class": "сложная", "concepts": ["разделение ролей", "передача задачи", "цена координации"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 10, "skills": ["agents"], "prerequisites": ["ag-workflows"] },
+      { "id": "ag-eval", "title": "Оценка агента", "class": "сложная", "concepts": ["успех задачи, а не красота ответа", "число шагов и стоимость", "воспроизводимые сценарии"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["agents"], "prerequisites": ["ag-multi"] }
+    ]
+  },
+  {
+    "id": "ai-mcp",
+    "title": "MCP и внешние инструменты",
+    "domain": "ai",
+    "level": 4,
+    "status": "authored",
+    "goal": "Подключать инструменты по протоколу вместо самописных костылей и понимать риски такого подключения.",
+    "prerequisites": ["ai-agents"],
+    "skills": ["mcp"],
+    "modules": [
+      { "id": "mcp-why", "title": "Зачем протокол", "class": "важная", "concepts": ["каждый клиент по-своему", "общий язык подключения", "переиспользование инструментов"], "practice": ["read", "quiz", "case"], "interactions": 6, "skills": ["mcp"], "prerequisites": [] },
+      { "id": "mcp-architecture", "title": "Клиент, сервер, транспорт", "class": "важная", "concepts": ["кто кого вызывает", "локальный и удалённый сервер", "жизненный цикл соединения"], "practice": ["read", "modify", "quiz", "case"], "interactions": 8, "skills": ["mcp"], "prerequisites": ["mcp-why"] },
+      { "id": "mcp-primitives", "title": "Инструменты и ресурсы", "class": "важная", "concepts": ["действие против данных", "описание возможностей", "что видит модель"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 9, "skills": ["mcp"], "prerequisites": ["mcp-architecture"] },
+      { "id": "mcp-server", "title": "Свой сервер", "class": "сложная", "concepts": ["объявление инструмента", "обработка вызова", "подключение к клиенту"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["mcp"], "prerequisites": ["mcp-primitives"] },
+      { "id": "mcp-security", "title": "Доверие и права", "class": "важная", "concepts": ["чужой сервер — чужой код", "область доступа", "подтверждение опасных действий"], "practice": ["read", "modify", "quiz", "case"], "interactions": 8, "skills": ["mcp"], "prerequisites": ["mcp-server"] }
+    ]
+  },
+  {
+    "id": "ai-multimodal",
+    "title": "Мультимодальность",
+    "domain": "ai",
+    "level": 4,
+    "status": "authored",
+    "goal": "Понять, как в одну модель попадают изображение и звук и какие задачи это открывает.",
+    "prerequisites": ["ai-transformers"],
+    "skills": ["multimodal"],
+    "modules": [
+      { "id": "mm-what", "title": "Что такое мультимодальность", "class": "простая", "concepts": ["текст, изображение, звук", "одна модель на несколько входов", "типичные продукты"], "practice": ["read", "quiz"], "interactions": 5, "skills": ["multimodal"], "prerequisites": [] },
+      { "id": "mm-vision", "title": "Как картинка попадает в модель", "class": "сложная", "concepts": ["изображение на кусочки", "кусочек как токен", "склейка с текстовыми токенами"], "practice": ["read", "modify", "quiz", "case"], "interactions": 10, "skills": ["multimodal"], "prerequisites": ["mm-what"] },
+      { "id": "mm-image-text", "title": "Задачи изображение и текст", "class": "важная", "concepts": ["описание картинки", "вопрос по изображению", "разбор документа и скриншота"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 8, "skills": ["multimodal"], "prerequisites": ["mm-vision"] },
+      { "id": "mm-audio", "title": "Речь", "class": "важная", "concepts": ["речь в текст", "текст в речь", "задержка в голосовом сценарии"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 8, "skills": ["multimodal"], "prerequisites": ["mm-image-text"] },
+      { "id": "mm-embeddings", "title": "Общие эмбеддинги", "class": "сложная", "concepts": ["текст и картинка в одном пространстве", "поиск картинки по описанию", "ограничения подхода"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 10, "skills": ["multimodal"], "prerequisites": ["mm-audio"] }
+    ]
+  },
+  {
+    "id": "ai-safety",
+    "title": "Безопасность AI-приложений",
+    "domain": "ai",
+    "level": 4,
+    "status": "authored",
+    "goal": "Относиться к тексту из документов и инструментов как к недоверенному вводу и проверять вывод до действия.",
+    "prerequisites": ["ai-agents"],
+    "skills": ["ai-safety"],
+    "modules": [
+      { "id": "safe-injection", "title": "Инъекция промпта", "class": "сложная", "concepts": ["инструкция внутри документа", "почему модель ей верит", "разделение данных и команд"], "practice": ["read", "modify", "fix", "quiz", "case"], "interactions": 10, "skills": ["ai-safety"], "prerequisites": [] },
+      { "id": "safe-untrusted", "title": "Недоверенные источники", "class": "сложная", "concepts": ["веб-страница и результат инструмента", "цепочка доверия", "изоляция контекста"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["ai-safety"], "prerequisites": ["safe-injection"] },
+      { "id": "safe-jailbreak", "title": "Обход ограничений", "class": "важная", "concepts": ["типовые приёмы", "почему одними правилами в промпте не закрыть", "проверка на стороне приложения"], "practice": ["read", "fix", "quiz", "case"], "interactions": 8, "skills": ["ai-safety"], "prerequisites": ["safe-untrusted"] },
+      { "id": "safe-leakage", "title": "Утечка данных", "class": "важная", "concepts": ["чужие документы в ответе", "секреты в промпте и логах", "персональные данные во внешнем API"], "practice": ["read", "modify", "fix", "quiz", "case"], "interactions": 9, "skills": ["ai-safety"], "prerequisites": ["safe-jailbreak"] },
+      { "id": "safe-output", "title": "Валидация вывода", "class": "сложная", "concepts": ["проверка перед выполнением", "белый список действий", "человек в контуре"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["ai-safety"], "prerequisites": ["safe-leakage"] },
+      { "id": "safe-permissions", "title": "Права агента", "class": "важная", "concepts": ["минимальные права", "разделение по пользователю", "аудит действий"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 8, "skills": ["ai-safety"], "prerequisites": ["safe-output"] }
+    ]
+  },
+  {
+    "id": "ai-observability",
+    "title": "Наблюдаемость AI-систем",
+    "domain": "ai",
+    "level": 4,
+    "status": "authored",
+    "goal": "Видеть, что произошло в конкретном запросе, и уметь разобрать жалобу «модель ответила ерунду».",
+    "prerequisites": ["ai-evaluation"],
+    "skills": ["ai-observability"],
+    "modules": [
+      { "id": "obs-tracing", "title": "Трассировка запроса", "class": "важная", "concepts": ["шаги одного запроса", "идентификатор трассы", "вложенные вызовы модели и инструментов"], "practice": ["read", "modify", "write", "fix", "quiz"], "interactions": 9, "skills": ["ai-observability"], "prerequisites": [] },
+      { "id": "obs-logging", "title": "Логирование промптов и ответов", "class": "важная", "concepts": ["что писать в лог", "что нельзя писать никогда", "срок хранения"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 8, "skills": ["ai-observability"], "prerequisites": ["obs-tracing"] },
+      { "id": "obs-metrics", "title": "Метрики", "class": "важная", "concepts": ["задержка и время до первого токена", "токены и деньги", "доля ошибок и отказов"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 9, "skills": ["ai-observability"], "prerequisites": ["obs-logging"] },
+      { "id": "obs-feedback", "title": "Обратная связь пользователей", "class": "важная", "concepts": ["оценка ответа", "жалоба как источник примеров", "пополнение набора оценок"], "practice": ["read", "modify", "write", "quiz"], "interactions": 7, "skills": ["ai-observability"], "prerequisites": ["obs-metrics"] },
+      { "id": "obs-debug", "title": "Разбор плохого ответа", "class": "сложная", "concepts": ["что нашёл поиск", "что было в контексте", "модель или данные виноваты"], "practice": ["read", "fix", "write", "quiz", "case"], "interactions": 10, "skills": ["ai-observability"], "prerequisites": ["obs-feedback"] }
+    ]
+  },
+  {
+    "id": "ai-production",
+    "title": "AI в проде",
+    "domain": "ai",
+    "level": 4,
+    "status": "authored",
+    "goal": "Собрать сервис вокруг модели: API, стриминг, очереди, кеш, батчинг, повторы, лимиты.",
+    "prerequisites": ["ai-observability", "ai-safety"],
+    "skills": ["ai-production"],
+    "modules": [
+      { "id": "prod-api", "title": "Сервис вокруг модели", "class": "сложная", "concepts": ["контракт запроса и ответа", "таймауты", "изоляция модели от клиента"], "practice": ["read", "modify", "fill", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["ai-production"], "prerequisites": [] },
+      { "id": "prod-streaming", "title": "Стриминг ответа", "class": "важная", "concepts": ["отдача по токенам", "обрыв соединения", "отмена генерации"], "practice": ["read", "modify", "write", "fix", "quiz"], "interactions": 9, "skills": ["ai-production"], "prerequisites": ["prod-api"] },
+      { "id": "prod-queue", "title": "Очереди и фон", "class": "важная", "concepts": ["долгие задачи не в запросе", "статус выполнения", "приоритеты"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 9, "skills": ["ai-production"], "prerequisites": ["prod-streaming"] },
+      { "id": "prod-cache", "title": "Кеширование", "class": "важная", "concepts": ["кеш эмбеддингов", "кеш ответов на повторяющиеся вопросы", "инвалидация при смене документов"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 9, "skills": ["ai-production"], "prerequisites": ["prod-queue"] },
+      { "id": "prod-batching", "title": "Батчинг под нагрузкой", "class": "важная", "concepts": ["группировка запросов", "влияние на задержку", "настройка под сценарий"], "practice": ["read", "modify", "quiz", "case"], "interactions": 8, "skills": ["ai-production"], "prerequisites": ["prod-cache"] },
+      { "id": "prod-resilience", "title": "Повторы и запасной путь", "class": "сложная", "concepts": ["временная ошибка провайдера", "повтор с задержкой", "запасная модель и деградация функции"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 10, "skills": ["ai-production"], "prerequisites": ["prod-batching"] },
+      { "id": "prod-limits", "title": "Лимиты и квоты", "class": "важная", "concepts": ["ограничение на пользователя", "защита от разорения", "понятное сообщение при отказе"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 8, "skills": ["ai-production"], "prerequisites": ["prod-resilience"] }
+    ]
+  },
+  {
+    "id": "ai-cost",
+    "title": "Стоимость AI-продукта",
+    "domain": "ai",
+    "level": 4,
+    "status": "authored",
+    "goal": "Считать деньги: токены, выбор модели, экономия на кеше и контексте, локально против облака, бюджет на пользователя.",
+    "prerequisites": ["ai-production", "ai-hardware"],
+    "skills": ["ai-cost"],
+    "modules": [
+      { "id": "cost-tokens", "title": "Токены и деньги", "class": "важная", "concepts": ["вход и выход считаются отдельно", "расчёт стоимости запроса", "длинный контекст в рублях"], "practice": ["read", "modify", "fill", "write", "quiz"], "interactions": 8, "skills": ["ai-cost"], "prerequisites": [] },
+      { "id": "cost-model-choice", "title": "Выбор модели под задачу", "class": "важная", "concepts": ["маленькая модель для простого шага", "каскад моделей", "качество за разумные деньги"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 8, "skills": ["ai-cost"], "prerequisites": ["cost-tokens"] },
+      { "id": "cost-savings", "title": "Где экономить безопасно", "class": "важная", "concepts": ["кеш", "короткий контекст", "сжатие истории диалога"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 8, "skills": ["ai-cost"], "prerequisites": ["cost-model-choice"] },
+      { "id": "cost-local-vs-api", "title": "Локально против облака", "class": "сложная", "concepts": ["стоимость железа и электричества", "цена за токен у провайдера", "точка окупаемости"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 10, "skills": ["ai-cost"], "prerequisites": ["cost-savings"] },
+      { "id": "cost-budget", "title": "Бюджет и контроль", "class": "важная", "concepts": ["стоимость на пользователя", "оповещение о перерасходе", "жёсткие лимиты"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 8, "skills": ["ai-cost"], "prerequisites": ["cost-local-vs-api"] }
+    ]
+  },
+  {
+    "id": "ai-final",
+    "title": "Итоговый AI-продукт",
+    "domain": "ai",
+    "level": 5,
+    "status": "authored",
+    "goal": "Собрать корпоративного ассистента целиком: база знаний, поиск с переранжированием, инструменты, агент, оценки, API, мониторинг и стоимость.",
+    "prerequisites": ["ai-cost", "ai-mcp"],
+    "skills": ["ai-product"],
+    "modules": [
+      { "id": "final-scope", "title": "Постановка и границы", "class": "важная", "concepts": ["чью задачу решаем", "что продукт не делает", "критерий готовности"], "practice": ["read", "write", "quiz", "case"], "interactions": 8, "skills": ["ai-product"], "prerequisites": [] },
+      { "id": "final-ingest", "title": "База знаний", "class": "сложная", "concepts": ["источники документов", "нарезка и метаданные", "обновление индекса"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["ai-product"], "prerequisites": ["final-scope"] },
+      { "id": "final-retrieval", "title": "Поиск и переранжирование", "class": "сложная", "concepts": ["гибридный поиск", "переранжировщик", "фильтр по правам пользователя"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["ai-product"], "prerequisites": ["final-ingest"] },
+      { "id": "final-agent", "title": "Инструменты и агент", "class": "сложная", "concepts": ["набор инструментов продукта", "цикл с ограничениями", "подтверждение опасных действий"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 12, "skills": ["ai-product"], "prerequisites": ["final-retrieval"] },
+      { "id": "final-evals", "title": "Набор оценок", "class": "сложная", "concepts": ["вопросы из реальной работы", "порог качества", "прогон перед каждым изменением"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["ai-product"], "prerequisites": ["final-agent"] },
+      { "id": "final-service", "title": "API и интерфейс", "class": "сложная", "concepts": ["стриминг в интерфейс", "история диалога", "показ источников ответа"], "practice": ["read", "modify", "write", "fix", "quiz", "case"], "interactions": 11, "skills": ["ai-product"], "prerequisites": ["final-evals"] },
+      { "id": "final-operations", "title": "Мониторинг и стоимость", "class": "важная", "concepts": ["трассировка и метрики", "бюджет на пользователя", "план на рост нагрузки"], "practice": ["read", "modify", "write", "quiz", "case"], "interactions": 9, "skills": ["ai-product"], "prerequisites": ["final-service"] },
+      { "id": "final-defense", "title": "Защита решения", "class": "важная", "concepts": ["почему такая архитектура", "измеренное качество", "известные ограничения продукта"], "practice": ["read", "write", "quiz", "case"], "interactions": 9, "skills": ["ai-product"], "prerequisites": ["final-operations"] }
+    ]
+  }
+]

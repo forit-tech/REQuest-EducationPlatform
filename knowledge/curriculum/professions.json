@@ -1,0 +1,332 @@
+{
+  "professions": [
+    {
+      "id": "python-backend",
+      "blockId": "backend",
+      "title": "Python-разработчик (бэкенд)",
+      "goal": "Писать и эксплуатировать серверный сервис на Python: API, база, авторизация, тесты, контейнер.",
+      "outcome": "junior+",
+      "stages": [
+        { "title": "Фундамент", "goal": "Понять машину и инструменты.", "courseIds": ["fund-computer", "fund-ide", "fund-git", "fund-algo"] },
+        { "title": "Компьютер изнутри", "goal": "Полный путь от бита до процесса — фундамент инженера.", "courseIds": ["cs-computation", "cs-data-repr", "cs-cpu", "cs-memory", "cs-program-memory", "cs-functions", "cs-assembly", "cs-c", "cs-compilers", "cs-interpreters"] },
+        { "title": "Абстракции и алгоритмы", "goal": "Типы, структуры данных и сложность.", "courseIds": ["cs-types", "cs-data-structures", "cs-algorithms"] },
+        { "title": "Операционная система и конкурентность", "goal": "Процессы, потоки, событийный цикл, файлы.", "courseIds": ["inf-os", "cs-concurrency", "cs-files"] },
+        { "title": "Среда: Linux и сети", "goal": "Полная среда серверного инженера.", "courseIds": ["inf-linux-basics", "inf-filesystem", "inf-users", "inf-permissions", "inf-processes", "inf-bash", "inf-packages", "inf-logs", "inf-cron", "inf-ssh", "inf-systemd", "net-basics", "net-models", "net-ethernet", "net-arp", "net-ipv4", "net-ipv6", "net-switching", "net-routing", "net-dhcp-dns", "net-nat", "net-transport", "net-http-tls"] },
+        { "title": "Основы безопасности", "goal": "Доверие, криптография, доступ.", "courseIds": ["sec-fundamentals", "sec-crypto", "sec-auth"] },
+        { "title": "Язык", "goal": "От print до классов.", "courseIds": ["py-basics", "py-standard", "py-oop"] },
+        { "title": "Данные", "goal": "Хранить и доставать.", "courseIds": ["da-data-basics", "sql-core", "sql-write"] },
+        { "title": "Веб", "goal": "Сервис, который отвечает по сети.", "courseIds": ["web-http", "be-fastapi"] },
+        { "title": "Сервис", "goal": "База, доступ, надёжность.", "courseIds": ["be-orm", "be-auth", "py-async", "py-testing"] },
+        { "title": "Прод", "goal": "Довести до эксплуатации.", "courseIds": ["be-production", "be-final"] }
+      ]
+    },
+    {
+      "id": "frontend-developer",
+      "blockId": "frontend",
+      "title": "Фронтенд-разработчик",
+      "goal": "Собирать интерфейсы, которые работают с реальным API и доживают до прода.",
+      "outcome": "junior+",
+      "stages": [
+        { "title": "Фундамент", "goal": "Инструменты и история изменений.", "courseIds": ["fund-computer", "fund-ide", "fund-git"] },
+        { "title": "Разметка и стиль", "goal": "Страница, которая держит форму.", "courseIds": ["fe-html", "fe-css"] },
+        { "title": "Язык", "goal": "JavaScript по той же лестнице.", "courseIds": ["fe-js-core", "fe-js-browser"] },
+        { "title": "Сеть", "goal": "Данные извне.", "courseIds": ["web-http", "fe-js-async", "fe-ts"] },
+        { "title": "React", "goal": "Приложение, а не набор страниц.", "courseIds": ["fe-react", "fe-react-deep", "fe-react-api", "fe-routing-state"] },
+        { "title": "Прод", "goal": "Тесты, скорость, выкатка.", "courseIds": ["fe-testing", "fe-production", "fe-final"] }
+      ]
+    },
+    {
+      "id": "data-analyst",
+      "blockId": "data",
+      "title": "Аналитик данных",
+      "goal": "Отвечать на вопросы бизнеса данными и защищать вывод, а не показывать красивый график.",
+      "outcome": "junior+",
+      "stages": [
+        { "title": "Фундамент", "goal": "Инструменты и данные как понятие.", "courseIds": ["fund-computer", "fund-ide", "fund-git", "fund-algo", "da-data-basics", "da-spreadsheets"] },
+        { "title": "Как считает машина", "goal": "Почему числа врут, а большой файл не влезает в память.", "courseIds": ["cs-computation", "cs-data-repr", "cs-cpu", "cs-memory"] },
+        { "title": "Математика аналитика", "goal": "Описательная статистика, вероятность, выводы и эксперименты — без тяжёлого матана.", "courseIds": ["mth-foundations", "mth-descriptive", "mth-linear", "mth-combinatorics", "mth-probability", "mth-distributions", "mth-statistics", "mth-hypothesis", "mth-experiments"] },
+        { "title": "Инструменты среды", "goal": "Терминал, файлы и базовая безопасность — без превращения в администратора.", "courseIds": ["inf-linux-basics", "inf-bash", "cs-files", "sec-fundamentals"] },
+        { "title": "SQL", "goal": "Достать нужное из базы.", "courseIds": ["sql-core", "sql-analytics"] },
+        { "title": "Python для данных", "goal": "Считать больше, чем помещается в таблицу.", "courseIds": ["py-basics", "da-numpy", "da-pandas"] },
+        { "title": "Исследование", "goal": "Чистые данные и честные выводы.", "courseIds": ["da-cleaning", "da-eda", "da-stats-basics", "da-viz"] },
+        { "title": "Первые модели", "goal": "Регрессия и классификация с честной метрикой — без большого ML-трека.", "courseIds": ["ds-ml-data", "ds-first-model", "ds-regression", "ds-metrics", "ds-classification", "ds-features", "ds-pipelines", "ds-model-selection"] },
+        { "title": "Продукт", "goal": "Метрики, за которые платят.", "courseIds": ["da-bi", "da-product-analytics", "da-ab-testing"] },
+        { "title": "Защита", "goal": "Итоговый кейс.", "courseIds": ["da-final"] }
+      ]
+    },
+    {
+      "id": "data-scientist",
+      "blockId": "data",
+      "title": "Специалист по данным",
+      "goal": "Наследует аналитику и идёт дальше: от гипотезы до обученной модели и объяснимого результата.",
+      "outcome": "junior+",
+      "inheritsFrom": "data-analyst",
+      "stages": [
+        { "title": "Фундамент", "goal": "Инструменты и данные.", "courseIds": ["fund-computer", "fund-ide", "fund-git", "fund-algo", "da-data-basics"] },
+        { "title": "Компьютер изнутри", "goal": "От бита до процесса: почему код работает именно так и именно с такой скоростью.", "courseIds": ["cs-computation", "cs-data-repr", "cs-cpu", "cs-memory", "cs-program-memory", "cs-functions", "cs-assembly", "cs-c", "cs-compilers", "cs-interpreters"] },
+        { "title": "Абстракции и алгоритмы", "goal": "Типы, структуры данных и выбор алгоритма под размер данных.", "courseIds": ["cs-types", "cs-data-structures", "cs-algorithms"] },
+        { "title": "Операционная система и конкурентность", "goal": "Процессы, планировщик, потоки, событийный цикл и файлы.", "courseIds": ["inf-os", "cs-concurrency", "cs-files"] },
+        { "title": "Среда: Linux и сети", "goal": "Где живёт код и как он ходит в базу, хранилище и чужой сервис.", "courseIds": ["inf-linux-basics", "inf-filesystem", "inf-permissions", "inf-processes", "inf-bash", "inf-logs", "net-basics", "net-models", "net-ipv4", "net-dhcp-dns", "net-transport", "net-http-tls"] },
+        { "title": "Основы безопасности", "goal": "Границы доверия, криптография и доступ — на уровне инженера.", "courseIds": ["sec-fundamentals", "sec-crypto", "sec-auth"] },
+        { "title": "Аналитическое ядро", "goal": "То же, что у аналитика, без повторов.", "courseIds": ["sql-core", "sql-analytics", "py-basics", "py-standard", "da-numpy", "da-pandas", "da-cleaning", "da-eda", "da-stats-basics", "da-viz"] },
+        { "title": "Базы данных", "goal": "Не только SELECT, но и как это устроено внутри.", "courseIds": ["db-what-is", "db-relational-model", "db-normalization", "db-schema-design", "sql-write", "sql-advanced", "db-postgres", "db-indexes", "db-internals", "db-planner", "db-explain", "db-transactions", "db-isolation", "db-locks", "db-mvcc", "db-nosql", "db-storage", "db-partitioning", "db-replication", "db-distributed", "db-security"] },
+        { "title": "Аналитические хранилища", "goal": "Колонки, ClickHouse и витрины — там, где обычная база уже не тянет.", "courseIds": ["db-oltp-olap", "db-columnar", "db-clickhouse", "db-duckdb", "de-warehouse", "db-vector", "db-ml-modeling", "db-choice"] },
+        { "title": "Математика моделей", "goal": "Минимум, без которого модель — чёрный ящик.", "courseIds": ["mth-foundations", "mth-descriptive", "mth-linear", "mth-linear-advanced", "mth-calculus", "mth-optimization"] },
+        { "title": "Первые модели", "goal": "От постановки задачи до обученной модели, которой можно верить.", "courseIds": ["ds-ml-data", "ds-features", "ds-pipelines", "ds-first-model", "ds-regression", "ds-metrics", "ds-classification", "ds-calibration"] },
+        { "title": "Вероятность и статистика", "goal": "Теперь видно, зачем это было нужно.", "courseIds": ["mth-combinatorics", "mth-probability", "mth-distributions", "mth-statistics", "mth-hypothesis"] },
+        { "title": "Сильные модели", "goal": "Деревья, ансамбли, обучение без учителя.", "courseIds": ["mth-information", "ds-trees", "ds-ensembles", "ds-unsupervised", "ds-model-selection"] },
+        { "title": "Зрелость", "goal": "Объяснять, повторять, защищать.", "courseIds": ["mth-ml-models", "ds-explainability", "mth-numerical", "mth-discrete", "mth-timeseries", "ds-timeseries", "ds-nlp-basics", "ds-nn-basics", "mth-bayes", "mth-experiments", "ds-experiment", "mth-causal", "ds-final"] }
+      ]
+    },
+    {
+      "id": "data-engineer",
+      "blockId": "data",
+      "title": "Инженер данных",
+      "goal": "Строить пайплайны, по которым данные приходят вовремя, целиком и повторяемо.",
+      "outcome": "junior+",
+      "stages": [
+        { "title": "Фундамент", "goal": "Инструменты и данные.", "courseIds": ["fund-computer", "fund-ide", "fund-git", "fund-algo", "da-data-basics"] },
+        { "title": "Компьютер изнутри", "goal": "Числа, память и процесс — то, обо что упираются пайплайны.", "courseIds": ["cs-computation", "cs-data-repr", "cs-cpu", "cs-memory", "cs-program-memory", "cs-functions"] },
+        { "title": "Абстракции и алгоритмы", "goal": "Структуры данных и сложность там, где данных много.", "courseIds": ["cs-types", "cs-data-structures", "cs-algorithms"] },
+        { "title": "Математика по необходимости", "goal": "Описание данных и численные основы — рекомендуется, но не обязательно.", "courseIds": ["mth-foundations", "mth-descriptive", "mth-numerical"] },
+        { "title": "Операционная система и конкурентность", "goal": "Процессы, потоки, файлы и сериализация.", "courseIds": ["cs-concurrency", "cs-files"] },
+        { "title": "Основы безопасности", "goal": "Доверие, криптография, доступ.", "courseIds": ["sec-fundamentals", "sec-crypto", "sec-auth"] },
+        { "title": "Язык и SQL", "goal": "Код и запросы как рабочий инструмент.", "courseIds": ["py-basics", "py-standard", "sql-core", "sql-write", "sql-analytics", "sql-advanced"] },
+        { "title": "Linux", "goal": "Среда, где живут пайплайны — от ядра до systemd.", "courseIds": ["inf-os", "inf-linux-basics", "inf-filesystem", "inf-users", "inf-permissions", "inf-processes", "inf-bash", "inf-packages", "inf-logs", "inf-cron", "inf-ssh", "inf-systemd"] },
+        { "title": "Сети", "goal": "Как данные ходят между машинами.", "courseIds": ["net-basics", "net-models", "net-ethernet", "net-arp", "net-ipv4", "net-ipv6", "net-switching", "net-routing", "net-dhcp-dns", "net-nat", "net-transport", "net-http-tls"] },
+        { "title": "Хранение", "goal": "Форматы, базы, хранилища, озёра.", "courseIds": ["db-relational-model", "db-normalization", "db-schema-design", "db-postgres", "db-transactions", "db-isolation", "db-locks", "db-mvcc", "db-storage", "db-replication", "de-formats", "de-etl", "de-warehouse", "de-lake", "de-cloud"] },
+        { "title": "Оркестрация и поток", "goal": "Расписание, объём, реальное время.", "courseIds": ["de-airflow", "de-spark", "de-kafka", "de-batch-stream"] },
+        { "title": "Эксплуатация", "goal": "Качество, контейнеры, мониторинг.", "courseIds": ["de-quality", "do-build", "do-docker", "de-monitoring", "de-final"] },
+        { "title": "Аналитические движки", "goal": "Куда складывать и чем считать то, что приехало по пайплайну.", "courseIds": ["db-oltp-olap", "db-columnar", "db-clickhouse", "db-duckdb", "db-distributed", "db-migrations"] }
+      ]
+    },
+    {
+      "id": "database-engineer",
+      "blockId": "data",
+      "title": "Инженер баз данных",
+      "goal": "Отвечать за базу целиком: схема, планы запросов, транзакции, репликация, копии, производительность.",
+      "outcome": "junior+",
+      "stages": [
+        { "title": "Фундамент", "goal": "Что такое БД и зачем она.", "courseIds": ["fund-computer", "fund-ide", "fund-git", "da-data-basics", "db-what-is"] },
+        { "title": "SQL", "goal": "От SELECT до оконных функций.", "courseIds": ["sql-core", "sql-write", "sql-analytics", "sql-advanced"] },
+        { "title": "Проектирование", "goal": "Схема, которая переживёт рост.", "courseIds": ["db-relational-model", "db-normalization", "db-schema-design"] },
+        { "title": "PostgreSQL и производительность", "goal": "Индексы и планы вместо догадок.", "courseIds": ["inf-os", "inf-linux-basics", "db-postgres", "db-indexes", "db-internals", "db-planner", "db-explain"] },
+        { "title": "Конкурентность", "goal": "Транзакции, изоляция, блокировки, MVCC.", "courseIds": ["db-transactions", "db-isolation", "db-locks", "db-mvcc", "db-storage", "db-partitioning"] },
+        { "title": "Эксплуатация", "goal": "Репликация, копии, отказ, мониторинг, тюнинг, защита.", "courseIds": ["db-replication", "db-backup", "db-ha", "db-monitoring", "db-tuning", "db-security"] },
+        { "title": "За пределами реляционки", "goal": "Когда реляционка не лучший выбор.", "courseIds": ["db-nosql", "db-redis", "db-final"] },
+        { "title": "Движки и семейства", "goal": "Аналитические движки и нереляционные семейства, каждое со своей моделью данных.", "courseIds": ["db-oltp-olap", "db-columnar", "db-clickhouse", "db-duckdb", "db-mongo", "db-cassandra", "db-graph", "db-tsdb", "db-search", "db-vector", "db-distributed", "db-migrations", "db-choice"] }
+      ]
+    },
+    {
+      "id": "ml-engineer",
+      "blockId": "ai",
+      "title": "Инженер машинного обучения",
+      "goal": "Превращать модель в работающую инженерную систему: сервинг, нагрузка, мониторинг, переобучение.",
+      "outcome": "junior+",
+      "stages": [
+        { "title": "Фундамент", "goal": "Инструменты и код.", "courseIds": ["fund-computer", "fund-ide", "fund-git", "fund-algo", "py-basics", "py-standard", "py-oop", "py-testing"] },
+        { "title": "Компьютер изнутри", "goal": "Машина под моделью: представление чисел, память, компиляция и рантайм.", "courseIds": ["cs-computation", "cs-data-repr", "cs-cpu", "cs-memory", "cs-program-memory", "cs-functions", "cs-assembly", "cs-c", "cs-compilers", "cs-interpreters"] },
+        { "title": "Абстракции и алгоритмы", "goal": "Типы, структуры данных и сложность.", "courseIds": ["cs-types", "cs-data-structures", "cs-algorithms"] },
+        { "title": "Математика моделей", "goal": "Линал, матан, оптимизация и вероятность — то, что внутри обучения.", "courseIds": ["mth-foundations", "mth-linear", "mth-linear-advanced", "mth-calculus", "mth-optimization", "mth-combinatorics", "mth-probability", "mth-distributions", "mth-descriptive", "mth-statistics", "mth-hypothesis", "mth-numerical", "mth-information", "mth-ml-models"] },
+        { "title": "Ядро машинного обучения", "goal": "Модели, метрики, валидация и объяснимость — до инженерии вокруг них.", "courseIds": ["da-numpy", "da-pandas", "da-cleaning", "da-eda", "da-stats-basics", "ds-ml-data", "ds-features", "ds-pipelines", "ds-first-model", "ds-regression", "ds-metrics", "ds-classification", "ds-calibration", "ds-trees", "ds-ensembles", "ds-unsupervised", "ds-model-selection", "ds-explainability", "ds-nn-basics"] },
+        { "title": "Операционная система и конкурентность", "goal": "Процессы, потоки, событийный цикл, файлы.", "courseIds": ["inf-os", "cs-concurrency", "cs-files"] },
+        { "title": "Среда: Linux и сети", "goal": "Среда выполнения моделей.", "courseIds": ["inf-linux-basics", "inf-filesystem", "inf-users", "inf-permissions", "inf-processes", "inf-bash", "inf-packages", "inf-logs", "inf-cron", "inf-ssh", "inf-systemd", "net-basics", "net-models", "net-ipv4", "net-dhcp-dns", "net-transport", "net-http-tls"] },
+        { "title": "Основы безопасности", "goal": "Доверие, криптография, доступ.", "courseIds": ["sec-fundamentals", "sec-crypto", "sec-auth"] },
+        { "title": "Данные и ML", "goal": "Понимать, что обучается.", "courseIds": ["da-data-basics", "da-numpy", "da-pandas", "da-cleaning", "ai-intro", "ai-ml-fundamentals"] },
+        { "title": "Инженерия обучения", "goal": "Повторяемый прогон вместо блокнота.", "courseIds": ["mle-engineering", "ai-neural-networks", "ai-pytorch", "mle-training-pipelines", "mle-testing", "mle-tracking", "mle-serialization"] },
+        { "title": "Сервинг", "goal": "Модель как сервис.", "courseIds": ["web-http", "be-fastapi", "mle-serving", "mle-inference-modes", "do-build", "do-docker"] },
+        { "title": "Нагрузка и надзор", "goal": "Скорость, деньги, деградация.", "courseIds": ["mle-optimization", "mle-monitoring", "mle-drift", "mle-retraining"] },
+        { "title": "Система", "goal": "Собрать всё вместе.", "courseIds": ["mle-architecture", "mle-final"] }
+      ]
+    },
+    {
+      "id": "ai-engineer",
+      "blockId": "ai",
+      "title": "AI-инженер (языковые модели)",
+      "goal": "Понимать языковую модель изнутри — от токена до следующего токена — и собирать на ней продукт.",
+      "outcome": "junior+",
+      "flagship": true,
+      "stages": [
+        { "title": "Фундамент", "goal": "Инструменты, код, словарь AI.", "courseIds": ["fund-computer", "fund-ide", "fund-git", "fund-algo", "py-basics", "py-standard", "py-oop", "ai-intro"] },
+        { "title": "Компьютер изнутри", "goal": "Машина под инференсом: числа, память, компиляция и виртуальные машины.", "courseIds": ["cs-computation", "cs-data-repr", "cs-cpu", "cs-memory", "cs-program-memory", "cs-functions", "cs-assembly", "cs-c", "cs-compilers", "cs-interpreters"] },
+        { "title": "Абстракции и алгоритмы", "goal": "Типы, структуры данных и сложность.", "courseIds": ["cs-types", "cs-data-structures", "cs-algorithms"] },
+        { "title": "Математика моделей", "goal": "Линал и оптимизация особенно глубоко: на них стоит весь инференс.", "courseIds": ["mth-foundations", "mth-linear", "mth-linear-advanced", "mth-calculus", "mth-optimization", "mth-probability", "mth-distributions", "mth-descriptive", "mth-statistics", "mth-information", "mth-numerical", "mth-ml-models"] },
+        { "title": "Ядро машинного обучения", "goal": "Сокращённое ядро: постановка, модель, метрика — до глубокого обучения.", "courseIds": ["ds-ml-data", "ds-first-model", "ds-regression", "ds-metrics", "ds-classification", "ds-nn-basics"] },
+        { "title": "Операционная система и конкурентность", "goal": "Процессы, потоки, событийный цикл, файлы.", "courseIds": ["inf-os", "cs-concurrency", "cs-files"] },
+        { "title": "Среда: Linux и сети", "goal": "Среда выполнения сервисов инференса.", "courseIds": ["inf-linux-basics", "inf-filesystem", "inf-permissions", "inf-processes", "inf-bash", "inf-logs", "net-basics", "net-models", "net-ipv4", "net-dhcp-dns", "net-transport", "net-http-tls"] },
+        { "title": "Основы безопасности", "goal": "Доверие, криптография, доступ.", "courseIds": ["sec-fundamentals", "sec-crypto", "sec-auth"] },
+        { "title": "Математика и ML", "goal": "Чтобы модель не была чёрной магией.", "courseIds": ["ai-ml-fundamentals"] },
+        { "title": "Нейросети", "goal": "Нейрон → обратное распространение → PyTorch.", "courseIds": ["ai-neural-networks", "ai-pytorch", "ai-nlp-fundamentals"] },
+        { "title": "Как устроена LLM", "goal": "Внимание, трансформер, анатомия модели.", "courseIds": ["ai-attention", "ai-transformers", "ai-llm-anatomy", "ai-llm-training", "ai-post-training", "ai-inference"] },
+        { "title": "Свои модели", "goal": "Локальный запуск, квантизация, железо.", "courseIds": ["ai-open-source-llm", "ai-quantization", "ai-hardware"] },
+        { "title": "Работа с моделью", "goal": "Промпты, эмбеддинги, поиск, RAG.", "courseIds": ["ai-prompting", "ai-embeddings", "ai-vector-db", "ai-rag", "ai-rag-advanced"] },
+        { "title": "Качество и дообучение", "goal": "Оценки вместо ощущений.", "courseIds": ["ai-evaluation", "ai-finetuning"] },
+        { "title": "Агенты", "goal": "Инструменты, циклы, протоколы, модальности.", "courseIds": ["ai-tools", "ai-agents", "ai-mcp", "ai-multimodal"] },
+        { "title": "Прод", "goal": "Безопасность, наблюдаемость, стоимость.", "courseIds": ["web-http", "be-fastapi", "ai-safety", "ai-observability", "ai-production", "ai-cost", "ai-final"] },
+        { "title": "Хранение векторов", "goal": "Где на самом деле живут эмбеддинги продукта.", "courseIds": ["da-data-basics", "sql-core", "db-relational-model", "db-nosql", "db-vector"] }
+      ]
+    },
+    {
+      "id": "mlops-engineer",
+      "blockId": "ai",
+      "title": "MLOps-инженер",
+      "goal": "Держать контур: данные, обучение, реестр, выкатка, мониторинг, переобучение — автоматически.",
+      "outcome": "junior+",
+      "stages": [
+        { "title": "Фундамент", "goal": "Код, git, Linux.", "courseIds": ["fund-computer", "fund-ide", "fund-git", "py-basics", "py-standard", "py-testing", "inf-os", "inf-linux-basics", "inf-filesystem", "inf-users", "inf-permissions", "inf-processes", "inf-bash", "inf-networking"] },
+        { "title": "Конвейер", "goal": "Сборка, контейнеры, выкатка.", "courseIds": ["do-build", "do-ci", "do-docker", "do-compose", "do-registry", "do-cd", "do-secrets"] },
+        { "title": "ML-ядро", "goal": "Что именно возим в прод.", "courseIds": ["da-data-basics", "da-numpy", "da-pandas", "da-cleaning", "ai-intro", "ai-math", "ai-ml-fundamentals", "mle-engineering", "mle-tracking", "mle-serialization"] },
+        { "title": "Платформа", "goal": "Версии данных, реестр, признаки.", "courseIds": ["ops-ml-lifecycle", "ops-data-versioning", "ops-model-registry", "ops-feature-store", "ops-ml-cicd"] },
+        { "title": "Эксплуатация", "goal": "Кластер, метрики, дрейф, переобучение.", "courseIds": ["do-cloud", "do-k8s-basics", "do-k8s-workloads", "do-prometheus", "do-grafana", "py-oop", "web-http", "be-fastapi", "mle-monitoring", "mle-drift", "mle-architecture"] },
+        { "title": "Платформа целиком", "goal": "Итоговый контур.", "courseIds": ["ops-platform-final"] }
+      ]
+    },
+    {
+      "id": "system-administrator",
+      "blockId": "systems",
+      "title": "Системный администратор",
+      "goal": "Держать сервер живым: службы, права, сеть, копии, мониторинг и разбор аварий.",
+      "outcome": "junior+",
+      "stages": [
+        { "title": "Фундамент", "goal": "Машина и инструменты.", "courseIds": ["fund-computer", "fund-ide", "fund-git", "inf-os"] },
+        { "title": "Linux", "goal": "Уверенная работа в системе.", "courseIds": ["inf-linux-basics", "inf-filesystem", "inf-users", "inf-permissions", "inf-processes", "inf-systemd"] },
+        { "title": "Автоматизация", "goal": "Скрипты, пакеты, расписание, логи.", "courseIds": ["inf-bash", "inf-packages", "inf-cron", "inf-logs"] },
+        { "title": "Сеть и доступ", "goal": "Связь и удалённая работа.", "courseIds": ["inf-networking", "inf-ssh", "inf-dns", "web-http", "inf-nginx"] },
+        { "title": "Хранение и защита", "goal": "Диски, копии, виртуализация, безопасность.", "courseIds": ["inf-storage", "inf-backups", "inf-virtualization", "inf-monitoring", "inf-security"] },
+        { "title": "Аварии", "goal": "Чинить осознанно.", "courseIds": ["inf-troubleshooting", "inf-final"] }
+      ]
+    },
+    {
+      "id": "devops-engineer",
+      "blockId": "systems",
+      "title": "DevOps-инженер",
+      "goal": "Автоматизировать путь кода от коммита до прода и видеть систему в проде.",
+      "outcome": "junior+",
+      "inheritsFrom": "system-administrator",
+      "stages": [
+        { "title": "Фундамент", "goal": "Linux и код.", "courseIds": ["fund-computer", "fund-ide", "fund-git", "inf-os", "inf-linux-basics", "inf-filesystem", "inf-users", "inf-permissions", "inf-processes", "inf-systemd", "inf-bash", "py-basics"] },
+        { "title": "Сеть и сервер", "goal": "Куда всё это выкатывается.", "courseIds": ["inf-networking", "inf-ssh", "inf-dns", "web-http", "inf-nginx", "inf-logs"] },
+        { "title": "Конвейер", "goal": "Сборка, интеграция, контейнеры.", "courseIds": ["do-build", "do-ci", "do-docker", "do-compose", "do-registry", "do-cd", "do-secrets"] },
+        { "title": "Инфраструктура", "goal": "Облако и код вместо кликов.", "courseIds": ["do-cloud", "do-terraform", "do-ansible"] },
+        { "title": "Kubernetes", "goal": "Оркестрация нагрузок.", "courseIds": ["do-k8s-basics", "do-k8s-workloads", "do-k8s-networking", "do-helm"] },
+        { "title": "Наблюдаемость", "goal": "Метрики, логи, оповещения, GitOps.", "courseIds": ["do-prometheus", "do-grafana", "do-logging", "do-alerting", "do-gitops", "do-final"] }
+      ]
+    },
+    {
+      "id": "network-engineer",
+      "blockId": "systems",
+      "title": "Сетевой инженер",
+      "goal": "Проектировать, настраивать и чинить сеть, а не гадать, почему не открывается сайт.",
+      "outcome": "junior+",
+      "stages": [
+        { "title": "Фундамент", "goal": "Машина и сеть как понятие.", "courseIds": ["fund-computer", "fund-ide", "fund-git", "net-basics", "net-models"] },
+        { "title": "Канал и адресация", "goal": "Кадры, адреса, подсети.", "courseIds": ["net-ethernet", "net-ipv4", "net-ipv6", "net-arp", "net-switching"] },
+        { "title": "Маршрутизация", "goal": "Как пакет находит путь.", "courseIds": ["net-routing", "net-dhcp-dns", "net-nat", "net-transport"] },
+        { "title": "Прикладной уровень", "goal": "HTTP, TLS и анализ трафика.", "courseIds": ["web-http", "net-http-tls", "net-wireshark", "net-vpn", "net-firewall", "net-wifi"] },
+        { "title": "Эксплуатация", "goal": "Linux, автоматизация, мониторинг.", "courseIds": ["inf-os", "inf-linux-basics", "inf-networking", "net-linux", "net-protocols", "py-basics", "net-automation", "net-monitoring"] },
+        { "title": "Защита и аварии", "goal": "Безопасность и диагностика.", "courseIds": ["net-security", "net-troubleshooting", "net-final"] }
+      ]
+    },
+    {
+      "id": "soc-analyst",
+      "blockId": "security",
+      "title": "Аналитик SOC",
+      "goal": "Замечать атаку в потоке событий, расследовать инцидент и превращать находку в правило.",
+      "outcome": "junior+",
+      "stages": [
+        { "title": "Фундамент", "goal": "Машина, инструменты, словарь ИБ.", "courseIds": ["fund-computer", "fund-ide", "fund-git", "sec-fundamentals"] },
+        { "title": "Системы", "goal": "Linux и Windows глазами защитника.", "courseIds": ["inf-os", "inf-linux-basics", "inf-filesystem", "inf-users", "inf-permissions", "inf-processes", "inf-systemd", "inf-logs", "sec-windows", "sec-logs"] },
+        { "title": "Сеть", "goal": "Что видно на проводе.", "courseIds": ["net-basics", "net-models", "net-ethernet", "net-ipv4", "net-arp", "net-switching", "net-routing", "net-nat", "net-transport", "web-http", "net-http-tls", "net-wireshark", "net-firewall"] },
+        { "title": "Угрозы", "goal": "Кто и как атакует.", "courseIds": ["sec-auth", "sec-crypto", "sec-threats", "sec-malware", "sec-phishing", "sec-vulns"] },
+        { "title": "Обнаружение", "goal": "SIEM, правила, сенсоры.", "courseIds": ["sec-siem", "sec-detection", "sec-ids", "sec-network-analysis", "sec-mitre"] },
+        { "title": "Расследование", "goal": "Инцидент от алерта до отчёта.", "courseIds": ["sec-ir", "sec-hunting", "sec-forensics", "sec-soc-final"] }
+      ]
+    },
+    {
+      "id": "pentester",
+      "blockId": "security",
+      "title": "Пентестер",
+      "goal": "Находить уязвимости в изолированной лаборатории курса и внятно объяснять, как их чинить.",
+      "outcome": "junior+",
+      "legalNote": "Все практические задания выполняются только в учебном стенде курса.",
+      "stages": [
+        { "title": "Фундамент", "goal": "Машина, код, рамки закона.", "courseIds": ["fund-computer", "fund-ide", "fund-git", "sec-fundamentals", "pt-methodology"] },
+        { "title": "Система и язык", "goal": "Linux и скрипты.", "courseIds": ["inf-os", "inf-linux-basics", "inf-filesystem", "inf-users", "inf-permissions", "py-basics"] },
+        { "title": "Веб", "goal": "Как устроено приложение.", "courseIds": ["web-http", "pt-web-basics", "pt-recon", "da-data-basics", "sql-core"] },
+        { "title": "Классы уязвимостей", "goal": "Доступ, инъекции, клиент, файлы, API.", "courseIds": ["sec-auth", "pt-auth-flaws", "pt-access-control", "pt-injection", "pt-xss", "pt-csrf-ssrf", "pt-files", "pt-api"] },
+        { "title": "Инфраструктура", "goal": "Повышение прав и каталог.", "courseIds": ["pt-linux-privesc", "sec-windows", "pt-windows-ad"] },
+        { "title": "Результат", "goal": "Отчёт, который прочитают.", "courseIds": ["pt-reporting", "pt-final"] }
+      ]
+    },
+    {
+      "id": "appsec-engineer",
+      "blockId": "security",
+      "title": "Инженер безопасности приложений",
+      "goal": "Встраивать безопасность в разработку: код, зависимости, секреты, конвейер.",
+      "outcome": "junior+",
+      "inheritsFrom": "python-backend",
+      "stages": [
+        { "title": "Фундамент разработчика", "goal": "Без кода тут делать нечего.", "courseIds": ["fund-computer", "fund-ide", "fund-git", "py-basics", "py-standard", "py-oop"] },
+        { "title": "Приложение", "goal": "Понимать, что защищаешь.", "courseIds": ["da-data-basics", "sql-core", "sql-write", "web-http", "be-fastapi", "be-orm", "be-auth"] },
+        { "title": "Основы ИБ", "goal": "Словарь и криптография.", "courseIds": ["sec-fundamentals", "sec-auth", "sec-crypto"] },
+        { "title": "Безопасный код", "goal": "Дефекты и их лечение.", "courseIds": ["as-secure-coding", "as-owasp", "as-api-security", "as-dependencies"] },
+        { "title": "Конвейер", "goal": "Проверки на каждом коммите.", "courseIds": ["do-build", "do-ci", "do-docker", "do-registry", "do-cd", "do-secrets", "as-secrets", "as-sast-dast"] },
+        { "title": "Процесс", "goal": "Моделирование угроз и ревью.", "courseIds": ["as-threat-modeling", "as-code-review", "as-ci-security", "as-container-security", "as-sdlc", "as-final"] }
+      ]
+    },
+    {
+      "id": "qa-engineer",
+      "blockId": "qa",
+      "title": "Инженер по тестированию",
+      "goal": "Находить дефекты до пользователя и автоматизировать проверку регрессии.",
+      "outcome": "junior+",
+      "stages": [
+        { "title": "Фундамент", "goal": "Как устроено ПО.", "courseIds": ["fund-computer", "fund-ide", "fund-git", "qa-software", "qa-what-is-testing"] },
+        { "title": "Ремесло", "goal": "Требования, кейсы, баги, техники.", "courseIds": ["qa-requirements", "qa-test-cases", "qa-checklists", "qa-bugs", "qa-techniques"] },
+        { "title": "Веб и API", "goal": "Где искать дефекты.", "courseIds": ["fe-html", "qa-web", "web-http", "qa-devtools", "qa-api-testing"] },
+        { "title": "Данные и релизы", "goal": "Проверка глубже интерфейса.", "courseIds": ["da-data-basics", "sql-core", "qa-sql", "qa-regression", "qa-integration", "qa-manual-final"] },
+        { "title": "Автоматизация", "goal": "Тесты, которые бегают сами.", "courseIds": ["py-basics", "qaa-pytest", "qaa-api", "qaa-ui", "py-standard", "py-oop", "qaa-page-object"] },
+        { "title": "Конвейер", "goal": "Автотесты в CI.", "courseIds": ["do-build", "do-ci", "qaa-ci", "qaa-final"] }
+      ]
+    },
+    {
+      "id": "android-developer",
+      "blockId": "mobile",
+      "title": "Android-разработчик",
+      "goal": "Собрать приложение с сетью, хранением и тестами и довести его до магазина.",
+      "outcome": "junior+",
+      "stages": [
+        { "title": "Фундамент", "goal": "Инструменты и язык.", "courseIds": ["fund-computer", "fund-ide", "fund-git", "and-kotlin", "and-oop"] },
+        { "title": "Первое приложение", "goal": "Запуск и жизненный цикл.", "courseIds": ["and-studio", "and-lifecycle"] },
+        { "title": "Интерфейс", "goal": "Экраны и переходы.", "courseIds": ["and-compose", "and-navigation"] },
+        { "title": "Данные", "goal": "Сеть, фон, хранение.", "courseIds": ["and-coroutines", "web-http", "and-networking", "and-storage"] },
+        { "title": "Зрелость", "goal": "Архитектура, тесты, платформа.", "courseIds": ["and-architecture", "and-testing", "and-platform"] },
+        { "title": "Релиз", "goal": "Скорость и публикация.", "courseIds": ["and-release", "and-final"] }
+      ]
+    },
+    {
+      "id": "software-architect",
+      "blockId": "architecture",
+      "title": "Архитектор ПО",
+      "goal": "Проектировать системы и защищать компромиссы. Путь закрыт для человека с нулевым опытом.",
+      "outcome": "senior-track",
+      "requiresProfessionAny": ["python-backend", "frontend-developer", "devops-engineer", "data-engineer", "ml-engineer"],
+      "stages": [
+        { "title": "Основы", "goal": "Что решает архитектор.", "courseIds": ["arch-fundamentals", "arch-principles", "arch-patterns"] },
+        { "title": "Контракты и данные", "goal": "API, хранилища, кеш.", "courseIds": ["arch-api-design", "arch-data", "arch-caching"] },
+        { "title": "Распределённость", "goal": "Очереди, отказы, согласованность.", "courseIds": ["arch-queues", "arch-distributed", "arch-consistency"] },
+        { "title": "Масштаб", "goal": "Рост, дробление, события.", "courseIds": ["arch-scalability", "arch-microservices", "arch-events"] },
+        { "title": "Зрелость", "goal": "Видимость, защита, решения.", "courseIds": ["arch-observability", "arch-security", "arch-decisions", "arch-system-design"] }
+      ]
+    }
+  ],
+  "compositePaths": [
+    { "id": "fullstack", "title": "Fullstack-разработчик", "professionIds": ["frontend-developer", "python-backend"], "note": "Не отдельный контент, а сумма двух треков плюс итоговый совместный проект." },
+    { "id": "analyst-to-ds", "title": "Аналитик → специалист по данным", "professionIds": ["data-analyst", "data-scientist"], "note": "Второй трек не повторяет аналитическое ядро." },
+    { "id": "ds-to-mle", "title": "Специалист по данным → инженер ML", "professionIds": ["data-scientist", "ml-engineer"], "note": "Добавляется инженерия и эксплуатация модели." },
+    { "id": "mle-to-mlops", "title": "Инженер ML → MLOps", "professionIds": ["ml-engineer", "mlops-engineer"], "note": "Добавляется платформа и автоматизация контура." },
+    { "id": "sysadmin-to-devops", "title": "Системный администратор → DevOps", "professionIds": ["system-administrator", "devops-engineer"], "note": "Linux остаётся, сверху конвейер и оркестрация." },
+    { "id": "backend-to-appsec", "title": "Бэкенд → безопасность приложений", "professionIds": ["python-backend", "appsec-engineer"], "note": "Разработчик, который умеет ломать своё же приложение." },
+    { "id": "qa-to-automation", "title": "QA → автоматизация тестирования", "professionIds": ["qa-engineer"], "note": "Развилка внутри профессии: ручное ремесло, затем автотесты." }
+  ]
+}
