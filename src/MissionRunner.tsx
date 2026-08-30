@@ -207,7 +207,7 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
   const [code, setCode] = useState(mission.task?.starterCode ?? "# Рабочий файл миссии\n# Исследуй данные и запиши решение ниже\n\nrows = 850_000\nprint(f'Получено наблюдений: {rows}')")
   const workspaceFile = mission.task?.workspaceFile ?? 'solution.py'
   const [terminalLines, setTerminalLines] = useState([
-    'REQuest Runtime 0.4 · изолированная учебная среда',
+    'REduQuest Runtime 0.4 · изолированная учебная среда',
     'Контейнер rq-data-01 запущен',
     'Набор events_sample.csv подключён в /workspace/data',
     'Введите help, чтобы увидеть доступные команды.',
@@ -306,7 +306,7 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
 
   return <div className={`mission-runner ${questMode ? 'quest-runner' : ''}`}>
     <header className="runner-topbar">
-      <div className="runner-brand"><span className="runner-mark">∿</span><strong>RE<span>Quest</span></strong></div>
+      <div className="runner-brand"><span className="runner-mark">∿</span><strong>REdu<span>Quest</span></strong></div>
       {questMode ? <>
         <div className="quest-case-location"><span>{story?.career ? `${story.career.protagonistName} · ГЛАВА ${story.career.chapterNumber}/${story.career.chapterCount}` : story?.number ?? `ДЕЛО ${room.index}`}</span><strong>{story?.title ?? room.title}</strong></div>
         <div className="quest-episode-location"><span>ЭПИЗОД {String(episode).padStart(2, '0')} / {room.missions.length}</span><strong>{mission.title}</strong></div>

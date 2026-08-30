@@ -32,7 +32,7 @@ function Sidebar({ active, account, progress, onNavigate, onOpenAccount }: { act
     ['projects', Boxes, 'Проекты'], ['hq', Backpack, 'Штаб'], ['achievements', Trophy, 'Достижения'],
   ] as const
   return <aside className="sidebar">
-    <div className="brand"><div className="brand-mark"><Hexagon size={19}/><span>∿</span></div><span>RE<strong>Quest</strong></span></div>
+    <div className="brand"><div className="brand-mark"><Hexagon size={19}/><span>∿</span></div><span>REdu<strong>Quest</strong></span></div>
     <nav>
       <div className="nav-label">Обучение</div>
       {nav.map(([id, Icon, label]) => <button key={id} className={`nav-item ${active === id ? 'active' : ''}`} onClick={() => onNavigate(id)} aria-current={active === id ? 'page' : undefined}>
@@ -134,7 +134,7 @@ function GlobalSearch({ open, progress, onClose, onChoose }: { open: boolean; pr
   }, [open, onClose])
   if (!open) return null
   return <div className="search-overlay" onMouseDown={event => { if (event.target === event.currentTarget) onClose() }}>
-    <section className="search-dialog" role="dialog" aria-modal="true" aria-label="Поиск по REQuest">
+    <section className="search-dialog" role="dialog" aria-modal="true" aria-label="Поиск по REduQuest">
       <div className="search-dialog-head"><Search size={19}/><input ref={inputRef} value={query} onChange={event => setQuery(event.target.value)} placeholder="Профессия, курс или миссия…" aria-label="Поисковый запрос"/><button onClick={onClose} aria-label="Закрыть поиск"><X size={18}/></button></div>
       <div className="search-dialog-meta"><span>{query ? `Найдено: ${results.length}` : 'Быстрый переход'}</span><kbd>Esc — закрыть</kbd></div>
       <div className="search-results">{results.length ? results.map(item => <button key={item.id} className="search-result" onClick={() => onChoose(item.target)}><span className="search-result-icon">{item.target.kind === 'profession' ? <GitBranch size={18}/> : item.target.kind === 'mission' ? <BookOpen size={18}/> : item.target.kind === 'room' ? <Database size={18}/> : <Map size={18}/>}</span><span><strong>{item.title}</strong><small>{item.context}</small></span><ChevronRight size={17}/></button>) : <div className="search-empty"><Search size={23}/><strong>Ничего не найдено</strong><span>Попробуй название навыка, курса или профессии.</span></div>}</div>
@@ -653,7 +653,7 @@ export default function App() {
   const header = (title: string, roomValue?: Room) => <Header title={title} onBack={roomValue ? () => setView({ type: 'path' }) : undefined} room={roomValue} theme={theme} onThemeChange={changeTheme} xp={progress.xp} game={game} onOpenAccount={() => setView({ type: 'account' })} onOpenSearch={() => setSearchOpen(true)}/>
   const activeSection = view.type === 'room' ? 'path' : view.type === 'account' ? 'account' : view.type
   return <><div className="app-shell"><Sidebar active={activeSection} account={account} progress={progress} onNavigate={section => setView({ type: section })} onOpenAccount={() => setView({ type: 'account' })}/><div className="content-shell">
-    {view.type === 'account' ? <AccountView account={account} progress={progress} onAccountChange={setAccount} onBack={() => setView({ type: 'path' })} onLogout={signOut}/>
+    {view.type === 'account' ? <AccountView account={account} progress={progress} onAccountChange={setAccount} onProgressReset={setProgress} onBack={() => setView({ type: 'path' })} onLogout={signOut}/>
       : room ? <RoomView room={room} onBack={() => setView({ type: 'path' })} header={header('Профессии', room)} progress={progress} onStart={missionId => setView({ type: 'mission', roomId: room.id, missionId })}/>
       : view.type === 'home' ? <HomeView header={header(sectionTitles.home)} account={account} progress={progress} onContinue={roomId => setView({ type: 'room', roomId })} onOpenPath={() => setView({ type: 'path' })} onOpenPractice={() => setView({ type: 'practice' })}/>
       : view.type === 'practice' ? <PracticeView header={header(sectionTitles.practice)} progress={progress} onOpen={roomId => setView({ type: 'room', roomId })}/>

@@ -29,6 +29,8 @@ interface StoredState {
   users: UserAccount[]
   sessionUserId: string | null
   rememberSession: boolean
+  /** Пользователь сам решил, запоминать ли вход. Без него сессия из заготовки не считается выбором. */
+  sessionChosen?: boolean
   theme: ThemeId
   progress: Record<string, UserProgress>
   games?: Record<string, import('./game').GameState>
@@ -53,7 +55,7 @@ const initialState = (): StoredState => {
     passwordHash: DEMO_HASH, emailNotifications: false, telegramNotifications: false,
     desktopNotifications: false, createdAt: new Date().toISOString(),
   }
-  return { version: 1, users: [demo], sessionUserId: demo.id, rememberSession: true, theme: 'future', progress: { [demo.id]: starterProgress() } }
+  return { version: 1, users: [demo], sessionUserId: null, rememberSession: false, sessionChosen: true, theme: 'future', progress: { [demo.id]: starterProgress() } }
 }
 
 export function loadState(): StoredState {
@@ -63,6 +65,13 @@ export function loadState(): StoredState {
       const state = JSON.parse(raw) as StoredState
       const demo = state.users.find(user => user.id === 'local-alex')
       if (demo?.passwordHash === LEGACY_DEMO_HASH) demo.passwordHash = DEMO_HASH
+      if (state.sessionChosen === undefined) {
+        // Раньше приложение открывалось сразу под демо-аккаунтом. Это была заготовка,
+        // а не решение пользователя, поэтому один раз просим войти явно.
+        state.sessionUserId = null
+        state.rememberSession = false
+        state.sessionChosen = true
+      }
       saveState(state)
       return state
     }
@@ -107,6 +116,7 @@ export async function login(identifier: string, password: string, remember: bool
   if (!account || !await verifyPassword(password, account.passwordHash)) throw new Error('Неверная почта, никнейм или пароль')
   state.sessionUserId = account.id
   state.rememberSession = remember
+  state.sessionChosen = true
   saveState(state)
   return account
 }
@@ -123,6 +133,7 @@ export async function register(input: { displayName: string; username: string; e
   state.users.push(account)
   state.sessionUserId = account.id
   state.rememberSession = true
+  state.sessionChosen = true
   state.progress[account.id] = { ...starterProgress(), xp: 0, streak: 0, completedMissionIds: [] }
   saveState(state)
   return account
@@ -147,6 +158,7 @@ export function logout() {
   const state = loadState()
   state.sessionUserId = null
   state.rememberSession = false
+  state.sessionChosen = true
   saveState(state)
 }
 
@@ -175,7 +187,28 @@ export function completeMission(userId: string, missionId: string, xp: number, r
   return progress
 }
 
+/** Пустой прогресс: стартовый набор — демонстрационный, для сброса он не годится. */
+const emptyProgress = (): UserProgress => ({
+  xp: 0,
+  streak: 0,
+  currentRoomId: 'technical-foundations',
+  completedMissionIds: [],
+  attempts: {},
+  updatedAt: new Date().toISOString(),
+})
+
+/** Полный сброс прохождения: миссии, опыт, серия дней и состояние мини-игр. */
+export function resetProgress(userId: string) {
+  const state = loadState()
+  const fresh = emptyProgress()
+  state.progress[userId] = fresh
+  if (state.games) delete state.games[userId]
+  saveState(state)
+  return fresh
+}
+
 export function activeAccount() {
   const state = loadState()
+  if (!state.rememberSession) return null
   return state.users.find(user => user.id === state.sessionUserId) ?? null
 }
