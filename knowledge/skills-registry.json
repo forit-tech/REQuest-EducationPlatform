@@ -483,7 +483,9 @@
       "id": "go-select",
       "title": "Оператор select",
       "detect": [
-        "select {"
+        "select {",
+        "case <-",
+        "case "
       ],
       "introducedIn": {
         "course": "go-core-concurrency",
@@ -1052,11 +1054,242 @@
         "mission": "GCC-015"
       },
       "language": "go"
+    },
+    {
+      "id": "go-http-server",
+      "title": "HTTP-сервер и маршруты",
+      "detect": [
+        "http.HandleFunc(",
+        "http.ListenAndServe(",
+        "http.Handle("
+      ],
+      "introducedIn": {
+        "course": "go-network-services",
+        "mission": "GNS-003"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-json",
+      "title": "Кодирование и разбор JSON",
+      "detect": [
+        "json.NewEncoder(",
+        "json.NewDecoder(",
+        "Content-Type"
+      ],
+      "introducedIn": {
+        "course": "go-network-services",
+        "mission": "GNS-004"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-http-request",
+      "title": "Параметры запроса и статус ответа",
+      "detect": [
+        "r.URL.Query()",
+        "w.WriteHeader(",
+        "http.Status"
+      ],
+      "introducedIn": {
+        "course": "go-network-services",
+        "mission": "GNS-006"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-http-config",
+      "title": "Настройка сервера и таймауты",
+      "detect": [
+        "http.Server{",
+        "ReadTimeout:",
+        "WriteTimeout:"
+      ],
+      "introducedIn": {
+        "course": "go-network-services",
+        "mission": "GNS-008"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-middleware",
+      "title": "Middleware",
+      "detect": [
+        "next.ServeHTTP(",
+        "http.Handler)"
+      ],
+      "introducedIn": {
+        "course": "go-network-services",
+        "mission": "GNS-009"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-request-context",
+      "title": "Контекст запроса",
+      "detect": [
+        "r.Context()",
+        "r.WithContext("
+      ],
+      "introducedIn": {
+        "course": "go-network-services",
+        "mission": "GNS-010"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-sql-pool",
+      "title": "Пул соединений с базой",
+      "detect": [
+        "sql.Open(",
+        "SetMaxOpenConns(",
+        "SetMaxIdleConns("
+      ],
+      "introducedIn": {
+        "course": "go-network-services",
+        "mission": "GNS-012"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-sql-query",
+      "title": "Запрос к базе с контекстом",
+      "detect": [
+        "QueryContext(",
+        "ExecContext(",
+        "rows.Close()"
+      ],
+      "introducedIn": {
+        "course": "go-network-services",
+        "mission": "GNS-013"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-transactions",
+      "title": "Транзакции",
+      "detect": [
+        "db.BeginTx(",
+        "tx.Commit()",
+        "tx.Rollback()"
+      ],
+      "introducedIn": {
+        "course": "go-network-services",
+        "mission": "GNS-014"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-testing",
+      "title": "Тесты",
+      "detect": [
+        "func Test",
+        "t.Errorf(",
+        "t.Fatalf(",
+        "testing.T"
+      ],
+      "introducedIn": {
+        "course": "go-production",
+        "mission": "GPR-003"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-table-tests",
+      "title": "Табличные тесты",
+      "detect": [
+        "t.Run(",
+        "[]struct{"
+      ],
+      "introducedIn": {
+        "course": "go-production",
+        "mission": "GPR-004"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-benchmark",
+      "title": "Бенчмарки",
+      "detect": [
+        "func Benchmark",
+        "b.N",
+        "testing.B"
+      ],
+      "introducedIn": {
+        "course": "go-production",
+        "mission": "GPR-006"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-fuzz",
+      "title": "Fuzz-тесты",
+      "detect": [
+        "func Fuzz",
+        "f.Add(",
+        "f.Fuzz("
+      ],
+      "introducedIn": {
+        "course": "go-production",
+        "mission": "GPR-008"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-pprof",
+      "title": "Профилирование",
+      "detect": [
+        "pprof."
+      ],
+      "introducedIn": {
+        "course": "go-production",
+        "mission": "GPR-009"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-slog",
+      "title": "Структурные логи",
+      "detect": [
+        "slog."
+      ],
+      "introducedIn": {
+        "course": "go-production",
+        "mission": "GPR-011"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-health",
+      "title": "Проверки живости и готовности",
+      "detect": [
+        "StatusServiceUnavailable"
+      ],
+      "introducedIn": {
+        "course": "go-production",
+        "mission": "GPR-013"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-shutdown",
+      "title": "Корректная остановка",
+      "detect": [
+        "signal.Notify(",
+        ".Shutdown("
+      ],
+      "introducedIn": {
+        "course": "go-production",
+        "mission": "GPR-014"
+      },
+      "language": "go"
     }
   ],
   "auditedCourses": [
     "go-core",
     "go-core-concurrency",
+    "go-network-services",
+    "go-production",
     "java-core",
     "javascript-core",
     "python-core",
