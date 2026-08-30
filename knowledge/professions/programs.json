@@ -60,7 +60,7 @@
     "stages": [
       { "title": "Инженерный фундамент", "goal": "Понимать выполнение программ, Git и рабочее окружение.", "courseIds": ["technical-foundations"], "prerequisites": [] },
       { "title": "Java Core", "goal": "Проектировать типобезопасный и корректный конкурентный код.", "courseIds": ["java-core-jvm"], "prerequisites": ["technical-foundations"] },
-      { "title": "Данные", "goal": "Моделировать данные и писать надёжные SQL-запросы.", "courseIds": ["relational-databases", "sql-foundations", "postgresql"], "prerequisites": ["java-core-jvm"] },
+      { "title": "Данные", "goal": "Моделировать данные и писать надёжные SQL-запросы.", "courseIds": ["sql-foundations", "relational-databases", "postgresql"], "prerequisites": ["java-core-jvm"] },
       { "title": "Spring Backend", "goal": "Создавать транзакционные и защищённые HTTP-сервисы.", "courseIds": ["spring-services"], "prerequisites": ["postgresql"] },
       { "title": "Продакшен", "goal": "Тестировать, наблюдать и безопасно выпускать Java-сервис.", "courseIds": ["java-production"], "prerequisites": ["spring-services"] }
     ]
@@ -71,7 +71,7 @@
     "stages": [
       { "title": "Python-фундамент", "goal": "Освоить рабочую среду, язык и инженерные привычки.", "courseIds": ["technical-foundations", "python-core"], "prerequisites": [] },
       { "title": "Web API", "goal": "Проектировать ясные и защищённые серверные контракты.", "courseIds": ["python-web-api"], "prerequisites": ["python-core"] },
-      { "title": "Базы данных", "goal": "Хранить состояние транзакционно и эффективно.", "courseIds": ["relational-databases", "sql-foundations", "postgresql"], "prerequisites": ["python-web-api"] },
+      { "title": "Базы данных", "goal": "Хранить состояние транзакционно и эффективно.", "courseIds": ["sql-foundations", "relational-databases", "postgresql"], "prerequisites": ["python-web-api"] },
       { "title": "Асинхронность", "goal": "Управлять конкурентным вводом-выводом, очередями и отменой.", "courseIds": ["python-databases-async"], "prerequisites": ["postgresql"] },
       { "title": "Продакшен", "goal": "Тестировать, масштабировать и безопасно выпускать Python-сервис.", "courseIds": ["python-service-production"], "prerequisites": ["python-databases-async"] }
     ]
@@ -82,7 +82,7 @@
     "stages": [
       { "title": "Инженерный фундамент", "goal": "Понимать систему, сеть и жизненный цикл программы.", "courseIds": ["technical-foundations"], "prerequisites": [] },
       { "title": "Go Core", "goal": "Писать ясный конкурентный код без утечек и гонок.", "courseIds": ["go-core-concurrency"], "prerequisites": ["technical-foundations"] },
-      { "title": "Сетевой backend", "goal": "Создавать HTTP-сервисы с транзакционным хранением.", "courseIds": ["relational-databases", "sql-foundations", "postgresql", "go-network-services"], "prerequisites": ["go-core-concurrency"] },
+      { "title": "Сетевой backend", "goal": "Создавать HTTP-сервисы с транзакционным хранением.", "courseIds": ["sql-foundations", "relational-databases", "postgresql", "go-network-services"], "prerequisites": ["go-core-concurrency"] },
       { "title": "Продакшен", "goal": "Профилировать, наблюдать и корректно останавливать сервис.", "courseIds": ["go-production"], "prerequisites": ["go-network-services"] }
     ]
   },
@@ -112,7 +112,7 @@
     "stages": [
       { "title": "Система и сеть", "goal": "Диагностировать Linux-систему и сетевой путь по фактам.", "courseIds": ["technical-foundations", "linux-network-ops"], "prerequisites": [] },
       { "title": "Контейнерная платформа", "goal": "Собирать образы и управлять workload в Kubernetes.", "courseIds": ["containers-kubernetes"], "prerequisites": ["linux-network-ops"] },
-      { "title": "Данные для эксплуатации", "goal": "Понимать транзакции и поведение хранилища при изменениях.", "courseIds": ["relational-databases", "postgresql"], "prerequisites": ["containers-kubernetes"] },
+      { "title": "Данные для эксплуатации", "goal": "Понимать транзакции и поведение хранилища при изменениях.", "courseIds": ["sql-foundations", "relational-databases", "postgresql"], "prerequisites": ["containers-kubernetes"] },
       { "title": "Доставка и инфраструктура", "goal": "Автоматизировать проверяемый и безопасный выпуск инфраструктуры и кода.", "courseIds": ["cicd-infrastructure"], "prerequisites": ["containers-kubernetes"] }
     ]
   },

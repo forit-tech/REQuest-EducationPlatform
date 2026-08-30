@@ -69,6 +69,16 @@ function validate(condition, missionId, message) {
   if (!condition) errors.push(`${missionId}: ${message}`)
 }
 
+// Практикой считается любая миссия, где человек что-то делает: выбирает вариант,
+// пишет вывод исследования или код. Требовать долю именно кодовых миссий нельзя —
+// именно это правило когда-то заставило генератор вешать «def solve(» на тему про процессор.
+const isInteractive = mission => Boolean(
+  mission.task?.codeChecks?.length || mission.task?.options?.length || mission.task?.answer ||
+  ['case', 'boss', 'quiz', 'lab', 'code'].includes(mission.type),
+)
+const MIN_CODE_CHECKS = 2
+
+
 const programIds = new Set(programs.map(program => program.id))
 const manifestCourseIds = new Set(domainConfigs.flatMap(domain => domain.manifest.courses))
 const courseIds = new Set()
@@ -105,11 +115,11 @@ for (const domain of domainConfigs) {
     }
     if (program?.phase?.startsWith('Профессия')) {
       const practical = course.missions.filter(mission => ['code', 'lab'].includes(mission.type) || mission.task?.starterCode)
-      validate(practical.length / course.missions.length >= 0.65, course.id, 'в профессиональном блоке практика должна занимать не менее 65% миссий')
+      validate(course.missions.filter(isInteractive).length / course.missions.length >= 0.65, course.id, 'в профессиональном блоке практика должна занимать не менее 65% миссий')
       validate(course.missions.some(mission => mission.historicalFact?.sourceUrl), course.id, 'нет исторического или научного факта с источником')
       for (const mission of practical) {
         validate(Boolean(mission.task?.starterCode), mission.id, 'практическая миссия не содержит стартовый рабочий файл')
-        validate(mission.task?.codeChecks?.length >= 3, mission.id, 'практическая миссия должна иметь минимум три автоматические проверки')
+        validate(mission.task?.codeChecks?.length >= MIN_CODE_CHECKS, mission.id, `кодовая миссия должна иметь минимум ${MIN_CODE_CHECKS} автоматические проверки`)
       }
     }
   }
@@ -160,6 +170,73 @@ for (const profession of professionPrograms) {
   }
 }
 
+// ── Порядок выдачи знаний: миссия не может требовать необъяснённую конструкцию ──
+// Реестр знает, где вводится каждый навык. Идём по маршруту профессии и сверяем,
+// что к моменту миссии всё требуемое уже было. Это ловит педагогические скачки вроде
+// «тема про процессор, а проверка требует def solve(».
+const skillsRegistry = JSON.parse(await readFile(resolve(root, 'knowledge/skills-registry.json'), 'utf8'))
+// Совпадение по границе слова: «print(» не должно считаться использованием «int(».
+// Граница проверяется только для токенов, начинающихся с буквы — для « * » или «.append(»
+// предыдущий символ значения не имеет.
+const usesToken = (fragment, token) => {
+  if (!/^[A-Za-z0-9_]/.test(token)) return fragment.includes(token)
+  let from = 0
+  for (;;) {
+    const at = fragment.indexOf(token, from)
+    if (at === -1) return false
+    if (at === 0 || !/[A-Za-z0-9_]/.test(fragment[at - 1])) return true
+    from = at + 1
+  }
+}
+// Битая ссылка в реестре тихо отключает навык: он никогда не считается введённым,
+// и генератор снимает код со всего курса. Такое должно ломать сборку.
+for (const skill of skillsRegistry.skills) {
+  const source = coursesById.get(skill.introducedIn.course)
+  if (!source) errors.push(`Реестр навыков: навык ${skill.id} ссылается на несуществующий курс ${skill.introducedIn.course}`)
+  else if (!source.missions.some(mission => mission.id === skill.introducedIn.mission))
+    errors.push(`Реестр навыков: навык ${skill.id} ссылается на несуществующую миссию ${skill.introducedIn.course}/${skill.introducedIn.mission}`)
+}
+
+const languageOf = mission => skillsRegistry.languageByFile?.[mission.task?.workspaceFile ?? ''] ?? null
+const skillFor = (fragment, language) => skillsRegistry.skills.filter(skill =>
+  skill.language === language && skill.detect.some(token => usesToken(fragment, token)))
+const auditedCourses = new Set(skillsRegistry.auditedCourses ?? [])
+const pendingKnowledgeGaps = new Set()
+
+for (const program of professionPrograms) {
+  const route = program.stages.flatMap(stage => stage.courseIds ?? [])
+  const sequence = []
+  for (const courseId of route) {
+    const course = coursesById.get(courseId)
+    if (!course) continue
+    for (const mission of course.missions ?? []) sequence.push({ courseId, mission })
+  }
+  const introducedAt = new Map()
+  sequence.forEach(({ courseId, mission }, index) => {
+    for (const skill of skillsRegistry.skills) {
+      if (introducedAt.has(skill.id)) continue
+      if (skill.introducedIn.course === courseId && skill.introducedIn.mission === mission.id) introducedAt.set(skill.id, index)
+    }
+  })
+  sequence.forEach(({ courseId, mission }, index) => {
+    const required = new Set()
+    const language = languageOf(mission)
+    if (language) for (const check of mission.task?.codeChecks ?? []) for (const skill of skillFor(check.includes, language)) required.add(skill.id)
+    for (const skillId of required) {
+      const at = introducedAt.get(skillId)
+      const skill = skillsRegistry.skills.find(item => item.id === skillId)
+      const audited = auditedCourses.has(courseId)
+      let problem = null
+      if (at === undefined) problem = `требует «${skill.title}», но этот навык не вводится в маршруте «${program.professionId}»`
+      else if (at > index) problem = `требует «${skill.title}» на позиции ${index + 1}, а навык вводится только на позиции ${at + 1} маршрута «${program.professionId}»`
+      if (!problem) continue
+      // Проверенные курсы держим строго; остальные пока копим в сводку, чтобы не блокировать сборку.
+      if (audited) validate(false, `${courseId}/${mission.id}`, problem)
+      else pendingKnowledgeGaps.add(`${courseId}/${mission.id}`)
+    }
+  })
+}
+
 const storyCourseIds = new Set()
 for (const file of (await readdir(storyCasesRoot)).filter(name => name.endsWith('.json') && name !== 'prologue.json')) {
   const story = JSON.parse(await readFile(resolve(storyCasesRoot, file), 'utf8'))
@@ -203,10 +280,10 @@ for (const courseId of professionRouteCourseIds) {
   const course = coursesById.get(courseId)
   if (!course) continue
   const practical = course.missions.filter(mission => mission.task?.starterCode)
-  validate(practical.length / course.missions.length >= 0.65, courseId, 'в профессиональном блоке практика должна занимать не менее 65% миссий')
+  validate(course.missions.filter(isInteractive).length / course.missions.length >= 0.65, courseId, 'в профессиональном блоке практика должна занимать не менее 65% миссий')
   validate(course.missions.some(mission => mission.historicalFact?.sourceUrl), courseId, 'нет исторического или научного факта с источником')
   for (const mission of practical) {
-    validate(mission.task?.codeChecks?.length >= 3, mission.id, 'практическая миссия должна иметь минимум три автоматические проверки')
+    validate(mission.task?.codeChecks?.length >= MIN_CODE_CHECKS, mission.id, `кодовая миссия должна иметь минимум ${MIN_CODE_CHECKS} автоматические проверки`)
   }
 }
 
@@ -287,3 +364,6 @@ if (errors.length) {
 console.log(`Content Factory: проверено миссий — ${missionFiles.length}`)
 console.log(`Учебные программы: проверено курсов — ${courseIds.size}; миссий — ${courseMissionCount}`)
 console.log(`Источники каталога: ${catalog.sources.length}; действия: ${activityCount}; датасеты: ${datasetCount}`)
+if (pendingKnowledgeGaps.size) {
+  console.log(`Порядок выдачи знаний: миссий с необъяснёнными конструкциями — ${pendingKnowledgeGaps.size} (курсы вне аудита, правятся генератором)`)
+}

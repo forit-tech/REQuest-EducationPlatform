@@ -1,0 +1,283 @@
+{
+  "$comment": "Где вводится каждая конструкция. Миссия не может требовать навык раньше его introducedIn. Используется генератором практики и проверкой content:validate.",
+  "skills": [
+    {
+      "id": "py-print",
+      "title": "Вывод в консоль",
+      "detect": [
+        "print("
+      ],
+      "introducedIn": {
+        "course": "technical-foundations",
+        "mission": "TECH-014"
+      },
+      "language": "python"
+    },
+    {
+      "id": "py-variables",
+      "title": "Переменные и присваивание",
+      "detect": [
+        "=",
+        "name ="
+      ],
+      "introducedIn": {
+        "course": "technical-foundations",
+        "mission": "TECH-014"
+      },
+      "language": "python"
+    },
+    {
+      "id": "py-arithmetic",
+      "title": "Арифметика и типы чисел",
+      "detect": [
+        "int(",
+        "float(",
+        " * ",
+        " + "
+      ],
+      "introducedIn": {
+        "course": "technical-foundations",
+        "mission": "TECH-015"
+      },
+      "language": "python"
+    },
+    {
+      "id": "py-conditions",
+      "title": "Условия",
+      "detect": [
+        "if ",
+        "elif ",
+        "else:"
+      ],
+      "introducedIn": {
+        "course": "python-core",
+        "mission": "PYC-004"
+      },
+      "language": "python"
+    },
+    {
+      "id": "py-loops",
+      "title": "Циклы",
+      "detect": [
+        "for ",
+        "while "
+      ],
+      "introducedIn": {
+        "course": "python-core",
+        "mission": "PYC-005"
+      },
+      "language": "python"
+    },
+    {
+      "id": "py-collections",
+      "title": "Списки и словари",
+      "detect": [
+        "[]",
+        "{}",
+        ".append(",
+        ".items()"
+      ],
+      "introducedIn": {
+        "course": "python-core",
+        "mission": "PYC-012"
+      },
+      "language": "python"
+    },
+    {
+      "id": "py-functions",
+      "title": "Функции: def, аргументы, return",
+      "detect": [
+        "def ",
+        "return "
+      ],
+      "introducedIn": {
+        "course": "python-core",
+        "mission": "PYC-016"
+      },
+      "language": "python"
+    },
+    {
+      "id": "py-imports",
+      "title": "Импорты и модули",
+      "detect": [
+        "import "
+      ],
+      "introducedIn": {
+        "course": "python-core",
+        "mission": "PYC-021"
+      },
+      "language": "python"
+    },
+    {
+      "id": "py-files",
+      "title": "Чтение и запись файлов",
+      "detect": [
+        "open(",
+        "with open"
+      ],
+      "introducedIn": {
+        "course": "python-core",
+        "mission": "PYC-026"
+      },
+      "language": "python"
+    },
+    {
+      "id": "py-exceptions",
+      "title": "Исключения",
+      "detect": [
+        "try:",
+        "except "
+      ],
+      "introducedIn": {
+        "course": "python-core",
+        "mission": "PYC-031"
+      },
+      "language": "python"
+    },
+    {
+      "id": "py-classes",
+      "title": "Классы",
+      "detect": [
+        "class "
+      ],
+      "introducedIn": {
+        "course": "python-core",
+        "mission": "PYC-041"
+      },
+      "language": "python"
+    },
+    {
+      "id": "py-assert",
+      "title": "Автоматическая проверка assert",
+      "detect": [
+        "assert "
+      ],
+      "introducedIn": {
+        "course": "python-core",
+        "mission": "PYC-046"
+      },
+      "language": "python"
+    },
+    {
+      "id": "numpy",
+      "title": "NumPy",
+      "detect": [
+        "import numpy",
+        "np."
+      ],
+      "introducedIn": {
+        "course": "numpy",
+        "mission": "NPY-001"
+      },
+      "language": "python"
+    },
+    {
+      "id": "pandas",
+      "title": "pandas",
+      "detect": [
+        "import pandas",
+        "pd."
+      ],
+      "introducedIn": {
+        "course": "pandas",
+        "mission": "PDA-001"
+      },
+      "language": "python"
+    },
+    {
+      "id": "polars",
+      "title": "Polars",
+      "detect": [
+        "import polars",
+        "pl."
+      ],
+      "introducedIn": {
+        "course": "polars",
+        "mission": "PLR-001"
+      },
+      "language": "python"
+    },
+    {
+      "id": "sql-select",
+      "title": "Выборка данных на SQL",
+      "detect": [
+        "SELECT "
+      ],
+      "introducedIn": {
+        "course": "sql-foundations",
+        "mission": "SQL-002"
+      },
+      "language": "sql"
+    },
+    {
+      "id": "sql-where",
+      "title": "Фильтрация в SQL",
+      "detect": [
+        "WHERE"
+      ],
+      "introducedIn": {
+        "course": "sql-foundations",
+        "mission": "SQL-004"
+      },
+      "language": "sql"
+    },
+    {
+      "id": "sql-group",
+      "title": "Группировка в SQL",
+      "detect": [
+        "GROUP BY"
+      ],
+      "introducedIn": {
+        "course": "sql-foundations",
+        "mission": "SQL-008"
+      },
+      "language": "sql"
+    },
+    {
+      "id": "sql-join",
+      "title": "Соединение таблиц",
+      "detect": [
+        "JOIN"
+      ],
+      "introducedIn": {
+        "course": "sql-foundations",
+        "mission": "SQL-010"
+      },
+      "language": "sql"
+    },
+    {
+      "id": "sql-window",
+      "title": "Оконные функции",
+      "detect": [
+        "OVER ("
+      ],
+      "introducedIn": {
+        "course": "advanced-sql",
+        "mission": "ASQ-004"
+      },
+      "language": "sql"
+    },
+    {
+      "id": "sql-cte",
+      "title": "Общие табличные выражения",
+      "detect": [
+        "WITH "
+      ],
+      "introducedIn": {
+        "course": "advanced-sql",
+        "mission": "ASQ-002"
+      },
+      "language": "sql"
+    }
+  ],
+  "auditedCourses": [
+    "technical-foundations",
+    "python-core"
+  ],
+  "$auditedComment": "Курсы, прошедшие ручной аудит порядка выдачи знаний. Для них нарушение — ошибка сборки. Для остальных — предупреждение, пока идёт массовая правка.",
+  "$languageComment": "Навык проверяется только в миссиях на своём языке: язык определяется по task.workspaceFile. «return» в Java — не питоновская функция.",
+  "languageByFile": {
+    "solution.py": "python",
+    "solution.sql": "sql"
+  }
+}
