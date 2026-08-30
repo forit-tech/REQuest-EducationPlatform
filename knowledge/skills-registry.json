@@ -456,12 +456,12 @@
       "id": "go-goroutines",
       "title": "Горутины",
       "detect": [
-        "go func",
-        "sync.WaitGroup"
+        "go ",
+        "go func"
       ],
       "introducedIn": {
         "course": "go-core-concurrency",
-        "mission": "GCC-011"
+        "mission": "GCC-003"
       },
       "language": "go"
     },
@@ -469,12 +469,13 @@
       "id": "go-channels",
       "title": "Каналы",
       "detect": [
+        "make(chan",
         "chan ",
         "<-"
       ],
       "introducedIn": {
         "course": "go-core-concurrency",
-        "mission": "GCC-011"
+        "mission": "GCC-005"
       },
       "language": "go"
     },
@@ -495,11 +496,11 @@
       "title": "Контекст и отмена",
       "detect": [
         "context.",
-        "ctx "
+        "ctx."
       ],
       "introducedIn": {
         "course": "go-core-concurrency",
-        "mission": "GCC-008"
+        "mission": "GCC-014"
       },
       "language": "go"
     },
@@ -975,10 +976,87 @@
         "mission": "SQL-023"
       },
       "language": "sql"
+    },
+    {
+      "id": "go-sleep",
+      "title": "Пауза выполнения",
+      "detect": [
+        "time.Sleep("
+      ],
+      "introducedIn": {
+        "course": "go-core-concurrency",
+        "mission": "GCC-003"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-buffered",
+      "title": "Буферизованный канал",
+      "detect": [
+        "cap("
+      ],
+      "introducedIn": {
+        "course": "go-core-concurrency",
+        "mission": "GCC-008"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-close",
+      "title": "Закрытие канала",
+      "detect": [
+        "close("
+      ],
+      "introducedIn": {
+        "course": "go-core-concurrency",
+        "mission": "GCC-009"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-waitgroup",
+      "title": "Счётчик ожидания",
+      "detect": [
+        "sync.WaitGroup",
+        "wg.Done()",
+        "wg.Wait()"
+      ],
+      "introducedIn": {
+        "course": "go-core-concurrency",
+        "mission": "GCC-011"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-timeout",
+      "title": "Ограничение ожидания по времени",
+      "detect": [
+        "time.After("
+      ],
+      "introducedIn": {
+        "course": "go-core-concurrency",
+        "mission": "GCC-013"
+      },
+      "language": "go"
+    },
+    {
+      "id": "go-mutex",
+      "title": "Мьютекс и защита состояния",
+      "detect": [
+        "sync.Mutex",
+        ".Lock()",
+        ".Unlock()"
+      ],
+      "introducedIn": {
+        "course": "go-core-concurrency",
+        "mission": "GCC-015"
+      },
+      "language": "go"
     }
   ],
   "auditedCourses": [
     "go-core",
+    "go-core-concurrency",
     "java-core",
     "javascript-core",
     "python-core",
