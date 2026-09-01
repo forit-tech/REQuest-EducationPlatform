@@ -1460,6 +1460,95 @@
         "mission": "RCT-019"
       },
       "language": "javascript"
+    },
+    {
+      "id": "react-children",
+      "title": "Композиция через children",
+      "detect": [
+        "{children}"
+      ],
+      "introducedIn": {
+        "course": "react-architecture",
+        "mission": "RCA-002"
+      },
+      "language": "react"
+    },
+    {
+      "id": "react-query",
+      "title": "Серверный запрос и query key",
+      "detect": [
+        "useQuery(",
+        "queryKey:"
+      ],
+      "introducedIn": {
+        "course": "react-architecture",
+        "mission": "RCA-005"
+      },
+      "language": "react"
+    },
+    {
+      "id": "react-mutation",
+      "title": "Мутация и инвалидирование кэша",
+      "detect": [
+        "useMutation(",
+        "useQueryClient(",
+        "invalidateQueries("
+      ],
+      "introducedIn": {
+        "course": "react-architecture",
+        "mission": "RCA-006"
+      },
+      "language": "react"
+    },
+    {
+      "id": "react-router",
+      "title": "Адресуемая маршрутизация",
+      "detect": [
+        "createBrowserRouter(",
+        "<Route "
+      ],
+      "introducedIn": {
+        "course": "react-architecture",
+        "mission": "RCA-008"
+      },
+      "language": "react"
+    },
+    {
+      "id": "react-lazy",
+      "title": "Ленивая загрузка маршрута",
+      "detect": [
+        "lazy(",
+        "<Suspense"
+      ],
+      "introducedIn": {
+        "course": "react-architecture",
+        "mission": "RCA-009"
+      },
+      "language": "react"
+    },
+    {
+      "id": "react-memo",
+      "title": "Мемоизация границы компонента",
+      "detect": [
+        "memo("
+      ],
+      "introducedIn": {
+        "course": "react-architecture",
+        "mission": "RCA-012"
+      },
+      "language": "react"
+    },
+    {
+      "id": "react-use-memo",
+      "title": "Мемоизация вычисления",
+      "detect": [
+        "useMemo("
+      ],
+      "introducedIn": {
+        "course": "react-architecture",
+        "mission": "RCA-012"
+      },
+      "language": "react"
     }
   ],
   "auditedCourses": [
@@ -1472,7 +1561,8 @@
     "python-core",
     "react-core",
     "technical-foundations",
-    "yaml-basics"
+    "yaml-basics",
+    "react-architecture"
   ],
   "$auditedComment": "Курсы, прошедшие ручной аудит порядка выдачи знаний. Для них нарушение — ошибка сборки. Для остальных — предупреждение, пока идёт массовая правка.",
   "$languageComment": "Язык миссии определяется по цепочке: расширение рабочего файла → поле language у миссии → поле technology у курса. Угадывания по содержимому нет намеренно: слово Promise внутри русского предложения и слово «исключения» в описании SLI давали ложные срабатывания.",
