@@ -100,18 +100,37 @@ try {
     if ($LASTEXITCODE -ne 0) { Fail 'Сборка не удалась. Приложение осталось на предыдущей версии.' }
     Say 'веб-сборка обновлена' 'Green' '  ✓ '
 
-    & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'package-desktop.ps1') | Out-Null
-    Say 'desktop-приложение пересобрано' 'Green' '  ✓ '
+    # Упакованная сборка хранит собственную копию dist, поэтому её нужно обновить явно.
+    # Полная переупаковка копировала бы среду Electron целиком и оставляла резервную папку
+    # на 400 МБ при каждом обновлении, поэтому обновляем только полезную нагрузку.
+    $packaged = @()
+    $releaseRoot = Join-Path $projectRoot 'release'
+    if (Test-Path -LiteralPath $releaseRoot) {
+        $packaged = Get-ChildItem -LiteralPath $releaseRoot -Directory |
+            Where-Object { $_.Name -notlike 'previous-desktop-*' } |
+            Where-Object { Test-Path -LiteralPath (Join-Path $_.FullName 'resources\app') }
+    }
 
-    $config = Join-Path $projectRoot 'release\REduQuest Desktop\resources\app\update-config.json'
-    if (Test-Path -LiteralPath (Split-Path -Parent $config)) {
-        [ordered]@{
-            projectRoot = $projectRoot
-            remote      = (& git remote get-url origin).Trim()
-            branch      = $branch
-            enabled     = $true
-            checkedAt   = (Get-Date).ToString('o')
-        } | ConvertTo-Json | Set-Content -LiteralPath $config -Encoding utf8
+    if ($packaged) {
+        & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'sync-desktop-payload.ps1') -Quiet
+        Say ("desktop-приложение обновлено (сборок: {0})" -f $packaged.Count) 'Green' '  ✓ '
+    } else {
+        & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'package-desktop.ps1') | Out-Null
+        Say 'desktop-приложение собрано впервые' 'Green' '  ✓ '
+    }
+
+    # Настройки обновления кладём в каждую упакованную сборку, а не в одну по имени:
+    # ярлык на рабочем столе может вести на любую из них.
+    $updateSettings = [ordered]@{
+        projectRoot = $projectRoot
+        remote      = (& git remote get-url origin).Trim()
+        branch      = $branch
+        enabled     = $true
+        checkedAt   = (Get-Date).ToString('o')
+    } | ConvertTo-Json
+    foreach ($app in $packaged) {
+        $config = Join-Path $app.FullName 'resources\app\update-config.json'
+        $updateSettings | Set-Content -LiteralPath $config -Encoding utf8
     }
 
     if (-not $NoRestart) {

@@ -1,6 +1,13 @@
 $ErrorActionPreference = 'SilentlyContinue'
 $projectRoot = Split-Path -Parent $PSScriptRoot
-$exePath = Join-Path $projectRoot 'release\REduQuest Desktop\REduQuest.exe'
+# Ярлык на рабочем столе может вести на любую упакованную сборку, поэтому берём ту,
+# что обновлялась последней, а не одну жёстко заданную по имени.
+$releaseRoot = Join-Path $projectRoot 'release'
+$exePath = Get-ChildItem -LiteralPath $releaseRoot -Directory -ErrorAction SilentlyContinue |
+    Where-Object { $_.Name -notlike 'previous-desktop-*' } |
+    ForEach-Object { Get-ChildItem -LiteralPath $_.FullName -Filter '*.exe' -ErrorAction SilentlyContinue } |
+    Sort-Object LastWriteTime -Descending |
+    Select-Object -First 1 -ExpandProperty FullName
 
 if (-not (Test-Path -LiteralPath $exePath)) { exit 1 }
 
