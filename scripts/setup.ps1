@@ -158,7 +158,7 @@ Invoke-Step 'build' {
         if ($LASTEXITCODE -ne 0) { throw "Сборка не удалась (код $LASTEXITCODE)" }
         Write-Ok 'веб-сборка готова'
         & powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'package-desktop.ps1') | Out-Null
-        $exe = Join-Path $projectRoot 'release\REduQuest Desktop\REduQuest.exe'
+        $exe = Join-Path $projectRoot 'release\REQuest Desktop\REQuest.exe'
         if (-not (Test-Path -LiteralPath $exe)) { throw 'Desktop-сборка не создана' }
         $sizeMb = [math]::Round(((Get-ChildItem -LiteralPath (Split-Path -Parent $exe) -Recurse -File | Measure-Object Length -Sum).Sum / 1MB), 0)
         Write-Ok "desktop-приложение собрано ($sizeMb МБ)"
@@ -195,7 +195,7 @@ Invoke-Step 'autoupdate' {
             enabled     = $true
             checkedAt   = (Get-Date).ToString('o')
         }
-        $target = Join-Path $projectRoot 'release\REduQuest Desktop\resources\app\update-config.json'
+        $target = Join-Path $projectRoot 'release\REQuest Desktop\resources\app\update-config.json'
         New-Item -ItemType Directory -Force -Path (Split-Path -Parent $target) | Out-Null
         $config | ConvertTo-Json | Set-Content -LiteralPath $target -Encoding utf8
         Write-Ok "ветка обновлений: $branch"
@@ -222,7 +222,7 @@ Write-Host ''
 Write-Host "  Всего: $elapsed с" -ForegroundColor DarkGray
 Write-Host ''
 Write-Host '  Запуск:      ' -ForegroundColor DarkGray -NoNewline
-Write-Host 'ярлык REduQuest на рабочем столе' -ForegroundColor White
+Write-Host 'ярлык REQuest на рабочем столе' -ForegroundColor White
 Write-Host '  Обновление:  ' -ForegroundColor DarkGray -NoNewline
 Write-Host 'npm run update' -ForegroundColor White
 Write-Host '  Разработка:  ' -ForegroundColor DarkGray -NoNewline
