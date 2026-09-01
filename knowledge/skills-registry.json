@@ -770,7 +770,7 @@
       ],
       "introducedIn": {
         "course": "javascript-core",
-        "mission": "JSC-009"
+        "mission": "JSC-010"
       },
       "language": "javascript"
     },
@@ -783,7 +783,7 @@
       ],
       "introducedIn": {
         "course": "javascript-core",
-        "mission": "JSC-010"
+        "mission": "JSC-011"
       },
       "language": "javascript"
     },
@@ -795,7 +795,7 @@
       ],
       "introducedIn": {
         "course": "javascript-core",
-        "mission": "JSC-011"
+        "mission": "JSC-012"
       },
       "language": "javascript"
     },
@@ -808,7 +808,7 @@
       ],
       "introducedIn": {
         "course": "javascript-core",
-        "mission": "JSC-013"
+        "mission": "JSC-014"
       },
       "language": "javascript"
     },
@@ -820,7 +820,7 @@
       ],
       "introducedIn": {
         "course": "javascript-core",
-        "mission": "JSC-013"
+        "mission": "JSC-014"
       },
       "language": "javascript"
     },
@@ -834,7 +834,7 @@
       ],
       "introducedIn": {
         "course": "javascript-core",
-        "mission": "JSC-014"
+        "mission": "JSC-015"
       },
       "language": "javascript"
     },
@@ -847,7 +847,7 @@
       ],
       "introducedIn": {
         "course": "javascript-core",
-        "mission": "JSC-015"
+        "mission": "JSC-016"
       },
       "language": "javascript"
     },
@@ -856,38 +856,11 @@
       "title": "Промисы и async/await",
       "detect": [
         "async ",
-        "await ",
-        "Promise"
+        "await "
       ],
       "introducedIn": {
         "course": "javascript-core",
-        "mission": "JSC-017"
-      },
-      "language": "javascript"
-    },
-    {
-      "id": "react-jsx",
-      "title": "JSX-разметка",
-      "detect": [
-        "</",
-        "/>"
-      ],
-      "introducedIn": {
-        "course": "react-core",
-        "mission": "RCT-002"
-      },
-      "language": "javascript"
-    },
-    {
-      "id": "react-hooks",
-      "title": "Хуки состояния и эффектов",
-      "detect": [
-        "useState(",
-        "useEffect("
-      ],
-      "introducedIn": {
-        "course": "react-core",
-        "mission": "RCT-005"
+        "mission": "JSC-019"
       },
       "language": "javascript"
     },
@@ -1283,6 +1256,210 @@
         "mission": "GPR-014"
       },
       "language": "go"
+    },
+    {
+      "id": "js-equality",
+      "title": "Строгое и нестрогое сравнение",
+      "detect": [
+        "===",
+        "!=="
+      ],
+      "introducedIn": {
+        "course": "javascript-core",
+        "mission": "JSC-009"
+      },
+      "language": "javascript"
+    },
+    {
+      "id": "js-promise",
+      "title": "Обещания",
+      "detect": [
+        "new Promise(",
+        ".then(",
+        ".catch("
+      ],
+      "introducedIn": {
+        "course": "javascript-core",
+        "mission": "JSC-017"
+      },
+      "language": "javascript"
+    },
+    {
+      "id": "jsx-element",
+      "title": "Элемент JSX",
+      "detect": [
+        "</",
+        "/>",
+        "<article",
+        "<h2",
+        "<ul",
+        "<li",
+        "<form",
+        "<input",
+        "<button",
+        "<div",
+        "<p>",
+        "<span"
+      ],
+      "introducedIn": {
+        "course": "react-core",
+        "mission": "RCT-003"
+      },
+      "language": "jsx"
+    },
+    {
+      "id": "jsx-component",
+      "title": "Компонент в разметке",
+      "detect": [
+        "<Order",
+        "<Counter",
+        "<Comment",
+        "<Timer"
+      ],
+      "introducedIn": {
+        "course": "react-core",
+        "mission": "RCT-006"
+      },
+      "language": "jsx"
+    },
+    {
+      "id": "jsx-attribute",
+      "title": "Выражение в атрибуте",
+      "detect": [
+        "={"
+      ],
+      "introducedIn": {
+        "course": "react-core",
+        "mission": "RCT-007"
+      },
+      "language": "jsx"
+    },
+    {
+      "id": "jsx-conditional",
+      "title": "Условие в разметке",
+      "detect": [
+        " ? ",
+        " : ",
+        " ?"
+      ],
+      "introducedIn": {
+        "course": "react-core",
+        "mission": "RCT-012"
+      },
+      "language": "jsx"
+    },
+    {
+      "id": "react-state",
+      "title": "Состояние компонента",
+      "detect": [
+        "useState("
+      ],
+      "introducedIn": {
+        "course": "react-core",
+        "mission": "RCT-010"
+      },
+      "language": "react"
+    },
+    {
+      "id": "react-events",
+      "title": "Обработчики событий",
+      "detect": [
+        "onClick=",
+        "onChange=",
+        "onSubmit="
+      ],
+      "introducedIn": {
+        "course": "react-core",
+        "mission": "RCT-009"
+      },
+      "language": "react"
+    },
+    {
+      "id": "react-keys",
+      "title": "Ключи элементов списка",
+      "detect": [
+        "key="
+      ],
+      "introducedIn": {
+        "course": "react-core",
+        "mission": "RCT-013"
+      },
+      "language": "react"
+    },
+    {
+      "id": "react-controlled",
+      "title": "Управляемое поле",
+      "detect": [
+        "value={"
+      ],
+      "introducedIn": {
+        "course": "react-core",
+        "mission": "RCT-015"
+      },
+      "language": "react"
+    },
+    {
+      "id": "react-form-submit",
+      "title": "Отправка формы",
+      "detect": [
+        "preventDefault()"
+      ],
+      "introducedIn": {
+        "course": "react-core",
+        "mission": "RCT-016"
+      },
+      "language": "react"
+    },
+    {
+      "id": "react-effect",
+      "title": "Эффекты",
+      "detect": [
+        "useEffect("
+      ],
+      "introducedIn": {
+        "course": "react-core",
+        "mission": "RCT-017"
+      },
+      "language": "react"
+    },
+    {
+      "id": "react-deps",
+      "title": "Массив зависимостей",
+      "detect": [
+        ", [])"
+      ],
+      "introducedIn": {
+        "course": "react-core",
+        "mission": "RCT-017"
+      },
+      "language": "react"
+    },
+    {
+      "id": "react-cleanup",
+      "title": "Очистка эффекта",
+      "detect": [
+        "return () =>"
+      ],
+      "introducedIn": {
+        "course": "react-core",
+        "mission": "RCT-019"
+      },
+      "language": "react"
+    },
+    {
+      "id": "js-timers",
+      "title": "Таймеры браузера",
+      "detect": [
+        "setInterval(",
+        "clearInterval(",
+        "setTimeout(",
+        "clearTimeout("
+      ],
+      "introducedIn": {
+        "course": "react-core",
+        "mission": "RCT-019"
+      },
+      "language": "javascript"
     }
   ],
   "auditedCourses": [
@@ -1293,6 +1470,7 @@
     "java-core",
     "javascript-core",
     "python-core",
+    "react-core",
     "technical-foundations",
     "yaml-basics"
   ],
@@ -1310,5 +1488,13 @@
   },
   "$detectComment": "Навык ищется только в коде: перед сопоставлением из проверки убираются комментарии и содержимое строковых литералов. Иначе «return» в русском тексте считался бы требованием к синтаксису.",
   "$coverageComment": "Литерал объекта в JavaScript и вложенность отступом в YAML не зарегистрированы: у них нет надёжного подстрочного признака. Их порядок проверяется вручную в эталонных курсах.",
-  "$uncoveredComment": "Намеренно не покрыты: точка с запятой в SQL и заготовки Artifact/Steps из прежнего шаблона — это не конструкции языка и порядка выдачи знаний не задают."
+  "$uncoveredComment": "Намеренно не покрыты: точка с запятой в SQL и заготовки Artifact/Steps из прежнего шаблона — это не конструкции языка и порядка выдачи знаний не задают.",
+  "extraLanguagesByExtension": {
+    ".jsx": [
+      "jsx",
+      "react"
+    ]
+  },
+  "$layersComment": "Файл .js несёт только язык. Файл .jsx несёт язык, синтаксис JSX и React API — это три разных слоя знаний, и вводятся они в разных курсах. Очистка от строк и комментариев идёт по правилам основного языка файла.",
+  "$namesComment": "Имена переменных и установщиков состояния (setCount, setLoading) навыками не считаются: это названия из задания, а не конструкции языка."
 }

@@ -217,6 +217,14 @@ const languageOf = (mission, course) =>
   ?? course?.technology
   ?? null
 
+// Один файл может нести несколько слоёв знаний: .jsx — это язык, JSX и React API.
+const EXTRA_LANGUAGES = skillsRegistry.extraLanguagesByExtension ?? {}
+const languagesOf = (mission, course) => {
+  const primary = languageOf(mission, course)
+  if (!primary) return []
+  return [primary, ...(EXTRA_LANGUAGES[extensionOf(mission.task?.workspaceFile)] ?? [])]
+}
+
 const COMMENTS = { python: /#.*$/gm, sql: /--.*$/gm, yaml: /#.*$/gm,
   go: /\/\/.*$/gm, java: /\/\/.*$/gm, javascript: /\/\/.*$/gm }
 const STRINGS = { python: /"[^"]*"|'[^']*'/g, sql: /'[^']*'/g, yaml: /"[^"]*"|'[^']*'/g,
@@ -226,11 +234,13 @@ const codeOnly = (fragment, language) => {
   const withoutComments = fragment.replace(COMMENTS[language] ?? /$^/g, ' ')
   return withoutComments.replace(STRINGS[language] ?? /$^/g, match => match[0] + match[0])
 }
-const skillFor = (fragment, language) => {
-  if (!language) return []
-  const code = codeOnly(fragment, language)
+const skillFor = (fragment, languages) => {
+  const layers = Array.isArray(languages) ? languages : [languages].filter(Boolean)
+  if (!layers.length) return []
+  // Очистка от строк и комментариев идёт по правилам основного языка файла.
+  const code = codeOnly(fragment, layers[0])
   return skillsRegistry.skills.filter(skill =>
-    skill.language === language && skill.detect.some(token => usesToken(code, token)))
+    layers.includes(skill.language) && skill.detect.some(token => usesToken(code, token)))
 }
 const auditedCourses = new Set(skillsRegistry.auditedCourses ?? [])
 const pendingKnowledgeGaps = new Set()
@@ -252,7 +262,7 @@ for (const program of professionPrograms) {
   })
   sequence.forEach(({ courseId, course, mission }, index) => {
     const required = new Set()
-    const language = languageOf(mission, course)
+    const language = languagesOf(mission, course)
     if (language) for (const check of mission.task?.codeChecks ?? []) for (const skill of skillFor(check.includes, language)) required.add(skill.id)
     for (const skillId of required) {
       const at = introducedAt.get(skillId)

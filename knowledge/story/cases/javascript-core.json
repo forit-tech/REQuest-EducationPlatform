@@ -98,7 +98,7 @@
       "title": "Копия или ссылка",
       "trigger": {
         "on": "beforeMission",
-        "missionId": "JSC-013"
+        "missionId": "JSC-014"
       },
       "beats": [
         {
@@ -144,7 +144,7 @@
       "title": "Пустой экран объяснён",
       "trigger": {
         "on": "afterMission",
-        "missionId": "JSC-016"
+        "missionId": "JSC-018"
       },
       "beats": [
         {
