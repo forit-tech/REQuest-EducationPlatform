@@ -1,0 +1,91 @@
+name: Windows Release
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'electron-builder.yml'
+      - '.github/workflows/windows-release.yml'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'electron/**'
+      - 'src/**'
+      - 'public/**'
+      - 'assets/**'
+      - 'scripts/validate-content.mjs'
+      - 'scripts/validate-curriculum.mjs'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+    env:
+      CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Validate and build web app
+        run: npm run build
+
+      - name: Build Windows installer
+        shell: pwsh
+        run: npx --yes electron-builder@latest --win nsis --x64 --publish never
+
+      - name: Verify installer
+        shell: pwsh
+        run: |
+          $installer = Get-ChildItem -Path dist -Filter 'REduQuest-Setup-*.exe' -File | Select-Object -First 1
+          if (-not $installer) { throw 'REduQuest Setup.exe was not produced' }
+          if ($installer.Length -lt 50MB) { throw "Installer looks too small: $([math]::Round($installer.Length / 1MB, 1)) MB" }
+          Write-Host "Installer: $($installer.FullName)"
+          Write-Host "Size: $([math]::Round($installer.Length / 1MB, 1)) MB"
+          "INSTALLER_PATH=$($installer.FullName)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          "INSTALLER_NAME=$($installer.Name)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: REduQuest-Windows-Setup
+          path: ${{ env.INSTALLER_PATH }}
+          if-no-files-found: error
+
+      - name: Create or update GitHub release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $version = (Get-Content package.json | ConvertFrom-Json).version
+          $tag = "v$version"
+          $notes = @"
+          ## REduQuest $tag
+
+          Windows x64 installer for REduQuest.
+
+          ### Installation
+          1. Download **$env:INSTALLER_NAME** below.
+          2. Run the installer.
+          3. Choose the installation folder if needed.
+          4. Launch REduQuest from the desktop or Start menu shortcut.
+
+          No Node.js, npm, Git, or source checkout is required for normal use.
+          "@
+
+          gh release view $tag *> $null
+          if ($LASTEXITCODE -ne 0) {
+            gh release create $tag --target $env:GITHUB_SHA --title "REduQuest $tag" --notes $notes
+          }
+          gh release upload $tag $env:INSTALLER_PATH --clobber
