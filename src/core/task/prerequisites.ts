@@ -26,9 +26,16 @@ export function skillGraph(nodes: SkillNode[]): SkillGraph {
   return Object.fromEntries(nodes.map(node => [node.id, node]))
 }
 
-/** Все предпосылки навыка вглубь, от ближайших к дальним. Циклы не зацикливают. */
+/**
+ * Все предпосылки навыка вглубь, от ближайших к дальним.
+ *
+ * Начальный навык намеренно не помечается просмотренным заранее: если граф
+ * зациклен, он вернётся в цепочку, и именно по этому цикл и обнаруживается.
+ * В корректном графе вернуться к самому себе нельзя, поэтому поведение для
+ * здоровых данных не меняется.
+ */
 export function prerequisiteChain(graph: SkillGraph, skillId: string): string[] {
-  const seen = new Set<string>([skillId])
+  const seen = new Set<string>()
   const chain: string[] = []
   let frontier = graph[skillId]?.prerequisites ?? []
   while (frontier.length) {

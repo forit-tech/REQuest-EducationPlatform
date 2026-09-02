@@ -1,0 +1,141 @@
+/*
+ * Режим входной диагностики.
+ *
+ * Отдельный экран со своим спокойным ритмом: здесь человека не развлекают, а
+ * выясняют, что он умеет. Ни прогресс-баров с выдуманным знаменателем, ни
+ * поздравительных модалок.
+ */
+
+.diagnostic-mode {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: #060e17;
+  color: #e6eef6;
+  overflow: hidden;
+  --dg-line: #1b2c3e;
+  --dg-panel: #0b1622;
+}
+
+.dg-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  padding: 16px 26px; border-bottom: 1px solid var(--dg-line); background: var(--dg-panel);
+}
+.dg-head strong { display: block; font-size: 15px; font-weight: 600; margin-top: 4px; }
+.dg-eyebrow {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: .13em;
+  text-transform: uppercase; color: #6d8698;
+}
+.dg-progress { display: flex; align-items: center; gap: 18px; font-size: 13px; color: #9db2c5; }
+.dg-progress b { color: #e6eef6; font-family: "JetBrains Mono", monospace; }
+.dg-progress button {
+  background: none; border: 1px solid var(--dg-line); border-radius: 9px;
+  width: 34px; height: 34px; display: grid; place-items: center; color: #9db2c5; cursor: pointer;
+}
+.dg-progress button:hover { color: #e6eef6; border-color: #2b445d; }
+
+.dg-intro, .dg-result { overflow-y: auto; padding: 44px 32px 60px; }
+.dg-intro { max-width: 720px; margin: 0 auto; }
+.dg-intro h1, .dg-result h1 { font-size: 27px; font-weight: 800; letter-spacing: -.02em; margin: 0 0 16px; }
+.dg-intro p { font-size: 15.5px; line-height: 1.65; color: #b9cbdb; margin: 0 0 14px; }
+.dg-note { font-size: 14px; color: #8ba3b8; border-left: 2px solid #38b6ff; padding-left: 14px; }
+.dg-start, .dg-submit {
+  display: inline-flex; align-items: center; gap: 9px; margin-top: 12px;
+  background: #38b6ff; color: #04121d; border: 0; border-radius: 10px;
+  padding: 12px 20px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;
+}
+.dg-start:hover, .dg-submit:hover:not(:disabled) { background: #5cc4ff; }
+.dg-submit:disabled { opacity: .4; cursor: not-allowed; }
+.dg-skip {
+  background: none; border: 1px solid var(--dg-line); border-radius: 10px; color: #9db2c5;
+  padding: 12px 18px; font-size: 14px; cursor: pointer; font-family: inherit;
+}
+.dg-skip:hover { color: #e6eef6; border-color: #2b445d; }
+.dg-start:focus-visible, .dg-submit:focus-visible, .dg-skip:focus-visible { outline: 2px solid #38b6ff; outline-offset: 2px; }
+
+/* --- проба --- */
+
+.dg-probe { display: grid; grid-template-rows: 1fr auto; min-height: 0; }
+.dg-probe-body { overflow-y: auto; padding: 40px 32px 32px; width: min(760px, 100%); margin: 0 auto; }
+.dg-probe h2 { font-size: 22px; font-weight: 700; letter-spacing: -.01em; margin: 10px 0 14px; }
+.dg-prompt { font-size: 16px; line-height: 1.62; color: #cfdeea; margin: 0 0 22px; max-width: 64ch; }
+.dg-code {
+  margin: 0 0 22px; padding: 14px 16px; border: 1px solid var(--dg-line); border-radius: 10px;
+  background: #08111b; overflow-x: auto;
+}
+.dg-code code { font-family: "JetBrains Mono", monospace; font-size: 12.5px; line-height: 1.65; color: #dbe7f2; }
+
+.dg-options { display: grid; gap: 10px; }
+.dg-options button {
+  text-align: left; padding: 14px 16px; border-radius: 11px; cursor: pointer; font-family: inherit;
+  border: 1px solid var(--dg-line); background: var(--dg-panel); color: #b9cbdb; font-size: 14.5px; line-height: 1.5;
+}
+.dg-options button:hover { border-color: #2b445d; color: #e6eef6; }
+.dg-options button.active { border-color: #38b6ff; background: rgba(56, 182, 255, .09); color: #ffffff; }
+.dg-options button:focus-visible { outline: 2px solid #38b6ff; outline-offset: 2px; }
+
+.dg-numeric { display: flex; flex-wrap: wrap; gap: 14px; }
+.dg-numeric label, .dg-text { display: grid; gap: 6px; }
+.dg-numeric span, .dg-text span { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #6d8698; }
+.dg-numeric input, .dg-text input {
+  background: #08111b; border: 1px solid var(--dg-line); border-radius: 10px; padding: 11px 14px;
+  color: #e6eef6; font-family: "JetBrains Mono", monospace; font-size: 14px; min-width: 180px;
+}
+.dg-numeric input:focus, .dg-text input:focus { outline: none; border-color: #38b6ff; }
+.dg-unsupported { color: #f5b544; font-size: 14px; }
+
+.dg-feedback { margin-top: 20px; padding: 14px 16px; border-radius: 10px; border: 1px solid; }
+.dg-feedback.ok { border-color: rgba(70, 209, 139, .35); background: rgba(70, 209, 139, .08); color: #46d18b; }
+.dg-feedback.bad { border-color: rgba(245, 181, 68, .35); background: rgba(245, 181, 68, .07); color: #f5b544; }
+.dg-feedback p { margin: 5px 0 0; font-size: 14px; line-height: 1.55; color: #b9cbdb; }
+
+.dg-probe-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  padding: 14px 32px; border-top: 1px solid var(--dg-line); background: var(--dg-panel);
+}
+.dg-probe-foot > span { font-size: 13px; color: #6d8698; }
+.dg-probe-foot > div { display: flex; gap: 10px; }
+
+/* --- итог --- */
+
+.dg-result { max-width: 1000px; margin: 0 auto; }
+.dg-columns { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin: 26px 0; }
+.dg-list { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 7px; font-size: 14px; }
+.dg-list li { padding-left: 14px; position: relative; color: #b9cbdb; }
+.dg-list li::before { content: ""; position: absolute; left: 0; top: .55em; width: 6px; height: 6px; border-radius: 2px; }
+.dg-list.ok li::before { background: #46d18b; }
+.dg-list.bad li::before { background: #ff5f5a; }
+.dg-list.muted li::before { background: #4b6076; }
+.dg-list li em { display: block; font-style: normal; font-size: 11.5px; color: #6d8698; margin-top: 2px; }
+.dg-empty { color: #6d8698; font-size: 13.5px; margin: 10px 0 0; }
+
+.dg-runtime {
+  display: flex; gap: 12px; padding: 14px 16px; border-radius: 10px; margin-bottom: 24px;
+  border: 1px solid rgba(245, 181, 68, .3); background: rgba(245, 181, 68, .06); color: #f5b544;
+}
+.dg-runtime p { margin: 0; font-size: 13.5px; line-height: 1.55; color: #c8b284; }
+
+.dg-plan ol { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 12px; counter-reset: step; }
+.dg-plan li {
+  border: 1px solid var(--dg-line); border-radius: 12px; padding: 16px 18px; background: var(--dg-panel);
+  border-left-width: 3px;
+}
+.dg-plan li.now { border-left-color: #38b6ff; }
+.dg-plan li.later { border-left-color: #4b6076; }
+.dg-plan li > div { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+.dg-plan li strong { font-size: 15px; }
+.dg-plan li > div span { font-family: "JetBrains Mono", monospace; font-size: 11px; color: #6d8698; text-transform: uppercase; letter-spacing: .1em; }
+.dg-plan li p { margin: 0; font-size: 13.5px; line-height: 1.55; color: #9db2c5; }
+
+.dg-result-actions { display: flex; gap: 12px; margin-top: 30px; }
+
+@media (max-width: 720px) {
+  .dg-head { flex-direction: column; align-items: flex-start; }
+  .dg-progress { flex-wrap: wrap; gap: 12px; }
+  .dg-probe-body, .dg-intro, .dg-result { padding: 26px 18px 40px; }
+  .dg-probe-foot { flex-direction: column; align-items: stretch; padding: 14px 18px; }
+  .dg-probe-foot > div button { flex: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .diagnostic-mode * { transition: none !important; animation: none !important; } }

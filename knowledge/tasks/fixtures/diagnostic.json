@@ -1,0 +1,214 @@
+[
+  {
+    "id": "dg-viterbi-app",
+    "title": "Шаг Витерби",
+    "intent": "calculation",
+    "difficulty": "L3",
+    "prompt": "Скрытая марковская модель: состояния {Дождь, Ясно}, начальные вероятности 0.6 и 0.4, вероятности наблюдения «зонт» 0.9 и 0.2. Чему равно δ₁(Дождь)?",
+    "response": { "kind": "numeric", "fields": [{ "id": "delta", "label": "δ₁(Дождь)" }] },
+    "evaluation": { "type": "numeric", "expected": [{ "field": "delta", "value": 0.54, "tolerance": { "kind": "absolute", "value": 0.001 } }] },
+    "evidences": ["calculation", "understanding"],
+    "topicId": "math.probability",
+    "skills": [
+      { "skillId": "viterbi", "role": "primary" },
+      { "skillId": "hmm", "role": "secondary" },
+      { "skillId": "dynamic-programming", "role": "secondary" }
+    ],
+    "explanation": "δ₁(s) = π(s) · b(s, наблюдение) = 0.6 · 0.9 = 0.54."
+  },
+  {
+    "id": "dg-hmm-understanding",
+    "title": "Что скрыто в скрытой марковской модели",
+    "intent": "practice",
+    "difficulty": "L1",
+    "prompt": "Что именно в скрытой марковской модели ненаблюдаемо?",
+    "response": {
+      "kind": "choice", "select": "one",
+      "options": [
+        { "id": "states", "text": "Последовательность состояний" },
+        { "id": "obs", "text": "Последовательность наблюдений" },
+        { "id": "both", "text": "И состояния, и наблюдения" }
+      ]
+    },
+    "evaluation": { "type": "choice", "correct": ["states"] },
+    "evidences": ["recall", "understanding"],
+    "topicId": "math.probability",
+    "skills": [{ "skillId": "hmm", "role": "primary" }],
+    "explanation": "Наблюдения даны, а порождающая их цепочка состояний — нет. Именно её и восстанавливает Витерби."
+  },
+  {
+    "id": "dg-dp-calc",
+    "title": "Перекрывающиеся подзадачи",
+    "intent": "calculation",
+    "difficulty": "L2",
+    "prompt": "Наивная рекурсия для чисел Фибоначчи вызывает fib(3) при вычислении fib(6). Сколько раз она это делает?",
+    "response": { "kind": "numeric", "fields": [{ "id": "calls", "label": "Число вызовов fib(3)" }] },
+    "evaluation": { "type": "numeric", "expected": [{ "field": "calls", "value": 3 }] },
+    "evidences": ["calculation", "understanding"],
+    "topicId": "cs.algorithms",
+    "skills": [{ "skillId": "dynamic-programming", "role": "primary" }, { "skillId": "recursion", "role": "secondary" }],
+    "explanation": "fib(6) → fib(5)+fib(4); fib(5) → fib(4)+fib(3); каждое fib(4) → fib(3)+fib(2). Итого fib(3) считается трижды — ровно это и устраняет запоминание."
+  },
+  {
+    "id": "dg-dp-understanding",
+    "title": "Когда динамическое программирование применимо",
+    "intent": "practice",
+    "difficulty": "L1",
+    "prompt": "Какое свойство задачи обязательно для применения динамического программирования?",
+    "response": {
+      "kind": "choice", "select": "one",
+      "options": [
+        { "id": "optimal", "text": "Оптимальное решение складывается из оптимальных решений подзадач" },
+        { "id": "sorted", "text": "Входные данные отсортированы" },
+        { "id": "linear", "text": "Ответ вычисляется за линейное время" }
+      ]
+    },
+    "evaluation": { "type": "choice", "correct": ["optimal"] },
+    "evidences": ["recall"],
+    "topicId": "cs.algorithms",
+    "skills": [{ "skillId": "dynamic-programming", "role": "primary" }],
+    "explanation": "Нужны оптимальная подструктура и перекрывающиеся подзадачи. Без первого запоминание не даст верного ответа, без второго — не даст выигрыша."
+  },
+  {
+    "id": "dg-conditional-calc",
+    "title": "Формула Байеса",
+    "intent": "calculation",
+    "difficulty": "L2",
+    "prompt": "Болезнь встречается у 1% людей. Тест даёт положительный результат у 90% больных и у 9% здоровых. Какова вероятность болезни при положительном тесте? Ответ округлите до сотых.",
+    "response": { "kind": "numeric", "fields": [{ "id": "p", "label": "P(болен | тест положительный)" }] },
+    "evaluation": { "type": "numeric", "expected": [{ "field": "p", "value": 0.0917, "tolerance": { "kind": "absolute", "value": 0.01 } }] },
+    "evidences": ["calculation"],
+    "topicId": "math.probability",
+    "skills": [{ "skillId": "conditional-probability", "role": "primary" }, { "skillId": "probability", "role": "secondary" }],
+    "explanation": "0.01·0.9 / (0.01·0.9 + 0.99·0.09) = 0.009 / 0.0981 ≈ 0.092. Редкость болезни важнее точности теста."
+  },
+  {
+    "id": "dg-probability-recognition",
+    "title": "Сумма вероятностей",
+    "intent": "practice",
+    "difficulty": "L0",
+    "prompt": "Чему равна сумма вероятностей всех исходов полной группы событий?",
+    "response": { "kind": "numeric", "fields": [{ "id": "sum", "label": "Сумма" }] },
+    "evaluation": { "type": "numeric", "expected": [{ "field": "sum", "value": 1 }] },
+    "evidences": ["recall"],
+    "topicId": "math.probability",
+    "skills": [{ "skillId": "probability", "role": "primary" }],
+    "explanation": "Полная группа покрывает всё пространство исходов, поэтому сумма равна единице."
+  },
+  {
+    "id": "dg-eigenvalues-app",
+    "title": "Собственные числа",
+    "intent": "calculation",
+    "difficulty": "L3",
+    "prompt": "Найдите собственные числа матрицы [[2, 1], [1, 2]]. Порядок не важен.",
+    "response": { "kind": "numeric", "fields": [{ "id": "a", "label": "Первое" }, { "id": "b", "label": "Второе" }] },
+    "evaluation": {
+      "type": "numeric", "orderSensitive": false,
+      "expected": [
+        { "field": "a", "value": 3, "tolerance": { "kind": "absolute", "value": 0.001 } },
+        { "field": "b", "value": 1, "tolerance": { "kind": "absolute", "value": 0.001 } }
+      ]
+    },
+    "evidences": ["calculation"],
+    "topicId": "math.linear-algebra",
+    "skills": [
+      { "skillId": "eigenvalues", "role": "primary" },
+      { "skillId": "determinants", "role": "secondary" },
+      { "skillId": "matrices", "role": "secondary" }
+    ],
+    "explanation": "det(A − λE) = λ² − 4λ + 3, корни 1 и 3."
+  },
+  {
+    "id": "dg-determinants-calc",
+    "title": "Определитель 2×2",
+    "intent": "calculation",
+    "difficulty": "L2",
+    "prompt": "Чему равен определитель матрицы [[3, 4], [1, 2]]?",
+    "response": { "kind": "numeric", "fields": [{ "id": "det", "label": "Определитель" }] },
+    "evaluation": { "type": "numeric", "expected": [{ "field": "det", "value": 2 }] },
+    "evidences": ["calculation"],
+    "topicId": "math.linear-algebra",
+    "skills": [{ "skillId": "determinants", "role": "primary" }],
+    "explanation": "3·2 − 4·1 = 2."
+  },
+  {
+    "id": "dg-matrices-recognition",
+    "title": "Размер произведения матриц",
+    "intent": "practice",
+    "difficulty": "L0",
+    "prompt": "Матрица A имеет размер 3×5, матрица B — 5×2. Какого размера будет произведение AB?",
+    "response": {
+      "kind": "choice", "select": "one",
+      "options": [
+        { "id": "3x2", "text": "3×2" },
+        { "id": "5x5", "text": "5×5" },
+        { "id": "none", "text": "Произведение не определено" }
+      ]
+    },
+    "evaluation": { "type": "choice", "correct": ["3x2"] },
+    "evidences": ["recall"],
+    "topicId": "math.linear-algebra",
+    "skills": [{ "skillId": "matrices", "role": "primary" }],
+    "explanation": "Внутренние размерности совпадают, внешние дают размер результата: 3×2."
+  },
+  {
+    "id": "dg-backprop-understanding",
+    "title": "Основа обратного распространения",
+    "intent": "practice",
+    "difficulty": "L2",
+    "prompt": "На каком правиле дифференцирования держится обратное распространение ошибки?",
+    "response": {
+      "kind": "choice", "select": "one",
+      "options": [
+        { "id": "chain", "text": "На правиле дифференцирования сложной функции" },
+        { "id": "product", "text": "На правиле дифференцирования произведения" },
+        { "id": "lhopital", "text": "На правиле Лопиталя" }
+      ]
+    },
+    "evaluation": { "type": "choice", "correct": ["chain"] },
+    "evidences": ["recall", "understanding"],
+    "topicId": "dl.training",
+    "skills": [{ "skillId": "backprop", "role": "primary" }, { "skillId": "chain-rule", "role": "secondary" }],
+    "explanation": "Градиент по весу собирается перемножением частных производных вдоль пути в графе вычислений — это цепное правило."
+  },
+  {
+    "id": "dg-gradient-output",
+    "title": "Направление шага",
+    "intent": "output-prediction",
+    "difficulty": "L2",
+    "prompt": "Не запуская код, укажите, к чему сойдётся x.",
+    "presentation": {
+      "readOnlyCode": [{
+        "path": "descent.py", "language": "python", "editable": false,
+        "content": "x = 1.0\nfor _ in range(200):\n    gradient = 2 * x\n    x = x - 0.1 * gradient\nprint(round(x, 3))\n"
+      }],
+      "expectedFormat": "Одно число"
+    },
+    "response": { "kind": "text", "placeholder": "0.0" },
+    "evaluation": { "type": "text", "accept": [{ "kind": "one-of", "values": ["0", "0.0", "0.000"] }] },
+    "evidences": ["understanding"],
+    "topicId": "ml.optimization",
+    "skills": [{ "skillId": "gradient-descent", "role": "primary" }, { "skillId": "gradient", "role": "secondary" }],
+    "explanation": "Шаг против градиента для f(x) = x² сходится к минимуму в нуле."
+  },
+  {
+    "id": "dg-sql-negative-control",
+    "title": "Соединение таблиц",
+    "intent": "practice",
+    "difficulty": "L2",
+    "prompt": "Что вернёт LEFT JOIN, если в правой таблице нет совпадений?",
+    "response": {
+      "kind": "choice", "select": "one",
+      "options": [
+        { "id": "nulls", "text": "Строку левой таблицы с NULL в столбцах правой" },
+        { "id": "skip", "text": "Ничего: строка не попадёт в результат" },
+        { "id": "error", "text": "Ошибку выполнения" }
+      ]
+    },
+    "evaluation": { "type": "choice", "correct": ["nulls"] },
+    "evidences": ["recall"],
+    "topicId": "data.sql",
+    "skills": [{ "skillId": "llm-rag", "role": "primary" }],
+    "explanation": "Контрольная проба: SQL нужен профессионально, но в официальном списке вопросов ИТМО его нет. В область вступительной диагностики она попадать не должна."
+  }
+]

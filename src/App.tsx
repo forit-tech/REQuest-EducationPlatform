@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   ArrowLeft, ArrowRight, BookOpen, Boxes, Check, ChevronRight, CircleDot,
-  Code2, Database, Flame, FlaskConical, Hexagon, Home, Info, Layers3, LockKeyhole,
+  Code2, Compass, Database, Flame, FlaskConical, Hexagon, Home, Info, Layers3, LockKeyhole,
   GitBranch, Map, Play, Search, Settings, Sparkles, Star, TerminalSquare, Trophy, UserRound, X,
   Gift, Zap, Backpack,
 } from 'lucide-react'
@@ -14,6 +14,14 @@ import { glossary } from './glossary'
 import dataPrograms from '../knowledge/data/programs.json'
 import professionPrograms from '../knowledge/professions/programs.json'
 import { MissionRunner } from './MissionRunner'
+import { DiagnosticMode } from './diagnostic/DiagnosticMode'
+import { getDiagnostic, getMastery, saveDiagnostic, saveMastery } from './core/storage'
+import { normalizeMastery } from './core/task/mastery'
+import skillRegistry from '../knowledge/skills/registry.json'
+import itmoSkillMap from '../knowledge/admissions/itmo-skill-map.json'
+import diagnosticProbes from '../knowledge/tasks/fixtures/diagnostic.json'
+import type { Task } from './core/task/types'
+import type { SkillNode } from './core/task/prerequisites'
 import { StoryScene } from './story/StoryScene'
 import { Sprite } from './story/Sprite'
 import { caseActIds, caseChoiceIds, caseForCourse, caseProgress, cast, character, missionBriefAct, missionSceneForReplay, pendingAct, resolveEnding } from './story/engine'
@@ -409,14 +417,14 @@ function SectionIntro({ kicker, title, description }: { kicker: string; title: s
   return <div className="section-intro"><span className="section-kicker">{kicker}</span><h1>{title}</h1><p>{description}</p></div>
 }
 
-function HomeView({ header, account, progress, onContinue, onOpenPath, onOpenPractice }: { header: React.ReactNode; account: UserAccount; progress: UserProgress; onContinue: (roomId: string) => void; onOpenPath: () => void; onOpenPractice: () => void }) {
+function HomeView({ header, account, progress, onContinue, onOpenPath, onOpenPractice, onOpenDiagnostic }: { header: React.ReactNode; account: UserAccount; progress: UserProgress; onContinue: (roomId: string) => void; onOpenPath: () => void; onOpenPractice: () => void; onOpenDiagnostic: () => void }) {
   const totalMissions = rooms.reduce((sum, room) => sum + room.missions.length, 0)
   const percent = Math.round(progress.completedMissionIds.length / totalMissions * 100)
   const currentRoom = currentAccessibleRoom(progress)
   return <>{header}<main className="main section-page">
     <section className="home-command"><div><span className="section-kicker">ЦЕНТР УПРАВЛЕНИЯ ОБУЧЕНИЕМ</span><h1>С возвращением, {account.displayName}</h1><p>Выбери учебный блок или продолжи уже начатый. Приключение запускается только внутри выбранного блока.</p><div className="hero-actions"><button className="primary-button" onClick={() => onContinue(currentRoom.id)}><Play size={16} fill="currentColor"/>Продолжить блок</button><button className="section-button" onClick={onOpenPath}><Map size={17}/>Открыть карьерные пути</button></div></div><ProgressRing percent={percent}/></section>
     <section className="section-metrics"><article><span>Пройдено миссий</span><strong>{progress.completedMissionIds.length}</strong><small>из {totalMissions} в первом маршруте</small></article><article><span>Энергия опыта</span><strong>{progress.xp.toLocaleString('ru-RU')} XP</strong><small>общий прогресс профиля</small></article><article><span>Серия занятий</span><strong>{progress.streak} дней</strong><small>ритм сохранён</small></article></section>
-    <section className="home-grid"><article className="focus-card"><div className="section-card-icon"><Database size={20}/></div><span className="section-kicker">ТЕКУЩИЙ БЛОК</span><h2>{currentRoom.title}</h2><p>{currentRoom.description}</p><button className="section-link" onClick={() => onContinue(currentRoom.id)}>Открыть программу блока <ArrowRight size={16}/></button></article><article className="focus-card"><div className="section-card-icon"><TerminalSquare size={20}/></div><span className="section-kicker">БЫСТРЫЙ РЕЖИМ</span><h2>Практика навыков</h2><p>Короткие упражнения из уже открытых учебных блоков.</p><button className="section-link" onClick={onOpenPractice}>Перейти к практике <ArrowRight size={16}/></button></article></section>
+    <section className="home-grid"><article className="focus-card"><div className="section-card-icon"><Database size={20}/></div><span className="section-kicker">ТЕКУЩИЙ БЛОК</span><h2>{currentRoom.title}</h2><p>{currentRoom.description}</p><button className="section-link" onClick={() => onContinue(currentRoom.id)}>Открыть программу блока <ArrowRight size={16}/></button></article><article className="focus-card"><div className="section-card-icon"><TerminalSquare size={20}/></div><span className="section-kicker">БЫСТРЫЙ РЕЖИМ</span><h2>Практика навыков</h2><p>Короткие упражнения из уже открытых учебных блоков.</p><button className="section-link" onClick={onOpenPractice}>Перейти к практике <ArrowRight size={16}/></button></article><article className="focus-card"><div className="section-card-icon"><Compass size={20}/></div><span className="section-kicker">ПОДГОТОВКА К МАГИСТРАТУРЕ</span><h2>Входная диагностика</h2><p>Короткая адаптивная проверка по графу навыков: что уже умеете, где пробел и с чего начинать.</p><button className="section-link" onClick={onOpenDiagnostic}>Пройти диагностику <ArrowRight size={16}/></button></article></section>
   </main></>
 }
 
@@ -495,6 +503,8 @@ export default function App() {
   const [theme, setTheme] = useState<ThemeId>(initial.theme)
   const [progress, setProgress] = useState<UserProgress | null>(() => account ? getProgress(account.id) : null)
   const [view, setView] = useState<View>({ type: 'home' })
+  /** Диагностика хранится в состоянии приложения, поэтому её нужно перечитывать. */
+  const [, setDiagnosticTick] = useState(0)
   const [searchOpen, setSearchOpen] = useState(false)
   const [game, setGame] = useState<GameState>(() => (account ? getGame(account.id) : emptyGame()))
   const [scene, setScene] = useState<StoryAct | null>(null)
@@ -633,6 +643,28 @@ export default function App() {
     }
   }
   if (!account || !progress) return <AuthView onAuthenticated={authenticated}/>
+  if (view.type === 'diagnostic') {
+    const skills = (skillRegistry as { skills: SkillNode[] }).skills
+    const requirementSkills = Object.fromEntries(
+      (itmoSkillMap as { map: Array<{ requirementId: string; skills: string[] }> }).map.map(item => [item.requirementId, item.skills]),
+    )
+    const context = {
+      trackId: (itmoSkillMap as { trackId: string }).trackId,
+      requirementSkills,
+      probes: diagnosticProbes as unknown as Task[],
+      maxProbes: 24,
+    }
+    return <DiagnosticMode
+      skills={skills}
+      context={context}
+      book={normalizeMastery(getMastery(account.id))}
+      session={getDiagnostic(account.id)}
+      onSession={session => { saveDiagnostic(account.id, session); setDiagnosticTick(value => value + 1) }}
+      onMastery={book => { saveMastery(account.id, book); setDiagnosticTick(value => value + 1) }}
+      onExit={() => setView({ type: 'home' })}
+    />
+  }
+
   if (view.type === 'mission') {
     const missionRoom = rooms.find(item => item.id === view.roomId)
     const mission = missionRoom?.missions.find(item => item.id === view.missionId)
@@ -655,7 +687,7 @@ export default function App() {
   return <><div className="app-shell"><Sidebar active={activeSection} account={account} progress={progress} onNavigate={section => setView({ type: section })} onOpenAccount={() => setView({ type: 'account' })}/><div className="content-shell">
     {view.type === 'account' ? <AccountView account={account} progress={progress} onAccountChange={setAccount} onProgressReset={setProgress} onBack={() => setView({ type: 'path' })} onLogout={signOut}/>
       : room ? <RoomView room={room} onBack={() => setView({ type: 'path' })} header={header('Профессии', room)} progress={progress} onStart={missionId => setView({ type: 'mission', roomId: room.id, missionId })}/>
-      : view.type === 'home' ? <HomeView header={header(sectionTitles.home)} account={account} progress={progress} onContinue={roomId => setView({ type: 'room', roomId })} onOpenPath={() => setView({ type: 'path' })} onOpenPractice={() => setView({ type: 'practice' })}/>
+      : view.type === 'home' ? <HomeView header={header(sectionTitles.home)} account={account} progress={progress} onContinue={roomId => setView({ type: 'room', roomId })} onOpenPath={() => setView({ type: 'path' })} onOpenPractice={() => setView({ type: 'practice' })} onOpenDiagnostic={() => setView({ type: 'diagnostic' })}/>
       : view.type === 'practice' ? <PracticeView header={header(sectionTitles.practice)} progress={progress} onOpen={roomId => setView({ type: 'room', roomId })}/>
       : view.type === 'projects' ? <ProjectsView header={header(sectionTitles.projects)}/>
       : view.type === 'hq' ? <HqView header={header(sectionTitles.hq)} account={account} progress={progress} professionId={professionId} game={game} onGameChange={setGame} onOpenRoom={roomId => setView({ type: 'room', roomId })}/>

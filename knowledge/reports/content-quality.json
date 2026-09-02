@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-02T12:46:15.696Z",
-  "durationMs": 351,
+  "generatedAt": "2026-09-02T13:17:16.053Z",
+  "durationMs": 293,
   "corpus": {
     "courses": 74,
     "legacyMissions": 1765,
-    "v2Tasks": 11,
+    "v2Tasks": 23,
     "skills": 44,
     "officialRequirements": 87,
     "structuralRequirements": 7,
@@ -18,8 +18,8 @@
     },
     "production": {
       "error": 0,
-      "warning": 7,
-      "info": 28
+      "warning": 5,
+      "info": 30
     },
     "fixture": {
       "error": 0,
@@ -264,26 +264,26 @@
     "C7.progression": {
       "severity": "info",
       "scope": "production",
-      "count": 24,
+      "count": 26,
       "samples": [
         {
-          "where": "eigenvalues",
-          "message": "Ступени: L2; заданий: 1"
+          "where": "viterbi",
+          "message": "Ступени: L3; заданий: 2"
         },
         {
-          "where": "determinants",
-          "message": "Ступени: L2; заданий: 1"
+          "where": "hmm",
+          "message": "Ступени: L1 → L3; заданий: 3"
         },
         {
-          "where": "matrices",
-          "message": "Ступени: L2; заданий: 1"
+          "where": "dynamic-programming",
+          "message": "Ступени: L1 → L2 → L3; заданий: 4"
         }
       ]
     },
     "C7.no-introduction": {
       "severity": "warning",
       "scope": "production",
-      "count": 7,
+      "count": 5,
       "samples": [
         {
           "where": "aho-corasick",

@@ -26,7 +26,7 @@ export interface UserProgress {
   updatedAt: string
 }
 
-export const STATE_VERSION = 2
+export const STATE_VERSION = 3
 
 interface StoredState {
   version: number
@@ -46,11 +46,17 @@ interface StoredState {
    * старые файлы получают пустую книгу и открываются как раньше.
    */
   mastery?: Record<string, import('./task/mastery').MasteryBook>
+  /**
+   * Незавершённая входная диагностика. Хранится отдельно от прогресса и от
+   * освоения: это состояние режима, а не результат обучения.
+   */
+  diagnostics?: Record<string, import('./diagnostic/types').DiagnosticSession>
 }
 
 /** Приводит состояние любой прошлой версии к текущей. Данные не теряются. */
 function migrateState(state: StoredState): StoredState {
   if (!state.mastery) state.mastery = {}
+  if (!state.diagnostics) state.diagnostics = {}
   state.version = STATE_VERSION
   return state
 }
@@ -74,7 +80,7 @@ const initialState = (): StoredState => {
     passwordHash: DEMO_HASH, emailNotifications: false, telegramNotifications: false,
     desktopNotifications: false, createdAt: new Date().toISOString(),
   }
-  return { version: STATE_VERSION, users: [demo], sessionUserId: null, rememberSession: false, sessionChosen: true, theme: 'future', progress: { [demo.id]: starterProgress() }, mastery: {} }
+  return { version: STATE_VERSION, users: [demo], sessionUserId: null, rememberSession: false, sessionChosen: true, theme: 'future', progress: { [demo.id]: starterProgress() }, mastery: {}, diagnostics: {} }
 }
 
 export function loadState(): StoredState {
@@ -200,6 +206,25 @@ export function saveMastery(userId: string, book: import('./task/mastery').Maste
   return book
 }
 
+/** Сессия диагностики. Переживает перезагрузку и возврат позже. */
+export function getDiagnostic(userId: string) {
+  const state = loadState()
+  return state.diagnostics?.[userId]
+}
+
+export function saveDiagnostic(userId: string, session: import('./diagnostic/types').DiagnosticSession) {
+  const state = loadState()
+  state.diagnostics = { ...state.diagnostics, [userId]: session }
+  saveState(state)
+  return session
+}
+
+export function clearDiagnostic(userId: string) {
+  const state = loadState()
+  if (state.diagnostics) delete state.diagnostics[userId]
+  saveState(state)
+}
+
 export function getProgress(userId: string) {
   const state = loadState()
   return state.progress[userId] ?? starterProgress()
@@ -236,6 +261,7 @@ export function resetProgress(userId: string) {
   state.progress[userId] = fresh
   if (state.games) delete state.games[userId]
   if (state.mastery) delete state.mastery[userId]
+  if (state.diagnostics) delete state.diagnostics[userId]
   saveState(state)
   return fresh
 }

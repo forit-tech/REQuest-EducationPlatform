@@ -836,6 +836,181 @@ await check('одиночный выбор даёт одну проверку, �
   assert.equal(right.passed, true)
 })
 
+/* ------------------------------------------------- 12. входная диагностика */
+
+const diag = await load('core/diagnostic/index.js')
+const probes = JSON.parse(readFileSync(join(root, 'knowledge/tasks/fixtures/diagnostic.json'), 'utf8'))
+const skillMap = JSON.parse(readFileSync(join(root, 'knowledge/admissions/itmo-skill-map.json'), 'utf8'))
+const requirementSkills = Object.fromEntries(skillMap.map.map(item => [item.requirementId, item.skills]))
+const context = { trackId: ITMO, requirementSkills, probes, maxProbes: 24 }
+const probeById = Object.fromEntries(probes.map(task => [task.id, task]))
+
+/** Прогон диагностики с заданным поведением человека. */
+function runDiagnostic(knows, book = engine.emptyMastery()) {
+  let session = diag.startSession(graph, context, book)
+  const asked = []
+  for (let step = 0; step < 40; step += 1) {
+    const task = diag.nextProbe(graph, context, session)
+    if (!task) break
+    asked.push(task.id)
+    const skillId = task.skills.find(item => item.role === 'primary').skillId
+    const verdict = knows(skillId, task)
+    const result = verdict === 'runtime'
+      ? { status: 'needs-runtime', passed: false, score: 0, evidence: 'strong', checks: [], diagnosedSkills: [] }
+      : { status: verdict ? 'passed' : 'failed', passed: Boolean(verdict), score: verdict ? 1 : 0.1, evidence: 'strong', checks: [], diagnosedSkills: [] }
+    session = diag.applyProbe(graph, context, session, task, result)
+  }
+  return { session, asked, summary: diag.summarize(graph, context, session) }
+}
+
+console.log(`Диагностика: проб ${probes.length}, размечено требований ${Object.keys(requirementSkills).length} из 87`)
+
+await check('область диагностики строится по требованиям программы и их основанию', () => {
+  const scope = diag.diagnosticScope(graph, context)
+  assert.ok(scope.includes('viterbi'), 'навык требования должен войти')
+  assert.ok(scope.includes('dynamic-programming'), 'основание навыка требования должно войти')
+  assert.ok(scope.includes('arithmetic'), 'основание уходит вглубь до фундамента')
+  assert.ok(!scope.includes('llm-rag'), 'профессиональный навык вне официальных требований не должен удлинять диагностику')
+})
+
+await check('профессиональная проба не попадает во вступительную диагностику', () => {
+  const { asked } = runDiagnostic(() => true)
+  assert.ok(!asked.includes('dg-sql-negative-control'), 'контрольная проба вне области не должна задаваться')
+})
+
+await check('уверенное решение сверху снимает вопросы к основанию', () => {
+  const { session, asked, summary } = runDiagnostic(() => true)
+  assert.ok(asked.includes('dg-viterbi-app'), 'начинать надо с верхнего навыка')
+  assert.ok(!asked.includes('dg-hmm-understanding'), 'после верного Витерби спрашивать HMM отдельно незачем')
+  assert.equal(session.states['hmm'].verdict, 'implied')
+  assert.equal(session.states['hmm'].impliedBy, 'viterbi')
+  assert.ok(summary.strong.includes('dynamic-programming'), 'основание засчитано по следствию')
+})
+
+await check('провал сложного навыка разворачивает спуск к предпосылкам', () => {
+  // Умеет всё, кроме динамического программирования: узкое место должно найтись.
+  const { session, asked, summary } = runDiagnostic(skillId => skillId !== 'viterbi' && skillId !== 'dynamic-programming')
+  assert.ok(asked.includes('dg-viterbi-app'))
+  assert.ok(asked.includes('dg-dp-calc') || asked.includes('dg-dp-understanding'), `спуск не дошёл до DP: ${asked.join(', ')}`)
+  assert.equal(session.states['viterbi'].verdict, 'weak')
+  assert.equal(session.states['dynamic-programming'].verdict, 'weak')
+  assert.equal(session.states['hmm'].verdict, 'strong', 'HMM проверен отдельно и подтверждён')
+  assert.ok(summary.plan.some(step => step.skillId === 'dynamic-programming'))
+})
+
+await check('план ставит вперёд то, что можно чинить прямо сейчас', () => {
+  const { summary } = runDiagnostic(skillId => skillId !== 'viterbi' && skillId !== 'dynamic-programming')
+  const dp = summary.plan.find(step => step.skillId === 'dynamic-programming')
+  const viterbi = summary.plan.find(step => step.skillId === 'viterbi')
+  assert.ok(dp, 'DP должен быть в плане')
+  assert.equal(dp.actionable, true, 'основание DP подтверждено, значит им можно заняться')
+  assert.equal(viterbi.actionable, false, 'Витерби заблокирован просевшим DP')
+  assert.deepEqual(viterbi.blockedBy, ['dynamic-programming'])
+  assert.ok(summary.plan.indexOf(dp) < summary.plan.indexOf(viterbi), 'сначала основание, потом зависимый навык')
+})
+
+await check('измеренная слабость важнее непроверенного', () => {
+  const { summary } = runDiagnostic(skillId => skillId !== 'dynamic-programming')
+  for (const step of summary.plan) {
+    assert.ok(!summary.unknown.includes(step.skillId), `${step.skillId} не проверялся, ему нечего чинить`)
+  }
+})
+
+await check('непроверенное и проваленное — разные состояния', () => {
+  const { session, summary } = runDiagnostic(() => true)
+  assert.ok(summary.unknown.every(skillId => session.states[skillId].verdict === 'unknown'))
+  assert.equal(summary.weak.length, 0, 'человек решил всё: слабых навыков быть не должно')
+  assert.ok(summary.requirementsUnverified.length > 0, 'непроверенные требования обязаны быть видны отдельно')
+  assert.ok(!summary.requirementsUnverified.some(id => summary.requirementsAtRisk.includes(id)))
+})
+
+await check('недоступная среда не создаёт отрицательного свидетельства', () => {
+  const { session } = runDiagnostic(skillId => (skillId === 'viterbi' ? 'runtime' : true))
+  assert.equal(session.states['viterbi'].verdict, 'blocked-by-runtime')
+  assert.notEqual(session.states['viterbi'].verdict, 'weak', 'отсутствие песочницы — не ошибка человека')
+  const outcome = session.outcomes.find(item => item.skillId === 'viterbi')
+  assert.equal(outcome.passed, undefined, 'у несостоявшейся попытки нет результата')
+  assert.equal(outcome.blockedByRuntime, true)
+})
+
+await check('задание, требующее среды, в диагностику не выдаётся', () => {
+  const withCode = { ...context, probes: [...probes, byId['fx-aho-corasick']] }
+  let session = diag.startSession(graph, withCode, engine.emptyMastery())
+  const asked = []
+  for (let step = 0; step < 40; step += 1) {
+    const task = diag.nextProbe(graph, withCode, session)
+    if (!task) break
+    asked.push(task.id)
+    session = diag.applyProbe(graph, withCode, session, task, { status: 'passed', passed: true, score: 1, evidence: 'strong', checks: [], diagnosedSkills: [] })
+  }
+  assert.ok(!asked.includes('fx-aho-corasick'), 'провал такого задания ничего не доказал бы')
+})
+
+await check('подтверждённый прошлыми попытками навык не переспрашивается', () => {
+  let book = engine.emptyMastery()
+  const strong = { status: 'passed', passed: true, score: 1, evidence: 'strong', checks: [], diagnosedSkills: [] }
+  const fake = skillId => ({ ...byId['fx-eigenvalues'], id: `hist-${skillId}`, intent: 'practice', skills: [{ skillId, role: 'primary' }] })
+  for (let index = 0; index < 4; index += 1) book = engine.recordAttempt(book, fake('eigenvalues'), strong)
+  const { asked } = runDiagnostic(() => false, book)
+  assert.ok(!asked.includes('dg-eigenvalues-app'), 'подтверждённое прошлыми попытками спрашивать заново незачем')
+})
+
+await check('одной слабой проверки недостаточно, чтобы пропустить навык', () => {
+  let book = engine.emptyMastery()
+  const weak = { status: 'passed', passed: true, score: 1, evidence: 'weak', checks: [], diagnosedSkills: [] }
+  const fake = skillId => ({ ...byId['fx-eigenvalues'], id: `soft-${skillId}`, intent: 'practice', skills: [{ skillId, role: 'primary' }] })
+  for (let index = 0; index < 8; index += 1) book = engine.recordAttempt(book, fake('eigenvalues'), weak)
+  const session = diag.startSession(graph, context, book)
+  assert.notEqual(session.states['eigenvalues'].verdict, 'strong', 'самооценка не заменяет проверку')
+  assert.ok(session.pending.includes('eigenvalues'))
+})
+
+await check('диагностика не трогает сюжет и не двигает освоение сама по себе', () => {
+  const { session } = runDiagnostic(() => true)
+  // В модуле нет ни одной функции, работающей с прохождением миссий, и
+  // recordAttempt отсюда не вызывается: освоение обновляет только проверка.
+  assert.ok(!Object.keys(diag).some(name => /mission|story|xp|progress/i.test(name)), Object.keys(diag).join(', '))
+  assert.ok(session.outcomes.length > 0)
+})
+
+await check('циклический граф навыков не проходит валидатор', () => {
+  const cyclic = engine.skillGraph([
+    { id: 'a', title: 'A', topicId: 't', prerequisites: ['b'] },
+    { id: 'b', title: 'B', topicId: 't', prerequisites: ['a'] },
+  ])
+  assert.ok(engine.prerequisiteChain(cyclic, 'a').includes('a'), 'цикл обнаруживается обходом')
+  const corpus = corpusModule.loadCorpus(root)
+  const broken = { ...corpus, skills: [{ id: 'a', title: 'A', topicId: 't', prerequisites: ['b'] }, { id: 'b', title: 'B', topicId: 't', prerequisites: ['a'] }] }
+  broken.skillById = Object.fromEntries(broken.skills.map(skill => [skill.id, skill]))
+  const codes = rulesModule.runRules(broken, engine).map(item => item.rule)
+  assert.ok(codes.includes('C1.skill-cycle'), 'ворота качества обязаны ловить цикл до диагностики')
+})
+
+/* ----------------------------------------- сколько проб нужно на самом деле */
+
+const profiles = [
+  ['всё знает', () => true],
+  ['ничего не знает', () => false],
+  ['провал только в динамическом программировании', skillId => skillId !== 'viterbi' && skillId !== 'dynamic-programming'],
+  ['слаб в вероятности', skillId => !['conditional-probability', 'probability', 'viterbi'].includes(skillId)],
+]
+const measured = profiles.map(([name, knows]) => {
+  const { asked, summary } = runDiagnostic(knows)
+  return { name, probes: asked.length, weak: summary.weak.length, unknown: summary.unknown.length, plan: summary.plan.length }
+})
+console.log('Профили диагностики:')
+for (const item of measured) {
+  console.log(`  ${item.name.padEnd(46)} проб ${String(item.probes).padStart(2)} · слабых ${item.weak} · непроверенных ${item.unknown} · шагов плана ${item.plan}`)
+}
+
+await check('диагностика короче полного экзамена по всем вопросам', () => {
+  for (const item of measured) {
+    assert.ok(item.probes <= 24, `${item.name}: ${item.probes} проб — это уже экзамен, а не диагностика`)
+  }
+  const knowsAll = measured.find(item => item.name === 'всё знает')
+  assert.ok(knowsAll.probes < 12, `знающему человеку задано ${knowsAll.probes} проб`)
+})
+
 /* ---------------------------------------------------------------------- итог */
 
 console.log(`\nПройдено проверок: ${passed}`)

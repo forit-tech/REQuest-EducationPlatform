@@ -62,3 +62,4 @@ export type View =
   | { type: 'room'; roomId: string }
   | { type: 'mission'; roomId: string; missionId: string }
   | { type: 'account' }
+  | { type: 'diagnostic' }

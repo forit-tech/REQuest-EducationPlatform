@@ -20,6 +20,7 @@
     "src/core/tasks.ts",
     "src/core/storage.ts",
     "src/core/task/**/*.ts",
-    "src/core/runtime/**/*.ts"
+    "src/core/runtime/**/*.ts",
+    "src/core/diagnostic/**/*.ts"
   ]
 }
