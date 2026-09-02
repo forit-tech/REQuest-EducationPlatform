@@ -1,0 +1,25 @@
+appId: tech.forit.reduquest
+productName: REduQuest
+artifactName: "REduQuest-Setup-${version}.${ext}"
+
+files:
+  - package.json
+  - dist/**/*
+  - electron/**/*
+  - assets/**/*
+
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+  icon: assets/request.ico
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: REduQuest
+  uninstallDisplayName: REduQuest
+  deleteAppDataOnUninstall: false
