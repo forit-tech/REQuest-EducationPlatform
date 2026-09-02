@@ -54,7 +54,7 @@
       "title": "Первая версия",
       "trigger": {
         "on": "beforeMission",
-        "missionId": "PDA-001"
+        "missionId": "PDB-001"
       },
       "beats": [
         {
@@ -76,7 +76,7 @@
       "title": "Улика не сходится",
       "trigger": {
         "on": "afterMission",
-        "missionId": "PDA-003"
+        "missionId": "PDB-003"
       },
       "beats": [
         {
@@ -98,7 +98,7 @@
       "title": "Давление срока",
       "trigger": {
         "on": "beforeMission",
-        "missionId": "PDA-007"
+        "missionId": "PDB-007"
       },
       "beats": [
         {
@@ -144,7 +144,7 @@
       "title": "Решение выдерживает проверку",
       "trigger": {
         "on": "afterMission",
-        "missionId": "PDA-010"
+        "missionId": "PDB-010"
       },
       "beats": [
         {

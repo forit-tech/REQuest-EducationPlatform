@@ -19,16 +19,17 @@ import emergencyOperationsStorm from '../../assets/scenes/emergency-operations-s
 import { Portrait } from './Portrait'
 import { Sprite } from './Sprite'
 import { character } from './engine'
-import type { ChoiceBeat, Emotion, NotificationBeat, StoryAct, StoryCase } from './types'
+import { isLocationId } from './types'
+import type { ChoiceBeat, Emotion, LocationId, NotificationBeat, StoryAct, StoryCase } from './types'
 import type { BeatEffects } from '../core/game'
 
 const channelIcons = { chat: MessageSquare, alert: AlertTriangle, mail: Mail, ticket: Ticket }
 const channelLabels = { chat: 'СООБЩЕНИЕ', alert: 'АЛЕРТ', mail: 'ПИСЬМО', ticket: 'ЗАДАЧА' }
 
 type StoryMoment =
-  | { kind: 'line'; speaker: string; emotion?: Emotion; text: string; scene: string; fromPanel?: boolean }
-  | { kind: 'notification'; beat: NotificationBeat; scene: string }
-  | { kind: 'choice'; beat: ChoiceBeat; scene: string }
+  | { kind: 'line'; speaker: string; emotion?: Emotion; text: string; scene: string; location?: LocationId; fromPanel?: boolean }
+  | { kind: 'notification'; beat: NotificationBeat; scene: string; location?: LocationId }
+  | { kind: 'choice'; beat: ChoiceBeat; scene: string; location?: LocationId }
 
 const locationNames = {
   office: 'Открытый офис',
@@ -49,47 +50,41 @@ const locationNames = {
   operations: 'Штаб реагирования',
 } as const
 
-function locationFor(scene: string) {
-  const value = scene.toLowerCase()
-  if (/festival-backstage|backstage|закулис/.test(value)) return 'backstage'
-  if (/emergency-operations|operations-storm|штаб реаг|шторм/.test(value)) return 'operations'
-  if (/seaside-research|coastal-station|прибреж|морская станц/.test(value)) return 'coast'
-  if (/high-speed-train|скоростн.*поезд/.test(value)) return 'train'
-  if (/hackathon|хакатон/.test(value)) return 'hackathon'
-  if (/library|workshop|библиот|воркшоп/.test(value)) return 'library'
-  if (/airport|departure|аэропорт|вылет/.test(value)) return 'airport'
-  if (/restaurant|dinner|ресторан|ужин/.test(value)) return 'restaurant'
-  if (/cafe|coffee|break|кофе|кофейн|перерыв/.test(value)) return 'cafe'
-  if (/conference|festival|event|demo|конферен|фестивал|мероприят/.test(value)) return 'conference'
-  if (/trip|station|airport|travel|поезд|вокзал|командиров/.test(value)) return 'trip'
-  if (/industrial|factory|warehouse|plant|склад|завод|площадк/.test(value)) return 'industrial'
-  if (/server|incident|alert|night|pipeline|deploy|terminal|сбой|сервер|ноч/.test(value)) return 'server'
-  if (/meeting|review|brief|board|decision|переговор|совещ|защит/.test(value)) return 'meeting'
-  if (/lab|rain|research|model|experiment|archive|исслед|модел|эксперимент/.test(value)) return 'lab'
-  return 'office'
+/**
+ * Метка кадра совпала с идентификатором места — значит, автор действительно
+ * назвал место. Это точное сравнение по закрытому словарю, а не разбор текста:
+ * `terminal`, `pipeline-green` и заголовок акта фоном больше не управляют.
+ */
+function locationFromScene(scene: string | undefined) {
+  return isLocationId(scene) ? scene : undefined
 }
 
 const locationImages = { office: officeMorning, meeting: meetingRoom, server: serverRoom, lab: dataLab, conference: conferenceHall, trip: tripStation, industrial: industrialHub, cafe: cityCoffeeShop, restaurant: teamRestaurant, airport: airportLounge, library: libraryWorkshop, hackathon: hackathonNight, train: highSpeedTrain, coast: seasideResearchStation, backstage: festivalBackstage, operations: emergencyOperationsStorm }
 
 function expandAct(act: StoryAct): StoryMoment[] {
   let scene = act.title
+  // Место действия тянется по акту вперёд: смена кадра не сбрасывает его, пока
+  // очередная панель не назовёт другое место явно.
+  let location = act.location
   return act.beats.flatMap<StoryMoment>(beat => {
     if (beat.kind === 'comic') {
       return beat.panels.map(panel => {
         scene = panel.scene || scene
+        location = panel.location ?? locationFromScene(panel.scene) ?? location
         return {
           kind: 'line',
           speaker: panel.speaker ?? 'narrator',
           emotion: panel.emotion,
           text: panel.caption,
           scene,
+          location,
           fromPanel: true,
         }
       })
     }
-    if (beat.kind === 'line') return [{ ...beat, scene }]
-    if (beat.kind === 'notification') return [{ kind: 'notification', beat, scene }]
-    return [{ kind: 'choice', beat, scene }]
+    if (beat.kind === 'line') return [{ ...beat, scene, location }]
+    if (beat.kind === 'notification') return [{ kind: 'notification', beat, scene, location }]
+    return [{ kind: 'choice', beat, scene, location }]
   })
 }
 
@@ -136,7 +131,8 @@ export function StoryScene({ act, career, chosenByChoiceId, onChoose, onFinish, 
   const activeId = line && !isNarrator ? line.speaker : undefined
   const activeCharacter = activeId ? character(activeId) : undefined
   const typed = useTypewriter(line?.text ?? '')
-  const location = locationFor(moment?.scene ?? act.title)
+  // Единственный источник правды по фону: кадр → акт → глава профессии → офис.
+  const location: LocationId = moment?.location ?? act.location ?? career?.location ?? 'office'
 
   const visibleIds = useMemo(() => {
     // Смена кадра очищает сцену: персонажи из старых реплик больше не «висят»

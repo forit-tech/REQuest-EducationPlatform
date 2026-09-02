@@ -1,3 +1,5 @@
+import { normalizeMastery } from './task/mastery'
+
 export type ThemeId = 'future' | 'hacker'
 
 export interface UserAccount {
@@ -24,8 +26,10 @@ export interface UserProgress {
   updatedAt: string
 }
 
+export const STATE_VERSION = 2
+
 interface StoredState {
-  version: 1
+  version: number
   users: UserAccount[]
   sessionUserId: string | null
   rememberSession: boolean
@@ -34,6 +38,21 @@ interface StoredState {
   theme: ThemeId
   progress: Record<string, UserProgress>
   games?: Record<string, import('./game').GameState>
+  /**
+   * Освоение тем — отдельно от прохождения сюжета.
+   *
+   * `progress.completedMissionIds` продолжает означать «сцена пройдена» и
+   * ничего не говорит про понимание. Появилось во второй версии состояния;
+   * старые файлы получают пустую книгу и открываются как раньше.
+   */
+  mastery?: Record<string, import('./task/mastery').MasteryBook>
+}
+
+/** Приводит состояние любой прошлой версии к текущей. Данные не теряются. */
+function migrateState(state: StoredState): StoredState {
+  if (!state.mastery) state.mastery = {}
+  state.version = STATE_VERSION
+  return state
 }
 
 const STORAGE_KEY = 'request.local-state.v1'
@@ -55,14 +74,14 @@ const initialState = (): StoredState => {
     passwordHash: DEMO_HASH, emailNotifications: false, telegramNotifications: false,
     desktopNotifications: false, createdAt: new Date().toISOString(),
   }
-  return { version: 1, users: [demo], sessionUserId: null, rememberSession: false, sessionChosen: true, theme: 'future', progress: { [demo.id]: starterProgress() } }
+  return { version: STATE_VERSION, users: [demo], sessionUserId: null, rememberSession: false, sessionChosen: true, theme: 'future', progress: { [demo.id]: starterProgress() }, mastery: {} }
 }
 
 export function loadState(): StoredState {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (raw) {
-      const state = JSON.parse(raw) as StoredState
+      const state = migrateState(JSON.parse(raw) as StoredState)
       const demo = state.users.find(user => user.id === 'local-alex')
       if (demo?.passwordHash === LEGACY_DEMO_HASH) demo.passwordHash = DEMO_HASH
       if (state.sessionChosen === undefined) {
@@ -168,6 +187,19 @@ export function setTheme(theme: ThemeId) {
   saveState(state)
 }
 
+/** Освоение тем. Никогда не меняется прохождением сюжета — только попытками заданий. */
+export function getMastery(userId: string): import('./task/mastery').MasteryBook {
+  const state = loadState()
+  return normalizeMastery(state.mastery?.[userId])
+}
+
+export function saveMastery(userId: string, book: import('./task/mastery').MasteryBook) {
+  const state = loadState()
+  state.mastery = { ...state.mastery, [userId]: book }
+  saveState(state)
+  return book
+}
+
 export function getProgress(userId: string) {
   const state = loadState()
   return state.progress[userId] ?? starterProgress()
@@ -203,6 +235,7 @@ export function resetProgress(userId: string) {
   const fresh = emptyProgress()
   state.progress[userId] = fresh
   if (state.games) delete state.games[userId]
+  if (state.mastery) delete state.mastery[userId]
   saveState(state)
   return fresh
 }

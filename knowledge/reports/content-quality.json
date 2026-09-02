@@ -1,0 +1,1093 @@
+{
+  "generatedAt": "2026-09-02T12:46:15.696Z",
+  "durationMs": 351,
+  "corpus": {
+    "courses": 74,
+    "legacyMissions": 1765,
+    "v2Tasks": 11,
+    "skills": 44,
+    "officialRequirements": 87,
+    "structuralRequirements": 7,
+    "sources": 22
+  },
+  "summary": {
+    "legacy": {
+      "error": 398,
+      "warning": 306,
+      "info": 60
+    },
+    "production": {
+      "error": 0,
+      "warning": 7,
+      "info": 28
+    },
+    "fixture": {
+      "error": 0,
+      "warning": 1,
+      "info": 0
+    }
+  },
+  "byRule": {
+    "C1.missing-source": {
+      "severity": "warning",
+      "scope": "fixture",
+      "count": 1,
+      "samples": [
+        {
+          "where": "fx-oral-backprop",
+          "message": "Экзаменационное задание без ссылки на источник"
+        }
+      ]
+    },
+    "C2.paraphrased-answer": {
+      "severity": "warning",
+      "scope": "legacy",
+      "count": 2,
+      "samples": [
+        {
+          "where": "go-network-services/GNS-001",
+          "message": "Формулировка ответа почти повторяет предложение из теории (совпадение 0.75)",
+          "sample": "w — куда писать ответ, r — что пришло в запросе"
+        },
+        {
+          "where": "java-core/JAV-005",
+          "message": "Формулировка ответа почти повторяет предложение из теории (совпадение 0.73)",
+          "sample": "3 — деление двух целых даёт целое, дробная часть отбрасывается"
+        }
+      ]
+    },
+    "C2.exact-answer-in-theory": {
+      "severity": "error",
+      "scope": "legacy",
+      "count": 163,
+      "samples": [
+        {
+          "where": "go-production/GPR-014",
+          "message": "Ответ дословно лежит в тексте перед вопросом",
+          "sample": "Shutdown перестаёт принимать новые соединения и ждёт завершения текущих запросов"
+        },
+        {
+          "where": "java-core-jvm/JVM-001",
+          "message": "Ответ дословно лежит в тексте перед вопросом",
+          "sample": "Контракт класса задаёт допустимое состояние и поведение, а инкапсуляция не даёт объекту ст"
+        },
+        {
+          "where": "java-core-jvm/JVM-004",
+          "message": "Ответ дословно лежит в тексте перед вопросом",
+          "sample": "Коллекцию выбирают по операциям и гарантиям: порядок, уникальность, поиск и изменяемость."
+        }
+      ]
+    },
+    "C2.free-check": {
+      "severity": "warning",
+      "scope": "legacy",
+      "count": 145,
+      "samples": [
+        {
+          "where": "java-core-jvm/JVM-002",
+          "message": "1 из 3 проверок выполнены заготовкой заранее",
+          "sample": "Метод возвращает типизированный результат"
+        },
+        {
+          "where": "java-core-jvm/JVM-003",
+          "message": "1 из 3 проверок выполнены заготовкой заранее",
+          "sample": "Метод возвращает типизированный результат"
+        },
+        {
+          "where": "java-core-jvm/JVM-005",
+          "message": "1 из 3 проверок выполнены заготовкой заранее",
+          "sample": "Метод возвращает типизированный результат"
+        }
+      ]
+    },
+    "C2.normalized-answer-in-theory": {
+      "severity": "error",
+      "scope": "legacy",
+      "count": 5,
+      "samples": [
+        {
+          "where": "data-foundations/DATA-004",
+          "message": "Ответ лежит в тексте перед вопросом с точностью до оформления",
+          "sample": "Фотографии товаров"
+        },
+        {
+          "where": "numpy/NPY-009",
+          "message": "Ответ лежит в тексте перед вопросом с точностью до оформления",
+          "sample": "Последний элемент"
+        },
+        {
+          "where": "numpy/NPY-019",
+          "message": "Ответ лежит в тексте перед вопросом с точностью до оформления",
+          "sample": "(amounts > 1000) & (amounts < 5000)"
+        }
+      ]
+    },
+    "C3.duplicate-prompt": {
+      "severity": "error",
+      "scope": "legacy",
+      "count": 226,
+      "samples": [
+        {
+          "where": "java-core-jvm/JVM-002",
+          "message": "Формулировка повторяется 2 раз",
+          "sample": "Сделать состояние валидным в конструкторе и открыть наружу только необходимые операции. За"
+        },
+        {
+          "where": "java-core-jvm/JVM-005",
+          "message": "Формулировка повторяется 2 раз",
+          "sample": "Зафиксировать требуемые операции и выбрать интерфейс коллекции до конкретной реализации. З"
+        },
+        {
+          "where": "java-core-jvm/JVM-008",
+          "message": "Формулировка повторяется 2 раз",
+          "sample": "Разделить ожидаемые доменные ошибки и сбои инфраструктуры, применив try-with-resources. За"
+        }
+      ]
+    },
+    "C3.duplicate-reach": {
+      "severity": "info",
+      "scope": "legacy",
+      "count": 1,
+      "samples": [
+        {
+          "where": "все курсы",
+          "message": "Продублированных формулировок 226, затронуто заданий 491"
+        }
+      ]
+    },
+    "C3.duplicate-intro": {
+      "severity": "warning",
+      "scope": "legacy",
+      "count": 83,
+      "samples": [
+        {
+          "where": "java-core/JAV-007",
+          "message": "Вступление повторяется 2 раз"
+        },
+        {
+          "where": "java-core-jvm/JVM-001",
+          "message": "Вступление повторяется 4 раз"
+        },
+        {
+          "where": "java-core-jvm/JVM-002",
+          "message": "Вступление повторяется 4 раз"
+        }
+      ]
+    },
+    "C3.template-course": {
+      "severity": "info",
+      "scope": "legacy",
+      "count": 58,
+      "samples": [
+        {
+          "where": "java-core-jvm",
+          "message": "Курс собран по шаблону: 92% заголовков повторяют схему"
+        },
+        {
+          "where": "java-production",
+          "message": "Курс собран по шаблону: 92% заголовков повторяют схему"
+        },
+        {
+          "where": "python-databases-async",
+          "message": "Курс собран по шаблону: 92% заголовков повторяют схему"
+        }
+      ]
+    },
+    "C4.duplicate-options": {
+      "severity": "error",
+      "scope": "legacy",
+      "count": 4,
+      "samples": [
+        {
+          "where": "numpy/NPY-019",
+          "message": "Варианты ответа повторяются"
+        },
+        {
+          "where": "sql-foundations/SQL-009",
+          "message": "Варианты ответа повторяются"
+        },
+        {
+          "where": "sql-foundations/SQL-011",
+          "message": "Варианты ответа повторяются"
+        }
+      ]
+    },
+    "C4.longest-is-correct": {
+      "severity": "warning",
+      "scope": "legacy",
+      "count": 27,
+      "samples": [
+        {
+          "where": "go-network-services",
+          "message": "В 14 из 16 вопросов верный вариант — самый длинный: угадывается без знания темы"
+        },
+        {
+          "where": "go-production",
+          "message": "В 13 из 16 вопросов верный вариант — самый длинный: угадывается без знания темы"
+        },
+        {
+          "where": "java-core",
+          "message": "В 15 из 17 вопросов верный вариант — самый длинный: угадывается без знания темы"
+        }
+      ]
+    },
+    "C4.option-count": {
+      "severity": "info",
+      "scope": "legacy",
+      "count": 1,
+      "samples": [
+        {
+          "where": "все курсы",
+          "message": "Распределение числа вариантов: 3 вариантов — 1394"
+        }
+      ]
+    },
+    "C5.fragile-substring": {
+      "severity": "warning",
+      "scope": "legacy",
+      "count": 49,
+      "samples": [
+        {
+          "where": "go-core/GOC-008",
+          "message": "Проверка зависит от оформления: \"if \""
+        },
+        {
+          "where": "go-core/GOC-009",
+          "message": "Проверка зависит от оформления: \"for \""
+        },
+        {
+          "where": "go-core-concurrency/GCC-005",
+          "message": "Проверка зависит от оформления: \"<-\""
+        }
+      ]
+    },
+    "C7.progression": {
+      "severity": "info",
+      "scope": "production",
+      "count": 24,
+      "samples": [
+        {
+          "where": "eigenvalues",
+          "message": "Ступени: L2; заданий: 1"
+        },
+        {
+          "where": "determinants",
+          "message": "Ступени: L2; заданий: 1"
+        },
+        {
+          "where": "matrices",
+          "message": "Ступени: L2; заданий: 1"
+        }
+      ]
+    },
+    "C7.no-introduction": {
+      "severity": "warning",
+      "scope": "production",
+      "count": 7,
+      "samples": [
+        {
+          "where": "aho-corasick",
+          "message": "Первая встреча с навыком сразу на уровне L4: нет ступени знакомства",
+          "sample": "fx-aho-corasick"
+        },
+        {
+          "where": "trie",
+          "message": "Первая встреча с навыком сразу на уровне L4: нет ступени знакомства",
+          "sample": "fx-aho-corasick"
+        },
+        {
+          "where": "bfs",
+          "message": "Первая встреча с навыком сразу на уровне L4: нет ступени знакомства",
+          "sample": "fx-aho-corasick"
+        }
+      ]
+    },
+    "C8.coverage": {
+      "severity": "info",
+      "scope": "production",
+      "count": 3,
+      "samples": [
+        {
+          "where": "fa-ml-engineer-2026",
+          "message": "Официальных вопросов 0, структурных записей 1; хоть как-то закрыто 0, готово к экзамену 0"
+        },
+        {
+          "where": "itmo-ai-talent-hub-2026",
+          "message": "Официальных вопросов 0, структурных записей 6; хоть как-то закрыто 0, готово к экзамену 0"
+        },
+        {
+          "where": "itmo-deep-learning-genai-2026",
+          "message": "Официальных вопросов 87, структурных записей 0; хоть как-то закрыто 0, готово к экзамену 0"
+        }
+      ]
+    },
+    "C9.inventory": {
+      "severity": "info",
+      "scope": "production",
+      "count": 1,
+      "samples": [
+        {
+          "where": "реестр источников",
+          "message": "Всего 22; требуют проверки лицензии 1"
+        }
+      ]
+    }
+  },
+  "affectedCourses": [
+    "go-production",
+    "java-core-jvm",
+    "java-production",
+    "python-databases-async",
+    "python-service-production",
+    "python-web-api",
+    "spring-services",
+    "defensive-engineering",
+    "incident-response",
+    "pentest-methodology",
+    "pentest-reporting",
+    "risk-iam",
+    "security-foundations",
+    "soc-detection",
+    "threat-hunting",
+    "web-security-testing",
+    "ai-evaluation-safety",
+    "analytics-communication",
+    "boosting",
+    "data-foundations",
+    "data-pipelines",
+    "data-platform-reliability",
+    "linear-algebra",
+    "llm-applications",
+    "ml-baseline",
+    "ml-engineering",
+    "ml-observability",
+    "model-serving",
+    "numpy",
+    "pandas",
+    "product-analytics",
+    "production",
+    "rag-systems",
+    "sql-foundations",
+    "streaming-platforms",
+    "technical-foundations",
+    "capacity-reliability",
+    "cicd-infrastructure",
+    "containers-kubernetes",
+    "linux-network-ops",
+    "observability-incidents",
+    "sre-foundations",
+    "frontend-delivery",
+    "frontend-quality",
+    "react-production",
+    "web-platform-foundations",
+    "advanced-sql",
+    "analytical-databases",
+    "clickhouse",
+    "data-cleaning",
+    "data-visualization",
+    "large-data",
+    "statistics"
+  ],
+  "admissionCoverage": {
+    "fa-ml-engineer-2026": {
+      "official": 0,
+      "structural": 1,
+      "byStatus": {
+        "uncovered": 1
+      }
+    },
+    "itmo-ai-talent-hub-2026": {
+      "official": 0,
+      "structural": 6,
+      "byStatus": {
+        "uncovered": 6
+      }
+    },
+    "itmo-deep-learning-genai-2026": {
+      "official": 87,
+      "structural": 0,
+      "byStatus": {
+        "uncovered": 87
+      }
+    }
+  },
+  "requirements": [
+    {
+      "ref": "fa-ml-engineer-2026:FA-MLE-A1",
+      "official": false,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-ai-talent-hub-2026:ITMO-ATH-A1",
+      "official": false,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-ai-talent-hub-2026:ITMO-ATH-A2",
+      "official": false,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-ai-talent-hub-2026:ITMO-ATH-A3",
+      "official": false,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-ai-talent-hub-2026:ITMO-ATH-A4",
+      "official": false,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-ai-talent-hub-2026:ITMO-ATH-A5",
+      "official": false,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-ai-talent-hub-2026:ITMO-ATH-P1",
+      "official": false,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-01",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-02",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-03",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-04",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-05",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-06",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-07",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-08",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-09",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-10",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-11",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-12",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-13",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-14",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-15",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-16",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-17",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-18",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-19",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-20",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-21",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-22",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-23",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-24",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-25",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-26",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-27",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-28",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-29",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-30",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-31",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-32",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-33",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-34",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-35",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-36",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-37",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-38",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-39",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-40",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-41",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-42",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-43",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-MATH-44",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-01",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-02",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-03",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-04",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-05",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-06",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-07",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-08",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-09",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-10",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-11",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-12",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-13",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-14",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-15",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-16",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-17",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-18",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-19",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-20",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-21",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-22",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-23",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-24",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-25",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-26",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-27",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-28",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-29",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-30",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-31",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-32",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-33",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-34",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-35",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-36",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-37",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-38",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-39",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-40",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-41",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-42",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    },
+    {
+      "ref": "itmo-deep-learning-genai-2026:ITMO-DL-ML-43",
+      "official": true,
+      "status": "uncovered",
+      "tasks": [],
+      "skills": []
+    }
+  ],
+  "baseline": {
+    "regressions": [],
+    "improvements": [],
+    "integrityDefects": 0
+  },
+  "integrityRules": [
+    "C1.duplicate-id",
+    "C1.dangling-skill",
+    "C1.skill-cycle",
+    "C1.unknown-skill",
+    "C1.unknown-prerequisite",
+    "C1.unknown-admission-ref",
+    "C1.evaluator-mismatch",
+    "C1.environment-mismatch",
+    "C2.starter-already-passes",
+    "C4.answer-not-in-options",
+    "C5.starter-already-passes",
+    "C8.professional-claims-admission"
+  ]
+}

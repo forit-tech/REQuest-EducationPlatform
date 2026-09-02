@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "note": "Навык — единица измеряемого знания. Тема (topicId) отвечает за навигацию по курсу, навык — за то, что человек умеет. Это граф, а не дерево: у навыка может быть несколько независимых оснований, и одно основание может вести в несколько разных навыков.",
+  "skills": [
+    { "id": "arithmetic", "title": "Арифметика и алгебраические преобразования", "topicId": "math.foundations", "prerequisites": [] },
+    { "id": "functions", "title": "Функции и их графики", "topicId": "math.foundations", "prerequisites": ["arithmetic"] },
+    { "id": "derivative", "title": "Производная", "topicId": "math.calculus", "prerequisites": ["functions"] },
+    { "id": "chain-rule", "title": "Производная сложной функции", "topicId": "math.calculus", "prerequisites": ["derivative"] },
+    { "id": "partial-derivative", "title": "Частная производная", "topicId": "math.calculus", "prerequisites": ["derivative"] },
+    { "id": "gradient", "title": "Градиент", "topicId": "math.calculus", "prerequisites": ["partial-derivative"] },
+
+    { "id": "vectors", "title": "Векторы и операции над ними", "topicId": "math.linear-algebra", "prerequisites": ["arithmetic"] },
+    { "id": "matrices", "title": "Матрицы и матричное умножение", "topicId": "math.linear-algebra", "prerequisites": ["vectors"] },
+    { "id": "determinants", "title": "Определители", "topicId": "math.linear-algebra", "prerequisites": ["matrices"] },
+    { "id": "linear-systems", "title": "Системы линейных уравнений", "topicId": "math.linear-algebra", "prerequisites": ["matrices", "determinants"] },
+    { "id": "linear-operators", "title": "Линейные операторы", "topicId": "math.linear-algebra", "prerequisites": ["matrices"] },
+    { "id": "eigenvalues", "title": "Собственные числа и векторы", "topicId": "math.linear-algebra", "prerequisites": ["matrices", "determinants", "linear-operators"] },
+    { "id": "svd", "title": "Сингулярное разложение", "topicId": "math.linear-algebra", "prerequisites": ["eigenvalues"] },
+
+    { "id": "combinatorics", "title": "Комбинаторика", "topicId": "math.probability", "prerequisites": ["arithmetic"] },
+    { "id": "probability", "title": "Вероятность события", "topicId": "math.probability", "prerequisites": ["combinatorics"] },
+    { "id": "conditional-probability", "title": "Условная вероятность и формула Байеса", "topicId": "math.probability", "prerequisites": ["probability"] },
+    { "id": "random-variables", "title": "Случайные величины", "topicId": "math.probability", "prerequisites": ["probability"] },
+    { "id": "expectation", "title": "Математическое ожидание и дисперсия", "topicId": "math.probability", "prerequisites": ["random-variables"] },
+    { "id": "covariance", "title": "Ковариация и корреляция", "topicId": "math.probability", "prerequisites": ["expectation", "vectors"] },
+    { "id": "markov-chains", "title": "Марковские цепи", "topicId": "math.probability", "prerequisites": ["conditional-probability"] },
+    { "id": "hmm", "title": "Скрытые марковские модели", "topicId": "math.probability", "prerequisites": ["markov-chains"] },
+    { "id": "viterbi", "title": "Алгоритм Витерби", "topicId": "math.probability", "prerequisites": ["hmm", "dynamic-programming"] },
+
+    { "id": "max-likelihood", "title": "Метод максимального правдоподобия", "topicId": "math.statistics", "prerequisites": ["random-variables"] },
+    { "id": "estimators", "title": "Точечные оценки", "topicId": "math.statistics", "prerequisites": ["expectation"] },
+    { "id": "confidence-intervals", "title": "Доверительные интервалы", "topicId": "math.statistics", "prerequisites": ["estimators"] },
+    { "id": "hypothesis-testing", "title": "Проверка гипотез", "topicId": "math.statistics", "prerequisites": ["estimators"] },
+
+    { "id": "boolean-functions", "title": "Булевы функции, КНФ и ДНФ", "topicId": "cs.discrete", "prerequisites": [] },
+    { "id": "post-theorem", "title": "Критерий Поста и функциональная полнота", "topicId": "cs.discrete", "prerequisites": ["boolean-functions"] },
+
+    { "id": "complexity", "title": "Асимптотическая сложность", "topicId": "cs.algorithms", "prerequisites": [] },
+    { "id": "recursion", "title": "Рекурсия", "topicId": "cs.algorithms", "prerequisites": [] },
+    { "id": "dynamic-programming", "title": "Динамическое программирование", "topicId": "cs.algorithms", "prerequisites": ["recursion", "complexity"] },
+    { "id": "trie", "title": "Бор", "topicId": "cs.algorithms", "prerequisites": ["complexity"] },
+    { "id": "bfs", "title": "Обход в ширину", "topicId": "cs.algorithms", "prerequisites": ["complexity"] },
+    { "id": "aho-corasick", "title": "Алгоритм Ахо — Корасика", "topicId": "cs.algorithms", "prerequisites": ["trie", "bfs"] },
+
+    { "id": "references", "title": "Ссылки и копирование значений", "topicId": "python.core", "prerequisites": [] },
+    { "id": "numpy-views", "title": "Представления массивов NumPy", "topicId": "python.numpy", "prerequisites": ["references"] },
+
+    { "id": "gradient-descent", "title": "Градиентный спуск", "topicId": "ml.optimization", "prerequisites": ["gradient"] },
+    { "id": "pca", "title": "Метод главных компонент", "topicId": "ml.unsupervised", "prerequisites": ["eigenvalues", "covariance"] },
+    { "id": "em", "title": "EM-алгоритм", "topicId": "ml.latent", "prerequisites": ["max-likelihood", "conditional-probability"] },
+
+    { "id": "backprop", "title": "Обратное распространение ошибки", "topicId": "dl.training", "prerequisites": ["chain-rule", "gradient"] },
+    { "id": "kl-divergence", "title": "Расхождение Кульбака — Лейблера", "topicId": "dl.generative", "prerequisites": ["expectation"] },
+    { "id": "vae", "title": "Вариационный автокодировщик", "topicId": "dl.generative", "prerequisites": ["kl-divergence", "max-likelihood", "backprop"] },
+
+    { "id": "mapreduce", "title": "Модель MapReduce", "topicId": "data.distributed", "prerequisites": ["complexity"] },
+
+    { "id": "llm-rag", "title": "Поиск с дополнением генерации", "topicId": "ai.applications", "prerequisites": [] }
+  ]
+}

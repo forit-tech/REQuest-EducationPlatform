@@ -1,0 +1,1048 @@
+[
+  {
+    "id": "fx-eigenvalues",
+    "title": "Собственные числа матрицы 2×2",
+    "intent": "calculation",
+    "difficulty": "L2",
+    "prompt": "Найдите собственные числа матрицы A = [[2, 1], [1, 2]]. Порядок значений не важен.",
+    "instructions": [
+      "Составьте характеристический многочлен det(A − λE).",
+      "Решите его и запишите оба корня."
+    ],
+    "response": {
+      "kind": "numeric",
+      "fields": [
+        {
+          "id": "lambda1",
+          "label": "Первое собственное число"
+        },
+        {
+          "id": "lambda2",
+          "label": "Второе собственное число"
+        }
+      ]
+    },
+    "evaluation": {
+      "type": "numeric",
+      "orderSensitive": false,
+      "expected": [
+        {
+          "field": "lambda1",
+          "value": 3,
+          "tolerance": {
+            "kind": "absolute",
+            "value": 0.001
+          }
+        },
+        {
+          "field": "lambda2",
+          "value": 1,
+          "tolerance": {
+            "kind": "absolute",
+            "value": 0.001
+          }
+        }
+      ]
+    },
+    "evidences": [
+      "calculation",
+      "understanding"
+    ],
+    "topicId": "math.linear-algebra.eigen",
+    "skills": [
+      {
+        "skillId": "eigenvalues",
+        "role": "primary"
+      },
+      {
+        "skillId": "determinants",
+        "role": "secondary"
+      },
+      {
+        "skillId": "matrices",
+        "role": "secondary"
+      }
+    ],
+    "diagnoses": {
+      "lambda1": [
+        "determinants"
+      ],
+      "lambda2": [
+        "determinants"
+      ]
+    },
+    "hints": [
+      "Характеристическое уравнение здесь сводится к (2 − λ)² − 1 = 0."
+    ],
+    "explanation": "det(A − λE) = (2 − λ)² − 1 = λ² − 4λ + 3, корни 1 и 3. Матрица симметрична, поэтому оба собственных числа вещественны."
+  },
+  {
+    "id": "fx-post-completeness",
+    "title": "Функциональная полнота системы",
+    "intent": "reasoning",
+    "difficulty": "L3",
+    "prompt": "Дана система булевых функций {конъюнкция, отрицание}. Определите, полна ли она, и обоснуйте ответ через теорему Поста.",
+    "response": {
+      "kind": "form",
+      "fields": [
+        {
+          "id": "verdict",
+          "label": "Система полна?",
+          "response": {
+            "kind": "choice",
+            "select": "one",
+            "options": [
+              {
+                "id": "yes",
+                "text": "Да, система полна",
+                "explanation": "Отрицание выводит систему из всех пяти замкнутых классов Поста."
+              },
+              {
+                "id": "no",
+                "text": "Нет, система не полна"
+              }
+            ]
+          },
+          "evaluation": {
+            "type": "choice",
+            "correct": [
+              "yes"
+            ]
+          },
+          "evidences": [
+            "understanding"
+          ],
+          "weight": 1
+        },
+        {
+          "id": "classes",
+          "label": "Какие замкнутые классы система покидает",
+          "response": {
+            "kind": "choice",
+            "select": "many",
+            "options": [
+              {
+                "id": "t0",
+                "text": "T0 — сохраняющие ноль"
+              },
+              {
+                "id": "t1",
+                "text": "T1 — сохраняющие единицу"
+              },
+              {
+                "id": "s",
+                "text": "S — самодвойственные"
+              },
+              {
+                "id": "m",
+                "text": "M — монотонные"
+              },
+              {
+                "id": "l",
+                "text": "L — линейные"
+              }
+            ]
+          },
+          "evaluation": {
+            "type": "choice",
+            "correct": [
+              "t0",
+              "t1",
+              "s",
+              "m",
+              "l"
+            ],
+            "partialCredit": true
+          },
+          "evidences": [
+            "recall"
+          ],
+          "weight": 1
+        },
+        {
+          "id": "why",
+          "label": "Обоснование",
+          "response": {
+            "kind": "text",
+            "multiline": true,
+            "minWords": 20
+          },
+          "evaluation": {
+            "type": "rubric",
+            "mode": "concept-match",
+            "passScore": 0.6,
+            "criteria": [
+              {
+                "id": "theorem",
+                "criterion": "Назван критерий Поста",
+                "weight": 2,
+                "requiredConcepts": [
+                  "Поста"
+                ]
+              },
+              {
+                "id": "classes",
+                "criterion": "Упомянуты замкнутые классы",
+                "weight": 2,
+                "requiredConcepts": [
+                  "класс"
+                ]
+              },
+              {
+                "id": "negation",
+                "criterion": "Показана роль отрицания",
+                "weight": 1,
+                "requiredConcepts": [
+                  "отрицание"
+                ]
+              }
+            ]
+          },
+          "evidences": [
+            "reasoning"
+          ],
+          "weight": 2
+        }
+      ]
+    },
+    "evaluation": {
+      "type": "form",
+      "passScore": 0.75
+    },
+    "evidences": [
+      "understanding",
+      "reasoning"
+    ],
+    "topicId": "cs.discrete.boolean",
+    "skills": [
+      {
+        "skillId": "post-theorem",
+        "role": "primary"
+      },
+      {
+        "skillId": "boolean-functions",
+        "role": "secondary"
+      }
+    ],
+    "prerequisites": [
+      "boolean-functions"
+    ],
+    "explanation": "По критерию Поста система полна, если для каждого из пяти классов T0, T1, S, M, L найдётся функция, в него не входящая. Отрицание не сохраняет ни ноль, ни единицу, немонотонно и нелинейно, а конъюнкция несамодвойственна."
+  },
+  {
+    "id": "fx-aho-corasick",
+    "title": "Бор с суффиксными ссылками",
+    "intent": "coding",
+    "difficulty": "L4",
+    "prompt": "Реализуйте поиск всех вхождений набора образцов в текст алгоритмом Ахо — Корасика.",
+    "instructions": [
+      "Постройте бор по набору образцов.",
+      "Достройте суффиксные ссылки обходом в ширину.",
+      "Верните список пар (позиция, образец), отсортированный по позиции."
+    ],
+    "response": {
+      "kind": "code",
+      "entry": "solution.py",
+      "files": [
+        {
+          "path": "solution.py",
+          "language": "python",
+          "editable": true,
+          "content": "def find_all(text: str, patterns: list[str]) -> list[tuple[int, str]]:\n    \"\"\"Вернуть все вхождения образцов в текст.\"\"\"\n    raise NotImplementedError\n"
+        }
+      ]
+    },
+    "evaluation": {
+      "type": "program",
+      "language": "python",
+      "timeoutMs": 2000,
+      "staticChecks": [
+        {
+          "kind": "must-contain",
+          "label": "Определена функция find_all",
+          "fragment": "def find_all("
+        },
+        {
+          "kind": "must-not-contain",
+          "label": "Заглушка заменена реализацией",
+          "fragment": "raise NotImplementedError"
+        },
+        {
+          "kind": "must-not-contain",
+          "label": "Решение не сводится к str.find в цикле",
+          "fragment": ".find("
+        }
+      ],
+      "cases": [
+        {
+          "id": "basic",
+          "name": "Два образца в коротком тексте",
+          "input": "ahishers\nhe\nshe\nhis\nhers",
+          "expected": "[(1, 'his'), (3, 'she'), (3, 'he'), (4, 'hers')]"
+        },
+        {
+          "id": "overlap",
+          "name": "Вложенные образцы",
+          "input": "aaaa\na\naa",
+          "expected": "[(0, 'a'), (0, 'aa'), (1, 'a'), (1, 'aa'), (2, 'a'), (2, 'aa'), (3, 'a')]"
+        },
+        {
+          "id": "hidden-large",
+          "name": "Скрытый тест",
+          "expected": "",
+          "hidden": true
+        }
+      ]
+    },
+    "evidences": [
+      "coding",
+      "understanding"
+    ],
+    "topicId": "cs.algorithms.strings",
+    "skills": [
+      {
+        "skillId": "aho-corasick",
+        "role": "primary"
+      },
+      {
+        "skillId": "trie",
+        "role": "secondary"
+      },
+      {
+        "skillId": "bfs",
+        "role": "secondary"
+      }
+    ],
+    "prerequisites": [
+      "trie",
+      "bfs"
+    ],
+    "explanation": "Суффиксная ссылка ведёт в вершину, соответствующую наибольшему собственному суффиксу текущей строки. Она строится обходом в ширину и позволяет не откатываться по тексту."
+  },
+  {
+    "id": "fx-viterbi-step",
+    "title": "Первый шаг алгоритма Витерби",
+    "intent": "calculation",
+    "difficulty": "L3",
+    "prompt": "Скрытая марковская модель: состояния {Дождь, Ясно}, начальные вероятности 0.6 и 0.4, вероятности наблюдения «зонт» равны 0.9 и 0.2. Посчитайте δ₁ для обоих состояний и укажите более вероятное.",
+    "response": {
+      "kind": "form",
+      "fields": [
+        {
+          "id": "delta",
+          "label": "Значения δ₁",
+          "response": {
+            "kind": "numeric",
+            "fields": [
+              {
+                "id": "rain",
+                "label": "δ₁(Дождь)"
+              },
+              {
+                "id": "sun",
+                "label": "δ₁(Ясно)"
+              }
+            ]
+          },
+          "evaluation": {
+            "type": "numeric",
+            "expected": [
+              {
+                "field": "rain",
+                "value": 0.54,
+                "tolerance": {
+                  "kind": "absolute",
+                  "value": 0.001
+                }
+              },
+              {
+                "field": "sun",
+                "value": 0.08,
+                "tolerance": {
+                  "kind": "absolute",
+                  "value": 0.001
+                }
+              }
+            ]
+          },
+          "evidences": [
+            "calculation"
+          ],
+          "weight": 2
+        },
+        {
+          "id": "argmax",
+          "label": "Более вероятное состояние",
+          "response": {
+            "kind": "choice",
+            "select": "one",
+            "options": [
+              {
+                "id": "rain",
+                "text": "Дождь"
+              },
+              {
+                "id": "sun",
+                "text": "Ясно"
+              }
+            ]
+          },
+          "evaluation": {
+            "type": "choice",
+            "correct": [
+              "rain"
+            ]
+          },
+          "evidences": [
+            "understanding"
+          ],
+          "weight": 1
+        }
+      ]
+    },
+    "evaluation": {
+      "type": "form"
+    },
+    "evidences": [
+      "calculation",
+      "understanding"
+    ],
+    "topicId": "math.probability.markov",
+    "skills": [
+      {
+        "skillId": "viterbi",
+        "role": "primary"
+      },
+      {
+        "skillId": "hmm",
+        "role": "secondary"
+      },
+      {
+        "skillId": "conditional-probability",
+        "role": "secondary"
+      },
+      {
+        "skillId": "dynamic-programming",
+        "role": "secondary"
+      }
+    ],
+    "prerequisites": [
+      "hmm",
+      "conditional-probability",
+      "dynamic-programming"
+    ],
+    "diagnoses": {
+      "delta.rain": [
+        "conditional-probability"
+      ],
+      "delta.sun": [
+        "conditional-probability"
+      ]
+    },
+    "explanation": "δ₁(s) = π(s) · b(s, зонт). Для дождя 0.6 · 0.9 = 0.54, для ясной погоды 0.4 · 0.2 = 0.08."
+  },
+  {
+    "id": "fx-em-step",
+    "title": "E-шаг алгоритма EM",
+    "intent": "calculation",
+    "difficulty": "L3",
+    "prompt": "Смесь двух гауссиан с весами 0.5 и 0.5. Для точки x правдоподобия компонент равны 0.3 и 0.1. Посчитайте ответственность первой компоненты и объясните, что происходит на M-шаге.",
+    "response": {
+      "kind": "form",
+      "fields": [
+        {
+          "id": "gamma",
+          "label": "Ответственность первой компоненты",
+          "response": {
+            "kind": "numeric",
+            "fields": [
+              {
+                "id": "g1",
+                "label": "γ₁"
+              }
+            ]
+          },
+          "evaluation": {
+            "type": "numeric",
+            "expected": [
+              {
+                "field": "g1",
+                "value": 0.75,
+                "tolerance": {
+                  "kind": "absolute",
+                  "value": 0.005
+                }
+              }
+            ]
+          },
+          "evidences": [
+            "calculation"
+          ],
+          "weight": 2
+        },
+        {
+          "id": "mstep",
+          "label": "Что делает M-шаг",
+          "response": {
+            "kind": "text",
+            "multiline": true,
+            "minWords": 15
+          },
+          "evaluation": {
+            "type": "rubric",
+            "mode": "concept-match",
+            "passScore": 0.6,
+            "criteria": [
+              {
+                "id": "params",
+                "criterion": "Названо обновление параметров",
+                "weight": 2,
+                "requiredConcepts": [
+                  "параметр"
+                ]
+              },
+              {
+                "id": "weights",
+                "criterion": "Упомянуты веса или ответственности",
+                "weight": 1,
+                "requiredConcepts": [
+                  "ответственност"
+                ]
+              },
+              {
+                "id": "likelihood",
+                "criterion": "Связано с правдоподобием",
+                "weight": 1,
+                "requiredConcepts": [
+                  "правдоподоби"
+                ]
+              }
+            ]
+          },
+          "evidences": [
+            "reasoning"
+          ],
+          "weight": 1
+        }
+      ]
+    },
+    "evaluation": {
+      "type": "form",
+      "passScore": 0.7
+    },
+    "evidences": [
+      "calculation",
+      "reasoning"
+    ],
+    "topicId": "ml.latent.em",
+    "skills": [
+      {
+        "skillId": "em",
+        "role": "primary"
+      },
+      {
+        "skillId": "max-likelihood",
+        "role": "secondary"
+      },
+      {
+        "skillId": "conditional-probability",
+        "role": "secondary"
+      }
+    ],
+    "prerequisites": [
+      "max-likelihood",
+      "conditional-probability"
+    ],
+    "explanation": "γ₁ = 0.5 · 0.3 / (0.5 · 0.3 + 0.5 · 0.1) = 0.15 / 0.2 = 0.75. На M-шаге параметры компонент пересчитываются как взвешенные оценки максимального правдоподобия с весами-ответственностями."
+  },
+  {
+    "id": "fx-vae-elbo",
+    "title": "Нижняя оценка ELBO",
+    "intent": "proof",
+    "difficulty": "L4",
+    "prompt": "Запишите ELBO вариационного автокодировщика и объясните смысл обоих слагаемых.",
+    "response": {
+      "kind": "form",
+      "fields": [
+        {
+          "id": "formula",
+          "label": "Формула ELBO",
+          "response": {
+            "kind": "expression",
+            "placeholder": "E_q[log p(x|z)] - KL(q(z|x) || p(z))",
+            "symbols": [
+              "E_q",
+              "KL",
+              "log"
+            ]
+          },
+          "evaluation": {
+            "type": "symbolic",
+            "accept": [
+              "E_q[log p(x|z)] - KL(q(z|x)||p(z))",
+              "E_q[log p(x|z)] - D_KL(q(z|x)||p(z))"
+            ],
+            "aliases": {
+              "\\mathbb{E}": "E",
+              "D_{KL}": "KL",
+              "D_KL": "KL",
+              "\\|": "||"
+            }
+          },
+          "evidences": [
+            "recall"
+          ],
+          "weight": 1
+        },
+        {
+          "id": "meaning",
+          "label": "Смысл слагаемых",
+          "response": {
+            "kind": "text",
+            "multiline": true,
+            "minWords": 25
+          },
+          "evaluation": {
+            "type": "rubric",
+            "mode": "concept-match",
+            "passScore": 0.6,
+            "criteria": [
+              {
+                "id": "reconstruction",
+                "criterion": "Первое слагаемое — качество восстановления",
+                "weight": 2,
+                "requiredConcepts": [
+                  "восстановлен"
+                ]
+              },
+              {
+                "id": "kl",
+                "criterion": "Второе слагаемое — расхождение с априорным распределением",
+                "weight": 2,
+                "requiredConcepts": [
+                  "априорн"
+                ]
+              },
+              {
+                "id": "bound",
+                "criterion": "Сказано, что это нижняя оценка",
+                "weight": 1,
+                "requiredConcepts": [
+                  "нижняя оценка"
+                ],
+                "commonErrors": [
+                  "ELBO называют точным значением правдоподобия"
+                ]
+              }
+            ]
+          },
+          "evidences": [
+            "reasoning"
+          ],
+          "weight": 2
+        }
+      ]
+    },
+    "evaluation": {
+      "type": "form",
+      "passScore": 0.6
+    },
+    "evidences": [
+      "recall",
+      "reasoning"
+    ],
+    "topicId": "dl.generative.vae",
+    "skills": [
+      {
+        "skillId": "vae",
+        "role": "primary"
+      },
+      {
+        "skillId": "kl-divergence",
+        "role": "secondary"
+      }
+    ],
+    "prerequisites": [
+      "kl-divergence",
+      "max-likelihood",
+      "backprop"
+    ],
+    "explanation": "ELBO = E_q(z|x)[log p(x|z)] − KL(q(z|x) ‖ p(z)). Первое слагаемое отвечает за восстановление объекта, второе прижимает апостериорное распределение к априорному. Сумма — нижняя оценка логарифма правдоподобия."
+  },
+  {
+    "id": "fx-mapreduce-order",
+    "title": "Порядок стадий MapReduce",
+    "intent": "system-design",
+    "difficulty": "L2",
+    "prompt": "Расставьте стадии подсчёта частот слов в порядке выполнения и объясните, что происходит на shuffle.",
+    "response": {
+      "kind": "form",
+      "fields": [
+        {
+          "id": "stages",
+          "label": "Порядок стадий",
+          "response": {
+            "kind": "ordering",
+            "items": [
+              {
+                "id": "split",
+                "text": "Разбиение входа на сплиты"
+              },
+              {
+                "id": "map",
+                "text": "Map: слово → (слово, 1)"
+              },
+              {
+                "id": "combine",
+                "text": "Combiner: локальная свёртка на узле карты"
+              },
+              {
+                "id": "shuffle",
+                "text": "Shuffle: группировка по ключу и передача по сети"
+              },
+              {
+                "id": "reduce",
+                "text": "Reduce: суммирование значений ключа"
+              }
+            ]
+          },
+          "evaluation": {
+            "type": "ordering",
+            "correct": [
+              "split",
+              "map",
+              "combine",
+              "shuffle",
+              "reduce"
+            ]
+          },
+          "evidences": [
+            "understanding"
+          ],
+          "weight": 2
+        },
+        {
+          "id": "shuffle",
+          "label": "Что делает shuffle",
+          "response": {
+            "kind": "text",
+            "multiline": true,
+            "minWords": 15
+          },
+          "evaluation": {
+            "type": "rubric",
+            "mode": "concept-match",
+            "passScore": 0.5,
+            "criteria": [
+              {
+                "id": "group",
+                "criterion": "Сказано о группировке по ключу",
+                "weight": 2,
+                "requiredConcepts": [
+                  "ключ"
+                ]
+              },
+              {
+                "id": "network",
+                "criterion": "Упомянута передача по сети",
+                "weight": 1,
+                "requiredConcepts": [
+                  "сет"
+                ]
+              }
+            ]
+          },
+          "evidences": [
+            "reasoning"
+          ],
+          "weight": 1
+        }
+      ]
+    },
+    "evaluation": {
+      "type": "form",
+      "passScore": 0.7
+    },
+    "evidences": [
+      "understanding",
+      "reasoning"
+    ],
+    "topicId": "data.distributed.mapreduce",
+    "skills": [
+      {
+        "skillId": "mapreduce",
+        "role": "primary"
+      }
+    ],
+    "explanation": "Combiner выполняется на стороне карты и уменьшает объём данных до передачи. Shuffle группирует пары по ключу и перемещает их к нужным reducer-узлам — это самая дорогая стадия по сети."
+  },
+  {
+    "id": "fx-oral-backprop",
+    "title": "Билет: обратное распространение ошибки",
+    "intent": "oral-exam",
+    "difficulty": "L4",
+    "prompt": "Раскройте вопрос: многослойная нейронная сеть и алгоритм обратного распространения ошибки. Ответьте так, как отвечали бы на устном экзамене, затем сверьтесь с ключевыми пунктами.",
+    "instructions": [
+      "На подготовку — 10 минут, ответ пишется целиком до сверки.",
+      "После ответа откроются ключевые пункты: отметьте те, которые вы действительно раскрыли."
+    ],
+    "response": {
+      "kind": "text",
+      "multiline": true,
+      "minWords": 80
+    },
+    "evaluation": {
+      "type": "rubric",
+      "mode": "self-assessment",
+      "passScore": 0.7,
+      "criteria": [
+        {
+          "id": "forward",
+          "criterion": "Прямой проход и вычисление функции потерь",
+          "weight": 1,
+          "requiredConcepts": [
+            "прямой проход",
+            "функция потерь"
+          ]
+        },
+        {
+          "id": "chain",
+          "criterion": "Правило дифференцирования сложной функции как основа метода",
+          "weight": 2,
+          "requiredConcepts": [
+            "цепное правило"
+          ]
+        },
+        {
+          "id": "graph",
+          "criterion": "Граф вычислений и порядок обхода в обратную сторону",
+          "weight": 2,
+          "requiredConcepts": [
+            "граф вычислений"
+          ]
+        },
+        {
+          "id": "update",
+          "criterion": "Обновление весов градиентным шагом",
+          "weight": 1,
+          "requiredConcepts": [
+            "градиентный шаг"
+          ]
+        },
+        {
+          "id": "vanishing",
+          "criterion": "Затухание градиента в глубоких сетях",
+          "weight": 1,
+          "requiredConcepts": [
+            "затухание градиента"
+          ],
+          "commonErrors": [
+            "Затухание объясняют только большой глубиной, не упоминая производные активаций"
+          ]
+        }
+      ]
+    },
+    "evidences": [
+      "reasoning"
+    ],
+    "topicId": "dl.training.backprop",
+    "skills": [
+      {
+        "skillId": "backprop",
+        "role": "primary"
+      },
+      {
+        "skillId": "chain-rule",
+        "role": "secondary"
+      },
+      {
+        "skillId": "gradient",
+        "role": "secondary"
+      }
+    ],
+    "prerequisites": [
+      "chain-rule",
+      "gradient"
+    ],
+    "explanation": "Ответ считается полным, если названы прямой проход, цепное правило, граф вычислений, обратный обход и шаг обновления весов. Затухание градиента — обязательный пункт для оценки выше среднего.",
+    "admissionRefs": [
+      "itmo-deep-learning-genai-2026:ITMO-DL-ML-14",
+      "itmo-deep-learning-genai-2026:ITMO-DL-ML-15"
+    ]
+  },
+  {
+    "id": "fx-output-prediction",
+    "title": "Что выведет программа",
+    "intent": "output-prediction",
+    "difficulty": "L1",
+    "prompt": "Не запуская код, укажите, что он выведет.",
+    "presentation": {
+      "readOnlyCode": [
+        {
+          "path": "snippet.py",
+          "language": "python",
+          "editable": false,
+          "content": "import numpy as np\n\na = np.array([1, 2, 3])\nb = a\nb[0] = 99\nprint(a.sum())\n"
+        }
+      ],
+      "expectedFormat": "Одно целое число"
+    },
+    "response": {
+      "kind": "text",
+      "placeholder": "104"
+    },
+    "evaluation": {
+      "type": "text",
+      "accept": [
+        {
+          "kind": "one-of",
+          "values": [
+            "104"
+          ]
+        }
+      ]
+    },
+    "evidences": [
+      "understanding"
+    ],
+    "topicId": "python.numpy.views",
+    "skills": [
+      {
+        "skillId": "numpy-views",
+        "role": "primary"
+      },
+      {
+        "skillId": "references",
+        "role": "secondary"
+      }
+    ],
+    "diagnoses": {
+      "text": [
+        "references"
+      ]
+    },
+    "hints": [
+      "Присваивание массива не копирует данные."
+    ],
+    "explanation": "b — не копия, а ссылка на тот же массив. После b[0] = 99 массив равен [99, 2, 3], сумма 104."
+  },
+  {
+    "id": "fx-debug-gradient",
+    "title": "Найди ошибку в градиентном спуске",
+    "intent": "debug",
+    "difficulty": "L3",
+    "prompt": "Функция должна минимизировать f(x) = x², но расходится. Найдите и исправьте ошибку.",
+    "response": {
+      "kind": "code",
+      "entry": "descent.py",
+      "files": [
+        {
+          "path": "descent.py",
+          "language": "python",
+          "editable": true,
+          "content": "def descend(x0: float, lr: float, steps: int) -> float:\n    x = x0\n    for _ in range(steps):\n        gradient = 2 * x\n        x = x + lr * gradient\n    return x\n"
+        }
+      ]
+    },
+    "evaluation": {
+      "type": "program",
+      "language": "python",
+      "staticChecks": [
+        {
+          "kind": "must-contain",
+          "label": "Шаг делается против градиента",
+          "fragment": "x = x - lr * gradient"
+        },
+        {
+          "kind": "must-not-contain",
+          "label": "Знак плюс в обновлении убран",
+          "fragment": "x = x + lr * gradient"
+        }
+      ],
+      "cases": [
+        {
+          "id": "converges",
+          "name": "Сходится к нулю при lr = 0.1",
+          "input": "1.0 0.1 100",
+          "expected": "0.0"
+        },
+        {
+          "id": "hidden-negative",
+          "name": "Скрытый тест",
+          "expected": "",
+          "hidden": true
+        }
+      ],
+      "timeoutMs": 2000
+    },
+    "evidences": [
+      "coding",
+      "understanding"
+    ],
+    "topicId": "ml.optimization.gradient-descent",
+    "skills": [
+      {
+        "skillId": "gradient-descent",
+        "role": "primary"
+      },
+      {
+        "skillId": "gradient",
+        "role": "secondary"
+      }
+    ],
+    "prerequisites": [
+      "gradient"
+    ],
+    "diagnoses": {
+      "static-0": [
+        "gradient"
+      ]
+    },
+    "explanation": "Градиент указывает направление роста функции. Чтобы минимизировать, шаг делается в противоположную сторону: x = x − lr · ∇f."
+  },
+  {
+    "id": "fx-professional-rag",
+    "title": "Профессиональная задача вне вступительного",
+    "intent": "practice",
+    "difficulty": "L3",
+    "prompt": "Что делает переранжирование в системе RAG и почему оно улучшает ответы?",
+    "response": {
+      "kind": "choice",
+      "select": "one",
+      "options": [
+        {
+          "id": "rerank",
+          "text": "Пересортировывает найденные фрагменты по релевантности перед подачей в модель"
+        },
+        {
+          "id": "index",
+          "text": "Заново строит индекс на каждом запросе"
+        },
+        {
+          "id": "train",
+          "text": "Дообучает языковую модель на найденных документах"
+        }
+      ]
+    },
+    "evaluation": {
+      "type": "choice",
+      "correct": [
+        "rerank"
+      ]
+    },
+    "evidences": [
+      "understanding"
+    ],
+    "topicId": "ai.applications",
+    "skills": [
+      {
+        "skillId": "llm-rag",
+        "role": "primary"
+      }
+    ],
+    "explanation": "Переранжирование пересобирает порядок найденных фрагментов более точной моделью. Официальный список вопросов ИТМО RAG не содержит: тема нужна профессионально, а не для вступительного.",
+    "prerequisites": [
+      "complexity"
+    ]
+  }
+]

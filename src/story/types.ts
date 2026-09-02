@@ -1,5 +1,24 @@
 export type Emotion = 'neutral' | 'happy' | 'worried' | 'surprised' | 'tired' | 'determined'
 
+/**
+ * Место действия. Это закрытый словарь: фон подбирается только по нему и
+ * никогда не выводится из заголовка акта, номера главы или текста сцены.
+ */
+export type LocationId =
+  | 'office' | 'meeting' | 'server' | 'lab' | 'conference' | 'trip' | 'industrial'
+  | 'cafe' | 'restaurant' | 'airport' | 'library' | 'hackathon' | 'train'
+  | 'coast' | 'backstage' | 'operations'
+
+export const locationIds: readonly LocationId[] = [
+  'office', 'meeting', 'server', 'lab', 'conference', 'trip', 'industrial',
+  'cafe', 'restaurant', 'airport', 'library', 'hackathon', 'train',
+  'coast', 'backstage', 'operations',
+]
+
+export function isLocationId(value: string | undefined): value is LocationId {
+  return Boolean(value) && (locationIds as readonly string[]).includes(value as string)
+}
+
 export interface CharacterTraits {
   hair: 'bob' | 'short' | 'long' | 'buzz' | 'ponytail' | 'bald'
   glasses: boolean
@@ -43,7 +62,11 @@ export interface NotificationBeat {
 /** Комикс-полоса из нескольких панелей. */
 export interface ComicBeat {
   kind: 'comic'
-  panels: Array<{ speaker?: string; emotion?: Emotion; caption: string; scene: string }>
+  /**
+   * `scene` — это метка кадра, а не место действия: по ней группируются реплики
+   * одного кадра. Фон задаёт только `location`.
+   */
+  panels: Array<{ speaker?: string; emotion?: Emotion; caption: string; scene: string; location?: LocationId }>
 }
 
 export interface ChoiceOption {
@@ -78,6 +101,8 @@ export interface StoryAct {
   id: string
   title: string
   trigger: ActTrigger
+  /** Место действия акта. Панель кадра может уточнить его своим `location`. */
+  location?: LocationId
   /** Акт показывается, только если все флаги присутствуют. */
   requiresFlags?: string[]
   /** Акт скрывается, если присутствует любой из флагов. */
@@ -102,6 +127,8 @@ export interface StoryCase {
   title: string
   logline: string
   setting: string
+  /** Место действия дела целиком. Ниже по цепочке его уточняют акт и кадр. */
+  location?: LocationId
   cast: string[]
   career?: {
     professionId: string
@@ -110,7 +137,7 @@ export interface StoryCase {
     chapterNumber: number
     chapterCount: number
     stageTitle: string
-    location: string
+    location: LocationId
   }
   acts: StoryAct[]
   /** Проверяются сверху вниз, первая подходящая — итоговая. */

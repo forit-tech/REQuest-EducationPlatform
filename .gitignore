@@ -13,3 +13,4 @@ bot/subscribers.json
 
 # Сборки desktop-приложения и их бэкапы
 release/
+build/

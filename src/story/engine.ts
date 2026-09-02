@@ -1,4 +1,5 @@
-import type { Character, StoryAct, StoryCase, StoryEnding } from './types'
+import { isLocationId } from './types'
+import type { Character, LocationId, StoryAct, StoryCase, StoryEnding } from './types'
 import type { GameState } from '../core/game'
 import type { Mission } from '../types'
 import castData from '../../knowledge/story/cast.json'
@@ -27,68 +28,87 @@ type ProfessionProgram = {
 const careerNarratives = careerNarrativesData as CareerNarrative[]
 const professionPrograms = professionProgramsData as ProfessionProgram[]
 
-type RouteChapter = { location: string; hook: string }
+/**
+ * Один этап профессии — одна сюжетная арка с одним местом действия.
+ * Курсы внутри этапа являются частями этой арки, а не отдельными новеллами.
+ */
+type RouteChapter = { location: LocationId; hook: string }
+
+/** Старые названия мест из данных приводятся к словарю точным сравнением. */
+const legacyLocationAliases: Record<string, LocationId> = {
+  'trip-station': 'trip',
+  'high-speed-train': 'train',
+  'seaside-research-station': 'coast',
+  'emergency-operations-storm': 'operations',
+  'festival-backstage': 'backstage',
+}
+
+function toLocation(value: string | undefined, fallback: LocationId): LocationId {
+  if (isLocationId(value)) return value
+  if (value && legacyLocationAliases[value]) return legacyLocationAliases[value]
+  return fallback
+}
 const careerRoutes: Record<string, RouteChapter[]> = {
   'data-scientist': [
     { location: 'office', hook: 'Дарья получает архив городских обращений и замечает, что часть районов почти исчезла из данных.' },
-    { location: 'high-speed-train', hook: 'Команда едет к диспетчерам соседнего региона, чтобы сверить таблицы с тем, что происходит на земле.' },
-    { location: 'seaside-research-station', hook: 'На прибрежной станции датчики спорят с журналами наблюдателей, и Дарье приходится заново собирать признаки.' },
-    { location: 'emergency-operations-storm', hook: 'Во время шторма модель впервые влияет на настоящее решение штаба — цена неверного прогноза становится реальной.' },
+    { location: 'train', hook: 'Команда едет к диспетчерам соседнего региона, чтобы сверить таблицы с тем, что происходит на земле.' },
+    { location: 'coast', hook: 'На прибрежной станции датчики спорят с журналами наблюдателей, и Дарье приходится заново собирать признаки.' },
+    { location: 'operations', hook: 'Во время шторма модель впервые влияет на настоящее решение штаба — цена неверного прогноза становится реальной.' },
     { location: 'conference', hook: 'Дарья защищает итоговую систему перед городами-партнёрами и объясняет не только метрики, но и границы модели.' },
   ],
   'data-analyst': [
     { location: 'office', hook: 'Алина расследует падение продаж, которое разные отделы объясняют четырьмя несовместимыми версиями.' },
-    { location: 'high-speed-train', hook: 'В поезде к региональному складу она собирает воспроизводимый отчёт и находит пропущенный сегмент клиентов.' },
+    { location: 'train', hook: 'В поезде к региональному складу она собирает воспроизводимый отчёт и находит пропущенный сегмент клиентов.' },
     { location: 'industrial', hook: 'На складе цифры встречаются с реальным процессом: причина скрыта между сканером, возвратом и ночной сменой.' },
     { location: 'restaurant', hook: 'За ужином с региональной командой Алина проверяет выводы на неудобных вопросах и договаривается о новом эксперименте.' },
     { location: 'conference', hook: 'На совете директоров она связывает всю цепочку доказательств и предлагает решение, которое можно измерить после запуска.' },
   ],
   'ml-engineer': [
     { location: 'lab', hook: 'Тимур принимает эффектный прототип, который пока умеет работать только на ноутбуке автора.' },
-    { location: 'seaside-research-station', hook: 'На полевой станции входные данные меняются быстрее документации, и модель начинает дрейфовать.' },
+    { location: 'coast', hook: 'На полевой станции входные данные меняются быстрее документации, и модель начинает дрейфовать.' },
     { location: 'industrial', hook: 'Промышленный контур требует очередей, версий и отката — одной хорошей метрики больше недостаточно.' },
-    { location: 'emergency-operations-storm', hook: 'Под аварийной нагрузкой Тимур расследует деградацию и собирает безопасный путь восстановления.' },
+    { location: 'operations', hook: 'Под аварийной нагрузкой Тимур расследует деградацию и собирает безопасный путь восстановления.' },
     { location: 'conference', hook: 'На инженерном разборе он демонстрирует сервис, мониторинг и честный отчёт о неудачных экспериментах.' },
   ],
   'data-engineer': [
     { location: 'office', hook: 'Вера получает цепочку отчётов, где один и тот же заказ имеет три времени создания.' },
-    { location: 'high-speed-train', hook: 'По дороге в логистический хаб она восстанавливает контракт данных и список проверяемых допущений.' },
+    { location: 'train', hook: 'По дороге в логистический хаб она восстанавливает контракт данных и список проверяемых допущений.' },
     { location: 'industrial', hook: 'На площадке выясняется, как терминалы, смены и ручные исправления меняют поток событий.' },
-    { location: 'emergency-operations-storm', hook: 'Ночной сбой обрывает конвейер, и Вера строит повторяемое восстановление без потери записей.' },
+    { location: 'operations', hook: 'Ночной сбой обрывает конвейер, и Вера строит повторяемое восстановление без потери записей.' },
     { location: 'meeting', hook: 'Финальная встреча превращает временный ремонт в устойчивую платформу с владельцами и гарантиями качества.' },
   ],
   'ai-engineer': [
     { location: 'lab', hook: 'Илья собирает помощника для врачей и сразу сталкивается с опасной уверенностью красивых ответов.' },
-    { location: 'high-speed-train', hook: 'В дороге к пилотной клинике он готовит набор проверок, которые нельзя заменить демонстрацией.' },
-    { location: 'seaside-research-station', hook: 'Удалённая медицинская станция показывает редкие случаи и ограничения исходной базы знаний.' },
-    { location: 'emergency-operations-storm', hook: 'Во время перебоя связи помощник должен корректно отказать, сохранить контекст и не выдумать решение.' },
+    { location: 'train', hook: 'В дороге к пилотной клинике он готовит набор проверок, которые нельзя заменить демонстрацией.' },
+    { location: 'coast', hook: 'Удалённая медицинская станция показывает редкие случаи и ограничения исходной базы знаний.' },
+    { location: 'operations', hook: 'Во время перебоя связи помощник должен корректно отказать, сохранить контекст и не выдумать решение.' },
     { location: 'conference', hook: 'Илья защищает продукт перед экспертами, показывая оценку качества, безопасность и участие человека.' },
   ],
   'java-developer': [
     { location: 'office', hook: 'Максим получает старый платёжный сервис и первый баг без понятного владельца.' },
     { location: 'library', hook: 'На вечернем разборе команда восстанавливает доменную модель по тестам, логам и истории изменений.' },
     { location: 'industrial', hook: 'На терминалах партнёра проявляется конкуренция запросов, которую не удавалось воспроизвести в офисе.' },
-    { location: 'emergency-operations-storm', hook: 'Перед релизом нагрузка вскрывает узкое место, и Максим готовит исправление вместе с планом отката.' },
+    { location: 'operations', hook: 'Перед релизом нагрузка вскрывает узкое место, и Максим готовит исправление вместе с планом отката.' },
     { location: 'meeting', hook: 'После запуска он проводит разбор и превращает найденные риски в тесты и архитектурные ограничения.' },
   ],
   'python-backend': [
     { location: 'office', hook: 'Ника проектирует API доставки для нового города, где адреса и расписания живут по непривычным правилам.' },
-    { location: 'high-speed-train', hook: 'В командировке она поднимает локальный стенд и сверяет контракт с операционной командой.' },
+    { location: 'train', hook: 'В командировке она поднимает локальный стенд и сверяет контракт с операционной командой.' },
     { location: 'industrial', hook: 'В сортировочном центре реальные сканеры создают дубли и запоздавшие события.' },
     { location: 'restaurant', hook: 'За поздним ужином курьеры помогают Нике найти сценарии, которых не было в техническом задании.' },
-    { location: 'emergency-operations-storm', hook: 'В первый вечер запуска сервис встречает пик заказов, а Ника удерживает очередь и данные в согласованном состоянии.' },
+    { location: 'operations', hook: 'В первый вечер запуска сервис встречает пик заказов, а Ника удерживает очередь и данные в согласованном состоянии.' },
   ],
   'go-developer': [
     { location: 'office', hook: 'Денис принимает сетевой шлюз, который теряет сообщения только в самые неудобные минуты.' },
     { location: 'lab', hook: 'В лаборатории он строит нагрузочный стенд и делает проблему воспроизводимой.' },
-    { location: 'high-speed-train', hook: 'По пути на транспортный узел команда анализирует трассировки и готовит безопасное переключение.' },
+    { location: 'train', hook: 'По пути на транспортный узел команда анализирует трассировки и готовит безопасное переключение.' },
     { location: 'industrial', hook: 'На узле новый сервис сталкивается с нестабильной сетью и настоящей конкуренцией соединений.' },
-    { location: 'emergency-operations-storm', hook: 'В час пик Денис управляет запуском, наблюдает систему и принимает решение об откате по данным.' },
+    { location: 'operations', hook: 'В час пик Денис управляет запуском, наблюдает систему и принимает решение об откате по данным.' },
   ],
   'frontend-developer': [
     { location: 'office', hook: 'Лера собирает первый интерфейс фестиваля из противоречивых макетов и реальных пользовательских задач.' },
-    { location: 'high-speed-train', hook: 'По дороге на площадку она чинит адаптивность и готовит сценарии полевого тестирования.' },
-    { location: 'festival-backstage', hook: 'За кулисами посетители, волонтёры и слабая сеть быстро показывают, что прототип упустил.' },
+    { location: 'train', hook: 'По дороге на площадку она чинит адаптивность и готовит сценарии полевого тестирования.' },
+    { location: 'backstage', hook: 'За кулисами посетители, волонтёры и слабая сеть быстро показывают, что прототип упустил.' },
     { location: 'restaurant', hook: 'За ужином с организаторами Лера защищает доступность и сокращает путь до главного действия.' },
     { location: 'conference', hook: 'В вечер открытия интерфейс обслуживает живую аудиторию, а команда наблюдает метрики и исправляет проблемы без паники.' },
   ],
@@ -96,42 +116,42 @@ const careerRoutes: Record<string, RouteChapter[]> = {
     { location: 'office', hook: 'Кирилл наследует диспетчерский прототип, где одно действие неожиданно меняет пять экранов.' },
     { location: 'library', hook: 'На архитектурном воркшопе он отделяет состояние, события и визуальные компоненты.' },
     { location: 'industrial', hook: 'В диспетчерской реальные операторы проверяют скорость, клавиатурную навигацию и устойчивость интерфейса.' },
-    { location: 'emergency-operations-storm', hook: 'Во время аварии поток обновлений растёт, и приложение должно оставаться понятным и отзывчивым.' },
+    { location: 'operations', hook: 'Во время аварии поток обновлений растёт, и приложение должно оставаться понятным и отзывчивым.' },
     { location: 'conference', hook: 'Кирилл показывает систему отраслевым экспертам и доказывает архитектуру работающим сценарием.' },
   ],
   'devops-engineer': [
     { location: 'server', hook: 'Ася выходит на первое дежурство и обнаруживает релиз, который можно повторить только по памяти коллеги.' },
-    { location: 'high-speed-train', hook: 'В поездке к резервному центру она превращает ручные шаги в проверяемый конвейер.' },
+    { location: 'train', hook: 'В поездке к резервному центру она превращает ручные шаги в проверяемый конвейер.' },
     { location: 'industrial', hook: 'На площадке команда инвентаризирует реальные зависимости и устраняет расхождения конфигурации.' },
-    { location: 'emergency-operations-storm', hook: 'Шторм отключает основной канал, и Ася проводит переключение с наблюдаемыми контрольными точками.' },
+    { location: 'operations', hook: 'Шторм отключает основной канал, и Ася проводит переключение с наблюдаемыми контрольными точками.' },
     { location: 'meeting', hook: 'На итоговом разборе она закрепляет автоматизацию, ответственность и план следующей тренировки.' },
   ],
   'sre-engineer': [
     { location: 'server', hook: 'Роман готовит платформу трансляций и переводит обещания бизнеса в измеримые цели надёжности.' },
     { location: 'airport', hook: 'В аэропорту задерживается команда, но репетиция инцидента начинается прямо с ноутбуков.' },
-    { location: 'festival-backstage', hook: 'За кулисами международного эфира он проверяет деградацию, резервирование и связь между командами.' },
-    { location: 'emergency-operations-storm', hook: 'Во время события растёт задержка, и Роман координирует инцидент по сигналам, а не догадкам.' },
+    { location: 'backstage', hook: 'За кулисами международного эфира он проверяет деградацию, резервирование и связь между командами.' },
+    { location: 'operations', hook: 'Во время события растёт задержка, и Роман координирует инцидент по сигналам, а не догадкам.' },
     { location: 'restaurant', hook: 'После эфира команда проводит спокойный разбор и превращает пережитое в инженерные изменения.' },
   ],
   'cybersecurity-specialist': [
     { location: 'office', hook: 'Марина моделирует угрозы для новой производственной сети и замечает опасную зону доверия.' },
-    { location: 'high-speed-train', hook: 'В дороге на завод она готовит план проверки, не нарушающий работу линии.' },
+    { location: 'train', hook: 'В дороге на завод она готовит план проверки, не нарушающий работу линии.' },
     { location: 'industrial', hook: 'На объекте схема сети расходится с реальностью, а старый контроллер открывает неожиданный маршрут.' },
-    { location: 'emergency-operations-storm', hook: 'Признаки проникновения требуют изоляции, сбора артефактов и решения без остановки производства.' },
+    { location: 'operations', hook: 'Признаки проникновения требуют изоляции, сбора артефактов и решения без остановки производства.' },
     { location: 'meeting', hook: 'Марина докладывает руководству доказанную цепочку атаки и план исправлений с приоритетами.' },
   ],
   'pentester': [
     { location: 'meeting', hook: 'Марк получает письменные границы первой проверки и учится отделять разрешённый эксперимент от риска.' },
-    { location: 'high-speed-train', hook: 'В поездке к клиенту он собирает пассивную разведку и журнал каждого допущения.' },
-    { location: 'seaside-research-station', hook: 'В удалённом филиале нестандартная инфраструктура открывает цепочку, которую нельзя проверять грубой силой.' },
+    { location: 'train', hook: 'В поездке к клиенту он собирает пассивную разведку и журнал каждого допущения.' },
+    { location: 'coast', hook: 'В удалённом филиале нестандартная инфраструктура открывает цепочку, которую нельзя проверять грубой силой.' },
     { location: 'industrial', hook: 'На производственной площадке Марк подтверждает влияние безопасным доказательством и сразу закрывает опасный путь.' },
     { location: 'conference', hook: 'Финальный отчёт превращает технические находки в понятный маршрут исправлений для разных команд.' },
   ],
   'soc-analyst': [
     { location: 'server', hook: 'Елизавета принимает ночную смену и замечает одиночный алерт, который слишком легко списать на шум.' },
-    { location: 'high-speed-train', hook: 'Мобильный штаб едет к площадке, пока она связывает события по времени, узлам и учётным записям.' },
+    { location: 'train', hook: 'Мобильный штаб едет к площадке, пока она связывает события по времени, узлам и учётным записям.' },
     { location: 'industrial', hook: 'На объекте журналы и физическая картина помогают отделить ложный след от реального перемещения атакующего.' },
-    { location: 'emergency-operations-storm', hook: 'Атака затрагивает несколько площадок, и Елизавета ведёт приоритизацию, изоляцию и сохранение доказательств.' },
+    { location: 'operations', hook: 'Атака затрагивает несколько площадок, и Елизавета ведёт приоритизацию, изоляцию и сохранение доказательств.' },
     { location: 'meeting', hook: 'На межкомандном разборе она восстанавливает хронологию и превращает наблюдения в новые правила обнаружения.' },
   ],
 }
@@ -201,7 +221,7 @@ function careerCase(story: StoryCase, professionId: string): StoryCase {
   if (chapterIndex < 0) return story
   const chapter = chapters[chapterIndex]
   const route = careerRoutes[professionId]?.[chapter.stageIndex]
-  const location = route?.location ?? narrative.locations[chapter.stageIndex % narrative.locations.length] ?? 'office'
+  const location = route?.location ?? toLocation(narrative.locations[chapter.stageIndex % narrative.locations.length], 'office')
   const supportId = supportFor(professionId)
   const idMap = new Map(story.cast.map(id => [id, mapCareerCharacter(id, narrative.cast)]))
   const prefix = `${professionId}:`
@@ -214,10 +234,13 @@ function careerCase(story: StoryCase, professionId: string): StoryCase {
     ...act,
     id: `${prefix}${act.id}`,
     title: replaceCharacterNames(act.title, idMap) ?? act.title,
+    // Все акты главы происходят в месте своего этапа. Дальше это место
+    // наследуют кадры, и заголовок акта на фон уже не влияет.
+    location,
     requiresFlags: act.requiresFlags?.map(flag => `${prefix}${flag}`),
     hiddenByFlags: act.hiddenByFlags?.map(flag => `${prefix}${flag}`),
     beats: [
-      ...(actIndex === 0 ? [{ kind: 'comic' as const, panels: [{ scene: location, caption: introduction }] }] : []),
+      ...(actIndex === 0 ? [{ kind: 'comic' as const, panels: [{ scene: 'chapter-open', location, caption: introduction }] }] : []),
       ...act.beats.map(beat => {
         if (beat.kind === 'line') return {
           ...beat,
@@ -234,7 +257,9 @@ function careerCase(story: StoryCase, professionId: string): StoryCase {
           ...beat,
           panels: beat.panels.map(panel => ({
             ...panel,
-            scene: location,
+            // Авторская метка кадра сохраняется: по ней группируются реплики.
+            // Затирается только место действия, и то лишь если автор его не назвал.
+            location: panel.location ?? location,
             caption: replaceCharacterNames(panel.caption, idMap) ?? panel.caption,
             speaker: panel.speaker ? idMap.get(panel.speaker) ?? panel.speaker : undefined,
           })),
@@ -265,23 +290,36 @@ function careerCase(story: StoryCase, professionId: string): StoryCase {
   const careerActs: StoryAct[] = []
 
   const isStageOpening = chapter.courseId === chapter.stage.courseIds[0]
-  if (isStageOpening && chapter.stageIndex > 0 && route) careerActs.push({
-    id: `${prefix}${story.courseId}:route-stage-${chapter.stageIndex}`,
+  const stage = chapter.stageIndex
+  /**
+   * Интерлюдии привязаны к этапу, а не к номеру курса.
+   *
+   * Раньше они выбирались по индексу курса среди всех курсов профессии: у Data
+   * Scientist их больше двадцати, а сценок написано пять, поэтому на четвёртом
+   * курсе включалась библиотека, на пятом — хакатон, а дальше не было ничего.
+   * Теперь одна сценка приходится на один этап и открывается вместе с ним.
+   */
+  const openingOfStage = (index: number) => isStageOpening && stage === index
+
+  if (isStageOpening && stage > 0 && route) careerActs.push({
+    id: `${prefix}${story.courseId}:route-stage-${stage}`,
     title: chapter.stage.title,
     trigger: { on: 'caseStart' },
+    location,
     beats: [
-      { kind: 'comic', panels: [{ scene: route.location, caption: route.hook }] },
+      { kind: 'comic', panels: [{ scene: 'route-open', location, caption: route.hook }] },
       { kind: 'line', speaker: supportId, emotion: 'determined', text: `Это продолжение нашего дела, а не отдельная учебная комната. Осваиваем новый инструмент и сразу применяем его к общей задаче.` },
     ],
   })
 
-  if (chapterIndex === 0 && practicalMissionId) {
+  if (openingOfStage(0) && practicalMissionId) {
     careerActs.push({
       id: `${prefix}${story.courseId}:coffee-help`,
       title: 'Перерыв, который стал частью дела',
       trigger: { on: 'beforeMission', missionId: practicalMissionId },
+      location: 'cafe',
       beats: [
-        { kind: 'comic', panels: [{ scene: 'city-coffee-break', caption: 'Вы выходите за кофе. Ноутбук остаётся открытым: перерыв быстро превращается в маленькую рабочую экспедицию.' }] },
+        { kind: 'comic', panels: [{ scene: 'coffee-break', location: 'cafe', caption: 'Вы выходите за кофе. Ноутбук остаётся открытым: перерыв быстро превращается в маленькую рабочую экспедицию.' }] },
         { kind: 'line', speaker: supportId, emotion: 'worried', text: `У меня сломался рабочий пример перед встречей. Не выбирай ответ за меня — помоги восстановить его в следующем практическом задании.` },
         { kind: 'choice', id: `${prefix}${story.courseId}:help-choice`, prompt: `${support.name} просит не совет, а совместную работу. Что решишь?`, options: [
           { id: 'help', text: 'Разобрать проблему вместе и подтвердить решение кодом или данными.', reply: `Вы договариваетесь: сейчас формулируете гипотезу, а затем проверяете её в рабочей станции. ${support.name} это запомнит.`, trust: { [supportId]: 2 }, flags: [helpFlag], clearFlags: [soloFlag] },
@@ -291,26 +329,28 @@ function careerCase(story: StoryCase, professionId: string): StoryCase {
     })
   }
 
-  if (chapterIndex === 1) {
+  if (openingOfStage(1)) {
     careerActs.push({
       id: `${prefix}${story.courseId}:restaurant-break`,
-      title: 'Разговор после мероприятия',
+      title: 'Разговор после смены',
       trigger: { on: 'caseStart' },
+      location: 'restaurant',
       beats: [
-        { kind: 'comic', panels: [{ scene: 'team-restaurant-dinner', caption: 'После мероприятия команда идёт ужинать. Но самый полезный разбор начинается не у доски, а между заказом и десертом.' }] },
+        { kind: 'comic', panels: [{ scene: 'team-dinner', location: 'restaurant', caption: 'Вечером команда садится ужинать. Самый полезный разбор дня начинается не у доски, а между заказом и десертом.' }] },
         { kind: 'line', speaker: supportId, emotion: 'happy', text: 'За столом проще спросить то, что в переговорной кажется глупым. Давай разложим сегодняшний подход на предположение, проверку и вывод.' },
       ],
     })
   }
 
-  if (chapterIndex === 2 && practicalMissionId) {
+  if (openingOfStage(2) && practicalMissionId) {
     careerActs.push({
       id: `${prefix}${story.courseId}:returned-help`,
-      title: 'Долг из первой главы',
+      title: 'Долг из первого этапа',
       trigger: { on: 'beforeMission', missionId: practicalMissionId },
       requiresFlags: [helpFlag],
+      location,
       beats: [
-        { kind: 'comic', panels: [{ scene: 'airport-departure-business-trip', caption: 'Через несколько глав вы встречаетесь в аэропорту перед новой командировкой. Старый выбор возвращается не репликой, а реальной возможностью.' }] },
+        { kind: 'comic', panels: [{ scene: 'debt-returned', location, caption: 'Старый выбор возвращается не репликой, а реальной возможностью: у тебя появляется контекст, которого не было.' }] },
         { kind: 'line', speaker: supportId, emotion: 'determined', text: `Ты тогда помог мне восстановить рабочий пример. Теперь у меня есть недостающий контекст для твоей задачи. Забирай — но результат всё равно придётся доказать в следующей практической миссии.` },
       ],
     }, {
@@ -318,22 +358,23 @@ function careerCase(story: StoryCase, professionId: string): StoryCase {
       title: 'Контекст приходится собирать заново',
       trigger: { on: 'beforeMission', missionId: practicalMissionId },
       requiresFlags: [soloFlag],
+      location,
       beats: [
-        { kind: 'comic', panels: [{ scene: 'airport-departure-business-trip', caption: 'В аэропорту выясняется: у команды нет общей истории решения. Перед практической миссией контекст придётся восстановить самостоятельно.' }] },
+        { kind: 'comic', panels: [{ scene: 'debt-unpaid', location, caption: 'Выясняется: у команды нет общей истории решения. Перед практической миссией контекст придётся восстановить самостоятельно.' }] },
         { kind: 'line', speaker: supportId, emotion: 'worried', text: 'Мы тогда разошлись каждый в свою задачу. Я не могу подтвердить твои допущения — начни с исходных данных и докажи цепочку самостоятельно.' },
       ],
     })
   }
 
-  if (chapterIndex === 3) careerActs.push({
-    id: `${prefix}${story.courseId}:library-workshop`, title: 'Воркшоп после закрытия', trigger: { on: 'caseStart' }, beats: [
-      { kind: 'comic', panels: [{ scene: 'library-evening-workshop', caption: 'Городская библиотека закрылась для посетителей, но команда остаётся на вечерний воркшоп: здесь новая тема превращается в рабочую схему.' }] },
+  if (openingOfStage(3)) careerActs.push({
+    id: `${prefix}${story.courseId}:evening-workshop`, title: 'Разбор после смены', trigger: { on: 'caseStart' }, location, beats: [
+      { kind: 'comic', panels: [{ scene: 'evening-workshop', location, caption: 'Рабочий день закончился, но команда остаётся на вечерний разбор: здесь новая тема превращается в рабочую схему.' }] },
       { kind: 'line', speaker: supportId, emotion: 'determined', text: 'Не переписывай готовое решение. Сначала объясни его на доске, затем собери самостоятельно в практической части.' },
     ],
   })
-  if (chapterIndex === 4) careerActs.push({
-    id: `${prefix}${story.courseId}:night-hackathon`, title: 'Ночь до демонстрации', trigger: { on: 'caseStart' }, beats: [
-      { kind: 'comic', panels: [{ scene: 'hackathon-night-loft', caption: 'На ночном хакатоне теория заканчивается быстро: к утру должен работать прототип, который выдержит чужие данные и неудобные вопросы.' }] },
+  if (openingOfStage(4)) careerActs.push({
+    id: `${prefix}${story.courseId}:night-before-demo`, title: 'Ночь до демонстрации', trigger: { on: 'caseStart' }, location, beats: [
+      { kind: 'comic', panels: [{ scene: 'night-before-demo', location, caption: 'До показа остаётся ночь. Теория заканчивается быстро: к утру должен работать прототип, который выдержит чужие данные и неудобные вопросы.' }] },
       { kind: 'line', speaker: supportId, emotion: 'happy', text: 'Первый прототип может быть маленьким. Главное — чтобы его можно было запустить, проверить и улучшить, а не только красиво описать.' },
     ],
   })
@@ -345,6 +386,7 @@ function careerCase(story: StoryCase, professionId: string): StoryCase {
     title: `${chapter.stage.title} · ${story.title}`,
     logline: `${introduction} Цель главы: ${chapter.stage.goal}`,
     setting: location,
+    location,
     cast: [...new Set([...narrative.cast, supportId])],
     career: {
       professionId,
@@ -429,7 +471,7 @@ const briefQuestions = [
  */
 export function missionBriefAct(story: StoryCase, mission: Mission, episode: number, total: number): StoryAct | undefined {
   if (story.acts.some(act => act.trigger.on === 'beforeMission' && act.trigger.missionId === mission.id)) return undefined
-  const scene = story.career?.location ?? story.setting
+  const location = story.location ?? story.career?.location
   const mentorId = story.cast[1] ?? story.cast[0] ?? 'narrator'
   const partnerId = story.cast[0] ?? 'narrator'
   const intro = mission.intro?.trim()
@@ -438,14 +480,14 @@ export function missionBriefAct(story: StoryCase, mission: Mission, episode: num
   const workspaceFile = mission.task?.workspaceFile
   const objective = mission.objectives?.[0]
   const beats: StoryAct['beats'] = [
-    { kind: 'comic', panels: [{ scene, caption: `Эпизод ${episode} из ${total}. ${mission.title}.` }] },
+    { kind: 'comic', panels: [{ scene: 'episode-brief', location, caption: `Эпизод ${episode} из ${total}. ${mission.title}.` }] },
   ]
   if (intro) beats.push({ kind: 'line', speaker: mentorId, emotion: 'neutral', text: intro })
   if (partnerId !== mentorId) beats.push({ kind: 'line', speaker: partnerId, emotion: 'surprised', text: briefQuestions[(episode - 1) % briefQuestions.length] })
   if (context) beats.push({ kind: 'line', speaker: mentorId, emotion: 'determined', text: context })
   if (objective) beats.push({ kind: 'line', speaker: 'narrator', text: `Цель эпизода: ${objective}.` })
   if (prompt) beats.push({ kind: 'line', speaker: 'narrator', text: workspaceFile ? `Что нужно сделать: ${prompt} Решение пишется в файле ${workspaceFile}.` : `Что нужно сделать: ${prompt}` })
-  return { id: `${story.caseId}:brief:${mission.id}`, title: mission.title, trigger: { on: 'beforeMission', missionId: mission.id }, beats }
+  return { id: `${story.caseId}:brief:${mission.id}`, title: mission.title, trigger: { on: 'beforeMission', missionId: mission.id }, location, beats }
 }
 
 /** Сцена, которую можно показать перед эпизодом ещё раз — по кнопке «пересмотреть». */

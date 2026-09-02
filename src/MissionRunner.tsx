@@ -2,6 +2,13 @@ import { useMemo, useRef, useState } from 'react'
 import { ArrowLeft, ArrowRight, BookOpen, Check, ChevronRight, ChevronsDownUp, ChevronsUpDown, CircleDot, Clapperboard, Code2, Database, FileJson, GripHorizontal, Lightbulb, Map, Play, RotateCcw, Star, TerminalSquare, X, Zap } from 'lucide-react'
 import type { Mission, Room } from './types'
 import { FOCUS_BONUS_THRESHOLD, HINT_FOCUS_COST } from './core/game'
+import { missionEnvironment, passesCodeCheck } from './core/tasks'
+import { taskFromMission } from './core/task/legacy'
+import { recordAttempt } from './core/task/mastery'
+import { createMockRunner, defaultRunner } from './core/runtime/runners'
+import { CodeWorkspace } from './workspace/CodeWorkspace'
+import { activeAccount, getMastery, saveMastery } from './core/storage'
+import type { EvaluationResult } from './core/task/types'
 import { glossary } from './glossary'
 import { missionTypeLabels } from './data'
 import data002 from '../knowledge/data/data-foundations/missions/DATA-002.json'
@@ -137,7 +144,8 @@ function solutionSkeleton(mission: Mission, hypothesis: string) {
   return checks.every(check => template.includes(check.includes)) ? template : ''
 }
 
-function CodeWorkspace({ value, onChange }: { value: string; onChange: (value: string) => void }) {
+/** Запасное поле кода: нужно только там, где новая рабочая станция не открывается. */
+function PlainCodeArea({ value, onChange }: { value: string; onChange: (value: string) => void }) {
   const lines = value.split('\n')
   return <div className="runner-code-view"><div className="code-gutter">{lines.map((_, index) => <span key={index}>{index + 1}</span>)}</div><textarea aria-label="Редактор решения" spellCheck={false} value={value} onChange={event => onChange(event.target.value)}/></div>
 }
@@ -168,8 +176,9 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
   const isObservationInvestigation = mission.id === 'DATA-002'
   const isFeatureInvestigation = mission.id === 'DATA-003'
   const isContentFactoryInvestigation = isObservationInvestigation || isFeatureInvestigation
-  const isCodeMission = mission.type === 'code' || mission.type === 'lab' || Boolean(mission.task?.starterCode)
-  const hasTerminal = isCodeMission || mission.type === 'case' || mission.type === 'boss'
+  const environment = missionEnvironment(mission)
+  const isCodeMission = environment === 'editor' || environment === 'editor+terminal'
+  const hasTerminal = environment === 'terminal' || environment === 'editor+terminal'
   const dataFileName = mission.id === 'DATA-002' || mission.id === 'DATA-003' ? 'orders.csv' : 'events_sample.csv'
   const [activeTab, setActiveTab] = useState<'workspace' | 'readme'>(hasTerminal || isContentFactoryInvestigation ? 'workspace' : 'readme')
   const [answer, setAnswer] = useState('')
@@ -216,8 +225,8 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
   const featureEvidenceComplete = selectedColumn === 'amount' && selectedCell === '3 490'
   const codeChecks = mission.task?.codeChecks ?? []
   const hasCodeChecks = codeChecks.length > 0
-  const passedCodeChecks = codeChecks.filter(check => code.includes(check.includes))
-  const failedCodeChecks = codeChecks.filter(check => !code.includes(check.includes))
+  const passedCodeChecks = codeChecks.filter(check => passesCodeCheck(code, check.includes))
+  const failedCodeChecks = codeChecks.filter(check => !passesCodeCheck(code, check.includes))
   /** В кодовых эпизодах гипотеза выбирается вариантом, а потом оформляется программой. */
   const codeHypothesis = hasCodeChecks ? mission.task?.options ?? [] : []
   const hypothesisReady = !codeHypothesis.length || answer.trim() === mission.task?.answer.trim()
@@ -304,6 +313,44 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
     setFinished(true)
   }
 
+  /**
+   * Среда выполнения. По умолчанию недоступна, и рабочая станция это честно
+   * показывает. Имитация включается только в режиме разработки и только явным
+   * флагом в адресе — она ничего не выполняет и метит результат как поддельный.
+   */
+  const runner = useMemo(() => {
+    const mocked = import.meta.env.DEV && new URLSearchParams(window.location.search).get('runner') === 'mock'
+    if (!mocked) return defaultRunner()
+    const traceback = [
+      'Traceback (most recent call last):',
+      '  File "solution.py", line 8',
+      '    print(per_week',
+      '         ^',
+      'SyntaxError: скобка не закрыта',
+    ].join('\n')
+    return createMockRunner([{ taskId: mission.id, stdout: '', stderr: traceback, exitCode: 1 }])
+  }, [mission.id])
+
+  /**
+   * Кодовые миссии открываются в новой рабочей станции через адаптер: старый
+   * JSON не переписывается, а зачёт сохраняет прежнее правило.
+   */
+  const workspaceTask = useMemo(
+    () => (isCodeMission && !isContentFactoryInvestigation ? taskFromMission(mission, room.id) : undefined),
+    [isCodeMission, isContentFactoryInvestigation, mission, room.id],
+  )
+
+  /**
+   * Единственное место, где рождается попытка. «Выполнить» сюда не приходит,
+   * повторный показ экрана и переключение вкладок — тоже.
+   */
+  function handleChecked(result: EvaluationResult) {
+    setChecked(true)
+    const account = activeAccount()
+    if (account && workspaceTask) saveMastery(account.id, recordAttempt(getMastery(account.id), workspaceTask, result))
+    if (result.passed) finishMission()
+  }
+
   return <div className={`mission-runner ${questMode ? 'quest-runner' : ''}`}>
     <header className="runner-topbar">
       <div className="runner-brand"><span className="runner-mark">∿</span><strong>REdu<span>Quest</span></strong></div>
@@ -318,7 +365,21 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
       </>}
     </header>
 
-    <div className="runner-shell">
+    {workspaceTask ? <CodeWorkspace
+      task={workspaceTask}
+      runner={runner}
+      completed={finished}
+      nextLabel={questMode ? 'Следующий эпизод' : 'Следующая миссия'}
+      onNext={nextMission && onNext ? () => { finishMission(); onNext() } : undefined}
+      onChecked={handleChecked}
+      context={<div className="ws-episode">
+        <span className="ws-eyebrow">{questMode ? `Эпизод ${episode} из ${room.missions.length}` : `Миссия ${mission.id}`}</span>
+        <h2 className="ws-episode-title">{mission.title}</h2>
+        {mission.intro && <p className="ws-episode-intro">{mission.intro}</p>}
+        {!!mission.objectives?.length && <ul className="ws-episode-goals">{mission.objectives.map(item => <li key={item}>{item}</li>)}</ul>}
+        {onReplayScene && <button type="button" className="ws-replay" onClick={onReplayScene}><Clapperboard size={14}/>Пересмотреть сцену эпизода</button>}
+      </div>}
+    /> : <div className="runner-shell">
       <aside className="runner-brief">
         {questMode && <div className="quest-cast-stage">
           <div className="quest-cast-figures"><Sprite character={companion} emotion="worried" height={226}/><Sprite character={guide} emotion="determined" height={244} side="right"/></div>
@@ -362,7 +423,7 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
       <main className={`runner-workspace ${hasTerminal ? '' : 'theory-workspace'}`} style={{ '--terminal-h': `${terminalCollapsed ? COLLAPSED_TERMINAL_HEIGHT : terminalHeight}px` } as React.CSSProperties}>
         <div className="workspace-tabs"><button className={activeTab === 'workspace' ? 'active' : ''} onClick={() => setActiveTab('workspace')}>{isCodeMission ? <Code2 size={15}/> : <Database size={15}/>} {isCodeMission ? workspaceFile : dataFileName}</button><button className={activeTab === 'readme' ? 'active' : ''} disabled={isContentFactoryInvestigation && !isCorrect} title={isContentFactoryInvestigation && !isCorrect ? 'Конспект откроется после самостоятельного вывода' : undefined} onClick={() => setActiveTab('readme')}><BookOpen size={15}/>{isContentFactoryInvestigation && !isCorrect ? 'Конспект после вывода' : 'Конспект.md'}</button><div><span className="runtime-dot"/>{hasTerminal ? 'Среда запущена' : 'Материал загружен'}</div></div>
         <div className="workspace-main">
-          <section className="workspace-canvas">{activeTab === 'readme' ? <ReadmeView mission={mission} isCodeMission={isCodeMission} hasTerminal={hasTerminal} onOpenWorkspace={() => setActiveTab('workspace')}/> : isCodeMission ? <CodeWorkspace value={code} onChange={setCode}/> : isObservationInvestigation ? <Data002Preview dataset={investigationDataset} onDatasetChange={setInvestigationDataset} selectedRow={selectedRow} selectedColumn={selectedColumn} selectedCell={selectedCell} onRow={setSelectedRow} onColumn={setSelectedColumn} onCell={(value, column, rowId) => { if (column === 'status' && rowId === 'ORD-78104') setSelectedCell(value); else setSelectedCell('') }}/> : isFeatureInvestigation ? <Data003Preview selectedColumn={selectedColumn} selectedCell={selectedCell} onColumn={column => { setSelectedColumn(column); if (column !== 'amount') setSelectedCell('') }} onCell={(value, column, rowId) => { setSelectedColumn(column); setSelectedCell(column === 'amount' && rowId === 'ORD-78104' ? value : '') }}/> : <DataPreview mission={mission}/>}</section>
+          <section className="workspace-canvas">{activeTab === 'readme' ? <ReadmeView mission={mission} isCodeMission={isCodeMission} hasTerminal={hasTerminal} onOpenWorkspace={() => setActiveTab('workspace')}/> : isCodeMission ? <PlainCodeArea value={code} onChange={setCode}/> : isObservationInvestigation ? <Data002Preview dataset={investigationDataset} onDatasetChange={setInvestigationDataset} selectedRow={selectedRow} selectedColumn={selectedColumn} selectedCell={selectedCell} onRow={setSelectedRow} onColumn={setSelectedColumn} onCell={(value, column, rowId) => { if (column === 'status' && rowId === 'ORD-78104') setSelectedCell(value); else setSelectedCell('') }}/> : isFeatureInvestigation ? <Data003Preview selectedColumn={selectedColumn} selectedCell={selectedCell} onColumn={column => { setSelectedColumn(column); if (column !== 'amount') setSelectedCell('') }} onCell={(value, column, rowId) => { setSelectedColumn(column); setSelectedCell(column === 'amount' && rowId === 'ORD-78104' ? value : '') }}/> : <DataPreview mission={mission}/>}</section>
           <aside className="runner-task-panel">
             <div className="task-panel-heading"><span>ЗАДАНИЕ</span><strong>{missionTypeLabels[mission.type]}</strong></div>
             {mission.id === 'DATA-001' && <div className="task-bridge"><strong>Связь с таблицей</strong><p>Найди строку <code>104221</code>. Она сообщает о покупке. Что здесь является данными: сам факт, число или файл?</p></div>}
@@ -391,7 +452,7 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
               <div className="code-step">
                 <span className="code-brief-kicker">{codeHypothesis.length ? 'ШАГ 2 // КОД' : 'УСЛОВИЯ ПРОВЕРКИ'}</span>
                 <p className="code-step-lead">Решение — это короткая программа в файле <code>{workspaceFile}</code>. Проверка ищет в нём обязательные фрагменты: их видно ниже, написать их нужно самому.</p>
-                <div className="code-checklist">{codeChecks.map(check => { const passed = code.includes(check.includes); return <div className={passed ? 'passed' : ''} key={check.label}><i>{passed ? <Check size={13}/> : '·'}</i><div><span>{check.label}</span><code>{check.includes.trim()}</code></div></div> })}</div>
+                <div className="code-checklist">{codeChecks.map(check => { const passed = passesCodeCheck(code, check.includes); return <div className={passed ? 'passed' : ''} key={check.label}><i>{passed ? <Check size={13}/> : '·'}</i><div><span>{check.label}</span><code>{check.includes.trim()}</code></div></div> })}</div>
                 {!!skeleton && <div className="code-skeleton">
                   <button onClick={() => setExampleVisible(value => !value)}><Lightbulb size={15}/>{exampleVisible ? 'Скрыть образец' : 'Показать образец решения'}</button>
                   <button onClick={() => { setCode(skeleton); setChecked(false); setActiveTab('workspace') }} title="Вставить каркас в рабочий файл"><Code2 size={15}/>Вставить каркас в файл</button>
@@ -452,6 +513,6 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
           </div>
         </footer>
       </main>
-    </div>
+    </div>}
   </div>
 }

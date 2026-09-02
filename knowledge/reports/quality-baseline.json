@@ -1,0 +1,17 @@
+{
+  "note": "Базовая линия качества старого контента. Число нарушений по каждому правилу не должно расти. Каждое исправление уменьшает эти числа — тогда базовую линию нужно перезаписать этой же командой.",
+  "updatedAt": "2026-09-02T11:42:39.638Z",
+  "legacyErrors": {
+    "C2.exact-answer-in-theory": 163,
+    "C2.normalized-answer-in-theory": 5,
+    "C3.duplicate-prompt": 226,
+    "C4.duplicate-options": 4
+  },
+  "legacyWarnings": {
+    "C2.paraphrased-answer": 2,
+    "C2.free-check": 145,
+    "C3.duplicate-intro": 83,
+    "C4.longest-is-correct": 27,
+    "C5.fragile-substring": 49
+  }
+}

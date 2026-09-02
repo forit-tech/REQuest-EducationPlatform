@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "id": "itmo-ai-talent-hub-2026",
+  "university": "Университет ИТМО",
+  "program": "AI Talent Hub / Искусственный интеллект",
+  "admissionYear": 2026,
+  "tier": 0,
+  "sourceUrl": "https://ai.itmo.ru/",
+  "retrievedAt": "2026-09-02",
+  "completeness": "partial",
+  "completenessNote": "Вуз не публикует список вопросов. Известны маршруты поступления и заявленные области письменного теста. Требуется демоверсия от приёмной комиссии, чтобы довести до гранулярности ITMO-DL.",
+  "format": {
+    "kind": "written-test + interview",
+    "language": "ru",
+    "mode": "online"
+  },
+  "admissionRoutes": [
+    {
+      "id": "exam",
+      "title": "Вступительное испытание и собеседование",
+      "examined": [
+        "машинное обучение",
+        "программирование",
+        "высшая математика",
+        "алгоритмы и структуры данных",
+        "базовые ML-библиотеки"
+      ],
+      "alsoAssessed": ["мотивация", "коммуникация", "готовность к командной проектной работе"]
+    },
+    {
+      "id": "junior-ml-contest",
+      "title": "Junior ML Contest",
+      "note": "Проект вместо экзамена. Эксперты смотрят постановку задачи, выбор модели, качество экспериментов, работу с данными, MLOps-подход, документацию и защиту.",
+      "requiresPortfolioArtifact": true
+    },
+    {
+      "id": "portfolio",
+      "title": "Конкурс портфолио",
+      "note": "CV, мотивационное письмо, описание проекта, репозиторий с кодом и пятистраничное описание проекта.",
+      "requiresPortfolioArtifact": true
+    },
+    {
+      "id": "intensives",
+      "title": "Проектные интенсивы и курсы",
+      "note": "«ИИ Workshop Week», курс «Практическая ML-инженерия» — высокий результат снимает экзамен."
+    },
+    {
+      "id": "olympiad",
+      "title": "Олимпиады",
+      "note": "Победители и призёры треков по ИИ («Я — профессионал», Мегаолимпиада ИТМО)."
+    }
+  ],
+  "requirementAreas": [
+    {
+      "id": "ITMO-ATH-A1",
+      "area": "Машинное обучение",
+      "topics": ["ml-supervised", "ml-unsupervised", "ml-process"],
+      "requiredDepth": "written-test",
+      "coverage": { "status": "not-covered", "lessons": [], "taskTypes": [], "note": "" }
+    },
+    {
+      "id": "ITMO-ATH-A2",
+      "area": "Программирование",
+      "topics": ["python-advanced"],
+      "requiredDepth": "written-test",
+      "coverage": { "status": "not-covered", "lessons": [], "taskTypes": [], "note": "" }
+    },
+    {
+      "id": "ITMO-ATH-A3",
+      "area": "Высшая математика",
+      "topics": ["calculus-series", "linear-algebra", "probability", "statistics"],
+      "requiredDepth": "written-test",
+      "coverage": { "status": "not-covered", "lessons": [], "taskTypes": [], "note": "" }
+    },
+    {
+      "id": "ITMO-ATH-A4",
+      "area": "Алгоритмы и структуры данных",
+      "topics": ["data-structures", "algorithms-graphs", "algorithms-strings", "complexity"],
+      "requiredDepth": "written-test",
+      "coverage": { "status": "not-covered", "lessons": [], "taskTypes": [], "note": "" }
+    },
+    {
+      "id": "ITMO-ATH-A5",
+      "area": "Базовые ML-библиотеки",
+      "topics": ["numpy", "pandas", "scikit-learn", "pytorch"],
+      "requiredDepth": "written-test",
+      "coverage": { "status": "not-covered", "lessons": [], "taskTypes": [], "note": "" }
+    },
+    {
+      "id": "ITMO-ATH-P1",
+      "area": "Портфолио: защищаемый ML-проект",
+      "topics": ["portfolio", "ml-experiment", "mlops", "presentation"],
+      "requiredDepth": "portfolio-artifact",
+      "coverage": { "status": "not-covered", "lessons": [], "taskTypes": [], "note": "Закрывается milestone-проектами трека, а не уроками." }
+    }
+  ]
+}

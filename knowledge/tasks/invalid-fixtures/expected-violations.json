@@ -1,0 +1,96 @@
+{
+  "note": "Каждое задание обязано вызвать перечисленные коды нарушений.",
+  "cases": [
+    {
+      "taskId": "fx-fake-exam-no-ref",
+      "expect": [
+        "exam-without-ref"
+      ]
+    },
+    {
+      "taskId": "fx-invalid-admission-ref",
+      "expect": [
+        "unknown-admission-ref"
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "fx-fake-exam-no-ref",
+      "title": "Экзаменационный формат без ссылки на требование",
+      "intent": "exam",
+      "difficulty": "L4",
+      "prompt": "Объясните, зачем в промышленном сервисе нужен реестр моделей.",
+      "response": {
+        "kind": "text",
+        "multiline": true
+      },
+      "evaluation": {
+        "type": "rubric",
+        "mode": "concept-match",
+        "passScore": 0.5,
+        "criteria": [
+          {
+            "id": "versions",
+            "criterion": "Названо версионирование",
+            "weight": 1,
+            "requiredConcepts": [
+              "верси"
+            ]
+          }
+        ]
+      },
+      "evidences": [
+        "reasoning"
+      ],
+      "topicId": "mlops.registry",
+      "skills": [
+        {
+          "skillId": "llm-rag",
+          "role": "primary"
+        }
+      ],
+      "explanation": "Задание намеренно помечено экзаменационным, но ссылки на официальное требование не имеет. Готовность к поступлению оно поднимать не должно, а валидатор обязан на него ругаться."
+    },
+    {
+      "id": "fx-invalid-admission-ref",
+      "title": "Ссылка на несуществующее требование",
+      "intent": "oral-exam",
+      "difficulty": "L4",
+      "prompt": "Раскройте вопрос о свойствах сходимости числовых рядов.",
+      "response": {
+        "kind": "text",
+        "multiline": true
+      },
+      "evaluation": {
+        "type": "rubric",
+        "mode": "self-assessment",
+        "passScore": 0.5,
+        "criteria": [
+          {
+            "id": "criteria",
+            "criterion": "Названы признаки сходимости",
+            "weight": 1,
+            "requiredConcepts": [
+              "признак"
+            ]
+          }
+        ]
+      },
+      "evidences": [
+        "reasoning"
+      ],
+      "topicId": "math.calculus",
+      "skills": [
+        {
+          "skillId": "functions",
+          "role": "primary"
+        }
+      ],
+      "admissionRefs": [
+        "itmo-deep-learning-genai-2026:ITMO-DL-MATH-999"
+      ],
+      "explanation": "Ссылка указывает на несуществующий пункт. Валидатор обязан это отклонить, а готовность подниматься не должна."
+    }
+  ]
+}

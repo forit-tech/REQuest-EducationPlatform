@@ -1,0 +1,405 @@
+{
+  "schemaVersion": 1,
+  "id": "sources-ml-master",
+  "note": "Источники трека «Подготовка к магистратуре ML/AI». Классы совпадают с knowledge/content-factory/sources.json. Источники определяют программу, глубину и типы упражнений. Тексты и задачи не переносятся: задания REQuest оригинальные. Источник, лицензия которого не проверена, по умолчанию получает класс REFERENCE_ONLY: это самый ограничительный режим, и ошибиться в нём безопасно.",
+  "verifiedAt": "2026-09-02",
+  "sources": [
+    {
+      "id": "itmo-dl-genai-exam",
+      "class": "GROUNDING",
+      "tier": 0,
+      "title": "ИТМО — официальные вопросы экзамена «Глубокое обучение и генеративный ИИ»",
+      "url": "https://deep-learning.itmo.ru/exam",
+      "license": "материалы вуза",
+      "allowedUses": [
+        "requirements",
+        "coverage-check"
+      ],
+      "coverage": [
+        "all"
+      ],
+      "notes": "87 вопросов в двух блоках. Разобраны в itmo-deep-learning-genai-2026.json. Стоит НАД учебными источниками."
+    },
+    {
+      "id": "yandex-ml-handbook",
+      "class": "GROUNDING",
+      "tier": 1,
+      "title": "Яндекс — Учебник по машинному обучению",
+      "url": "https://education.yandex.ru/handbook/ml",
+      "license": "© Яндекс, открытой лицензии нет",
+      "shareAlike": false,
+      "russianAvailable": true,
+      "allowedUses": [
+        "facts",
+        "curriculum-patterns"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "ml-supervised",
+        "ml-probabilistic",
+        "ml-unsupervised",
+        "ml-process",
+        "deep-learning",
+        "cv",
+        "nlp",
+        "generative",
+        "optimization",
+        "time-series",
+        "linear-algebra",
+        "probability",
+        "statistics"
+      ],
+      "notes": "Главный русскоязычный ориентир: закрывает почти всё ядро экзамена ИТМО, включая «Теормин» (матричное дифференцирование, распределения, параметрическое оценивание). Лицензии на адаптацию НЕТ — только сверка фактов и структура программы, формулировки не переносить."
+    },
+    {
+      "id": "google-ml-crash-course",
+      "class": "ADAPTABLE_OER",
+      "tier": 1,
+      "title": "Google Machine Learning Crash Course",
+      "url": "https://developers.google.com/machine-learning/crash-course",
+      "license": "CC-BY-4.0 (текст), Apache-2.0 (код)",
+      "shareAlike": false,
+      "allowedUses": [
+        "facts",
+        "curriculum-patterns",
+        "code",
+        "adaptation"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "ml-supervised",
+        "ml-process",
+        "deep-learning",
+        "nlp"
+      ],
+      "alreadyRegistered": "knowledge/content-factory/sources.json",
+      "notes": "Лучший образец интерактивных упражнений на понимание, а не на память."
+    },
+    {
+      "id": "karpathy-nn-zero-to-hero",
+      "class": "ADAPTABLE_OER",
+      "tier": 1,
+      "title": "Karpathy — Neural Networks: Zero to Hero",
+      "url": "https://github.com/karpathy/nn-zero-to-hero",
+      "license": "MIT",
+      "shareAlike": false,
+      "allowedUses": [
+        "facts",
+        "curriculum-patterns",
+        "code",
+        "adaptation"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "deep-learning",
+        "optimization",
+        "nlp"
+      ],
+      "notes": "micrograd → makemore → GPT → токенизатор. Прямой образец для заданий типа CODE на backprop руками. Закрывает ITMO-DL-ML-14, 15, 19–22, 29."
+    },
+    {
+      "id": "pytorch-tutorials",
+      "class": "GROUNDING",
+      "tier": 1,
+      "title": "PyTorch — официальные руководства",
+      "url": "https://docs.pytorch.org/tutorials/",
+      "license": "BSD-3-Clause (библиотека)",
+      "allowedUses": [
+        "facts",
+        "code"
+      ],
+      "coverage": [
+        "deep-learning",
+        "cv",
+        "nlp"
+      ]
+    },
+    {
+      "id": "scikit-learn-docs",
+      "class": "GROUNDING",
+      "tier": 1,
+      "title": "scikit-learn — официальная документация",
+      "url": "https://scikit-learn.org/stable/",
+      "license": "BSD-3-Clause",
+      "allowedUses": [
+        "facts",
+        "code"
+      ],
+      "coverage": [
+        "ml-supervised",
+        "ml-unsupervised",
+        "ml-process"
+      ],
+      "alreadyRegistered": "knowledge/content-factory/sources.json"
+    },
+    {
+      "id": "huggingface-llm-course",
+      "class": "ADAPTABLE_OER",
+      "tier": 1,
+      "title": "Hugging Face — LLM / NLP Course",
+      "url": "https://huggingface.co/learn/llm-course",
+      "license": "Apache-2.0",
+      "shareAlike": false,
+      "allowedUses": [
+        "facts",
+        "curriculum-patterns",
+        "code",
+        "adaptation"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "nlp",
+        "generative"
+      ],
+      "licenseVerifiedAt": "2026-09-02",
+      "licenseSource": "https://github.com/huggingface/llm-course"
+    },
+    {
+      "id": "huggingface-agents-course",
+      "class": "ADAPTABLE_OER",
+      "tier": 1,
+      "title": "Hugging Face — AI Agents Course",
+      "url": "https://huggingface.co/learn/agents-course/en/unit0/introduction",
+      "license": "Apache-2.0",
+      "shareAlike": false,
+      "allowedUses": [
+        "facts",
+        "curriculum-patterns",
+        "code",
+        "adaptation"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "agents"
+      ],
+      "notes": "Инструменты, function calling, LangGraph/LlamaIndex/smolagents, Agentic RAG, оценка агентов, финальный проект. Вне экзамена ИТМО — обоснование профессиональное, не вступительное.",
+      "licenseVerifiedAt": "2026-09-02",
+      "licenseSource": "https://github.com/huggingface/agents-course"
+    },
+    {
+      "id": "fastai-practical-dl",
+      "class": "REFERENCE_ONLY",
+      "tier": 1,
+      "title": "fast.ai — Practical Deep Learning for Coders",
+      "url": "https://course.fast.ai/",
+      "license": "открытой лицензии на материалы курса нет",
+      "allowedUses": [
+        "curriculum-patterns"
+      ],
+      "coverage": [
+        "deep-learning",
+        "cv",
+        "nlp"
+      ],
+      "notes": "Ориентир по порядку тем и практике деплоя. Библиотека fastai — Apache-2.0, материалы курса — нет."
+    },
+    {
+      "id": "stanford-cs224n",
+      "class": "REFERENCE_ONLY",
+      "tier": 1,
+      "title": "Stanford CS224N — NLP with Deep Learning",
+      "url": "https://web.stanford.edu/class/cs224n/",
+      "license": "материалы курса, открытой лицензии нет",
+      "allowedUses": [
+        "curriculum-patterns"
+      ],
+      "coverage": [
+        "nlp"
+      ]
+    },
+    {
+      "id": "stanford-cs231n",
+      "class": "REFERENCE_ONLY",
+      "tier": 1,
+      "title": "Stanford CS231n — CNNs for Visual Recognition",
+      "url": "https://cs231n.stanford.edu/",
+      "license": "материалы курса, открытой лицензии нет",
+      "allowedUses": [
+        "curriculum-patterns"
+      ],
+      "coverage": [
+        "cv"
+      ]
+    },
+    {
+      "id": "openintro-statistics",
+      "class": "ADAPTABLE_OER",
+      "tier": 1,
+      "title": "OpenIntro Statistics",
+      "url": "https://www.openintro.org/book/os/",
+      "license": "CC-BY-SA-3.0",
+      "shareAlike": true,
+      "allowedUses": [
+        "facts",
+        "curriculum-patterns"
+      ],
+      "attributionRequired": true,
+      "coverage": [
+        "probability",
+        "statistics"
+      ],
+      "alreadyRegistered": "knowledge/content-factory/sources.json",
+      "notes": "shareAlike: берём только фактическую основу, не формулировки."
+    },
+    {
+      "id": "stepik-algorithms-methods",
+      "class": "REFERENCE_ONLY",
+      "tier": 2,
+      "title": "Stepik — Алгоритмы: теория и практика. Методы",
+      "url": "https://stepik.org/course/217/promo",
+      "license": "проприетарная",
+      "allowedUses": [
+        "curriculum-patterns",
+        "difficulty-reference"
+      ],
+      "coverage": [
+        "algorithms-graphs",
+        "complexity",
+        "optimization"
+      ],
+      "notes": "Ориентир по сложности programming assignments. Задачи не копировать."
+    },
+    {
+      "id": "stepik-data-structures",
+      "class": "REFERENCE_ONLY",
+      "tier": 2,
+      "title": "Stepik — Алгоритмы и структуры данных",
+      "url": "https://stepik.org/course/1547/",
+      "license": "проприетарная",
+      "allowedUses": [
+        "curriculum-patterns",
+        "difficulty-reference"
+      ],
+      "coverage": [
+        "data-structures",
+        "algorithms-strings"
+      ]
+    },
+    {
+      "id": "stepik-statistics-1",
+      "class": "REFERENCE_ONLY",
+      "tier": 2,
+      "title": "Stepik — Основы статистики",
+      "url": "https://stepik.org/course/76/",
+      "license": "проприетарная",
+      "allowedUses": [
+        "curriculum-patterns"
+      ],
+      "coverage": [
+        "statistics"
+      ],
+      "warning": "Авторы курса сами предупреждают, что материал устарел и содержит неточности. Не использовать как единственный источник фактов: сверять с openintro-statistics и yandex-ml-handbook."
+    },
+    {
+      "id": "stepik-statistics-2",
+      "class": "REFERENCE_ONLY",
+      "tier": 2,
+      "title": "Stepik — Основы статистики. Часть вторая",
+      "url": "https://stepik.org/course/524/promo",
+      "license": "проприетарная",
+      "allowedUses": [
+        "curriculum-patterns"
+      ],
+      "coverage": [
+        "statistics"
+      ]
+    },
+    {
+      "id": "stepik-sql-trainer",
+      "class": "REFERENCE_ONLY",
+      "tier": 2,
+      "title": "Stepik — Интерактивный тренажёр по SQL",
+      "url": "https://stepik.org/course/63054/promo",
+      "license": "проприетарная",
+      "allowedUses": [
+        "difficulty-reference"
+      ],
+      "coverage": [
+        "sql"
+      ],
+      "notes": "173 практических задания — референс плотности практики, а не источник задач. В REQuest SQL уже закрыт курсами sql-foundations (58) и advanced-sql (62)."
+    },
+    {
+      "id": "kaggle-learn",
+      "class": "REFERENCE_ONLY",
+      "tier": 2,
+      "title": "Kaggle Learn",
+      "url": "https://www.kaggle.com/learn",
+      "license": "проприетарная",
+      "allowedUses": [
+        "curriculum-patterns"
+      ],
+      "coverage": [
+        "ml-process",
+        "ml-supervised"
+      ],
+      "alreadyRegistered": "knowledge/content-factory/sources.json"
+    },
+    {
+      "id": "ai-academy-ml-school",
+      "class": "REFERENCE_ONLY",
+      "tier": 2,
+      "title": "Академия ИИ для школьников — Введение в машинное обучение",
+      "url": "https://ai-academy.ru/training/courses/mashinnoe-obuchenie/",
+      "license": "не проверена, по умолчанию считаем закрытой",
+      "licenseVerification": "required",
+      "allowedUses": [
+        "curriculum-patterns"
+      ],
+      "coverage": [
+        "ml-intro",
+        "ml-supervised"
+      ],
+      "notes": "Школьный вводный уровень. Полезен как ориентир для ступеней L0–L1: с какого объёма понятий можно начинать без математической базы. Для вступительных экзаменов глубины не даёт."
+    },
+    {
+      "id": "stepik-python-generation",
+      "class": "REFERENCE_ONLY",
+      "tier": 2,
+      "title": "Stepik — Поколение Python: курс для начинающих",
+      "url": "https://stepik.org/course/58852/promo",
+      "license": "проприетарная",
+      "allowedUses": [
+        "curriculum-patterns",
+        "difficulty-reference"
+      ],
+      "coverage": [
+        "python-advanced"
+      ],
+      "notes": "Эталон плотности практики для базового Python. В REQuest этот уровень уже закрыт курсом python-core (50 миссий) — брать только градацию сложности, не содержание."
+    },
+    {
+      "id": "stepik-intro-ds-ml",
+      "class": "REFERENCE_ONLY",
+      "tier": 2,
+      "title": "Stepik — Введение в Data Science и машинное обучение",
+      "url": "https://stepik.org/course/4852/promo",
+      "license": "проприетарная",
+      "allowedUses": [
+        "curriculum-patterns"
+      ],
+      "coverage": [
+        "ml-process",
+        "ml-supervised",
+        "ml-unsupervised"
+      ],
+      "notes": "Порядок тем вводного ML на русском. Сверять факты с yandex-ml-handbook и scikit-learn-docs."
+    },
+    {
+      "id": "hexlet-data-analytics-basics",
+      "class": "REFERENCE_ONLY",
+      "tier": 2,
+      "title": "Hexlet — Введение в дата-аналитику",
+      "url": "https://ru.hexlet.io/courses/data-analytics-basics",
+      "license": "проприетарная",
+      "allowedUses": [
+        "curriculum-patterns"
+      ],
+      "coverage": [
+        "ml-process",
+        "statistics"
+      ],
+      "notes": "Аналитический вход в данные. Вне официальных требований ИТМО: относить к профессиональному треку."
+    }
+  ]
+}

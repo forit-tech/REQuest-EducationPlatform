@@ -1,0 +1,1364 @@
+{
+  "schemaVersion": 1,
+  "id": "itmo-deep-learning-genai-2026",
+  "university": "Университет ИТМО",
+  "program": "Глубокое обучение и генеративный искусственный интеллект",
+  "admissionYear": 2026,
+  "tier": 0,
+  "sourceUrl": "https://deep-learning.itmo.ru/exam",
+  "questionListUrl": "https://drive.google.com/file/d/1IQFSW3afJNiPR_wodLg81IuZ92DbWbem/view",
+  "retrievedAt": "2026-09-02",
+  "format": {
+    "kind": "oral",
+    "blocks": 2,
+    "questionsPerAttempt": 2,
+    "note": "По одному вопросу из каждого блока. Продолжительность устного экзамена — 4 часа."
+  },
+  "officialPreparation": [
+    "Видеокурс С. Николенко",
+    "Курс К. Воронцова",
+    "Курс «Машинное обучение» кафедры компьютерных технологий ИТМО",
+    "Вики MachineLearning.ru",
+    "Николенко, Кадурин, Архангельская. «Глубокое обучение. Погружение в мир нейронных сетей»"
+  ],
+  "legal": "Список вопросов — официальный перечень вуза, хранится как требование. Формулировки заданий REQuest должны быть оригинальными.",
+  "sections": [
+    {
+      "id": "math-da",
+      "title": "Математика и анализ данных",
+      "questions": [
+        {
+          "id": "ITMO-DL-MATH-01",
+          "number": 1,
+          "question": "Числовые ряды. Абсолютная и условная сходимость. Признаки сходимости числовых рядов.",
+          "topics": [
+            "calculus-series"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-02",
+          "number": 2,
+          "question": "Кратные, поверхностные и криволинейные интегралы. Формулы Грина, Стокса и Остроградского.",
+          "topics": [
+            "calculus-series"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-03",
+          "number": 3,
+          "question": "Функциональные ряды, свойства равномерно сходящихся функциональных рядов. Степенные ряды. Ряд Тейлора.",
+          "topics": [
+            "calculus-series"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-04",
+          "number": 4,
+          "question": "Определители и их свойства. Системы линейных алгебраических уравнений и их исследование. Методы решения систем линейных алгебраических уравнений.",
+          "topics": [
+            "linear-algebra"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-05",
+          "number": 5,
+          "question": "Линейные операторы в конечномерном пространстве и их матричное представление. Характеристический многочлен, собственные числа и собственные вектора линейного оператора. Сопряженные и самосопряженныеоператоры.",
+          "topics": [
+            "linear-algebra"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-06",
+          "number": 6,
+          "question": "Предмет и основные определения теории вероятностей. Классическое определение вероятности. Зависимые и независимые события. Условные ибезусловные вероятности. Формула полной вероятности. Формула Байеса.",
+          "topics": [
+            "probability"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-07",
+          "number": 7,
+          "question": "Математическое ожидание случайной величины. Его смысл и примеры. Свойства математического ожидания. Дисперсия и среднее квадратическое отклонение случайной величины. Их смысл и примеры вычисления. Формулы для вычисления дисперсии. Свойства дисперсии.",
+          "topics": [
+            "probability"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-08",
+          "number": 8,
+          "question": "Дискретные случайные величины. Математическое ожидание и дисперсия. Стандартные дискретные распределения (Бернулли, биномиальное, геометрическое, Пуассона).",
+          "topics": [
+            "probability"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-09",
+          "number": 9,
+          "question": "Непрерывные случайные величины и их функции распределения. Математическое ожидание и дисперсия. Стандартные непрерывные распределения (равномерное, показательное, нормальное).",
+          "topics": [
+            "probability"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-10",
+          "number": 10,
+          "question": "Вероятностные неравенства Йенсена, Маркова и Чебышёва. Правило трёх сигм. Закон больших чисел.",
+          "topics": [
+            "probability"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-11",
+          "number": 11,
+          "question": "Статистические оценки параметров распределения (сущность теории оценивания): несмещенность, состоятельность, эффективность оценок. Точечные оценки: выборочная средняя, дисперсия, среднее квадратическое отклонение.",
+          "topics": [
+            "probability",
+            "statistics"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-12",
+          "number": 12,
+          "question": "Интервальные оценки. Точность оценки. Доверительная вероятность. Доверительные интервалы для оценки неизвестного значения генеральной средней и генеральной доли.",
+          "topics": [
+            "probability",
+            "statistics"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-13",
+          "number": 13,
+          "question": "Статистическая проверка гипотез. Статистическая гипотеза: параметрическая и непараметрическая; нулевая и альтернативная. Ошибки I и II рода. Уровень значимости и мощность критерия.",
+          "topics": [
+            "statistics"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-14",
+          "number": 14,
+          "question": "Статистический критерий проверки нулевой гипотезы. Наблюдаемое значение критерия. Критическая область. Область принятия гипотезы. Критические точки. Отыскание односторонней и двусторонней критических областей. Основные этапы проверки статистических гипотез.",
+          "topics": [
+            "statistics"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-15",
+          "number": 15,
+          "question": "Множества и операции над ними. Булевы функции, КНФ, ДНФ. Базисы, теорема Поста.",
+          "topics": [
+            "discrete-math"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-16",
+          "number": 16,
+          "question": "Комбинаторные объекты. Коды Грея. Формула включения-исключения. Лемма Бернсайда и Теорема Пойа. Числа Стирлинга. Подсчёт деревьев. Метод производящих функций.",
+          "topics": [
+            "discrete-math"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-17",
+          "number": 17,
+          "question": "Детерминированные и недетерминированные конечные автоматы, их эквивалентность. Минимизация ДКА.",
+          "topics": [
+            "discrete-math"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-18",
+          "number": 18,
+          "question": "Контекстно-свободные грамматики. Эффективные методы разбора: LL(k)-, LR(k)- и LALR- грамматики.",
+          "topics": [
+            "discrete-math"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-19",
+          "number": 19,
+          "question": "Комбинаторная теория сложности. Временная и емкостная сложность. Сложностные классы P, NP, PS. Сведение, NP- полные задачи.",
+          "topics": [
+            "discrete-math",
+            "complexity"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-20",
+          "number": 20,
+          "question": "Марковские цепи, Эргодические цепи, Регулярные цепи. Алгоритм Витерби.",
+          "topics": [
+            "probability",
+            "markov"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-21",
+          "number": 21,
+          "question": "Линейные структуры данных. Амортизационный анализ. Поисковые структуры данных. Запросы на отрезках. Персистентные структуры данных.",
+          "topics": [
+            "data-structures"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-22",
+          "number": 22,
+          "question": "Графы. Обход графов. Поиск кратчайших путей. Задача о паросочетании, максимальном потоке и максимальном потоке минимальной стоимости.",
+          "topics": [
+            "algorithms-graphs"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-23",
+          "number": 23,
+          "question": "Строки. Поиск строки в подстроке. Бор, алгоритм Ахо-Корасика. Суффиксные массивы и деревья.",
+          "topics": [
+            "algorithms-strings",
+            "ml-supervised"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-24",
+          "number": 24,
+          "question": "Постановка задачи линейного программирования. Двойственность задачи ЛП.",
+          "topics": [
+            "discrete-math",
+            "optimization"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-25",
+          "number": 25,
+          "question": "Градиентные методы. Метод сопряжения градиентов. Минимизация квадратичных функций. Метод Ньютона.",
+          "topics": [
+            "optimization"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-26",
+          "number": 26,
+          "question": "Теория кодирования. Блоковые коды и их параметры. Критерии декодирования и метрики. Границы Хемминга и Варшамова-Гилберта.",
+          "topics": [
+            "discrete-math"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-27",
+          "number": 27,
+          "question": "CRISP-DM. Устройство данных.",
+          "topics": [
+            "ml-process"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-28",
+          "number": 28,
+          "question": "Версионирование данных",
+          "topics": [
+            "ml-process"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-29",
+          "number": 29,
+          "question": "Feature engineering, корреляция, категориальные признаки, аугментация данных",
+          "topics": [
+            "ml-process"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-30",
+          "number": 30,
+          "question": "Метрики оценки качества алгоритмов анализа данных",
+          "topics": [
+            "statistics",
+            "ml-process"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-31",
+          "number": 31,
+          "question": "Временные ряды: сезонность, периодичность, тренд. Стационарность, способы приведения к стационарному виду.",
+          "topics": [
+            "calculus-series",
+            "time-series"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-32",
+          "number": 32,
+          "question": "Алгоритмы прогнозирования временных рядов",
+          "topics": [
+            "calculus-series",
+            "time-series"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-33",
+          "number": 33,
+          "question": "Постановка задачи обучения с учителем. Недообучение и переобучение, дисбаланс классов, примеры моделей",
+          "topics": [
+            "discrete-math",
+            "ml-supervised"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-34",
+          "number": 34,
+          "question": "Задача уменьшения размерности: постановка, алгоритмы",
+          "topics": [
+            "ml-unsupervised"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-35",
+          "number": 35,
+          "question": "Векторное представление объекта, векторные операции",
+          "topics": [
+            "linear-algebra"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-36",
+          "number": 36,
+          "question": "Анализ изображений: алгоритмы выделения признаков, фильтры, pattern matching",
+          "topics": [
+            "cv"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-37",
+          "number": 37,
+          "question": "Анализ изображений: свёртки, эмбеддинги изображений, transfer learning",
+          "topics": [
+            "cv"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-38",
+          "number": 38,
+          "question": "Анализ текстовых данных: предобработка, tf-idf, обучение эмбеддингов слов (общие понятия)",
+          "topics": [
+            "nlp"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-39",
+          "number": 39,
+          "question": "Анализ звуковых данных: представление звука в ЭВМ, аугментация звука, удаление тишины. методы извлечения признаков из аудио",
+          "topics": [
+            "audio"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-40",
+          "number": 40,
+          "question": "MapReduce. Определение, примеры решаемых задач, последовательная реализация, распределённая реализация (в общих чертах).",
+          "topics": [
+            "distributed"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-41",
+          "number": 41,
+          "question": "MapReduce. Определение, примеры решаемых задач, каскады. Combiner- оптимизация и примеры её применения.",
+          "topics": [
+            "distributed"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-42",
+          "number": 42,
+          "question": "MapReduce. Join, tf-idf, сортировка",
+          "topics": [
+            "distributed"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-43",
+          "number": 43,
+          "question": "Spark. Модель программирования, RDD vs Dataframe, ленивость, материализация датасетов.",
+          "topics": [
+            "distributed"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-MATH-44",
+          "number": 44,
+          "question": "Распределённое машинное обучение. Логистическая регрессия и её распределённая реализация.",
+          "topics": [
+            "ml-supervised",
+            "distributed"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "ml",
+      "title": "Машинное обучение",
+      "questions": [
+        {
+          "id": "ITMO-DL-ML-01",
+          "number": 1,
+          "question": "Понятие машинного обучения в искусственном интеллекте. Классификация задач машинного обучения, их примеры и особенности.",
+          "topics": [
+            "ml-intro"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-02",
+          "number": 2,
+          "question": "Задача обучения с учителем, классификация задач обучения с учителем, метод минимизации эмпирического риска.",
+          "topics": [
+            "ml-supervised"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-03",
+          "number": 3,
+          "question": "Понятие переобучения и методы борьбы с ним.",
+          "topics": [
+            "ml-supervised"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-04",
+          "number": 4,
+          "question": "Меры оценки качества для классификации и регрессии.",
+          "topics": [
+            "statistics",
+            "ml-process"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-05",
+          "number": 5,
+          "question": "Метод ближайших соседей. Метод ядерного сглаживания (непараметрическая регрессия)",
+          "topics": [
+            "ml-supervised"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-06",
+          "number": 6,
+          "question": "Метод градиентного спуска, усовершенствования метода градиентного спуска. Линейная регрессия. Сингулярное разложение векторов.",
+          "topics": [
+            "linear-algebra",
+            "optimization",
+            "ml-supervised"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-07",
+          "number": 7,
+          "question": "Метод опорных векторов для линейно разделимой выборки. Ядра и ядерный трюк в методе опорных векторов.",
+          "topics": [
+            "ml-supervised"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-08",
+          "number": 8,
+          "question": "Вероятностная постановка задачи классификации и оптимальный байесовский классификатор. Непараметрический метод оценки плотности.",
+          "topics": [
+            "statistics",
+            "ml-probabilistic"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-09",
+          "number": 9,
+          "question": "Параметрический метод оценки плотности и метод максимального правдоподобия.",
+          "topics": [
+            "statistics",
+            "ml-probabilistic"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-10",
+          "number": 10,
+          "question": "Логистическая регрессия.",
+          "topics": [
+            "ml-supervised"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-11",
+          "number": 11,
+          "question": "Логические правила и вывод закономерностей. Деревья принятия решений.",
+          "topics": [
+            "ml-supervised"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-12",
+          "number": 12,
+          "question": "Задача бустинга и градиентный бустинг. AdaBoost и его теоретические свойства.",
+          "topics": [
+            "ml-supervised"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-13",
+          "number": 13,
+          "question": "Случайный лес и стэкинг.",
+          "topics": [
+            "ml-supervised"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-14",
+          "number": 14,
+          "question": "Нейрон Маккалока-Питтса, выразительная мощность нейрона. Многослойная нейронная сеть и алгоритм обратного распространения ошибок.",
+          "topics": [
+            "deep-learning"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-15",
+          "number": 15,
+          "question": "Декомпозиция обратного распространения ошибок. Граф вычислений для глубокой нейронной сети.",
+          "topics": [
+            "deep-learning"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-16",
+          "number": 16,
+          "question": "Аугментация данных, дропаут и активационные функции для глубоких нейронных сетей.",
+          "topics": [
+            "deep-learning",
+            "augmentation"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-17",
+          "number": 17,
+          "question": "Методы второго порядка и их применение в логистической регрессии.",
+          "topics": [
+            "calculus-series",
+            "optimization"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-18",
+          "number": 18,
+          "question": "Предобработка данных для глубоких нейронных сетей, инициализация Xavier и He.",
+          "topics": [
+            "deep-learning"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-19",
+          "number": 19,
+          "question": "Проблемы градиентного спуска. Улучшенные методы оптимизации: Momentum, Nesterov accelerated gradient.",
+          "topics": [
+            "optimization"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-20",
+          "number": 20,
+          "question": "Проблемы градиентного спуска. Улучшенные методы оптимизации: Adagrade, RMSProp, Adadelta.",
+          "topics": [
+            "optimization"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-21",
+          "number": 21,
+          "question": "Проблемы градиентного спуска. Улучшенные методы оптимизации: Adam.",
+          "topics": [
+            "optimization"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-22",
+          "number": 22,
+          "question": "Батчевая нормализация.",
+          "topics": [
+            "deep-learning"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-23",
+          "number": 23,
+          "question": "Сверточные сети: понятие свертки, паддинга, пулинга, страйда. Идея, архитектура и алгоритм обучения.",
+          "topics": [
+            "cv"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-24",
+          "number": 24,
+          "question": "Задачи семантической сегментации и дедукции объектов. Примеры современных решений.",
+          "topics": [
+            "cv"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-25",
+          "number": 25,
+          "question": "Обработка последовательностей в машинном обучении. Рекуррентные сети: идея, архитектура и алгоритм обучение.",
+          "topics": [
+            "nlp"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-26",
+          "number": 26,
+          "question": "Глубокие сети с памятью: идея, архитектура и алгоритм обучение.",
+          "topics": [
+            "nlp"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-27",
+          "number": 27,
+          "question": "Классификация рекуррентных сетей. Двунаправленные рекуррентные сети и глубокие рекуррентные сети: архитектура и алгоритм обучения.",
+          "topics": [
+            "nlp"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-28",
+          "number": 28,
+          "question": "Механизм внимания в рекуррентных сетях: принцип, архитектура и алгоритм обучение.",
+          "topics": [
+            "nlp"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-29",
+          "number": 29,
+          "question": "Векторные представления слов. Word2Vec, Fast-text, BERT.",
+          "topics": [
+            "nlp"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-30",
+          "number": 30,
+          "question": "Задача кластеризации. Меры оценки. Графовые алгоритмы. Иерархические алгоритмы.",
+          "topics": [
+            "statistics",
+            "ml-unsupervised"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-31",
+          "number": 31,
+          "question": "Задача кластеризации. Меры оценки. Алгоритм k-Means. Плотностные алгоритмы.",
+          "topics": [
+            "statistics",
+            "ml-unsupervised"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-32",
+          "number": 32,
+          "question": "Задача уменьшения размерности. Фильтрующие методы выбора признаков.",
+          "topics": [
+            "ml-unsupervised"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-33",
+          "number": 33,
+          "question": "Задача уменьшения размерности. Алгоритмы-обертки и встроенные методы.",
+          "topics": [
+            "ml-unsupervised"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-34",
+          "number": 34,
+          "question": "Задача уменьшения размерности. Алгоритмы PCA, tSNE и UMAP.",
+          "topics": [
+            "ml-unsupervised"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-35",
+          "number": 35,
+          "question": "Задача уменьшения размерности. Автоэнкодеры.",
+          "topics": [
+            "ml-unsupervised"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-36",
+          "number": 36,
+          "question": "Алгоритм Expectation maximization.",
+          "topics": [
+            "ml-probabilistic"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-37",
+          "number": 37,
+          "question": "Задача и алгоритмы частичного обучения.",
+          "topics": [
+            "ml-special"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-38",
+          "number": 38,
+          "question": "Задача и алгоритмы активного обучения.",
+          "topics": [
+            "ml-special"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-39",
+          "number": 39,
+          "question": "Задача и алгоритмы сэмплирования.",
+          "topics": [
+            "ml-special"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-40",
+          "number": 40,
+          "question": "Задача и алгоритмы обучения “с первого взгляда”.",
+          "topics": [
+            "ml-special"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-41",
+          "number": 41,
+          "question": "Задача и алгоритмы поиска аномалий и удаления шумов.",
+          "topics": [
+            "ml-special"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-42",
+          "number": 42,
+          "question": "Задача генерации объектов. PixelCNN и PixelRNN: идея, архитектура и алгоритм обучение. Вариационные автокодировщики.",
+          "topics": [
+            "generative"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        },
+        {
+          "id": "ITMO-DL-ML-43",
+          "number": 43,
+          "question": "Генеративные противоборствующие сети: идея, архитектура и алгоритм обучения. С GAN и DCGAN: идея, архитектура и алгоритм обучения.",
+          "topics": [
+            "generative"
+          ],
+          "requiredDepth": "oral-exam",
+          "coverage": {
+            "status": "not-covered",
+            "lessons": [],
+            "taskTypes": [],
+            "note": ""
+          }
+        }
+      ]
+    }
+  ]
+}

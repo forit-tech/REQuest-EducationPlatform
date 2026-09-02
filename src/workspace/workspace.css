@@ -1,0 +1,246 @@
+/*
+ * Рабочая станция кодового задания.
+ *
+ * Самый спокойный экран приложения: код должен читаться, а не соревноваться с
+ * оформлением. Отсюда тонкие разделители вместо карточек, один акцентный цвет
+ * и никаких декоративных подложек под редактором.
+ */
+
+.code-workspace {
+  --code-text: #dbe7f2;
+  --code-gutter: #4b6076;
+  --code-active-line: rgba(56, 182, 255, .06);
+  --code-selection: rgba(56, 182, 255, .22);
+  --code-bracket: rgba(56, 182, 255, .2);
+  --ws-line: #1b2c3e;
+  --ws-panel: #0b1622;
+  --ws-inset: #08111b;
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-height: 0;
+  background: #060e17;
+  color: #e6eef6;
+}
+
+.ws-shell {
+  display: grid;
+  grid-template-columns: 48% 6px 1fr;
+  min-height: 0;
+  overflow: hidden;
+}
+.code-workspace.is-focused .ws-shell { grid-template-columns: 1fr; }
+.code-workspace.is-narrow .ws-shell { grid-template-columns: 1fr; }
+
+/* --- условие --- */
+
+.ws-theory { min-height: 0; overflow: hidden; border-right: 1px solid var(--ws-line); background: var(--ws-panel); }
+.ws-theory-scroll { height: 100%; overflow-y: auto; overscroll-behavior: contain; padding: 22px 26px 40px; }
+.ws-eyebrow {
+  display: block; font-family: "JetBrains Mono", monospace; font-size: 11px;
+  letter-spacing: .14em; text-transform: uppercase; color: #6d8698; margin-bottom: 10px;
+}
+.ws-theory h2 { font-size: 21px; font-weight: 700; letter-spacing: -.01em; margin: 0 0 14px; }
+.ws-statement { font-size: 15px; line-height: 1.62; color: #b9cbdb; margin: 0 0 18px; max-width: 62ch; }
+.ws-steps { margin: 0 0 18px; padding-left: 20px; color: #b9cbdb; font-size: 14.5px; line-height: 1.6; display: grid; gap: 6px; }
+.ws-steps li::marker { color: #38b6ff; font-family: "JetBrains Mono", monospace; }
+
+.ws-snippet { margin: 0 0 18px; border: 1px solid var(--ws-line); border-radius: 10px; overflow: hidden; background: var(--ws-inset); }
+.ws-snippet figcaption {
+  display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-bottom: 1px solid var(--ws-line);
+  font-family: "JetBrains Mono", monospace; font-size: 11.5px; color: #7d94a8;
+}
+.ws-snippet figcaption button {
+  margin-left: auto; background: none; border: 0; color: #38b6ff; font-size: 11.5px; cursor: pointer; padding: 2px 4px;
+}
+.ws-snippet pre { margin: 0; padding: 12px 14px; overflow-x: auto; }
+.ws-snippet code { font-family: "JetBrains Mono", monospace; font-size: 12.5px; line-height: 1.6; color: var(--code-text); }
+
+.ws-note {
+  border-left: 2px solid #38b6ff; padding: 10px 14px; margin: 0 0 18px;
+  background: rgba(56, 182, 255, .05); font-size: 14px; color: #b9cbdb; border-radius: 0 8px 8px 0;
+}
+.ws-note strong { color: #e6eef6; }
+
+.ws-cases { display: grid; gap: 10px; margin-bottom: 18px; }
+.ws-case { border: 1px solid var(--ws-line); border-radius: 10px; padding: 12px 14px; background: var(--ws-inset); }
+.ws-case strong { font-size: 13.5px; display: block; margin-bottom: 8px; }
+.ws-case em { font-family: "JetBrains Mono", monospace; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: #6d8698; display: block; margin-bottom: 3px; }
+.ws-case pre { margin: 0 0 8px; font-family: "JetBrains Mono", monospace; font-size: 12.5px; color: var(--code-text); white-space: pre-wrap; }
+
+.ws-hints { border-top: 1px solid var(--ws-line); padding-top: 14px; }
+.ws-hints summary { cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 14px; color: #b9cbdb; }
+.ws-hints summary::marker { color: #4b6076; }
+.ws-hints ul { margin: 10px 0 0; padding-left: 20px; color: #9db2c5; font-size: 14px; line-height: 1.6; display: grid; gap: 6px; }
+
+/* --- разделители --- */
+
+.ws-split-v, .ws-split-h { background: var(--ws-line); position: relative; }
+.ws-split-v { cursor: col-resize; }
+.ws-split-h { cursor: row-resize; }
+.ws-split-v::after, .ws-split-h::after { content: ""; position: absolute; inset: -4px; }
+.ws-split-v:hover, .ws-split-h:hover, .ws-split-v:focus-visible, .ws-split-h:focus-visible { background: #38b6ff; outline: none; }
+
+/* --- рабочая колонка --- */
+
+.ws-work { display: grid; grid-template-rows: 55% 6px 1fr; min-height: 0; overflow: hidden; }
+.code-workspace.is-narrow .ws-work { grid-template-rows: 1fr; }
+.ws-editor-block, .ws-result-block { display: grid; grid-template-rows: auto 1fr; min-height: 0; overflow: hidden; }
+
+.ws-panel-head {
+  display: flex; align-items: center; gap: 12px; padding: 0 14px 0 10px;
+  border-bottom: 1px solid var(--ws-line); background: var(--ws-panel); min-height: 38px;
+}
+.ws-tabs { display: flex; gap: 2px; overflow-x: auto; }
+.ws-tabs button {
+  display: flex; align-items: center; gap: 6px; background: none; border: 0; cursor: pointer;
+  padding: 10px 12px; font-family: "JetBrains Mono", monospace; font-size: 12px; color: #7d94a8;
+  border-bottom: 2px solid transparent; white-space: nowrap;
+}
+.ws-tabs button:hover { color: #dbe7f2; }
+.ws-tabs button.active { color: #e6eef6; border-bottom-color: #38b6ff; }
+.ws-tabs button:focus-visible { outline: 2px solid #38b6ff; outline-offset: -2px; }
+
+.ws-panel-tools { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+.ws-panel-tools button {
+  display: flex; align-items: center; gap: 6px; background: none; border: 1px solid var(--ws-line);
+  border-radius: 8px; padding: 5px 10px; color: #9db2c5; font-size: 12px; cursor: pointer;
+}
+.ws-panel-tools button:hover { color: #e6eef6; border-color: #2b445d; }
+.ws-language { font-family: "JetBrains Mono", monospace; font-size: 11px; color: #6d8698; text-transform: uppercase; letter-spacing: .1em; }
+
+.ws-state { display: flex; align-items: center; gap: 5px; font-family: "JetBrains Mono", monospace; font-size: 11px; }
+.ws-state.running { color: #38b6ff; }
+.ws-state.unavailable { color: #f5b544; }
+.ws-state.simulated { color: #f5b544; border: 1px solid currentColor; border-radius: 6px; padding: 2px 7px; }
+
+.code-editor { min-height: 0; overflow: hidden; background: var(--ws-inset); }
+.code-editor .cm-editor { height: 100%; }
+
+/* --- результат --- */
+
+.ws-result-block { border-top: 1px solid var(--ws-line); background: var(--ws-inset); }
+.ws-result-body { overflow-y: auto; padding: 14px 16px 20px; min-height: 0; }
+.ws-empty { color: #6d8698; font-size: 13.5px; margin: 4px 0; }
+
+.ws-stdout, .ws-stderr {
+  margin: 0 0 10px; padding: 12px 14px; border-radius: 8px; border: 1px solid var(--ws-line);
+  font-family: "JetBrains Mono", monospace; font-size: 12.5px; line-height: 1.6; white-space: pre-wrap;
+  overflow-x: auto; background: #060e17;
+}
+.ws-stderr { color: #ff8b86; border-color: rgba(255, 95, 90, .3); }
+.ws-runmeta { display: flex; gap: 14px; font-family: "JetBrains Mono", monospace; font-size: 11px; color: #6d8698; }
+.ws-runmeta .bad { color: #f5b544; }
+
+.ws-unavailable {
+  display: flex; gap: 12px; padding: 14px 16px; border-radius: 10px; margin-bottom: 12px;
+  border: 1px solid rgba(245, 181, 68, .35); background: rgba(245, 181, 68, .07); color: #f5b544;
+}
+.ws-unavailable strong { display: block; margin-bottom: 4px; color: #ffd489; }
+.ws-unavailable p { margin: 0; font-size: 13.5px; line-height: 1.55; color: #c8b284; max-width: 66ch; }
+
+.ws-checks { list-style: none; margin: 0 0 12px; padding: 0; display: grid; gap: 8px; }
+.ws-checks li { display: flex; gap: 10px; align-items: flex-start; font-size: 13.5px; }
+.ws-checks li i { display: grid; place-items: center; width: 18px; height: 18px; border-radius: 5px; flex: none; margin-top: 1px; }
+.ws-checks li.ok i { background: rgba(70, 209, 139, .16); color: #46d18b; }
+.ws-checks li.bad i { background: rgba(255, 95, 90, .16); color: #ff5f5a; }
+.ws-checks li span { color: #dbe7f2; }
+.ws-checks li small { display: block; margin-top: 3px; font-family: "JetBrains Mono", monospace; font-size: 11.5px; color: #7d94a8; }
+.ws-hidden-flag {
+  margin-left: 8px; font-family: "JetBrains Mono", monospace; font-size: 10px; font-style: normal;
+  letter-spacing: .1em; text-transform: uppercase; color: #6d8698; border: 1px solid var(--ws-line); border-radius: 5px; padding: 1px 6px;
+}
+
+.ws-success {
+  display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: 10px;
+  border: 1px solid rgba(70, 209, 139, .35); background: rgba(70, 209, 139, .08); color: #46d18b;
+}
+.ws-success strong { display: block; margin-bottom: 4px; }
+.ws-success span { color: #a9c6b6; font-size: 13.5px; line-height: 1.55; }
+
+.ws-errors { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.ws-errors li { display: flex; gap: 10px; color: #ff8b86; }
+.ws-errors li strong { display: block; color: #ffb3af; font-size: 13.5px; }
+.ws-errors li p { margin: 4px 0 0; font-family: "JetBrains Mono", monospace; font-size: 12px; color: #c9a5a3; white-space: pre-wrap; }
+.ws-errors li button { margin-top: 6px; background: none; border: 1px solid currentColor; border-radius: 6px; color: #38b6ff; font-size: 11.5px; padding: 2px 8px; cursor: pointer; }
+
+/* --- действия --- */
+
+.ws-actions {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 10px 18px; border-top: 1px solid var(--ws-line); background: var(--ws-panel);
+}
+.ws-actions-left { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.ws-actions-right { display: flex; align-items: center; gap: 10px; }
+.ws-shortcut { font-family: "JetBrains Mono", monospace; font-size: 11px; color: #56708a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ws-focus { background: none; border: 1px solid var(--ws-line); border-radius: 8px; color: #9db2c5; font-size: 12.5px; padding: 7px 12px; cursor: pointer; }
+.ws-focus:hover { color: #e6eef6; border-color: #2b445d; }
+
+.ws-actions button { font-family: inherit; }
+.ws-run, .ws-check, .ws-next {
+  display: flex; align-items: center; gap: 8px; border-radius: 9px; padding: 9px 16px;
+  font-size: 13.5px; font-weight: 600; cursor: pointer; min-height: 40px; border: 1px solid transparent;
+}
+.ws-run { background: none; border-color: var(--ws-line); color: #dbe7f2; }
+.ws-run:hover:not(:disabled) { border-color: #38b6ff; color: #ffffff; }
+.ws-check { background: #38b6ff; color: #04121d; }
+.ws-check:hover:not(:disabled) { background: #5cc4ff; }
+.ws-next { background: rgba(70, 209, 139, .16); color: #46d18b; border-color: rgba(70, 209, 139, .4); }
+.ws-next:hover:not(:disabled) { background: rgba(70, 209, 139, .24); }
+.ws-actions button:disabled { opacity: .4; cursor: not-allowed; }
+.ws-actions button:focus-visible, .ws-focus:focus-visible { outline: 2px solid #38b6ff; outline-offset: 2px; }
+
+/* --- узкий экран --- */
+
+.ws-mobile-tabs { display: flex; gap: 2px; border-bottom: 1px solid var(--ws-line); background: var(--ws-panel); padding: 0 10px; }
+.ws-mobile-tabs button {
+  flex: 1; background: none; border: 0; border-bottom: 2px solid transparent; cursor: pointer;
+  padding: 12px 8px; font-size: 13px; color: #7d94a8;
+}
+.ws-mobile-tabs button.active { color: #e6eef6; border-bottom-color: #38b6ff; }
+.code-workspace.is-narrow { grid-template-rows: auto 1fr auto; }
+.code-workspace.is-narrow .ws-theory { border-right: 0; }
+@media (max-width: 700px) {
+  .ws-actions { flex-wrap: wrap; }
+  .ws-shortcut { display: none; }
+  .ws-actions-right { width: 100%; }
+  .ws-actions-right button { flex: 1; justify-content: center; }
+}
+
+/* --- подтверждение сброса --- */
+
+.ws-confirm { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(4, 10, 17, .72); z-index: 20; }
+.ws-confirm > div { width: min(420px, 88vw); border: 1px solid var(--ws-line); border-radius: 14px; background: var(--ws-panel); padding: 22px 24px; }
+.ws-confirm strong { display: block; font-size: 16px; margin-bottom: 8px; }
+.ws-confirm p { margin: 0 0 18px; color: #9db2c5; font-size: 14px; line-height: 1.55; }
+.ws-confirm > div > div { display: flex; gap: 10px; justify-content: flex-end; }
+.ws-confirm button { border-radius: 9px; padding: 9px 16px; font-size: 13.5px; cursor: pointer; border: 1px solid var(--ws-line); background: none; color: #dbe7f2; }
+.ws-confirm button.danger { background: rgba(255, 95, 90, .16); border-color: rgba(255, 95, 90, .4); color: #ff8b86; }
+
+@media (prefers-reduced-motion: reduce) { .code-workspace * { transition: none !important; animation: none !important; } }
+
+/* --- гипотеза старых кодовых заданий --- */
+
+.ws-choice { margin: 0 0 18px; }
+.ws-choice-options { display: grid; gap: 8px; }
+.ws-choice-options button {
+  text-align: left; padding: 11px 14px; border-radius: 10px; cursor: pointer;
+  border: 1px solid var(--ws-line); background: var(--ws-inset); color: #b9cbdb;
+  font-size: 13.5px; line-height: 1.5; font-family: inherit;
+}
+.ws-choice-options button:hover { border-color: #2b445d; color: #e6eef6; }
+.ws-choice-options button.active { border-color: #38b6ff; color: #ffffff; background: rgba(56, 182, 255, .09); }
+.ws-choice-options button:focus-visible { outline: 2px solid #38b6ff; outline-offset: 2px; }
+
+/* --- сюжетный контекст эпизода --- */
+
+.ws-episode { padding-bottom: 18px; margin-bottom: 18px; border-bottom: 1px solid var(--ws-line); }
+.ws-episode-title { font-size: 18px; font-weight: 700; margin: 0 0 10px; letter-spacing: -.01em; }
+.ws-episode-intro { margin: 0 0 12px; font-size: 14px; line-height: 1.6; color: #9db2c5; max-width: 60ch; }
+.ws-episode-goals { margin: 0 0 12px; padding-left: 18px; font-size: 13.5px; color: #9db2c5; display: grid; gap: 4px; }
+.ws-replay {
+  display: inline-flex; align-items: center; gap: 7px; background: none; border: 1px solid var(--ws-line);
+  border-radius: 8px; padding: 6px 11px; color: #9db2c5; font-size: 12.5px; cursor: pointer;
+}
+.ws-replay:hover { color: #e6eef6; border-color: #2b445d; }

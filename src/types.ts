@@ -1,5 +1,11 @@
 export type MissionType = 'story' | 'quiz' | 'code' | 'lab' | 'case' | 'boss'
 
+/**
+ * Рабочее окружение задания. Определяет, что показывает раннер, и задаётся
+ * заданием, а не типом миссии: викторина не должна открывать редактор кода.
+ */
+export type TaskEnvironment = 'none' | 'editor' | 'terminal' | 'editor+terminal'
+
 export interface Mission {
   id: string
   title: string
@@ -22,6 +28,8 @@ export interface Mission {
     options?: string[]
     answer: string
     explanation: string
+    /** Явное окружение задания. Без него выводится из наличия заготовки кода. */
+    environment?: TaskEnvironment
     starterCode?: string
     workspaceFile?: string
     codeChecks?: Array<{
