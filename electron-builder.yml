@@ -1,3 +1,4 @@
+# Windows installer packaging for GitHub Releases.
 appId: tech.forit.reduquest
 productName: REduQuest
 artifactName: "REduQuest-Setup-${version}.${ext}"
