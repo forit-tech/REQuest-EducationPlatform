@@ -1,0 +1,4052 @@
+{
+  "note": "Классификация runtime-курсов по происхождению содержания. Считается автоматически: npm run quality:report. Время сборки в файл не пишется намеренно — отчёт лежит в репозитории, и метка времени давала бы изменение в diff при каждом прогоне.",
+  "totals": {
+    "AUTHORED_REAL": 30,
+    "AUTHORED_NEEDS_REVIEW": 4,
+    "GENERATOR_SCAFFOLD": 15,
+    "FAKE_PRACTICE": 25,
+    "OUTLINE_ONLY": 149
+  },
+  "missionsByClass": {
+    "AUTHORED_REAL": 1170,
+    "AUTHORED_NEEDS_REVIEW": 75,
+    "GENERATOR_SCAFFOLD": 195,
+    "FAKE_PRACTICE": 325,
+    "OUTLINE_ONLY": 0
+  },
+  "runtime": {
+    "courses": 74,
+    "missions": 1765
+  },
+  "curriculumLayer": {
+    "courses": 355,
+    "outline": 149
+  },
+  "courses": [
+    {
+      "id": "advanced-sql",
+      "path": "knowledge/data/advanced-sql/course.json",
+      "title": "Продвинутый SQL",
+      "level": "Средний",
+      "technology": "sql",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 62,
+      "codeLabMissions": 32,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 62,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 38,
+      "unknownTokenSamples": [
+        "SELECT",
+        "WITH",
+        "WHERE"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "pgexercises",
+          "class": "ADAPTABLE_OER"
+        },
+        {
+          "id": "select-star-sql",
+          "class": "ADAPTABLE_OER"
+        },
+        {
+          "id": "postgresql-docs",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "analytical-databases",
+      "path": "knowledge/data/analytical-databases/course.json",
+      "title": "Аналитические базы данных",
+      "level": "Средний",
+      "technology": "sql",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 32,
+      "codeLabMissions": 13,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 32,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 17,
+      "unknownTokenSamples": [
+        "SELECT",
+        "WHERE",
+        "GROUP"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "apache-parquet-format",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "clickhouse-docs",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "clickhouse",
+      "path": "knowledge/data/clickhouse/course.json",
+      "title": "ClickHouse",
+      "level": "Продвинутый",
+      "technology": "sql",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 48,
+      "codeLabMissions": 24,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 48,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 30,
+      "unknownTokenSamples": [
+        "SELECT",
+        "GROUP",
+        "WHERE"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "clickhouse-docs",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "data-cleaning",
+      "path": "knowledge/data/data-cleaning/course.json",
+      "title": "Очистка данных",
+      "level": "База",
+      "technology": "python",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 52,
+      "codeLabMissions": 25,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 52,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 88,
+      "unknownTokenSamples": [
+        "def",
+        "solve",
+        "print"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "data-carpentry-lessons",
+          "class": "ADAPTABLE_OER"
+        },
+        {
+          "id": "effective-pandas",
+          "class": "ADAPTABLE_OER"
+        },
+        {
+          "id": "pandas-documentation",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "data-final-project",
+      "path": "knowledge/data/data-final-project/course.json",
+      "title": "Финальный проект: платформа розничных данных",
+      "level": "Продвинутый",
+      "technology": "python",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 18,
+      "codeLabMissions": 6,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 18,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 24,
+      "unknownTokenSamples": [
+        "def",
+        "solve"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
+      "id": "data-formats",
+      "path": "knowledge/data/data-formats/course.json",
+      "title": "Форматы данных",
+      "level": "База",
+      "technology": "python",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 34,
+      "codeLabMissions": 23,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 34,
+      "longestAnswerRatio": 0.882,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 92,
+      "unknownTokenSamples": [
+        "def",
+        "solve"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "microsoft-data-science-for-beginners",
+          "class": "ADAPTABLE_OER"
+        },
+        {
+          "id": "data-carpentry-lessons",
+          "class": "ADAPTABLE_OER"
+        },
+        {
+          "id": "python-docs",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "pandas-documentation",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "apache-parquet-format",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "apache-arrow-docs",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "duckdb-docs",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "rfc-4180-csv",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "rfc-8259-json",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "unicode-utf8",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "data-modeling",
+      "path": "knowledge/data/data-modeling/course.json",
+      "title": "Моделирование данных",
+      "level": "Средний",
+      "technology": "python",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 44,
+      "codeLabMissions": 25,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 44,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 85,
+      "unknownTokenSamples": [
+        "def",
+        "solve",
+        "print"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
+      "id": "data-quality",
+      "path": "knowledge/data/data-quality/course.json",
+      "title": "Качество данных",
+      "level": "Средний",
+      "technology": "python",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 50,
+      "codeLabMissions": 28,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 50,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 97,
+      "unknownTokenSamples": [
+        "def",
+        "solve",
+        "print"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "turing-way",
+          "class": "ADAPTABLE_OER"
+        }
+      ]
+    },
+    {
+      "id": "data-visualization",
+      "path": "knowledge/data/data-visualization/course.json",
+      "title": "Визуализация данных",
+      "level": "База",
+      "technology": "python",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 44,
+      "codeLabMissions": 21,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 44,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 75,
+      "unknownTokenSamples": [
+        "def",
+        "solve",
+        "print"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "microsoft-data-science-for-beginners",
+          "class": "ADAPTABLE_OER"
+        }
+      ]
+    },
+    {
+      "id": "duckdb",
+      "path": "knowledge/data/duckdb/course.json",
+      "title": "DuckDB",
+      "level": "Средний",
+      "technology": "sql",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 30,
+      "codeLabMissions": 13,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 30,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 15,
+      "unknownTokenSamples": [
+        "SELECT",
+        "JOIN",
+        "WHERE"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "duckdb-docs",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "etl-elt",
+      "path": "knowledge/data/etl-elt/course.json",
+      "title": "Основы ETL и ELT",
+      "level": "Средний",
+      "technology": "python",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 46,
+      "codeLabMissions": 19,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 46,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 76,
+      "unknownTokenSamples": [
+        "def",
+        "solve"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "turing-way",
+          "class": "ADAPTABLE_OER"
+        }
+      ]
+    },
+    {
+      "id": "exploratory-data-analysis",
+      "path": "knowledge/data/exploratory-data-analysis/course.json",
+      "title": "Разведочный анализ данных",
+      "level": "База",
+      "technology": "python",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 46,
+      "codeLabMissions": 24,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 46,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 81,
+      "unknownTokenSamples": [
+        "def",
+        "solve",
+        "print"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
+      "id": "go-core",
+      "path": "knowledge/backend/go-core/course.json",
+      "title": "Go: основы языка",
+      "level": "Старт",
+      "technology": "go",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 16,
+      "codeLabMissions": 12,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 16,
+      "longestAnswerRatio": 0.688,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 3,
+      "unknownTokenSamples": [
+        "Println",
+        "int",
+        "return"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
+      "id": "go-core-concurrency",
+      "path": "knowledge/backend/go-core-concurrency/course.json",
+      "title": "Go: конкурентность",
+      "level": "База",
+      "technology": "go",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 16,
+      "codeLabMissions": 11,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 16,
+      "longestAnswerRatio": 0.75,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 0,
+      "unknownTokenSamples": [],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "go-documentation",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "go-network-services",
+      "path": "knowledge/backend/go-network-services/course.json",
+      "title": "Сетевые сервисы на Go",
+      "level": "Средний",
+      "technology": "go",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 16,
+      "codeLabMissions": 10,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 16,
+      "longestAnswerRatio": 0.875,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 4,
+      "unknownTokenSamples": [
+        "BeginTx",
+        "defer"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "go-documentation",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "java-core",
+      "path": "knowledge/backend/java-core/course.json",
+      "title": "Java: основы языка",
+      "level": "Старт",
+      "technology": "java",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 17,
+      "codeLabMissions": 13,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 17,
+      "longestAnswerRatio": 0.882,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 3,
+      "unknownTokenSamples": [
+        "System",
+        "out"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
+      "id": "javascript-core",
+      "path": "knowledge/frontend/javascript-core/course.json",
+      "title": "JavaScript: основы языка",
+      "level": "Старт",
+      "technology": null,
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 19,
+      "codeLabMissions": 14,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 19,
+      "longestAnswerRatio": 0.895,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 0,
+      "unknownTokenSamples": [],
+      "prerequisiteByUsage": [
+        {
+          "professionId": "frontend-developer",
+          "language": "javascript"
+        },
+        {
+          "professionId": "react-developer",
+          "language": "javascript"
+        },
+        {
+          "professionId": "pentester",
+          "language": "javascript"
+        }
+      ],
+      "sourceCoverage": []
+    },
+    {
+      "id": "large-data",
+      "path": "knowledge/data/large-data/course.json",
+      "title": "Работа с большими данными",
+      "level": "Средний",
+      "technology": "python",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 40,
+      "codeLabMissions": 15,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 40,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 54,
+      "unknownTokenSamples": [
+        "def",
+        "solve",
+        "print"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "apache-parquet-format",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "apache-arrow-docs",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "polars-user-guide",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "numpy",
+      "path": "knowledge/data/numpy/course.json",
+      "title": "NumPy",
+      "level": "База",
+      "technology": "python",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 48,
+      "codeLabMissions": 32,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 48,
+      "longestAnswerRatio": 0.688,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 128,
+      "unknownTokenSamples": [
+        "import",
+        "numpy"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "numpy-documentation",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "python-data-science-handbook",
+          "class": "REFERENCE_ONLY"
+        }
+      ]
+    },
+    {
+      "id": "pandas",
+      "path": "knowledge/data/pandas/course.json",
+      "title": "Pandas",
+      "level": "База",
+      "technology": "python",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 117,
+      "codeLabMissions": 73,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 117,
+      "longestAnswerRatio": 0.983,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 336,
+      "unknownTokenSamples": [
+        "import",
+        "pandas"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "effective-pandas",
+          "class": "ADAPTABLE_OER"
+        },
+        {
+          "id": "pandas-documentation",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "python-data-science-handbook",
+          "class": "REFERENCE_ONLY"
+        },
+        {
+          "id": "kaggle-learn",
+          "class": "REFERENCE_ONLY"
+        }
+      ]
+    },
+    {
+      "id": "polars",
+      "path": "knowledge/data/polars/course.json",
+      "title": "Polars",
+      "level": "Средний",
+      "technology": "python",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 42,
+      "codeLabMissions": 22,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 42,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 104,
+      "unknownTokenSamples": [
+        "import",
+        "polars"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "apache-arrow-docs",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "polars-user-guide",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "postgresql",
+      "path": "knowledge/data/postgresql/course.json",
+      "title": "PostgreSQL",
+      "level": "Средний",
+      "technology": "sql",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 54,
+      "codeLabMissions": 24,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 54,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 24,
+      "unknownTokenSamples": [
+        "SELECT"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "postgresql-docs",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "production-incidents",
+      "path": "knowledge/data/production-incidents/course.json",
+      "title": "Инциденты с данными",
+      "level": "Продвинутый",
+      "technology": "python",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 36,
+      "codeLabMissions": 12,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 36,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 42,
+      "unknownTokenSamples": [
+        "def",
+        "solve",
+        "print"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "sql-murder-mystery",
+          "class": "ADAPTABLE_OER"
+        }
+      ]
+    },
+    {
+      "id": "python-core",
+      "path": "knowledge/data/python-core/course.json",
+      "title": "Python для работы с данными",
+      "level": "База",
+      "technology": "python",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 50,
+      "codeLabMissions": 33,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 49,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 100,
+      "unknownTokenSamples": [
+        "print",
+        "for",
+        "else",
+        "append",
+        "def"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "python-docs",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "react-architecture",
+      "path": "knowledge/frontend/react-architecture/course.json",
+      "title": "Архитектура React-приложения",
+      "level": "Средний",
+      "technology": "javascript",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 0.5,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 10,
+      "unknownTokenSamples": [
+        "invalidateQueries",
+        "queryKey",
+        "fallback",
+        "reports",
+        "loadOrder"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "react-learn",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "react-core",
+      "path": "knowledge/frontend/react-core/course.json",
+      "title": "React: модель интерфейса",
+      "level": "База",
+      "technology": "javascript",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 20,
+      "codeLabMissions": 13,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 20,
+      "longestAnswerRatio": 0.85,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 0,
+      "unknownTokenSamples": [],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "react-learn",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "relational-databases",
+      "path": "knowledge/data/relational-databases/course.json",
+      "title": "Реляционные базы данных",
+      "level": "Средний",
+      "technology": "sql",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 40,
+      "codeLabMissions": 26,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 40,
+      "longestAnswerRatio": 0.95,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 26,
+      "unknownTokenSamples": [
+        "SELECT",
+        "WHERE"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "microsoft-data-science-for-beginners",
+          "class": "ADAPTABLE_OER"
+        },
+        {
+          "id": "postgresql-docs",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "sqlite-docs",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "sql-foundations",
+      "path": "knowledge/data/sql-foundations/course.json",
+      "title": "Основы SQL",
+      "level": "База",
+      "technology": "sql",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 58,
+      "codeLabMissions": 39,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 58,
+      "longestAnswerRatio": 0.741,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 48,
+      "unknownTokenSamples": [
+        "SELECT",
+        "WHERE",
+        "GROUP",
+        "ORDER",
+        "JOIN"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "data-carpentry-lessons",
+          "class": "ADAPTABLE_OER"
+        },
+        {
+          "id": "pgexercises",
+          "class": "ADAPTABLE_OER"
+        },
+        {
+          "id": "select-star-sql",
+          "class": "ADAPTABLE_OER"
+        },
+        {
+          "id": "sql-murder-mystery",
+          "class": "ADAPTABLE_OER"
+        },
+        {
+          "id": "postgresql-docs",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "sqlite-docs",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "duckdb-docs",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "kaggle-learn",
+          "class": "REFERENCE_ONLY"
+        }
+      ]
+    },
+    {
+      "id": "statistics",
+      "path": "knowledge/data/statistics/course.json",
+      "title": "Статистика и эксперименты",
+      "level": "Средний",
+      "technology": "python",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 48,
+      "codeLabMissions": 32,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 48,
+      "longestAnswerRatio": 0.917,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 128,
+      "unknownTokenSamples": [
+        "def",
+        "solve"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "google-ml-crash-course",
+          "class": "ADAPTABLE_OER"
+        },
+        {
+          "id": "openintro-statistics",
+          "class": "ADAPTABLE_OER"
+        },
+        {
+          "id": "mlcourse-ai",
+          "class": "REFERENCE_ONLY"
+        }
+      ]
+    },
+    {
+      "id": "yaml-basics",
+      "path": "knowledge/devops/yaml-basics/course.json",
+      "title": "YAML: основы формата",
+      "level": "Старт",
+      "technology": "yaml",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 14,
+      "codeLabMissions": 8,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 14,
+      "longestAnswerRatio": 0.929,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 0,
+      "unknownTokenSamples": [],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
+      "id": "analyst-metrics",
+      "path": "knowledge/data/analyst-metrics/course.json",
+      "title": "Метрики без самообмана",
+      "level": "База",
+      "technology": null,
+      "classification": "AUTHORED_NEEDS_REVIEW",
+      "reasons": [
+        "4 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 0,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 4,
+      "echoPhraseMissions": 4,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 12,
+      "longestAnswerRatio": 0.917,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 0,
+      "unknownTokenSamples": [],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
+      "id": "data-foundations",
+      "path": "knowledge/data/data-foundations/course.json",
+      "title": "Основы данных",
+      "level": "Старт",
+      "technology": null,
+      "classification": "AUTHORED_NEEDS_REVIEW",
+      "reasons": [
+        "1 миссий содержат ответ дословно в тексте задания"
+      ],
+      "overridden": false,
+      "missions": 30,
+      "codeLabMissions": 0,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 30,
+      "longestAnswerRatio": 0.533,
+      "literalAnswerLeak": 1,
+      "unknownRequiredTokens": 0,
+      "unknownTokenSamples": [],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "microsoft-data-science-for-beginners",
+          "class": "ADAPTABLE_OER"
+        },
+        {
+          "id": "data-carpentry-lessons",
+          "class": "ADAPTABLE_OER"
+        },
+        {
+          "id": "turing-way",
+          "class": "ADAPTABLE_OER"
+        }
+      ]
+    },
+    {
+      "id": "go-production",
+      "path": "knowledge/backend/go-production/course.json",
+      "title": "Go-сервис в продакшене",
+      "level": "Продвинутый",
+      "technology": "go",
+      "classification": "AUTHORED_NEEDS_REVIEW",
+      "reasons": [
+        "1 миссий содержат ответ дословно в тексте задания"
+      ],
+      "overridden": false,
+      "missions": 16,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 16,
+      "longestAnswerRatio": 0.813,
+      "literalAnswerLeak": 1,
+      "unknownRequiredTokens": 5,
+      "unknownTokenSamples": [
+        "HandleFunc",
+        "slog"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "go-documentation",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "technical-foundations",
+      "path": "knowledge/data/technical-foundations/course.json",
+      "title": "Технический фундамент",
+      "level": "Старт",
+      "technology": "python",
+      "classification": "AUTHORED_NEEDS_REVIEW",
+      "reasons": [
+        "1 миссий содержат ответ дословно в тексте задания"
+      ],
+      "overridden": false,
+      "missions": 16,
+      "codeLabMissions": 2,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 16,
+      "longestAnswerRatio": 0.75,
+      "literalAnswerLeak": 1,
+      "unknownRequiredTokens": 1,
+      "unknownTokenSamples": [
+        "print"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
+      "id": "capacity-reliability",
+      "path": "knowledge/devops/capacity-reliability/course.json",
+      "title": "Ёмкость и инженерия надёжности",
+      "level": "Продвинутый",
+      "technology": "yaml",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 14,
+      "unknownTokenSamples": [
+        "true",
+        "workload",
+        "model"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "google-sre-books",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "cicd-infrastructure",
+      "path": "knowledge/devops/cicd-infrastructure/course.json",
+      "title": "CI/CD и инфраструктура как код",
+      "level": "Продвинутый",
+      "technology": "yaml",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 23,
+      "unknownTokenSamples": [
+        "true",
+        "lint",
+        "test"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "kubernetes-docs",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "terraform-docs",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "containers-kubernetes",
+      "path": "knowledge/devops/containers-kubernetes/course.json",
+      "title": "Контейнеры и Kubernetes",
+      "level": "Средний",
+      "technology": "yaml",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 20,
+      "unknownTokenSamples": [
+        "true",
+        "multi",
+        "stage"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "kubernetes-docs",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "defensive-engineering",
+      "path": "knowledge/cybersecurity/defensive-engineering/course.json",
+      "title": "Инженерия защитных мер",
+      "level": "Средний",
+      "technology": "yaml",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 9,
+      "unknownTokenSamples": [
+        "true"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
+      "id": "incident-response",
+      "path": "knowledge/cybersecurity/incident-response/course.json",
+      "title": "Реагирование на инциденты",
+      "level": "Продвинутый",
+      "technology": "yaml",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 12,
+      "unknownTokenSamples": [
+        "true",
+        "chain",
+        "custody"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "mitre-attack",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "linux-network-ops",
+      "path": "knowledge/devops/linux-network-ops/course.json",
+      "title": "Linux и сети для эксплуатации",
+      "level": "База",
+      "technology": "yaml",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 17,
+      "unknownTokenSamples": [
+        "true",
+        "PID",
+        "swap"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
+      "id": "observability-incidents",
+      "path": "knowledge/devops/observability-incidents/course.json",
+      "title": "Наблюдаемость и инциденты",
+      "level": "Средний",
+      "technology": "yaml",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 18,
+      "unknownTokenSamples": [
+        "true",
+        "multi",
+        "window"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "google-sre-books",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "pentest-methodology",
+      "path": "knowledge/cybersecurity/pentest-methodology/course.json",
+      "title": "Методология пентеста",
+      "level": "База",
+      "technology": "yaml",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 11,
+      "unknownTokenSamples": [
+        "true",
+        "stop",
+        "condition"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
+      "id": "pentest-reporting",
+      "path": "knowledge/cybersecurity/pentest-reporting/course.json",
+      "title": "Отчёт и проверка исправлений",
+      "level": "Продвинутый",
+      "technology": "yaml",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 10,
+      "unknownTokenSamples": [
+        "true",
+        "scope"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "owasp-wstg",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "risk-iam",
+      "path": "knowledge/cybersecurity/risk-iam/course.json",
+      "title": "Риски, IAM и управление безопасностью",
+      "level": "Продвинутый",
+      "technology": "yaml",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 10,
+      "unknownTokenSamples": [
+        "true",
+        "SLA"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
+      "id": "security-foundations",
+      "path": "knowledge/cybersecurity/security-foundations/course.json",
+      "title": "Фундамент кибербезопасности",
+      "level": "База",
+      "technology": "yaml",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 13,
+      "unknownTokenSamples": [
+        "true",
+        "DFD",
+        "baseline"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "owasp-wstg",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "soc-detection",
+      "path": "knowledge/cybersecurity/soc-detection/course.json",
+      "title": "SOC и инженерия детектирования",
+      "level": "База",
+      "technology": "yaml",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 10,
+      "unknownTokenSamples": [
+        "true",
+        "timeline"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "mitre-attack",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "sre-foundations",
+      "path": "knowledge/devops/sre-foundations/course.json",
+      "title": "Основы SRE и SLO",
+      "level": "База",
+      "technology": "yaml",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 15,
+      "unknownTokenSamples": [
+        "true",
+        "good",
+        "rolling"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "google-sre-books",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "threat-hunting",
+      "path": "knowledge/cybersecurity/threat-hunting/course.json",
+      "title": "Threat hunting",
+      "level": "Средний",
+      "technology": "yaml",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 9,
+      "unknownTokenSamples": [
+        "true"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "mitre-attack",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "web-security-testing",
+      "path": "knowledge/cybersecurity/web-security-testing/course.json",
+      "title": "Безопасность web-приложений",
+      "level": "Средний",
+      "technology": "yaml",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 12,
+      "unknownTokenSamples": [
+        "true",
+        "sink",
+        "redirect"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "owasp-wstg",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "portswigger-web-security-academy",
+          "class": "REFERENCE_ONLY"
+        }
+      ]
+    },
+    {
+      "id": "ai-evaluation-safety",
+      "path": "knowledge/data/ai-evaluation-safety/course.json",
+      "title": "Оценка и безопасность ИИ",
+      "level": "Продвинутый",
+      "technology": "python",
+      "classification": "FAKE_PRACTICE",
+      "reasons": [
+        "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 9,
+      "planStubMissions": 9,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 2,
+      "unknownTokenSamples": [
+        "canary",
+        "rollback"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
+      "id": "analytics-communication",
+      "path": "knowledge/data/analytics-communication/course.json",
+      "title": "Аналитика, которая меняет решение",
+      "level": "Средний",
+      "technology": "python",
+      "classification": "FAKE_PRACTICE",
+      "reasons": [
+        "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 9,
+      "planStubMissions": 9,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 0,
+      "unknownTokenSamples": [],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
+      "id": "boosting",
+      "path": "knowledge/data/boosting/course.json",
+      "title": "Бустинг на табличных данных",
+      "level": "Продвинутый",
+      "technology": "python",
+      "classification": "FAKE_PRACTICE",
+      "reasons": [
+        "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 9,
+      "planStubMissions": 9,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 7,
+      "unknownTokenSamples": [
+        "learning",
+        "rate"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "microsoft-ml-for-beginners",
+          "class": "ADAPTABLE_OER"
+        },
+        {
+          "id": "scikit-learn-docs",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "mlcourse-ai",
+          "class": "REFERENCE_ONLY"
+        }
+      ]
+    },
+    {
+      "id": "data-pipelines",
+      "path": "knowledge/data/data-pipelines/course.json",
+      "title": "Надёжные конвейеры данных",
+      "level": "Средний",
+      "technology": "python",
+      "classification": "FAKE_PRACTICE",
+      "reasons": [
+        "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 9,
+      "planStubMissions": 9,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 3,
+      "unknownTokenSamples": [
+        "upsert",
+        "watermark"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
+      "id": "data-platform-reliability",
+      "path": "knowledge/data/data-platform-reliability/course.json",
+      "title": "Надёжность платформы данных",
+      "level": "Продвинутый",
+      "technology": "python",
+      "classification": "FAKE_PRACTICE",
+      "reasons": [
+        "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 9,
+      "planStubMissions": 9,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 1,
+      "unknownTokenSamples": [
+        "SLO"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
+      "id": "frontend-delivery",
+      "path": "knowledge/frontend/frontend-delivery/course.json",
+      "title": "Frontend как продукт",
+      "level": "Продвинутый",
+      "technology": "javascript",
+      "classification": "FAKE_PRACTICE",
+      "reasons": [
+        "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 9,
+      "planStubMissions": 9,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 9,
+      "unknownTokenSamples": [
+        "URL",
+        "bundle"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "mdn-curriculum",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "frontend-quality",
+      "path": "knowledge/frontend/frontend-quality/course.json",
+      "title": "Качество frontend",
+      "level": "Средний",
+      "technology": "javascript",
+      "classification": "FAKE_PRACTICE",
+      "reasons": [
+        "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 9,
+      "planStubMissions": 9,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 1,
+      "unknownTokenSamples": [
+        "HTML"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "mdn-curriculum",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "java-core-jvm",
+      "path": "knowledge/backend/java-core-jvm/course.json",
+      "title": "Java и устройство JVM",
+      "level": "База",
+      "technology": "java",
+      "classification": "FAKE_PRACTICE",
+      "reasons": [
+        "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 9,
+      "planStubMissions": 9,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 3,
+      "unknownTokenSamples": [
+        "try",
+        "with"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "dev-java-learn",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "java-production",
+      "path": "knowledge/backend/java-production/course.json",
+      "title": "Java-сервис в продакшене",
+      "level": "Продвинутый",
+      "technology": "java",
+      "classification": "FAKE_PRACTICE",
+      "reasons": [
+        "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 9,
+      "planStubMissions": 9,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 5,
+      "unknownTokenSamples": [
+        "RED",
+        "CPU"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "dev-java-learn",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "spring-guides",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "linear-algebra",
+      "path": "knowledge/data/linear-algebra/course.json",
+      "title": "Линейная алгебра для ML",
+      "level": "Средний",
+      "technology": "python",
+      "classification": "FAKE_PRACTICE",
+      "reasons": [
+        "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 9,
+      "planStubMissions": 9,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 0,
+      "unknownTokenSamples": [],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
+      "id": "llm-applications",
+      "path": "knowledge/data/llm-applications/course.json",
+      "title": "LLM-приложения",
+      "level": "Средний",
+      "technology": "python",
+      "classification": "FAKE_PRACTICE",
+      "reasons": [
+        "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 9,
+      "planStubMissions": 9,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 1,
+      "unknownTokenSamples": [
+        "fallback"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
+      "id": "ml-baseline",
+      "path": "knowledge/data/ml-baseline/course.json",
+      "title": "Первая модель машинного обучения",
+      "level": "Средний",
+      "technology": "python",
+      "classification": "FAKE_PRACTICE",
+      "reasons": [
+        "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 9,
+      "planStubMissions": 9,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 4,
+      "unknownTokenSamples": [
+        "target",
+        "baseline"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "microsoft-ml-for-beginners",
+          "class": "ADAPTABLE_OER"
+        },
+        {
+          "id": "google-ml-crash-course",
+          "class": "ADAPTABLE_OER"
+        },
+        {
+          "id": "scikit-learn-docs",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "mlcourse-ai",
+          "class": "REFERENCE_ONLY"
+        },
+        {
+          "id": "kaggle-learn",
+          "class": "REFERENCE_ONLY"
+        }
+      ]
+    },
+    {
+      "id": "ml-engineering",
+      "path": "knowledge/data/ml-engineering/course.json",
+      "title": "Инженерия обучения моделей",
+      "level": "Средний",
+      "technology": "python",
+      "classification": "FAKE_PRACTICE",
+      "reasons": [
+        "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 9,
+      "planStubMissions": 9,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 2,
+      "unknownTokenSamples": [
+        "run",
+        "lineage"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
+      "id": "ml-observability",
+      "path": "knowledge/data/ml-observability/course.json",
+      "title": "Наблюдаемость ML-систем",
+      "level": "Продвинутый",
+      "technology": "python",
+      "classification": "FAKE_PRACTICE",
+      "reasons": [
+        "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 9,
+      "planStubMissions": 9,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 1,
+      "unknownTokenSamples": [
+        "canary"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
+      "id": "model-serving",
+      "path": "knowledge/data/model-serving/course.json",
+      "title": "Сервинг и релиз моделей",
+      "level": "Продвинутый",
+      "technology": "python",
+      "classification": "FAKE_PRACTICE",
+      "reasons": [
+        "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 9,
+      "planStubMissions": 9,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 4,
+      "unknownTokenSamples": [
+        "SLA",
+        "latency"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
+      "id": "product-analytics",
+      "path": "knowledge/data/product-analytics/course.json",
+      "title": "Продуктовая аналитика",
+      "level": "Средний",
+      "technology": "python",
+      "classification": "FAKE_PRACTICE",
+      "reasons": [
+        "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 9,
+      "planStubMissions": 9,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 1,
+      "unknownTokenSamples": [
+        "tracking"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
+      "id": "production",
+      "path": "knowledge/data/production/course.json",
+      "title": "Модель выходит в прод",
+      "level": "Продвинутый",
+      "technology": "python",
+      "classification": "FAKE_PRACTICE",
+      "reasons": [
+        "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 9,
+      "planStubMissions": 9,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 3,
+      "unknownTokenSamples": [
+        "digest",
+        "baseline"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
+      "id": "python-databases-async",
+      "path": "knowledge/backend/python-databases-async/course.json",
+      "title": "Асинхронный Python и данные",
+      "level": "Средний",
+      "technology": "python",
+      "classification": "FAKE_PRACTICE",
+      "reasons": [
+        "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 9,
+      "planStubMissions": 9,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 3,
+      "unknownTokenSamples": [
+        "CPU",
+        "CancelledError"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "python-asyncio-docs",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "python-service-production",
+      "path": "knowledge/backend/python-service-production/course.json",
+      "title": "Python-сервис в продакшене",
+      "level": "Продвинутый",
+      "technology": "python",
+      "classification": "FAKE_PRACTICE",
+      "reasons": [
+        "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 9,
+      "planStubMissions": 9,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 3,
+      "unknownTokenSamples": [
+        "API",
+        "canary"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "python-asyncio-docs",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "fastapi-docs",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "python-web-api",
+      "path": "knowledge/backend/python-web-api/course.json",
+      "title": "Web API на Python",
+      "level": "База",
+      "technology": "python",
+      "classification": "FAKE_PRACTICE",
+      "reasons": [
+        "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 9,
+      "planStubMissions": 9,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 0,
+      "unknownTokenSamples": [],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "fastapi-docs",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "rag-systems",
+      "path": "knowledge/data/rag-systems/course.json",
+      "title": "RAG и корпоративные знания",
+      "level": "Продвинутый",
+      "technology": "python",
+      "classification": "FAKE_PRACTICE",
+      "reasons": [
+        "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 9,
+      "planStubMissions": 9,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 0,
+      "unknownTokenSamples": [],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
+      "id": "react-production",
+      "path": "knowledge/frontend/react-production/course.json",
+      "title": "React в продакшене",
+      "level": "Продвинутый",
+      "technology": "javascript",
+      "classification": "FAKE_PRACTICE",
+      "reasons": [
+        "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 9,
+      "planStubMissions": 9,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 4,
+      "unknownTokenSamples": [
+        "end",
+        "lazy"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "react-learn",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "spring-services",
+      "path": "knowledge/backend/spring-services/course.json",
+      "title": "Сервисы на Spring",
+      "level": "Средний",
+      "technology": "java",
+      "classification": "FAKE_PRACTICE",
+      "reasons": [
+        "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 9,
+      "planStubMissions": 9,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 0,
+      "unknownTokenSamples": [],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "spring-guides",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "streaming-platforms",
+      "path": "knowledge/data/streaming-platforms/course.json",
+      "title": "Потоковые платформы",
+      "level": "Продвинутый",
+      "technology": "python",
+      "classification": "FAKE_PRACTICE",
+      "reasons": [
+        "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 9,
+      "planStubMissions": 9,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 1,
+      "unknownTokenSamples": [
+        "checkpoint"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
+      "id": "web-platform-foundations",
+      "path": "knowledge/frontend/web-platform-foundations/course.json",
+      "title": "Web-платформа",
+      "level": "База",
+      "technology": "javascript",
+      "classification": "FAKE_PRACTICE",
+      "reasons": [
+        "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "12 из 13 заголовков — одна тема под несколькими типами",
+        "12 из 13 миссий с шаблонной учебной целью",
+        "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
+      ],
+      "overridden": false,
+      "missions": 13,
+      "codeLabMissions": 9,
+      "fakePracticeMissions": 9,
+      "planStubMissions": 9,
+      "scaffoldTripletTitles": 12,
+      "templateObjectiveMissions": 12,
+      "echoPhraseMissions": 12,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 4,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 4,
+      "unknownRequiredTokens": 7,
+      "unknownTokenSamples": [
+        "mobile",
+        "first"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "mdn-curriculum",
+          "class": "GROUNDING"
+        }
+      ]
+    }
+  ],
+  "outline": [
+    {
+      "id": "qa-software",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Как устроено ПО",
+      "domain": "qa"
+    },
+    {
+      "id": "qa-what-is-testing",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Что такое тестирование",
+      "domain": "qa"
+    },
+    {
+      "id": "qa-requirements",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Требования",
+      "domain": "qa"
+    },
+    {
+      "id": "qa-test-cases",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Тест-кейсы",
+      "domain": "qa"
+    },
+    {
+      "id": "qa-checklists",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Чек-листы",
+      "domain": "qa"
+    },
+    {
+      "id": "qa-bugs",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Баг-репорты",
+      "domain": "qa"
+    },
+    {
+      "id": "qa-techniques",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Техники тестирования",
+      "domain": "qa"
+    },
+    {
+      "id": "qa-web",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Тестирование веба",
+      "domain": "qa"
+    },
+    {
+      "id": "qa-devtools",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Инструменты браузера",
+      "domain": "qa"
+    },
+    {
+      "id": "qa-api-testing",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Тестирование API",
+      "domain": "qa"
+    },
+    {
+      "id": "qa-sql",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "SQL для тестировщика",
+      "domain": "qa"
+    },
+    {
+      "id": "qa-regression",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Регрессия и релизы",
+      "domain": "qa"
+    },
+    {
+      "id": "qa-integration",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Интеграционное и системное тестирование",
+      "domain": "qa"
+    },
+    {
+      "id": "qa-manual-final",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Итоговая проверка продукта",
+      "domain": "qa"
+    },
+    {
+      "id": "qaa-pytest",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Автотесты на pytest",
+      "domain": "qa-automation"
+    },
+    {
+      "id": "qaa-api",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Автоматизация API",
+      "domain": "qa-automation"
+    },
+    {
+      "id": "qaa-ui",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Автоматизация интерфейса",
+      "domain": "qa-automation"
+    },
+    {
+      "id": "qaa-page-object",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Архитектура автотестов",
+      "domain": "qa-automation"
+    },
+    {
+      "id": "qaa-ci",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Автотесты в конвейере",
+      "domain": "qa-automation"
+    },
+    {
+      "id": "qaa-final",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Итоговый проект автоматизации",
+      "domain": "qa-automation"
+    },
+    {
+      "id": "and-kotlin",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Kotlin",
+      "domain": "mobile"
+    },
+    {
+      "id": "and-oop",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "ООП в Kotlin",
+      "domain": "mobile"
+    },
+    {
+      "id": "and-studio",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Android Studio и первый экран",
+      "domain": "mobile"
+    },
+    {
+      "id": "and-lifecycle",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Жизненный цикл приложения",
+      "domain": "mobile"
+    },
+    {
+      "id": "and-compose",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Интерфейс на Compose",
+      "domain": "mobile"
+    },
+    {
+      "id": "and-navigation",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Навигация",
+      "domain": "mobile"
+    },
+    {
+      "id": "and-coroutines",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Корутины",
+      "domain": "mobile"
+    },
+    {
+      "id": "and-networking",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Сеть и REST",
+      "domain": "mobile"
+    },
+    {
+      "id": "and-storage",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Локальное хранение",
+      "domain": "mobile"
+    },
+    {
+      "id": "and-architecture",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Архитектура приложения",
+      "domain": "mobile"
+    },
+    {
+      "id": "and-testing",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Тестирование Android",
+      "domain": "mobile"
+    },
+    {
+      "id": "and-platform",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Возможности платформы",
+      "domain": "mobile"
+    },
+    {
+      "id": "and-release",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Производительность и публикация",
+      "domain": "mobile"
+    },
+    {
+      "id": "and-final",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Итоговое приложение",
+      "domain": "mobile"
+    },
+    {
+      "id": "arch-fundamentals",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Основы архитектуры",
+      "domain": "architecture"
+    },
+    {
+      "id": "arch-principles",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Принципы проектирования",
+      "domain": "architecture"
+    },
+    {
+      "id": "arch-patterns",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Паттерны",
+      "domain": "architecture"
+    },
+    {
+      "id": "arch-api-design",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Проектирование API",
+      "domain": "architecture"
+    },
+    {
+      "id": "arch-data",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Данные в архитектуре",
+      "domain": "architecture"
+    },
+    {
+      "id": "arch-caching",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Кеширование",
+      "domain": "architecture"
+    },
+    {
+      "id": "arch-queues",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Очереди и асинхронность",
+      "domain": "architecture"
+    },
+    {
+      "id": "arch-distributed",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Распределённые системы",
+      "domain": "architecture"
+    },
+    {
+      "id": "arch-consistency",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Согласованность",
+      "domain": "architecture"
+    },
+    {
+      "id": "arch-scalability",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Масштабируемость и доступность",
+      "domain": "architecture"
+    },
+    {
+      "id": "arch-microservices",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Микросервисы и монолит",
+      "domain": "architecture"
+    },
+    {
+      "id": "arch-events",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Событийная архитектура",
+      "domain": "architecture"
+    },
+    {
+      "id": "arch-observability",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Наблюдаемость системы",
+      "domain": "architecture"
+    },
+    {
+      "id": "arch-security",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Безопасность в архитектуре",
+      "domain": "architecture"
+    },
+    {
+      "id": "arch-decisions",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Архитектурные решения",
+      "domain": "architecture"
+    },
+    {
+      "id": "arch-system-design",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Разбор системы целиком",
+      "domain": "architecture"
+    },
+    {
+      "id": "de-formats",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Форматы данных",
+      "domain": "de"
+    },
+    {
+      "id": "de-etl",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "ETL и ELT",
+      "domain": "de"
+    },
+    {
+      "id": "de-lake",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Озёра данных и lakehouse",
+      "domain": "de"
+    },
+    {
+      "id": "de-airflow",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Оркестрация пайплайнов",
+      "domain": "de"
+    },
+    {
+      "id": "de-spark",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Распределённая обработка",
+      "domain": "de"
+    },
+    {
+      "id": "de-kafka",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Брокеры сообщений",
+      "domain": "de"
+    },
+    {
+      "id": "de-batch-stream",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Batch против streaming",
+      "domain": "de"
+    },
+    {
+      "id": "de-quality",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Качество данных",
+      "domain": "de"
+    },
+    {
+      "id": "de-cloud",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Облачные данные",
+      "domain": "de"
+    },
+    {
+      "id": "de-monitoring",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Мониторинг пайплайнов",
+      "domain": "de"
+    },
+    {
+      "id": "de-final",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Итоговая платформа данных",
+      "domain": "de"
+    },
+    {
+      "id": "ops-ml-lifecycle",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Жизненный цикл ML",
+      "domain": "mlops"
+    },
+    {
+      "id": "ops-data-versioning",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Версионирование данных",
+      "domain": "mlops"
+    },
+    {
+      "id": "ops-model-registry",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Реестр моделей",
+      "domain": "mlops"
+    },
+    {
+      "id": "ops-feature-store",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Хранилище признаков",
+      "domain": "mlops"
+    },
+    {
+      "id": "ops-ml-cicd",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "CI/CD для моделей",
+      "domain": "mlops"
+    },
+    {
+      "id": "ops-platform-final",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Итоговая MLOps-платформа",
+      "domain": "mlops"
+    },
+    {
+      "id": "inf-networking",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Сеть на сервере",
+      "domain": "sysadmin"
+    },
+    {
+      "id": "inf-dns",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "DNS на практике",
+      "domain": "sysadmin"
+    },
+    {
+      "id": "inf-nginx",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Nginx",
+      "domain": "sysadmin"
+    },
+    {
+      "id": "inf-storage",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Диски и хранение",
+      "domain": "sysadmin"
+    },
+    {
+      "id": "inf-backups",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Резервные копии",
+      "domain": "sysadmin"
+    },
+    {
+      "id": "inf-virtualization",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Виртуализация",
+      "domain": "sysadmin"
+    },
+    {
+      "id": "inf-monitoring",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Мониторинг сервера",
+      "domain": "sysadmin"
+    },
+    {
+      "id": "inf-security",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Базовая защита сервера",
+      "domain": "sysadmin"
+    },
+    {
+      "id": "inf-troubleshooting",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Диагностика неисправностей",
+      "domain": "sysadmin"
+    },
+    {
+      "id": "inf-final",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Итоговый сервер",
+      "domain": "sysadmin"
+    },
+    {
+      "id": "do-build",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Сборка проекта",
+      "domain": "devops"
+    },
+    {
+      "id": "do-ci",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Непрерывная интеграция",
+      "domain": "devops"
+    },
+    {
+      "id": "do-docker",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Docker",
+      "domain": "devops"
+    },
+    {
+      "id": "do-compose",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Docker Compose",
+      "domain": "devops"
+    },
+    {
+      "id": "do-registry",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Реестры образов",
+      "domain": "devops"
+    },
+    {
+      "id": "do-cd",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Непрерывная поставка",
+      "domain": "devops"
+    },
+    {
+      "id": "do-cloud",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Облако",
+      "domain": "devops"
+    },
+    {
+      "id": "do-terraform",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Инфраструктура как код",
+      "domain": "devops"
+    },
+    {
+      "id": "do-ansible",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Управление конфигурацией",
+      "domain": "devops"
+    },
+    {
+      "id": "do-k8s-basics",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Kubernetes: основы",
+      "domain": "devops"
+    },
+    {
+      "id": "do-k8s-workloads",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Kubernetes: нагрузки",
+      "domain": "devops"
+    },
+    {
+      "id": "do-k8s-networking",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Kubernetes: сеть и доступ",
+      "domain": "devops"
+    },
+    {
+      "id": "do-helm",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Helm",
+      "domain": "devops"
+    },
+    {
+      "id": "do-secrets",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Секреты",
+      "domain": "devops"
+    },
+    {
+      "id": "do-prometheus",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Метрики",
+      "domain": "devops"
+    },
+    {
+      "id": "do-grafana",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Дашборды",
+      "domain": "devops"
+    },
+    {
+      "id": "do-logging",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Централизованные логи",
+      "domain": "devops"
+    },
+    {
+      "id": "do-alerting",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Оповещения",
+      "domain": "devops"
+    },
+    {
+      "id": "do-gitops",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "GitOps",
+      "domain": "devops"
+    },
+    {
+      "id": "do-final",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Итоговая инфраструктура",
+      "domain": "devops"
+    },
+    {
+      "id": "net-wireshark",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Анализ трафика",
+      "domain": "network"
+    },
+    {
+      "id": "net-vpn",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "VPN",
+      "domain": "network"
+    },
+    {
+      "id": "net-firewall",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Межсетевые экраны",
+      "domain": "network"
+    },
+    {
+      "id": "net-wifi",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Беспроводные сети",
+      "domain": "network"
+    },
+    {
+      "id": "net-linux",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Сеть в Linux",
+      "domain": "network"
+    },
+    {
+      "id": "net-protocols",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Протоколы маршрутизации",
+      "domain": "network"
+    },
+    {
+      "id": "net-automation",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Автоматизация сети",
+      "domain": "network"
+    },
+    {
+      "id": "net-monitoring",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Мониторинг сети",
+      "domain": "network"
+    },
+    {
+      "id": "net-security",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Сетевая безопасность",
+      "domain": "network"
+    },
+    {
+      "id": "net-troubleshooting",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Диагностика сети",
+      "domain": "network"
+    },
+    {
+      "id": "net-final",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Итоговая сеть",
+      "domain": "network"
+    },
+    {
+      "id": "sec-windows",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Windows для безопасника",
+      "domain": "security"
+    },
+    {
+      "id": "sec-logs",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Логи как источник истины",
+      "domain": "security"
+    },
+    {
+      "id": "sec-threats",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Угрозы и атакующие",
+      "domain": "security"
+    },
+    {
+      "id": "sec-malware",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Вредоносное ПО",
+      "domain": "security"
+    },
+    {
+      "id": "sec-phishing",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Фишинг и социальная инженерия",
+      "domain": "security"
+    },
+    {
+      "id": "sec-vulns",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Уязвимости",
+      "domain": "security"
+    },
+    {
+      "id": "sec-siem",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "SIEM",
+      "domain": "security"
+    },
+    {
+      "id": "sec-detection",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Правила обнаружения",
+      "domain": "security"
+    },
+    {
+      "id": "sec-ids",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "IDS и IPS",
+      "domain": "security"
+    },
+    {
+      "id": "sec-network-analysis",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Анализ сетевого трафика",
+      "domain": "security"
+    },
+    {
+      "id": "sec-mitre",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "MITRE ATT&CK",
+      "domain": "security"
+    },
+    {
+      "id": "sec-ir",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Реагирование на инциденты",
+      "domain": "security"
+    },
+    {
+      "id": "sec-hunting",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Threat hunting",
+      "domain": "security"
+    },
+    {
+      "id": "sec-forensics",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Основы форензики",
+      "domain": "security"
+    },
+    {
+      "id": "sec-soc-final",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Итоговое расследование SOC",
+      "domain": "security"
+    },
+    {
+      "id": "pt-methodology",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Методология пентеста",
+      "domain": "pentest"
+    },
+    {
+      "id": "pt-web-basics",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Как устроено веб-приложение",
+      "domain": "pentest"
+    },
+    {
+      "id": "pt-recon",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Сбор информации",
+      "domain": "pentest"
+    },
+    {
+      "id": "pt-auth-flaws",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Слабости аутентификации",
+      "domain": "pentest"
+    },
+    {
+      "id": "pt-access-control",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Нарушение контроля доступа",
+      "domain": "pentest"
+    },
+    {
+      "id": "pt-injection",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Инъекции",
+      "domain": "pentest"
+    },
+    {
+      "id": "pt-xss",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "XSS",
+      "domain": "pentest"
+    },
+    {
+      "id": "pt-csrf-ssrf",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "CSRF и SSRF",
+      "domain": "pentest"
+    },
+    {
+      "id": "pt-files",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Уязвимости работы с файлами",
+      "domain": "pentest"
+    },
+    {
+      "id": "pt-api",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Безопасность API",
+      "domain": "pentest"
+    },
+    {
+      "id": "pt-linux-privesc",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Повышение привилегий в Linux",
+      "domain": "pentest"
+    },
+    {
+      "id": "pt-windows-ad",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Windows и каталог",
+      "domain": "pentest"
+    },
+    {
+      "id": "pt-reporting",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Отчёт",
+      "domain": "pentest"
+    },
+    {
+      "id": "pt-final",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Итоговая лаборатория",
+      "domain": "pentest"
+    },
+    {
+      "id": "as-secure-coding",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Безопасное программирование",
+      "domain": "appsec"
+    },
+    {
+      "id": "as-owasp",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "OWASP Top 10 на практике",
+      "domain": "appsec"
+    },
+    {
+      "id": "as-api-security",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Безопасность API",
+      "domain": "appsec"
+    },
+    {
+      "id": "as-dependencies",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Зависимости и цепочка поставки",
+      "domain": "appsec"
+    },
+    {
+      "id": "as-secrets",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Секреты в коде",
+      "domain": "appsec"
+    },
+    {
+      "id": "as-sast-dast",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Автоматический анализ",
+      "domain": "appsec"
+    },
+    {
+      "id": "as-threat-modeling",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Моделирование угроз",
+      "domain": "appsec"
+    },
+    {
+      "id": "as-code-review",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Ревью кода на безопасность",
+      "domain": "appsec"
+    },
+    {
+      "id": "as-ci-security",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Безопасность конвейера",
+      "domain": "appsec"
+    },
+    {
+      "id": "as-container-security",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Безопасность контейнеров",
+      "domain": "appsec"
+    },
+    {
+      "id": "as-sdlc",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Безопасный цикл разработки",
+      "domain": "appsec"
+    },
+    {
+      "id": "as-final",
+      "classification": "OUTLINE_ONLY",
+      "layer": "curriculum",
+      "inRuntime": false,
+      "status": "outline",
+      "title": "Итоговая защита приложения",
+      "domain": "appsec"
+    }
+  ]
+}
