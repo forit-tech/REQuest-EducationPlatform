@@ -3,6 +3,12 @@
   "private": true,
   "version": "0.1.0",
   "license": "SEE LICENSE IN LICENSE",
+  "description": "Платформа обучения IT-профессиям в формате desktop-приложения.",
+  "author": {
+    "name": "FORIT TECH",
+    "email": "xenonime@bk.ru"
+  },
+  "homepage": "https://github.com/forit-tech/REQuest-EducationPlatform",
   "type": "module",
   "main": "electron/main.cjs",
   "scripts": {
