@@ -15,6 +15,7 @@
     "dev": "vite",
     "content:validate": "node ./scripts/validate-content.mjs",
     "quality:report": "node ./scripts/classify-courses.mjs",
+    "api:audit": "node ./scripts/audit-api-introduction.mjs",
     "quality:report:baseline": "node ./scripts/classify-courses.mjs --update-baseline",
     "curriculum:validate": "node ./scripts/validate-curriculum.mjs",
     "sprites:normalize": "python ./scripts/normalize-sprites.py",
