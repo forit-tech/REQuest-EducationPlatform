@@ -208,9 +208,10 @@ const NEW_API_LIMIT = 1
  * Пустой редактор: в стартовом файле нет ни одной исполняемой строки.
  *
  * Комментарий «TODO: собери массив и проверь форму результата» кодом не
- * является. Если рядом стоит проверка, требующая написать конструкцию, человек
- * начинает с чистого листа — а это допустимо только после того, как он ту же
- * конструкцию увидел, изменил и дополнил.
+ * является. Само по себе это не нарушение: PROGRAMMING_PEDAGOGY.md разрешает
+ * писать с чистого места после того, как конструкция прошла show → modify →
+ * fill. Нарушением становится пустой редактор с конструкцией, которой человек
+ * ни разу не держал в собственном рабочем файле.
  */
 function isBlankEditor(mission, language) {
   const starter = String(mission.task?.starterCode ?? '')
@@ -230,11 +231,22 @@ for (const course of corpus.courses) {
   // Всё, что человек мог увидеть в предыдущих курсах маршрута.
   const knownBefore = new Map()
   let seenText = ''
+  // Отдельно от увиденного копится то, что человек держал в рабочем файле.
+  // Хранится и текстом, и разобранным: `mentionedIn` умеет искать только
+  // имена, а знак равенства или кавычка именем не являются и иначе всегда
+  // считались бы неотработанными.
+  let editedText = ''
+  const editedTokens = new Set()
+  const rememberEdited = (code) => {
+    editedText += `\n${code ?? ''}`
+    for (const name of extract(code, language).keys()) editedTokens.add(name)
+  }
   for (const id of precedingCourses(course.id)) {
     const earlier = courseById.get(id)
     if (courseLanguage(earlier) !== language) continue
     for (const mission of earlier.missions ?? []) {
       seenText += `\n${surfaceOf(mission)}`
+      rememberEdited(mission.task?.starterCode)
       for (const [name, kind] of shownBy(mission, language)) if (!knownBefore.has(name)) knownBefore.set(name, kind)
     }
   }
@@ -269,14 +281,19 @@ for (const course of corpus.courses) {
       })
     }
 
-    if (required.size && isBlankEditor(mission, language)) {
+    // Конструкция считается отработанной руками, если человек уже видел её в
+    // собственном рабочем файле: это и есть след стадий modify и fill.
+    const untrained = [...required.keys()]
+      .filter(name => !editedTokens.has(name) && !mentionedIn(editedText, name))
+    if (untrained.length && isBlankEditor(mission, language)) {
       findings.push({
         rule: VIOLATIONS.BLANK_EDITOR,
         missionId: mission.id, missionTitle: mission.title,
-        token: [...required.keys()].join(', '),
-        kind: 'стартовый файл не содержит ни одной исполняемой строки',
+        token: untrained.join(', '),
+        kind: 'пустой стартовый файл, а конструкция ни разу не была в рабочем файле',
       })
     }
+    rememberEdited(mission.task?.starterCode)
 
     seenText += `\n${here}`
     for (const [name, kind] of shownHere) if (!known.has(name)) known.set(name, kind)

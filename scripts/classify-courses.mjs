@@ -52,8 +52,20 @@ const ORDER = [
 
 const TYPE_PREFIX = /^(Сцена|Код|Лаборатория|Разбор|Практика|Кейс):\s*/
 const TEMPLATE_OBJECTIVE = /^(понять принцип «|применить его в рабочем решении$)/
-/** Присваивание или элемент списка, содержащий русскую фразу. */
-const CYRILLIC_LITERAL = /(?:=|\(|\[)\s*"[^"]*[а-яёА-ЯЁ][^"]*"/
+/**
+ * Русская строка как подменённое решение.
+ *
+ * Различать нужно два разных случая. `print("Москва")` и `city = "Казань"` —
+ * нормальные задания для новичка: строка здесь данные, а проверяется код
+ * вокруг неё. `artifact = "профиль дерева"` — подмена: человек не пишет код,
+ * а вписывает формулировку под заранее известное имя.
+ *
+ * Отличает их не кириллица и не присваивание, а многословность: подменённое
+ * решение — это всегда фраза, а не значение. Ловить присваивание нельзя: под
+ * подозрение попадёт первая же миссия про переменные.
+ */
+const CYRILLIC_PHRASE = /"[^"]*[а-яёА-ЯЁ][^"]*\s[^"]*"/
+const isCyrillicLiteral = fragment => CYRILLIC_PHRASE.test(fragment)
 /** Заглушка «назови артефакт и перечисли шаги» во всех языковых вариантах. */
 const PLAN_STUB = /\b(build_plan|buildPlan)\s*\(/
 const IDENTIFIER = /[A-Za-z_][A-Za-z0-9_]{2,}/g
@@ -97,7 +109,7 @@ function inspectChecks(mission) {
   for (const check of checks) {
     const fragment = check.includes ?? ''
     if (alreadyContains(starter, fragment)) kinds.preSatisfied += 1
-    else if (CYRILLIC_LITERAL.test(fragment)) kinds.literal += 1
+    else if (isCyrillicLiteral(fragment)) kinds.literal += 1
     else kinds.behavioural += 1
   }
   return { checks: checks.length, stub: PLAN_STUB.test(starter), ...kinds }
