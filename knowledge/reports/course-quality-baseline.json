@@ -1,7 +1,7 @@
 {
   "note": "Базовая линия происхождения курсов. Старый долг зафиксирован как есть и сборку не валит. Сборка падает только на ухудшении: когда классов GENERATOR_SCAFFOLD или FAKE_PRACTICE стало больше, когда AUTHORED_REAL стало меньше, когда уже хороший курс деградировал или когда новый курс приезжает плохим. Перезаписывать после каждого исправления: npm run quality:report:baseline",
   "totals": {
-    "AUTHORED_REAL": 30,
+    "AUTHORED_REAL": 31,
     "AUTHORED_NEEDS_REVIEW": 4,
     "GENERATOR_SCAFFOLD": 15,
     "FAKE_PRACTICE": 25,
@@ -33,6 +33,7 @@
     "postgresql": "AUTHORED_REAL",
     "production-incidents": "AUTHORED_REAL",
     "python-core": "AUTHORED_REAL",
+    "python-first-steps": "AUTHORED_REAL",
     "react-architecture": "AUTHORED_REAL",
     "react-core": "AUTHORED_REAL",
     "relational-databases": "AUTHORED_REAL",

@@ -5,13 +5,13 @@
 
 | Класс | Курсов | Миссий |
 |---|---:|---:|
-| AUTHORED_REAL | 30 | 1170 |
+| AUTHORED_REAL | 31 | 1197 |
 | AUTHORED_NEEDS_REVIEW | 4 | 75 |
 | GENERATOR_SCAFFOLD | 15 | 195 |
 | FAKE_PRACTICE | 25 | 325 |
 | OUTLINE_ONLY (проектный граф) | 149 | — |
 
-Runtime: 74 курсов, 1765 миссий. Проектный граф: 355 курсов, из них 149 без модулей.
+Runtime: 75 курсов, 1792 миссий. Проектный граф: 355 курсов, из них 149 без модулей.
 
 ## Курсы
 
@@ -41,6 +41,7 @@ Runtime: 74 курсов, 1765 миссий. Проектный граф: 355 к
 | `postgresql` | AUTHORED_REAL | 54 | 24 | 0 | 100% | 1 | — |
 | `production-incidents` | AUTHORED_REAL | 36 | 12 | 0 | 100% | 1 | — |
 | `python-core` | AUTHORED_REAL | 50 | 33 | 0 | 100% | 1 | — |
+| `python-first-steps` | AUTHORED_REAL | 27 | 19 | 0 | 13% | 0 | — |
 | `react-architecture` | AUTHORED_REAL | 13 | 9 | 0 | 50% | 1 | — |
 | `react-core` | AUTHORED_REAL | 20 | 13 | 0 | 85% | 1 | — |
 | `relational-databases` | AUTHORED_REAL | 40 | 26 | 0 | 95% | 3 | — |

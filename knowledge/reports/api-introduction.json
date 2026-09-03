@@ -6,9 +6,9 @@
     "blank-editor-task": "человек начинает с пустого редактора: в стартовом файле нет ни одной исполняемой строки"
   },
   "totals": {
-    "courses": 49,
+    "courses": 50,
     "coursesInRoutes": 44,
-    "coursesOutsideRoutes": 5,
+    "coursesOutsideRoutes": 6,
     "coursesWithViolations": 14,
     "requiredBeforeShown": 40,
     "firstUseSameMission": 93,
@@ -20,7 +20,8 @@
         "data-modeling",
         "production-incidents",
         "data-final-project",
-        "technical-foundations"
+        "technical-foundations",
+        "python-first-steps"
       ],
       "requiredBeforeShown": 20
     }
@@ -3059,6 +3060,22 @@
       "codeMissions": 9,
       "inheritedTokens": 23,
       "requiredTokens": 28,
+      "violations": 0,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "findings": []
+    },
+    {
+      "id": "python-first-steps",
+      "title": "Первые шаги в коде",
+      "language": "python",
+      "noRoute": true,
+      "missions": 27,
+      "codeMissions": 19,
+      "inheritedTokens": 0,
+      "requiredTokens": 24,
       "violations": 0,
       "requiredBeforeShown": 0,
       "firstUseSameMission": 0,

@@ -1,22 +1,22 @@
 {
   "note": "Классификация runtime-курсов по происхождению содержания. Считается автоматически: npm run quality:report. Время сборки в файл не пишется намеренно — отчёт лежит в репозитории, и метка времени давала бы изменение в diff при каждом прогоне.",
   "totals": {
-    "AUTHORED_REAL": 30,
+    "AUTHORED_REAL": 31,
     "AUTHORED_NEEDS_REVIEW": 4,
     "GENERATOR_SCAFFOLD": 15,
     "FAKE_PRACTICE": 25,
     "OUTLINE_ONLY": 149
   },
   "missionsByClass": {
-    "AUTHORED_REAL": 1170,
+    "AUTHORED_REAL": 1197,
     "AUTHORED_NEEDS_REVIEW": 75,
     "GENERATOR_SCAFFOLD": 195,
     "FAKE_PRACTICE": 325,
     "OUTLINE_ONLY": 0
   },
   "runtime": {
-    "courses": 74,
-    "missions": 1765
+    "courses": 75,
+    "missions": 1792
   },
   "curriculumLayer": {
     "courses": 355,
@@ -889,6 +889,33 @@
           "class": "GROUNDING"
         }
       ]
+    },
+    {
+      "id": "python-first-steps",
+      "path": "knowledge/data/python-first-steps/course.json",
+      "title": "Первые шаги в коде",
+      "level": "Старт",
+      "technology": "python",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 27,
+      "codeLabMissions": 19,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 8,
+      "longestAnswerRatio": 0.125,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 5,
+      "unknownTokenSamples": [
+        "print"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
     },
     {
       "id": "react-architecture",

@@ -6,6 +6,7 @@
   "courses": [
     "technical-foundations",
     "data-foundations",
+    "python-first-steps",
     "python-core",
     "data-formats",
     "numpy",
