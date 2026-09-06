@@ -24,6 +24,9 @@
  * Разбор и правила лежат в `scripts/audit/introduction.mjs`, их проверки —
  * в `scripts/audit-tests.mjs` (`npm run api:audit:test`).
  *
+ * Разбор и правила лежат в `scripts/audit/introduction.mjs`, их проверки —
+ * в `scripts/audit-tests.mjs` (`npm run api:audit:test`).
+ *
  *   node ./scripts/audit-api-introduction.mjs
  *   node ./scripts/audit-api-introduction.mjs --course python-core
  */

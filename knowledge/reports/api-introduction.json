@@ -1355,11 +1355,12 @@
           "severity": "warning"
         },
         {
-          "rule": "independent-use-right-after-first-sight",
+          "rule": "required-before-shown",
           "missionId": "GCC-015",
           "missionTitle": "Гонка данных: защитить счётчик",
           "token": "Lock()",
-          "kind": "функция"
+          "kind": "функция",
+          "evidence": "названо словом, синтаксис не показан"
         },
         {
           "rule": "independent-use-right-after-first-sight",
