@@ -52,7 +52,7 @@
     "phase": "Фундамент",
     "title": "Python для работы с данными",
     "goal": "Писать понятные программы, надёжно читать файлы и проверять обработку данных.",
-    "missionCount": 68,
+    "missionCount": 79,
     "status": "ready",
     "prerequisites": [
       "python-first-steps"
