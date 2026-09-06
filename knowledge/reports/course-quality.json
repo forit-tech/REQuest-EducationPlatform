@@ -1,16 +1,16 @@
 {
   "note": "Классификация runtime-курсов по происхождению содержания. Считается автоматически: npm run quality:report. Время сборки в файл не пишется намеренно — отчёт лежит в репозитории, и метка времени давала бы изменение в diff при каждом прогоне.",
   "totals": {
-    "AUTHORED_REAL": 18,
+    "AUTHORED_REAL": 14,
     "AUTHORED_NEEDS_REVIEW": 4,
-    "GENERATOR_SCAFFOLD": 28,
+    "GENERATOR_SCAFFOLD": 32,
     "FAKE_PRACTICE": 25,
     "OUTLINE_ONLY": 149
   },
   "missionsByClass": {
-    "AUTHORED_REAL": 620,
+    "AUTHORED_REAL": 386,
     "AUTHORED_NEEDS_REVIEW": 75,
-    "GENERATOR_SCAFFOLD": 741,
+    "GENERATOR_SCAFFOLD": 1006,
     "FAKE_PRACTICE": 325,
     "OUTLINE_ONLY": 0
   },
@@ -23,51 +23,6 @@
     "outline": 149
   },
   "courses": [
-    {
-      "id": "data-cleaning",
-      "path": "knowledge/data/data-cleaning/course.json",
-      "title": "Очистка данных",
-      "level": "База",
-      "technology": "python",
-      "classification": "AUTHORED_REAL",
-      "reasons": [],
-      "overridden": false,
-      "missions": 52,
-      "codeLabMissions": 29,
-      "fakePracticeMissions": 0,
-      "planStubMissions": 0,
-      "plannedScaffoldMissions": 0,
-      "scaffoldTripletTitles": 0,
-      "templateObjectiveMissions": 0,
-      "echoPhraseMissions": 0,
-      "starterAlreadySatisfies": 0,
-      "optionMissions": 25,
-      "longestAnswerRatio": 0.76,
-      "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 77,
-      "unknownTokenSamples": [
-        "assert",
-        "assign",
-        "mean",
-        "between",
-        "len"
-      ],
-      "prerequisiteByUsage": [],
-      "sourceCoverage": [
-        {
-          "id": "data-carpentry-lessons",
-          "class": "ADAPTABLE_OER"
-        },
-        {
-          "id": "effective-pandas",
-          "class": "ADAPTABLE_OER"
-        },
-        {
-          "id": "pandas-documentation",
-          "class": "GROUNDING"
-        }
-      ]
-    },
     {
       "id": "data-formats",
       "path": "knowledge/data/data-formats/course.json",
@@ -140,38 +95,6 @@
           "class": "GROUNDING"
         }
       ]
-    },
-    {
-      "id": "exploratory-data-analysis",
-      "path": "knowledge/data/exploratory-data-analysis/course.json",
-      "title": "Разведочный анализ данных",
-      "level": "База",
-      "technology": "python",
-      "classification": "AUTHORED_REAL",
-      "reasons": [],
-      "overridden": false,
-      "missions": 46,
-      "codeLabMissions": 24,
-      "fakePracticeMissions": 0,
-      "planStubMissions": 0,
-      "plannedScaffoldMissions": 0,
-      "scaffoldTripletTitles": 0,
-      "templateObjectiveMissions": 0,
-      "echoPhraseMissions": 0,
-      "starterAlreadySatisfies": 0,
-      "optionMissions": 24,
-      "longestAnswerRatio": 0.792,
-      "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 66,
-      "unknownTokenSamples": [
-        "assert",
-        "len",
-        "median",
-        "loc",
-        "value_counts"
-      ],
-      "prerequisiteByUsage": [],
-      "sourceCoverage": []
     },
     {
       "id": "go-core",
@@ -374,92 +297,6 @@
         {
           "id": "python-data-science-handbook",
           "class": "REFERENCE_ONLY"
-        }
-      ]
-    },
-    {
-      "id": "pandas",
-      "path": "knowledge/data/pandas/course.json",
-      "title": "Pandas",
-      "level": "База",
-      "technology": "python",
-      "classification": "AUTHORED_REAL",
-      "reasons": [],
-      "overridden": false,
-      "missions": 73,
-      "codeLabMissions": 41,
-      "fakePracticeMissions": 0,
-      "planStubMissions": 0,
-      "plannedScaffoldMissions": 0,
-      "scaffoldTripletTitles": 0,
-      "templateObjectiveMissions": 0,
-      "echoPhraseMissions": 0,
-      "starterAlreadySatisfies": 0,
-      "optionMissions": 32,
-      "longestAnswerRatio": 0.469,
-      "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 69,
-      "unknownTokenSamples": [
-        "assert",
-        "loc",
-        "sum",
-        "iloc",
-        "len"
-      ],
-      "prerequisiteByUsage": [],
-      "sourceCoverage": [
-        {
-          "id": "effective-pandas",
-          "class": "ADAPTABLE_OER"
-        },
-        {
-          "id": "pandas-documentation",
-          "class": "GROUNDING"
-        },
-        {
-          "id": "python-data-science-handbook",
-          "class": "REFERENCE_ONLY"
-        },
-        {
-          "id": "kaggle-learn",
-          "class": "REFERENCE_ONLY"
-        }
-      ]
-    },
-    {
-      "id": "python-core",
-      "path": "knowledge/data/python-core/course.json",
-      "title": "Python: базовые конструкции",
-      "level": "База",
-      "technology": "python",
-      "classification": "AUTHORED_REAL",
-      "reasons": [],
-      "overridden": false,
-      "missions": 63,
-      "codeLabMissions": 42,
-      "fakePracticeMissions": 0,
-      "planStubMissions": 0,
-      "plannedScaffoldMissions": 0,
-      "scaffoldTripletTitles": 0,
-      "templateObjectiveMissions": 0,
-      "echoPhraseMissions": 0,
-      "starterAlreadySatisfies": 0,
-      "optionMissions": 21,
-      "longestAnswerRatio": 0.714,
-      "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 23,
-      "unknownTokenSamples": [
-        "int",
-        "print",
-        "else",
-        "for",
-        "def"
-      ],
-      "prerequisiteByUsage": [],
-      "sourceCoverage": [
-        {
-          "id": "python-docs",
-          "class": "GROUNDING"
         }
       ]
     },
@@ -1115,6 +952,51 @@
       ]
     },
     {
+      "id": "data-cleaning",
+      "path": "knowledge/data/data-cleaning/course.json",
+      "title": "Очистка данных",
+      "level": "База",
+      "technology": "python",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "52 из 52 миссий собраны шаблоном `scripts/generate-planned-courses.mjs`"
+      ],
+      "overridden": false,
+      "missions": 52,
+      "codeLabMissions": 25,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "plannedScaffoldMissions": 52,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 52,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 88,
+      "unknownTokenSamples": [
+        "def",
+        "solve",
+        "print"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "data-carpentry-lessons",
+          "class": "ADAPTABLE_OER"
+        },
+        {
+          "id": "effective-pandas",
+          "class": "ADAPTABLE_OER"
+        },
+        {
+          "id": "pandas-documentation",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
       "id": "data-final-project",
       "path": "knowledge/data/data-final-project/course.json",
       "title": "Финальный проект: платформа розничных данных",
@@ -1357,6 +1239,38 @@
       ]
     },
     {
+      "id": "exploratory-data-analysis",
+      "path": "knowledge/data/exploratory-data-analysis/course.json",
+      "title": "Разведочный анализ данных",
+      "level": "База",
+      "technology": "python",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "46 из 46 миссий собраны шаблоном `scripts/generate-planned-courses.mjs`"
+      ],
+      "overridden": false,
+      "missions": 46,
+      "codeLabMissions": 24,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "plannedScaffoldMissions": 46,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 46,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 81,
+      "unknownTokenSamples": [
+        "def",
+        "solve",
+        "print"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
       "id": "incident-response",
       "path": "knowledge/cybersecurity/incident-response/course.json",
       "title": "Реагирование на инциденты",
@@ -1510,6 +1424,54 @@
         {
           "id": "google-sre-books",
           "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "pandas",
+      "path": "knowledge/data/pandas/course.json",
+      "title": "Pandas",
+      "level": "База",
+      "technology": "python",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "96 из 117 миссий собраны шаблоном `scripts/generate-planned-courses.mjs`"
+      ],
+      "overridden": false,
+      "missions": 117,
+      "codeLabMissions": 73,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "plannedScaffoldMissions": 96,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 117,
+      "longestAnswerRatio": 0.983,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 336,
+      "unknownTokenSamples": [
+        "import",
+        "pandas"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "effective-pandas",
+          "class": "ADAPTABLE_OER"
+        },
+        {
+          "id": "pandas-documentation",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "python-data-science-handbook",
+          "class": "REFERENCE_ONLY"
+        },
+        {
+          "id": "kaggle-learn",
+          "class": "REFERENCE_ONLY"
         }
       ]
     },
@@ -1694,6 +1656,45 @@
         {
           "id": "sql-murder-mystery",
           "class": "ADAPTABLE_OER"
+        }
+      ]
+    },
+    {
+      "id": "python-core",
+      "path": "knowledge/data/python-core/course.json",
+      "title": "Python для работы с данными",
+      "level": "База",
+      "technology": "python",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "45 из 50 миссий собраны шаблоном `scripts/generate-planned-courses.mjs`"
+      ],
+      "overridden": false,
+      "missions": 50,
+      "codeLabMissions": 33,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "plannedScaffoldMissions": 45,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 49,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 100,
+      "unknownTokenSamples": [
+        "print",
+        "for",
+        "else",
+        "append",
+        "def"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "python-docs",
+          "class": "GROUNDING"
         }
       ]
     },
