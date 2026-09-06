@@ -40,15 +40,15 @@
       "title": "JavaScript: основы языка",
       "language": "javascript",
       "noRoute": false,
-      "missions": 19,
-      "codeMissions": 14,
-      "inheritedTokens": 0,
-      "requiredTokens": 24,
-      "violations": 32,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 18,
-      "multipleNewApis": 6,
-      "blankEditor": 0,
+      "missions": 117,
+      "codeMissions": 73,
+      "inheritedTokens": 30,
+      "requiredTokens": 337,
+      "violations": 80,
+      "requiredBeforeShown": 5,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 2,
+      "blankEditor": 73,
       "checkPassesOnStarter": 0,
       "checkPassesOnStarterCritical": 0,
       "hintIsNotTeaching": 2,
@@ -436,18 +436,561 @@
           "kind": "3 новых сущностей сразу"
         },
         {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-014",
-          "missionTitle": "Исключение: перехватить сбой",
-          "token": "try",
-          "kind": "ключевое слово"
+          "rule": "blank-editor-task",
+          "missionId": "PDA-005",
+          "missionTitle": "DataFrame и Series: типичная ловушка",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
         },
         {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-014",
-          "missionTitle": "Исключение: перехватить сбой",
-          "token": "catch",
-          "kind": "ключевое слово"
+          "rule": "blank-editor-task",
+          "missionId": "PDA-007",
+          "missionTitle": "DataFrame и Series: производственный контур",
+          "token": "import, as",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-008",
+          "missionTitle": "DataFrame и Series: контроль качества",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-013",
+          "missionTitle": "Чтение данных: проверка результата",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-014",
+          "missionTitle": "Чтение данных: типичная ловушка",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-015",
+          "missionTitle": "Чтение данных: диагностика",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-017",
+          "missionTitle": "Чтение данных: контроль качества",
+          "token": "import, as",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-020",
+          "missionTitle": "Выбор и фильтрация: механика",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-022",
+          "missionTitle": "Выбор и фильтрация: проверка результата",
+          "token": "import, as",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-023",
+          "missionTitle": "Выбор и фильтрация: типичная ловушка",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-024",
+          "missionTitle": "Выбор и фильтрация: диагностика",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-025",
+          "missionTitle": "Выбор и фильтрация: производственный контур",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-029",
+          "missionTitle": "Пропуски и дубли: механика",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-032",
+          "missionTitle": "Пропуски и дубли: типичная ловушка",
+          "token": "import, as",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-033",
+          "missionTitle": "Пропуски и дубли: диагностика",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-034",
+          "missionTitle": "Пропуски и дубли: производственный контур",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-035",
+          "missionTitle": "Пропуски и дубли: контроль качества",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-038",
+          "missionTitle": "Строки и даты: механика",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-040",
+          "missionTitle": "Строки и даты: проверка результата",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-042",
+          "missionTitle": "Строки и даты: диагностика",
+          "token": "import, as",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-043",
+          "missionTitle": "Строки и даты: производственный контур",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-044",
+          "missionTitle": "Строки и даты: контроль качества",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-047",
+          "missionTitle": "Группировки: механика",
+          "token": "import, as",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-049",
+          "missionTitle": "Группировки: проверка результата",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-050",
+          "missionTitle": "Группировки: типичная ловушка",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-052",
+          "missionTitle": "Группировки: производственный контур",
+          "token": "import, as",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-053",
+          "missionTitle": "Группировки: контроль качества",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-058",
+          "missionTitle": "Соединения: проверка результата",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-059",
+          "missionTitle": "Соединения: типичная ловушка",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-060",
+          "missionTitle": "Соединения: диагностика",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-062",
+          "missionTitle": "Соединения: контроль качества",
+          "token": "import, as",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-065",
+          "missionTitle": "Изменение формы таблиц: механика",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-067",
+          "missionTitle": "Изменение формы таблиц: проверка результата",
+          "token": "import, as",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-068",
+          "missionTitle": "Изменение формы таблиц: типичная ловушка",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-069",
+          "missionTitle": "Изменение формы таблиц: диагностика",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-070",
+          "missionTitle": "Изменение формы таблиц: производственный контур",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-074",
+          "missionTitle": "Временные ряды: механика",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-077",
+          "missionTitle": "Временные ряды: типичная ловушка",
+          "token": "import, as",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-078",
+          "missionTitle": "Временные ряды: диагностика",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-079",
+          "missionTitle": "Временные ряды: производственный контур",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-080",
+          "missionTitle": "Временные ряды: контроль качества",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-082",
+          "missionTitle": "Оптимизация памяти: механика",
+          "token": "import, as",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-084",
+          "missionTitle": "Оптимизация памяти: проверка результата",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-085",
+          "missionTitle": "Оптимизация памяти: типичная ловушка",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-087",
+          "missionTitle": "Оптимизация памяти: производственный контур",
+          "token": "import, as",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-088",
+          "missionTitle": "Оптимизация памяти: контроль качества",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-090",
+          "missionTitle": "Антипаттерны Pandas: механика",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-092",
+          "missionTitle": "Антипаттерны Pandas: проверка результата",
+          "token": "import, as",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-093",
+          "missionTitle": "Антипаттерны Pandas: типичная ловушка",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-094",
+          "missionTitle": "Антипаттерны Pandas: диагностика",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-095",
+          "missionTitle": "Антипаттерны Pandas: производственный контур",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-097",
+          "missionTitle": "Индекс — не номер строки",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-098",
+          "missionTitle": "loc: доступ по меткам",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-099",
+          "missionTitle": "iloc: доступ по позициям",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-100",
+          "missionTitle": "Ловушка loc и iloc",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-101",
+          "missionTitle": "Скобки в составном условии",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-103",
+          "missionTitle": "dropna: что именно удаляем",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-104",
+          "missionTitle": "fillna меняет смысл метрики",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-105",
+          "missionTitle": "Дубликаты по ключу",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-106",
+          "missionTitle": "Какую строку оставить",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-107",
+          "missionTitle": "Разбор дат и ошибки",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-108",
+          "missionTitle": "Часовые пояса",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-109",
+          "missionTitle": "Пропуски в ключе группировки",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-110",
+          "missionTitle": "transform против agg",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-111",
+          "missionTitle": "Строки размножились",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-112",
+          "missionTitle": "Диагностика соединения",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-113",
+          "missionTitle": "Ловушка concat по столбцам",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-114",
+          "missionTitle": "Мультииндекс",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-115",
+          "missionTitle": "Цикл по строкам",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-116",
+          "missionTitle": "SettingWithCopyWarning",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PDA-117",
+          "missionTitle": "inplace ничего не экономит",
+          "token": "import, as, transform(), def, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        }
+      ]
+    },
+    {
+      "id": "numpy",
+      "title": "NumPy",
+      "language": "python",
+      "noRoute": false,
+      "missions": 48,
+      "codeMissions": 32,
+      "inheritedTokens": 24,
+      "requiredTokens": 160,
+      "violations": 37,
+      "requiredBeforeShown": 4,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 1,
+      "blankEditor": 32,
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "required-before-shown",
+          "missionId": "NPY-002",
+          "missionTitle": "Список Python против массива",
+          "token": "import",
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "NPY-002",
+          "missionTitle": "Список Python против массива",
+          "token": "as",
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "NPY-002",
+          "missionTitle": "Список Python против массива",
+          "token": "np.array()",
+          "kind": "метод или функция модуля",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "NPY-002",
+          "missionTitle": "Список Python против массива",
+          "token": "assert",
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "NPY-002",
+          "missionTitle": "Список Python против массива",
+          "token": "import, as, np.array(), обращение по точке, assert",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
         },
         {
           "rule": "multiple-new-apis-at-once",
@@ -2216,10 +2759,10 @@
       "title": "Python для работы с данными",
       "language": "python",
       "noRoute": false,
-      "missions": 59,
-      "codeMissions": 39,
+      "missions": 68,
+      "codeMissions": 44,
       "inheritedTokens": 12,
-      "requiredTokens": 115,
+      "requiredTokens": 122,
       "violations": 19,
       "requiredBeforeShown": 6,
       "firstUseSameMission": 2,
@@ -3688,10 +4231,555 @@
           "token": "print()",
           "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
         }
-      ],
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
+      ]
+    },
+    {
+      "id": "react-core",
+      "title": "React: модель интерфейса",
+      "language": "javascript",
+      "noRoute": false,
+      "missions": 20,
+      "codeMissions": 13,
+      "inheritedTokens": 43,
+      "requiredTokens": 17,
+      "violations": 8,
+      "requiredBeforeShown": 2,
+      "firstUseSameMission": 4,
+      "multipleNewApis": 1,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 1,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "RCT-010",
+          "missionTitle": "Состояние: кнопка меняет интерфейс",
+          "token": "setCount()",
+          "kind": "функция"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "RCT-012",
+          "missionTitle": "Условный рендер",
+          "token": ":",
+          "kind": "1 из 2 проверок выполнены комментарием в стартовом файле",
+          "severity": "warning"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "RCT-016",
+          "missionTitle": "Отправка формы",
+          "token": "preventDefault()",
+          "kind": "функция",
+          "evidence": "названо словом, синтаксис не показан"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "RCT-019",
+          "missionTitle": "Очистка эффекта",
+          "token": "clearInterval()",
+          "kind": "функция"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "RCT-020",
+          "missionTitle": "Итоговое дело: загрузка, ошибка, результат",
+          "token": "setError()",
+          "kind": "функция",
+          "evidence": "названо словом, синтаксис не показан"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "RCT-020",
+          "missionTitle": "Итоговое дело: загрузка, ошибка, результат",
+          "token": "setLoading()",
+          "kind": "функция"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "RCT-020",
+          "missionTitle": "Итоговое дело: загрузка, ошибка, результат",
+          "token": "catch",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "RCT-020",
+          "missionTitle": "Итоговое дело: загрузка, ошибка, результат",
+          "token": "setError(), setLoading(), catch",
+          "kind": "3 новых сущностей сразу"
+        }
+      ]
+    },
+    {
+      "id": "technical-foundations",
+      "title": "Технический фундамент",
+      "language": "python",
+      "noRoute": true,
+      "missions": 16,
+      "codeMissions": 2,
+      "inheritedTokens": 0,
+      "requiredTokens": 4,
+      "violations": 7,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 3,
+      "multipleNewApis": 1,
+      "blankEditor": 1,
+      "checkPassesOnStarter": 2,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "TECH-014",
+          "missionTitle": "Первая программа: вывод и переменная",
+          "token": "=",
+          "kind": "оператор"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "TECH-014",
+          "missionTitle": "Первая программа: вывод и переменная",
+          "token": "print()",
+          "kind": "функция"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "TECH-014",
+          "missionTitle": "Первая программа: вывод и переменная",
+          "token": "=, print()",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "TECH-014",
+          "missionTitle": "Первая программа: вывод и переменная",
+          "token": "=, print()",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "TECH-015",
+          "missionTitle": "Первый расчёт: числа и вывод",
+          "token": "*",
+          "kind": "оператор"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "TECH-015",
+          "missionTitle": "Первый расчёт: числа и вывод",
+          "token": "=",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "TECH-015",
+          "missionTitle": "Первый расчёт: числа и вывод",
+          "token": "*",
+          "kind": "1 из 3 проверок выполнены комментарием в стартовом файле",
+          "severity": "warning"
+        }
+      ]
+    },
+    {
+      "id": "data-pipelines",
+      "title": "Надёжные конвейеры данных",
+      "language": "python",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 24,
+      "requiredTokens": 35,
+      "violations": 6,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 2,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "DEP-002",
+          "missionTitle": "Код: ETL, ELT и границы этапов",
+          "token": "словарь или блок",
+          "kind": "синтаксис"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "DEP-002",
+          "missionTitle": "Код: ETL, ELT и границы этапов",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "DEP-003",
+          "missionTitle": "Лаборатория: ETL, ELT и границы этапов",
+          "token": "assert",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "DEP-005",
+          "missionTitle": "Код: Идемпотентность",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "DEP-008",
+          "missionTitle": "Код: Инкремент и контрольная точка",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "DEP-011",
+          "missionTitle": "Код: Опоздавшие данные и backfill",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ]
+    },
+    {
+      "id": "linear-algebra",
+      "title": "Линейная алгебра для ML",
+      "language": "python",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 35,
+      "requiredTokens": 33,
+      "violations": 6,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 2,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "LAL-002",
+          "missionTitle": "Код: Векторы и признаки",
+          "token": "словарь или блок",
+          "kind": "синтаксис"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "LAL-002",
+          "missionTitle": "Код: Векторы и признаки",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "LAL-003",
+          "missionTitle": "Лаборатория: Векторы и признаки",
+          "token": "assert",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "LAL-005",
+          "missionTitle": "Код: Скалярное произведение и расстояние",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "LAL-008",
+          "missionTitle": "Код: Матрицы и преобразования",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "LAL-011",
+          "missionTitle": "Код: SVD и PCA",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ]
+    },
+    {
+      "id": "product-analytics",
+      "title": "Продуктовая аналитика",
+      "language": "python",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 31,
+      "requiredTokens": 34,
+      "violations": 6,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 2,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "PRA-002",
+          "missionTitle": "Код: События и план отслеживания",
+          "token": "словарь или блок",
+          "kind": "синтаксис"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "PRA-002",
+          "missionTitle": "Код: События и план отслеживания",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "PRA-003",
+          "missionTitle": "Лаборатория: События и план отслеживания",
+          "token": "assert",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "PRA-005",
+          "missionTitle": "Код: Воронка",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "PRA-008",
+          "missionTitle": "Код: Когорты и удержание",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "PRA-011",
+          "missionTitle": "Код: Юнит-экономика и сегменты",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ]
+    },
+    {
+      "id": "python-web-api",
+      "title": "Web API на Python",
+      "language": "python",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 23,
+      "requiredTokens": 38,
+      "violations": 6,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 2,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "PWA-002",
+          "missionTitle": "Код: HTTP и ресурсный API",
+          "token": "словарь или блок",
+          "kind": "синтаксис"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "PWA-002",
+          "missionTitle": "Код: HTTP и ресурсный API",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "PWA-003",
+          "missionTitle": "Лаборатория: HTTP и ресурсный API",
+          "token": "assert",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "PWA-005",
+          "missionTitle": "Код: Схемы и валидация",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "PWA-008",
+          "missionTitle": "Код: Зависимости и архитектура",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "PWA-011",
+          "missionTitle": "Код: Аутентификация и авторизация",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ]
+    },
+    {
+      "id": "react-architecture",
+      "title": "Архитектура React-приложения",
+      "language": "javascript",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 69,
+      "requiredTokens": 32,
+      "violations": 6,
+      "requiredBeforeShown": 3,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 1,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 1,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 1,
+      "hintIsNotTeachingCritical": 1,
+      "findings": [
+        {
+          "rule": "required-before-shown",
+          "missionId": "RCA-006",
+          "missionTitle": "Лаборатория: инвалидируй кэш после мутации",
+          "token": "invalidateQueries()",
+          "kind": "функция",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "RCA-006",
+          "missionTitle": "Лаборатория: инвалидируй кэш после мутации",
+          "token": "mutation.mutate()",
+          "kind": "метод или функция модуля",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "RCA-006",
+          "missionTitle": "Лаборатория: инвалидируй кэш после мутации",
+          "token": "invalidateQueries(), mutation.mutate()",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "RCA-011",
+          "missionTitle": "Сократи область обновления состояния",
+          "token": "SearchBox()",
+          "kind": "функция",
+          "evidence": "названо словом, синтаксис не показан"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "RCA-011",
+          "missionTitle": "Сократи область обновления состояния",
+          "token": "const [query, setQuery] = useState(\"\") · <OrderList orders={orders} />",
+          "kind": "2 из 4 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "hint-is-not-teaching",
+          "missionId": "RCA-012",
+          "missionTitle": "Лаборатория: оптимизируй измеренную границу",
+          "token": "useMemo(() => · [orders, query]",
+          "kind": "подсказка выдаёт фрагмент проверки, и конструкция видна человеку впервые",
+          "severity": "critical"
+        }
+      ]
+    },
+    {
+      "id": "data-cleaning",
+      "title": "Очистка данных",
+      "language": "python",
+      "noRoute": false,
+      "missions": 52,
+      "codeMissions": 25,
+      "inheritedTokens": 35,
+      "requiredTokens": 92,
+      "violations": 5,
+      "requiredBeforeShown": 4,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 1,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "required-before-shown",
+          "missionId": "CLN-002",
+          "missionTitle": "Пропуски: механика",
+          "token": "solve()",
+          "kind": "функция",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "CLN-002",
+          "missionTitle": "Пропуски: механика",
+          "token": "def",
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "CLN-002",
+          "missionTitle": "Пропуски: механика",
+          "token": "return",
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "CLN-002",
+          "missionTitle": "Пропуски: механика",
+          "token": "assert",
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "CLN-002",
+          "missionTitle": "Пропуски: механика",
+          "token": "solve(), def, return, assert",
+          "kind": "4 новых сущностей сразу"
+        }
+      ]
     },
     {
       "id": "data-final-project",
@@ -3751,10 +4839,187 @@
           "token": "solve(), def, return, assert",
           "kind": "4 новых сущностей сразу"
         }
-      ],
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
+      ]
+    },
+    {
+      "id": "data-formats",
+      "title": "Форматы данных",
+      "language": "python",
+      "noRoute": false,
+      "missions": 34,
+      "codeMissions": 23,
+      "inheritedTokens": 23,
+      "requiredTokens": 92,
+      "violations": 5,
+      "requiredBeforeShown": 4,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 1,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "required-before-shown",
+          "missionId": "FMT-002",
+          "missionTitle": "Текстовые и двоичные форматы",
+          "token": "solve()",
+          "kind": "функция",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "FMT-002",
+          "missionTitle": "Текстовые и двоичные форматы",
+          "token": "def",
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "FMT-002",
+          "missionTitle": "Текстовые и двоичные форматы",
+          "token": "return",
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "FMT-002",
+          "missionTitle": "Текстовые и двоичные форматы",
+          "token": "assert",
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "FMT-002",
+          "missionTitle": "Текстовые и двоичные форматы",
+          "token": "solve(), def, return, assert",
+          "kind": "4 новых сущностей сразу"
+        }
+      ]
+    },
+    {
+      "id": "etl-elt",
+      "title": "Основы ETL и ELT",
+      "language": "python",
+      "noRoute": false,
+      "missions": 46,
+      "codeMissions": 19,
+      "inheritedTokens": 24,
+      "requiredTokens": 76,
+      "violations": 5,
+      "requiredBeforeShown": 4,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 1,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "required-before-shown",
+          "missionId": "ETL-002",
+          "missionTitle": "Извлечение, преобразование и загрузка: механика",
+          "token": "solve()",
+          "kind": "функция",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "ETL-002",
+          "missionTitle": "Извлечение, преобразование и загрузка: механика",
+          "token": "def",
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "ETL-002",
+          "missionTitle": "Извлечение, преобразование и загрузка: механика",
+          "token": "return",
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "ETL-002",
+          "missionTitle": "Извлечение, преобразование и загрузка: механика",
+          "token": "assert",
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "ETL-002",
+          "missionTitle": "Извлечение, преобразование и загрузка: механика",
+          "token": "solve(), def, return, assert",
+          "kind": "4 новых сущностей сразу"
+        }
+      ]
+    },
+    {
+      "id": "exploratory-data-analysis",
+      "title": "Разведочный анализ данных",
+      "language": "python",
+      "noRoute": false,
+      "missions": 46,
+      "codeMissions": 24,
+      "inheritedTokens": 35,
+      "requiredTokens": 86,
+      "violations": 5,
+      "requiredBeforeShown": 4,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 1,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "required-before-shown",
+          "missionId": "EDA-002",
+          "missionTitle": "Обзор набора: механика",
+          "token": "solve()",
+          "kind": "функция",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "EDA-002",
+          "missionTitle": "Обзор набора: механика",
+          "token": "def",
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "EDA-002",
+          "missionTitle": "Обзор набора: механика",
+          "token": "return",
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "EDA-002",
+          "missionTitle": "Обзор набора: механика",
+          "token": "assert",
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "EDA-002",
+          "missionTitle": "Обзор набора: механика",
+          "token": "solve(), def, return, assert",
+          "kind": "4 новых сущностей сразу"
+        }
+      ]
     },
     {
       "id": "ai-evaluation-safety",
@@ -3763,7 +5028,7 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 78,
+      "inheritedTokens": 35,
       "requiredTokens": 37,
       "violations": 4,
       "requiredBeforeShown": 0,
@@ -3819,7 +5084,7 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 106,
+      "inheritedTokens": 36,
       "requiredTokens": 36,
       "violations": 4,
       "requiredBeforeShown": 0,
@@ -3875,7 +5140,7 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 133,
+      "inheritedTokens": 40,
       "requiredTokens": 37,
       "violations": 4,
       "requiredBeforeShown": 0,
@@ -3987,7 +5252,7 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 58,
+      "inheritedTokens": 29,
       "requiredTokens": 31,
       "violations": 4,
       "requiredBeforeShown": 0,
@@ -4099,7 +5364,7 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 78,
+      "inheritedTokens": 35,
       "requiredTokens": 36,
       "violations": 4,
       "requiredBeforeShown": 0,
@@ -4155,7 +5420,7 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 77,
+      "inheritedTokens": 40,
       "requiredTokens": 34,
       "violations": 4,
       "requiredBeforeShown": 0,
@@ -4211,7 +5476,7 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 133,
+      "inheritedTokens": 40,
       "requiredTokens": 34,
       "violations": 4,
       "requiredBeforeShown": 0,
@@ -4267,7 +5532,7 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 134,
+      "inheritedTokens": 41,
       "requiredTokens": 34,
       "violations": 4,
       "requiredBeforeShown": 0,
@@ -4323,7 +5588,7 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 133,
+      "inheritedTokens": 40,
       "requiredTokens": 36,
       "violations": 4,
       "requiredBeforeShown": 0,
@@ -4435,7 +5700,7 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 180,
+      "inheritedTokens": 40,
       "requiredTokens": 33,
       "violations": 4,
       "requiredBeforeShown": 0,
@@ -4491,7 +5756,7 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 44,
+      "inheritedTokens": 28,
       "requiredTokens": 33,
       "violations": 4,
       "requiredBeforeShown": 0,
@@ -4547,7 +5812,7 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 45,
+      "inheritedTokens": 29,
       "requiredTokens": 35,
       "violations": 4,
       "requiredBeforeShown": 0,
@@ -4659,7 +5924,7 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 78,
+      "inheritedTokens": 35,
       "requiredTokens": 34,
       "violations": 4,
       "requiredBeforeShown": 0,
@@ -4715,7 +5980,7 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 58,
+      "inheritedTokens": 29,
       "requiredTokens": 33,
       "violations": 4,
       "requiredBeforeShown": 0,
@@ -4771,7 +6036,7 @@
       "noRoute": false,
       "missions": 50,
       "codeMissions": 28,
-      "inheritedTokens": 58,
+      "inheritedTokens": 29,
       "requiredTokens": 102,
       "violations": 1,
       "requiredBeforeShown": 1,
@@ -4803,7 +6068,7 @@
       "noRoute": false,
       "missions": 44,
       "codeMissions": 21,
-      "inheritedTokens": 93,
+      "inheritedTokens": 40,
       "requiredTokens": 78,
       "violations": 1,
       "requiredBeforeShown": 1,
@@ -4867,7 +6132,7 @@
       "noRoute": false,
       "missions": 40,
       "codeMissions": 15,
-      "inheritedTokens": 58,
+      "inheritedTokens": 29,
       "requiredTokens": 56,
       "violations": 1,
       "requiredBeforeShown": 1,
@@ -4897,12 +6162,12 @@
       "title": "Очистка данных",
       "language": "python",
       "noRoute": false,
-      "missions": 52,
-      "codeMissions": 29,
-      "inheritedTokens": 122,
-      "requiredTokens": 171,
-      "violations": 0,
-      "requiredBeforeShown": 0,
+      "missions": 48,
+      "codeMissions": 32,
+      "inheritedTokens": 40,
+      "requiredTokens": 128,
+      "violations": 1,
+      "requiredBeforeShown": 1,
       "firstUseSameMission": 0,
       "multipleNewApis": 0,
       "blankEditor": 0,

@@ -1,6 +1,6 @@
 # python-core: предлагаемая программа
 
-Программа блока. Модули 1.0–1.2 написаны и лежат в курсе; остальное —
+Программа блока. Модули 1.0–1.5 написаны и лежат в курсе; остальное —
 предложение: миссии не написаны.
 Продолжение `python-core-ladder.md` и `python-core-scaffold.md`.
 
@@ -135,9 +135,9 @@
 | 1.0 Разминка ✅ | всё из `python-first-steps` | ничего | `transferred` | 1 | `PYC-002` |
 | 1.1 `*` ✅ | переменная, число, `+` | оператор `*` | `explained → shown → modified → debugged → filled` | 5 | `PYC-001`, `PYC-101`…`PYC-104` |
 | 1.2 `int()` ✅ | `*`, строка, число | встроенная функция `int()` | `explained → shown → modified → filled → independent` | 5 | `PYC-105`…`PYC-109` |
-| 1.3 `type()` | `int()` | встроенная функция `type()` | `shown → modified → independent` | 3 | — |
-| 1.4 `-` | `*`, `+` | оператор `-` | `shown → independent` | 2 | — |
-| 1.5 `/` | `*`, `-` | оператор `/` и дробный результат | `explained → shown → modified → independent` | 4 | — |
+| 1.3 `type()` ✅ | `int()` | встроенная функция `type()` | `shown → modified → independent` | 3 | `PYC-110`…`PYC-112` |
+| 1.4 `-` ✅ | `*`, `+` | оператор `-` | `shown → independent` | 2 | `PYC-113`, `PYC-114` |
+| 1.5 `/` ✅ | `*`, `-` | оператор `/` и дробный результат | `explained → shown → modified → independent` | 4 | `PYC-115`…`PYC-118` |
 | 1.6 `float()` | `/`, `int()`, `type()` | встроенная функция `float()` | `shown → modified → independent` | 3 | — |
 | 1.7 `//` | `/` | оператор `//` | `shown → independent` | 2 | — |
 | 1.8 `%` | `//` | оператор `%` | `explained → shown → filled → independent` | 4 | — |
