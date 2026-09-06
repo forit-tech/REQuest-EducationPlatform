@@ -10,13 +10,13 @@
   "missionsByClass": {
     "AUTHORED_REAL": 386,
     "AUTHORED_NEEDS_REVIEW": 75,
-    "GENERATOR_SCAFFOLD": 1006,
+    "GENERATOR_SCAFFOLD": 1015,
     "FAKE_PRACTICE": 325,
     "OUTLINE_ONLY": 0
   },
   "runtime": {
     "courses": 75,
-    "missions": 1761
+    "missions": 1801
   },
   "curriculumLayer": {
     "courses": 355,
@@ -1667,11 +1667,11 @@
       "technology": "python",
       "classification": "GENERATOR_SCAFFOLD",
       "reasons": [
-        "45 из 50 миссий собраны шаблоном `scripts/generate-planned-courses.mjs`"
+        "45 из 59 миссий собраны шаблоном `scripts/generate-planned-courses.mjs`"
       ],
       "overridden": false,
-      "missions": 50,
-      "codeLabMissions": 33,
+      "missions": 59,
+      "codeLabMissions": 39,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 45,
@@ -1679,16 +1679,16 @@
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
       "starterAlreadySatisfies": 0,
-      "optionMissions": 49,
-      "longestAnswerRatio": 1,
+      "optionMissions": 52,
+      "longestAnswerRatio": 0.942,
       "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 100,
+      "unknownRequiredTokens": 102,
       "unknownTokenSamples": [
+        "int",
         "print",
         "for",
         "else",
-        "append",
-        "def"
+        "append"
       ],
       "prerequisiteByUsage": [],
       "sourceCoverage": [

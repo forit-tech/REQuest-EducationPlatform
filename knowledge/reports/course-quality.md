@@ -7,11 +7,11 @@
 |---|---:|---:|
 | AUTHORED_REAL | 14 | 386 |
 | AUTHORED_NEEDS_REVIEW | 4 | 75 |
-| GENERATOR_SCAFFOLD | 32 | 1006 |
+| GENERATOR_SCAFFOLD | 32 | 1015 |
 | FAKE_PRACTICE | 25 | 325 |
 | OUTLINE_ONLY (проектный граф) | 149 | — |
 
-Runtime: 75 курсов, 1761 миссий. Проектный граф: 355 курсов, из них 149 без модулей.
+Runtime: 75 курсов, 1801 миссий. Проектный граф: 355 курсов, из них 149 без модулей.
 
 ## Курсы
 
@@ -60,7 +60,7 @@ Runtime: 75 курсов, 1761 миссий. Проектный граф: 355 к
 | `polars` | GENERATOR_SCAFFOLD | 42 | 22 | 0 | 100% | 2 | 42 из 42 миссий собраны шаблоном `scripts/generate-planned-courses.mjs` |
 | `postgresql` | GENERATOR_SCAFFOLD | 54 | 24 | 0 | 100% | 1 | 54 из 54 миссий собраны шаблоном `scripts/generate-planned-courses.mjs` |
 | `production-incidents` | GENERATOR_SCAFFOLD | 36 | 12 | 0 | 100% | 1 | 36 из 36 миссий собраны шаблоном `scripts/generate-planned-courses.mjs` |
-| `python-core` | GENERATOR_SCAFFOLD | 50 | 33 | 0 | 100% | 1 | 45 из 50 миссий собраны шаблоном `scripts/generate-planned-courses.mjs` |
+| `python-core` | GENERATOR_SCAFFOLD | 59 | 39 | 0 | 94% | 1 | 45 из 59 миссий собраны шаблоном `scripts/generate-planned-courses.mjs` |
 | `risk-iam` | GENERATOR_SCAFFOLD | 13 | 9 | 0 | 100% | 0 | 12 из 13 заголовков — одна тема под несколькими типами; 12 из 13 миссий с шаблонной учебной целью; 12 миссий повторяют одну фразу в контексте, объяснении и подсказке |
 | `security-foundations` | GENERATOR_SCAFFOLD | 13 | 9 | 0 | 100% | 1 | 12 из 13 заголовков — одна тема под несколькими типами; 12 из 13 миссий с шаблонной учебной целью; 12 миссий повторяют одну фразу в контексте, объяснении и подсказке |
 | `soc-detection` | GENERATOR_SCAFFOLD | 13 | 9 | 0 | 100% | 1 | 12 из 13 заголовков — одна тема под несколькими типами; 12 из 13 миссий с шаблонной учебной целью; 12 миссий повторяют одну фразу в контексте, объяснении и подсказке |
