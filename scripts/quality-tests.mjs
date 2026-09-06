@@ -297,20 +297,27 @@ const scaffold = ({ topic = 'Коллекции', angle = 'механика', ..
 })
 
 check('шаблонная миссия узнаётся по всем шести признакам', () => {
-  const marks = plannedScaffoldMarkers(scaffold(), ['Коллекции'])
+  const marks = plannedScaffoldMarkers(scaffold())
   assert.deepEqual(Object.entries(marks).filter(([, hit]) => !hit), [])
 })
 
 check('финальная миссия узнаётся по пяти признакам из шести', () => {
   const boss = scaffold({ title: 'Итоговое испытание: Python для работы с данными' })
-  const marks = plannedScaffoldMarkers(boss, ['Коллекции'])
-  assert.equal(marks.title, false)
-  assert.ok(isPlannedScaffold(boss, ['Коллекции']), 'пять совпадений — это всё ещё шаблон')
+  assert.equal(plannedScaffoldMarkers(boss).title, false)
+  assert.ok(isPlannedScaffold(boss), 'пять совпадений — это всё ещё шаблон')
 })
 
 check('четырёх признаков для приговора мало', () => {
   const edited = scaffold({ title: 'Свой заголовок', hints: ['Своя подсказка.'] })
-  assert.ok(!isPlannedScaffold(edited, ['Коллекции']))
+  assert.ok(!isPlannedScaffold(edited))
+})
+
+check('признак не зависит от списка тем курса', () => {
+  // Темы курса переписывают при переработке программы раньше, чем миссии.
+  // Если признак сверяется с ними, правка одной строки молча снимает диагноз.
+  const course = { skills: ['Совершенно другие темы'], missions: [scaffold(), scaffold()] }
+  assert.equal(plannedScaffoldMissions(course), 2)
+  assert.equal(plannedScaffoldMissions({ missions: [scaffold()] }), 1)
 })
 
 check('авторская миссия признаком не считается', () => {
@@ -320,7 +327,7 @@ check('авторская миссия признаком не считаетс�
     hints: ['Меняй только текст внутри кавычек.'],
     task: { prompt: 'Замени слово в кавычках на своё.', options: ['Да', 'Нет'], answer: 'Да' },
   }
-  assert.equal(plannedScaffoldMissions({ skills: ['Первые команды'], missions: [authored] }), 0)
+  assert.equal(plannedScaffoldMissions({ missions: [authored] }), 0)
 })
 
 check('признак совпадает с генератором', () => {

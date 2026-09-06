@@ -42,6 +42,7 @@ export const DISTRACTORS = [
 
 /** Неизменяемые куски формулировок: по ним же сверяется исходник генератора. */
 export const PHRASES = {
+  topic: 'В теме «',
   rule: 'рабочее правило формулируется так:',
   practice: 'Практика этой миссии —',
   evidence: 'результатом работы считается не только преобразованный набор, но и доказательство:',
@@ -51,7 +52,9 @@ export const PHRASES = {
 
 export const GENERATOR_PATH = 'scripts/generate-planned-courses.mjs'
 
-const topicRule = topic => `В теме «${topic}» ${PHRASES.rule}`
+const escapeRegExp = value => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+/** Тема миссии читается из вводной: её туда подставил генератор. */
+const TOPIC = new RegExp(`${escapeRegExp(PHRASES.topic)}([^»]+)» ${escapeRegExp(PHRASES.rule)}`)
 const stagePrefix = angle => `На этапе «${angle}» ${PHRASES.evidence}`
 const hintFor = topic => `${PHRASES.hint} «${topic}».`
 const contextFor = topic => `${PHRASES.context} ${topic}.`
@@ -59,16 +62,19 @@ const contextFor = topic => `${PHRASES.context} ${topic}.`
 /**
  * Шесть признаков одной миссии.
  *
- * Тема берётся не из порядка миссий, а из самой вводной: генератор распределяет
- * миссии по темам курса арифметикой, повторять её здесь означало бы завязаться
- * на неё же. Ракурс — из контекста, потому что у финальной миссии его нет
- * в заголовке.
+ * Тема читается из самой вводной, а не из порядка миссий и не из списка `skills`
+ * курса. Порядок генератор задаёт арифметикой, повторять её здесь значило бы
+ * завязаться на неё же. От списка тем курса признак отвязан намеренно: при
+ * переработке программы заголовки меняют раньше, чем миссии, и сверка с ним
+ * превратила бы правку одной строки в молчаливое возвращение курса
+ * в AUTHORED_REAL. Ракурс берётся из контекста, потому что у финальной миссии
+ * его нет в заголовке.
  */
-export function plannedScaffoldMarkers(mission, skills = []) {
+export function plannedScaffoldMarkers(mission) {
   const intro = String(mission.intro ?? '')
   const context = String(mission.productionContext ?? '')
   const task = mission.task ?? {}
-  const topic = skills.find(skill => intro.includes(topicRule(skill)))
+  const topic = TOPIC.exec(intro)?.[1]
   const angle = ANGLES.find(item => context.startsWith(stagePrefix(item)))
   return {
     title: Boolean(topic && angle) && mission.title === `${topic}: ${angle}`,
@@ -82,17 +88,14 @@ export function plannedScaffoldMarkers(mission, skills = []) {
 
 const MARKER_LIMIT = 5
 
-export const plannedScaffoldScore = (mission, skills) =>
-  Object.values(plannedScaffoldMarkers(mission, skills)).filter(Boolean).length
+export const plannedScaffoldScore = mission =>
+  Object.values(plannedScaffoldMarkers(mission)).filter(Boolean).length
 
-export const isPlannedScaffold = (mission, skills) =>
-  plannedScaffoldScore(mission, skills) >= MARKER_LIMIT
+export const isPlannedScaffold = mission => plannedScaffoldScore(mission) >= MARKER_LIMIT
 
 /** Сколько миссий курса собрано шаблоном. */
-export function plannedScaffoldMissions(course) {
-  const skills = course.skills ?? []
-  return (course.missions ?? []).filter(mission => isPlannedScaffold(mission, skills)).length
-}
+export const plannedScaffoldMissions = course =>
+  (course.missions ?? []).filter(isPlannedScaffold).length
 
 /**
  * Расхождение признака с генератором.
