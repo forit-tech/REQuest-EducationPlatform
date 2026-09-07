@@ -6,8 +6,8 @@
 библиотеки, которых человек ещё нигде не видел. Показом считается появление в стартовом файле
 или в тексте миссии — определение щедрое, поэтому числа ниже занижены.
 
-Курсов с кодом: 50. Из них с нарушениями: 10.
-Требований без показа: 13. Миссий с несколькими новыми сущностями сразу: 30.
+Курсов с кодом: 50. Из них с нарушениями: 9.
+Требований без показа: 12. Миссий с несколькими новыми сущностями сразу: 30.
 
 | Курс | Язык | Кодовых миссий | Требуется без показа | Много нового сразу |
 |---|---|---:|---:|---:|
@@ -23,7 +23,6 @@
 | `react-core` | javascript | 13 | 0 | 1 |
 | `data-final-project` | python | 6 | 4 | 1 |
 | `react-architecture` | javascript | 9 | 2 | 1 |
-| `data-cleaning` | python | 25 | 1 | 0 |
 | `data-quality` | python | 28 | 1 | 0 |
 | `data-visualization` | python | 21 | 1 | 0 |
 | `etl-elt` | python | 19 | 1 | 0 |
@@ -33,6 +32,7 @@
 | `ai-evaluation-safety` | python | 9 | 0 | 0 |
 | `analytics-communication` | python | 9 | 0 | 0 |
 | `boosting` | python | 9 | 0 | 0 |
+| `data-cleaning` | python | 27 | 0 | 0 |
 | `data-formats` | python | 8 | 0 | 0 |
 | `data-pipelines` | python | 9 | 0 | 0 |
 | `data-platform-reliability` | python | 9 | 0 | 0 |

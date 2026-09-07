@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-07T16:20:24.304Z",
-  "durationMs": 282,
+  "generatedAt": "2026-09-07T16:33:40.899Z",
+  "durationMs": 293,
   "corpus": {
     "courses": 75,
     "legacyMissions": 1761,
@@ -12,9 +12,9 @@
   },
   "summary": {
     "legacy": {
-      "error": 375,
-      "warning": 283,
-      "info": 58
+      "error": 362,
+      "warning": 278,
+      "info": 57
     },
     "production": {
       "error": 0,
@@ -120,7 +120,7 @@
     "C3.duplicate-prompt": {
       "severity": "error",
       "scope": "legacy",
-      "count": 207,
+      "count": 194,
       "samples": [
         {
           "where": "java-core-jvm/JVM-002",
@@ -146,7 +146,7 @@
       "samples": [
         {
           "where": "все курсы",
-          "message": "Продублированных формулировок 207, затронуто заданий 453"
+          "message": "Продублированных формулировок 194, затронуто заданий 427"
         }
       ]
     },
@@ -172,7 +172,7 @@
     "C3.template-course": {
       "severity": "info",
       "scope": "legacy",
-      "count": 56,
+      "count": 55,
       "samples": [
         {
           "where": "java-core-jvm",
@@ -210,7 +210,7 @@
     "C4.longest-is-correct": {
       "severity": "warning",
       "scope": "legacy",
-      "count": 24,
+      "count": 23,
       "samples": [
         {
           "where": "go-network-services",
@@ -233,14 +233,14 @@
       "samples": [
         {
           "where": "все курсы",
-          "message": "Распределение числа вариантов: 3 вариантов — 1289"
+          "message": "Распределение числа вариантов: 3 вариантов — 1262"
         }
       ]
     },
     "C5.fragile-substring": {
       "severity": "warning",
       "scope": "legacy",
-      "count": 34,
+      "count": 30,
       "samples": [
         {
           "where": "go-core/GOC-008",
@@ -376,7 +376,6 @@
     "advanced-sql",
     "analytical-databases",
     "clickhouse",
-    "data-cleaning",
     "large-data",
     "statistics"
   ],

@@ -20,7 +20,7 @@ Runtime: 75 курсов, 1761 миссий. Проектный граф: 355 к
 | `advanced-sql` | AUTHORED_REAL | 62 | 32 | 0 | 100% | 3 | — |
 | `analytical-databases` | AUTHORED_REAL | 32 | 13 | 0 | 100% | 2 | — |
 | `clickhouse` | AUTHORED_REAL | 48 | 24 | 0 | 100% | 1 | — |
-| `data-cleaning` | AUTHORED_REAL | 52 | 25 | 0 | 100% | 3 | — |
+| `data-cleaning` | AUTHORED_REAL | 52 | 27 | 0 | 76% | 3 | — |
 | `data-final-project` | AUTHORED_REAL | 18 | 6 | 0 | 100% | 0 | — |
 | `data-formats` | AUTHORED_REAL | 34 | 8 | 0 | 71% | 10 | — |
 | `data-modeling` | AUTHORED_REAL | 44 | 25 | 0 | 100% | 0 | — |

@@ -1,10 +1,10 @@
 # Качество учебного контента
 
-Собрано 08.09.2026, 00:20:24 за 282 мс.
+Собрано 08.09.2026, 00:33:40 за 293 мс.
 
 | Периметр | Ошибки | Предупреждения | Наблюдения |
 |---|---:|---:|---:|
-| Старый контент | 375 | 283 | 58 |
+| Старый контент | 362 | 278 | 57 |
 | Учебный материал | 0 | 5 | 30 |
 | Тестовые фикстуры | 0 | 1 | 0 |
 
@@ -18,18 +18,18 @@
 
 | Правило | Уровень | Периметр | Находок |
 |---|---|---|---:|
-| C3.duplicate-prompt | error | legacy | 207 |
+| C3.duplicate-prompt | error | legacy | 194 |
 | C2.exact-answer-in-theory | error | legacy | 163 |
 | C4.duplicate-options | error | legacy | 3 |
 | C2.normalized-answer-in-theory | error | legacy | 2 |
 | C2.free-check | warning | legacy | 140 |
 | C3.duplicate-intro | warning | legacy | 83 |
-| C5.fragile-substring | warning | legacy | 34 |
-| C4.longest-is-correct | warning | legacy | 24 |
+| C5.fragile-substring | warning | legacy | 30 |
+| C4.longest-is-correct | warning | legacy | 23 |
 | C7.no-introduction | warning | production | 5 |
 | C2.paraphrased-answer | warning | legacy | 2 |
 | C1.missing-source | warning | fixture | 1 |
-| C3.template-course | info | legacy | 56 |
+| C3.template-course | info | legacy | 55 |
 | C7.progression | info | production | 26 |
 | C8.coverage | info | production | 3 |
 | C3.duplicate-reach | info | legacy | 1 |
