@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-07T12:45:17.762Z",
-  "durationMs": 305,
+  "generatedAt": "2026-09-07T12:50:17.223Z",
+  "durationMs": 299,
   "corpus": {
     "courses": 75,
-    "legacyMissions": 1894,
+    "legacyMissions": 1901,
     "v2Tasks": 23,
     "skills": 44,
     "officialRequirements": 87,
@@ -244,7 +244,7 @@
       "samples": [
         {
           "where": "все курсы",
-          "message": "Распределение числа вариантов: 3 вариантов — 1441"
+          "message": "Распределение числа вариантов: 3 вариантов — 1445"
         }
       ]
     },
