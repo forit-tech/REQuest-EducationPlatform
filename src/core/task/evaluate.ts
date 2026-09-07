@@ -372,7 +372,11 @@ export function evaluate(task: Task, value: ResponseValue): EvaluationResult {
   const checks: CheckResult[] = evaluation.checks.map((check, index) => ({
     id: `legacy-${index}`,
     label: check.label,
-    passed: passesCodeCheck(source, check.fragment),
+    passed: passesCodeCheck(source, {
+      includes: check.fragment,
+      notIncludes: check.notFragment,
+      minOccurrences: check.minOccurrences,
+    }),
     detail: check.fragment.trim(),
   }))
   return build(checks, 'weak', diagnoseFor(task, checks.filter(check => !check.passed).map(check => check.id)))

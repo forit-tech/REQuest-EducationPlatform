@@ -108,7 +108,11 @@ function inspectChecks(mission) {
   const kinds = { behavioural: 0, literal: 0, preSatisfied: 0 }
   for (const check of checks) {
     const fragment = check.includes ?? ''
-    if (alreadyContains(starter, fragment)) kinds.preSatisfied += 1
+    const occurrences = fragment ? squash(starter).split(squash(fragment)).length - 1 : 0
+    const modifierFails = (check.notIncludes && starter.includes(check.notIncludes))
+      || (check.minOccurrences && occurrences < check.minOccurrences)
+    if (alreadyContains(starter, fragment) && !modifierFails) kinds.preSatisfied += 1
+    else if (check.notIncludes || check.minOccurrences) kinds.behavioural += 1
     else if (isCyrillicLiteral(fragment)) kinds.literal += 1
     else kinds.behavioural += 1
   }

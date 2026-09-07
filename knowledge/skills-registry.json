@@ -8,8 +8,8 @@
         "print("
       ],
       "introducedIn": {
-        "course": "technical-foundations",
-        "mission": "TECH-014"
+        "course": "python-first-steps",
+        "mission": "PFS-002"
       },
       "language": "python"
     },
@@ -21,8 +21,8 @@
         "name ="
       ],
       "introducedIn": {
-        "course": "technical-foundations",
-        "mission": "TECH-014"
+        "course": "python-first-steps",
+        "mission": "PFS-013"
       },
       "language": "python"
     },
@@ -36,8 +36,8 @@
         " + "
       ],
       "introducedIn": {
-        "course": "technical-foundations",
-        "mission": "TECH-015"
+        "course": "python-first-steps",
+        "mission": "PFS-021"
       },
       "language": "python"
     },
@@ -1559,6 +1559,7 @@
     "java-core",
     "javascript-core",
     "python-core",
+    "python-first-steps",
     "react-core",
     "technical-foundations",
     "yaml-basics",

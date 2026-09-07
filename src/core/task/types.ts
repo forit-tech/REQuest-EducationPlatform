@@ -182,7 +182,7 @@ export type Evaluation =
   | { type: 'rubric'; criteria: RubricCriterion[]; passScore: number; mode: 'self-assessment' | 'concept-match' }
   | { type: 'form'; passScore?: number }
   | { type: 'composite'; passScore?: number }
-  | { type: 'legacy-substring'; checks: Array<{ label: string; fragment: string }> }
+  | { type: 'legacy-substring'; checks: Array<{ label: string; fragment: string; notFragment?: string; minOccurrences?: number }> }
 
 /**
  * Насколько результату можно верить как доказательству освоения.

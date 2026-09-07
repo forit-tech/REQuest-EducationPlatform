@@ -225,8 +225,8 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
   const featureEvidenceComplete = selectedColumn === 'amount' && selectedCell === '3 490'
   const codeChecks = mission.task?.codeChecks ?? []
   const hasCodeChecks = codeChecks.length > 0
-  const passedCodeChecks = codeChecks.filter(check => passesCodeCheck(code, check.includes))
-  const failedCodeChecks = codeChecks.filter(check => !passesCodeCheck(code, check.includes))
+  const passedCodeChecks = codeChecks.filter(check => passesCodeCheck(code, check))
+  const failedCodeChecks = codeChecks.filter(check => !passesCodeCheck(code, check))
   /** В кодовых эпизодах гипотеза выбирается вариантом, а потом оформляется программой. */
   const codeHypothesis = hasCodeChecks ? mission.task?.options ?? [] : []
   const hypothesisReady = !codeHypothesis.length || answer.trim() === mission.task?.answer.trim()
@@ -452,7 +452,7 @@ export function MissionRunner({ room, mission, completed, energy, inventory, onS
               <div className="code-step">
                 <span className="code-brief-kicker">{codeHypothesis.length ? 'ШАГ 2 // КОД' : 'УСЛОВИЯ ПРОВЕРКИ'}</span>
                 <p className="code-step-lead">Решение — это короткая программа в файле <code>{workspaceFile}</code>. Проверка ищет в нём обязательные фрагменты: их видно ниже, написать их нужно самому.</p>
-                <div className="code-checklist">{codeChecks.map(check => { const passed = passesCodeCheck(code, check.includes); return <div className={passed ? 'passed' : ''} key={check.label}><i>{passed ? <Check size={13}/> : '·'}</i><div><span>{check.label}</span><code>{check.includes.trim()}</code></div></div> })}</div>
+                <div className="code-checklist">{codeChecks.map(check => { const passed = passesCodeCheck(code, check); return <div className={passed ? 'passed' : ''} key={check.label}><i>{passed ? <Check size={13}/> : '·'}</i><div><span>{check.label}</span><code>{check.includes.trim()}</code></div></div> })}</div>
                 {!!skeleton && <div className="code-skeleton">
                   <button onClick={() => setExampleVisible(value => !value)}><Lightbulb size={15}/>{exampleVisible ? 'Скрыть образец' : 'Показать образец решения'}</button>
                   <button onClick={() => { setCode(skeleton); setChecked(false); setActiveTab('workspace') }} title="Вставить каркас в рабочий файл"><Code2 size={15}/>Вставить каркас в файл</button>

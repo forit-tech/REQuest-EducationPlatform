@@ -34,6 +34,7 @@ const markdownPath = join(reportsDir, 'api-introduction.md')
 const only = process.argv.includes('--course')
   ? process.argv[process.argv.indexOf('--course') + 1]
   : null
+const checkMode = process.argv.includes('--check')
 
 const readJson = path => JSON.parse(readFileSync(path, 'utf8'))
 
@@ -175,16 +176,25 @@ const corpus = loadCorpus(root)
 const programs = readJson(join(root, 'knowledge', 'professions', 'programs.json'))
 const courseById = new Map(corpus.courses.map(course => [course.id, course]))
 
-/** Курсы, которые хотя бы в одном маршруте стоят раньше данного. */
+/**
+ * Курсы, которые стоят раньше данного во всех маршрутах, где он встречается.
+ *
+ * Объединение здесь опасно: показ в одной профессии начинал считаться знанием
+ * ученика из другой. Пересечение консервативно оставляет только общий фундамент.
+ */
 function precedingCourses(courseId) {
-  const before = new Set()
+  const contexts = []
   for (const program of programs) {
     const route = program.stages.flatMap(stage => stage.courseIds)
     const index = route.indexOf(courseId)
-    if (index > 0) for (const id of route.slice(0, index)) before.add(id)
+    if (index >= 0) contexts.push(new Set(route.slice(0, index)))
   }
-  return [...before].filter(id => courseById.has(id))
+  if (!contexts.length) return []
+  return [...contexts[0]].filter(id => contexts.slice(1).every(context => context.has(id)) && courseById.has(id))
 }
+
+const isRouted = courseId => programs.some(program =>
+  program.stages.some(stage => stage.courseIds.includes(courseId)))
 
 const courseLanguage = course => {
   for (const mission of course.missions ?? []) {
@@ -317,7 +327,7 @@ for (const course of corpus.courses) {
     // К курсу вне маршрутов не ведёт ни одна профессия, поэтому предшественников
     // у него нет и известным не считается ничего. Его находки отделяются: это
     // следствие сиротства курса, а не педагогики внутри него.
-    noRoute: precedingCourses(course.id).length === 0,
+    noRoute: !isRouted(course.id),
     missions: (course.missions ?? []).length,
     codeMissions: (course.missions ?? []).filter(mission => (mission.task?.codeChecks ?? []).length).length,
     inheritedTokens: knownBefore.size,
@@ -395,3 +405,14 @@ for (const course of routed.slice(0, 14)) {
   if (sample) console.log(`      ${sample.missionId}: требует ${sample.token} (${sample.kind}), нигде не показано`)
 }
 console.log(`\nОтчёты: knowledge/reports/api-introduction.json и .md`)
+
+if (checkMode) {
+  const strictFailures = courses.filter(course => courseById.get(course.id)?.pedagogy?.audited && course.violations > 0)
+  if (strictFailures.length) {
+    console.error('\nПедагогический аудит не пройден:')
+    for (const course of strictFailures) console.error(`  ${course.id}: ${course.violations} нарушений`)
+    process.exitCode = 1
+  } else {
+    console.log('\nПроверенные вручную курсы: нарушений нет')
+  }
+}

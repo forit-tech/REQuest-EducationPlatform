@@ -8,7 +8,7 @@
     "OUTLINE_ONLY": 149
   },
   "missionsByClass": {
-    "AUTHORED_REAL": 1197,
+    "AUTHORED_REAL": 1210,
     "AUTHORED_NEEDS_REVIEW": 75,
     "GENERATOR_SCAFFOLD": 195,
     "FAKE_PRACTICE": 325,
@@ -16,7 +16,7 @@
   },
   "runtime": {
     "courses": 75,
-    "missions": 1792
+    "missions": 1805
   },
   "curriculumLayer": {
     "courses": 355,
@@ -857,29 +857,29 @@
     {
       "id": "python-core",
       "path": "knowledge/data/python-core/course.json",
-      "title": "Python для работы с данными",
+      "title": "Python: базовые конструкции",
       "level": "База",
       "technology": "python",
       "classification": "AUTHORED_REAL",
       "reasons": [],
       "overridden": false,
-      "missions": 50,
-      "codeLabMissions": 33,
+      "missions": 63,
+      "codeLabMissions": 42,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
       "starterAlreadySatisfies": 0,
-      "optionMissions": 49,
-      "longestAnswerRatio": 1,
+      "optionMissions": 21,
+      "longestAnswerRatio": 0.81,
       "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 100,
+      "unknownRequiredTokens": 23,
       "unknownTokenSamples": [
+        "int",
         "print",
-        "for",
         "else",
-        "append",
+        "for",
         "def"
       ],
       "prerequisiteByUsage": [],
@@ -1268,7 +1268,7 @@
       ],
       "overridden": false,
       "missions": 16,
-      "codeLabMissions": 2,
+      "codeLabMissions": 0,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "scaffoldTripletTitles": 0,
@@ -1278,10 +1278,8 @@
       "optionMissions": 16,
       "longestAnswerRatio": 0.75,
       "literalAnswerLeak": 1,
-      "unknownRequiredTokens": 1,
-      "unknownTokenSamples": [
-        "print"
-      ],
+      "unknownRequiredTokens": 0,
+      "unknownTokenSamples": [],
       "prerequisiteByUsage": [],
       "sourceCoverage": []
     },

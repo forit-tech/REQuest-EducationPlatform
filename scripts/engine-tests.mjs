@@ -61,10 +61,13 @@ for (const file of courseFiles) {
     const correctIndex = (mission.task.options ?? []).findIndex(option => option.trim() === mission.task.answer.trim())
     const correctOption = correctIndex >= 0 ? [`option-${correctIndex + 1}`] : []
     const starter = mission.task.starterCode ?? ''
-    const solved = (mission.task.codeChecks ?? []).reduce(
-      (code, check) => code.includes(check.includes) ? code : `${code}\n${check.includes}`,
-      starter,
-    )
+    const solved = (mission.task.codeChecks ?? []).reduce((code, check) => {
+      let next = check.notIncludes ? code.split(check.notIncludes).join('') : code
+      const required = check.minOccurrences ?? 1
+      const present = next.split(check.includes).length - 1
+      if (present < required) next += `\n${Array(required - present).fill(check.includes).join('\n')}`
+      return next
+    }, starter)
 
     let value
     if (task.response.kind === 'form') {
@@ -118,6 +121,26 @@ await check('кодовая миссия требует и гипотезу, и 
   const onlyCode = engine.evaluate(task, { kind: 'form', fields: { hypothesis: { kind: 'choice', selected: ['option-2'] }, code } })
   assert.equal(both.passed, true)
   assert.equal(onlyCode.passed, false)
+})
+
+await check('комментарий с ожидаемым фрагментом не засчитывается как код', () => {
+  assert.equal(engine.passesCodeCheck('# print("Готово")\n', 'print("Готово")'), false)
+  assert.equal(engine.passesCodeCheck('// print("Готово")\n', 'print("Готово")'), false)
+  assert.equal(engine.passesCodeCheck('ready = True  # print("Готово")\n', 'print("Готово")'), false)
+  assert.equal(engine.passesCodeCheck('print("Готово")\n', 'print("Готово")'), true)
+})
+
+await check('очистка комментариев не ломает строки и целочисленное деление Python', () => {
+  assert.equal(engine.passesCodeCheck('print("номер #1")\n', 'номер #1'), true)
+  assert.equal(engine.passesCodeCheck('pages = 10 // 3\n', '//'), true)
+})
+
+await check('проверка умеет требовать замену и число операций', () => {
+  assert.equal(engine.passesCodeCheck('print("Новое")', { includes: 'print(', notIncludes: 'Старое' }), true)
+  assert.equal(engine.passesCodeCheck('print("Старое")', { includes: 'print(', notIncludes: 'Старое' }), false)
+  assert.equal(engine.passesCodeCheck('print(1)\nprint(2)', { includes: 'print(', minOccurrences: 2 }), true)
+  assert.equal(engine.passesCodeCheck('print(1)', { includes: 'print(', minOccurrences: 2 }), false)
+  assert.equal(engine.passesCodeCheck('x=1\nx = 1', { includes: 'x = 1', minOccurrences: 2 }), true)
 })
 
 await check('идентификатор миссии уникален во всём корпусе', () => {
