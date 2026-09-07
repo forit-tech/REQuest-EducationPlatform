@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-07T12:17:19.064Z",
-  "durationMs": 331,
+  "generatedAt": "2026-09-07T12:27:52.254Z",
+  "durationMs": 324,
   "corpus": {
     "courses": 75,
-    "legacyMissions": 1834,
+    "legacyMissions": 1854,
     "v2Tasks": 23,
     "skills": 44,
     "officialRequirements": 87,
@@ -13,7 +13,7 @@
   "summary": {
     "legacy": {
       "error": 398,
-      "warning": 303,
+      "warning": 302,
       "info": 59
     },
     "production": {
@@ -81,7 +81,7 @@
     "C2.free-check": {
       "severity": "warning",
       "scope": "legacy",
-      "count": 144,
+      "count": 143,
       "samples": [
         {
           "where": "java-core-jvm/JVM-002",
@@ -169,6 +169,17 @@
         }
       ]
     },
+    "C3.duplicate-options": {
+      "severity": "warning",
+      "scope": "legacy",
+      "count": 1,
+      "samples": [
+        {
+          "where": "python-core/PYC-208",
+          "message": "Набор вариантов ответа повторяется 2 раз"
+        }
+      ]
+    },
     "C3.template-course": {
       "severity": "info",
       "scope": "legacy",
@@ -233,14 +244,14 @@
       "samples": [
         {
           "where": "все курсы",
-          "message": "Распределение числа вариантов: 3 вариантов — 1419"
+          "message": "Распределение числа вариантов: 3 вариантов — 1427"
         }
       ]
     },
     "C5.fragile-substring": {
       "severity": "warning",
       "scope": "legacy",
-      "count": 48,
+      "count": 47,
       "samples": [
         {
           "where": "go-core/GOC-008",

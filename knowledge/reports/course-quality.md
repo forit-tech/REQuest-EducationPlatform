@@ -6,12 +6,12 @@
 | Класс | Курсов | Миссий |
 |---|---:|---:|
 | AUTHORED_REAL | 14 | 386 |
-| AUTHORED_NEEDS_REVIEW | 5 | 167 |
+| AUTHORED_NEEDS_REVIEW | 5 | 187 |
 | GENERATOR_SCAFFOLD | 31 | 956 |
 | FAKE_PRACTICE | 25 | 325 |
 | OUTLINE_ONLY (проектный граф) | 149 | — |
 
-Runtime: 75 курсов, 1834 миссий. Проектный граф: 355 курсов, из них 149 без модулей.
+Runtime: 75 курсов, 1854 миссий. Проектный граф: 355 курсов, из них 149 без модулей.
 
 ## Курсы
 
@@ -34,7 +34,7 @@ Runtime: 75 курсов, 1834 миссий. Проектный граф: 355 к
 | `analyst-metrics` | AUTHORED_NEEDS_REVIEW | 13 | 0 | 0 | 92% | 0 | 4 миссий повторяют одну фразу в контексте, объяснении и подсказке |
 | `data-foundations` | AUTHORED_NEEDS_REVIEW | 30 | 0 | 0 | 53% | 3 | 1 миссий содержат ответ дословно в тексте задания |
 | `go-production` | AUTHORED_NEEDS_REVIEW | 16 | 9 | 0 | 81% | 1 | 1 миссий содержат ответ дословно в тексте задания |
-| `python-core` | AUTHORED_NEEDS_REVIEW | 92 | 58 | 0 | 79% | 1 | 45 из 92 миссий собраны шаблоном `scripts/generate-planned-courses.mjs` |
+| `python-core` | AUTHORED_NEEDS_REVIEW | 112 | 69 | 0 | 70% | 1 | 45 из 112 миссий собраны шаблоном `scripts/generate-planned-courses.mjs` |
 | `technical-foundations` | AUTHORED_NEEDS_REVIEW | 16 | 2 | 0 | 75% | 0 | 1 миссий содержат ответ дословно в тексте задания |
 | `advanced-sql` | GENERATOR_SCAFFOLD | 62 | 32 | 0 | 100% | 3 | 62 из 62 миссий собраны шаблоном `scripts/generate-planned-courses.mjs` |
 | `analytical-databases` | GENERATOR_SCAFFOLD | 32 | 13 | 0 | 100% | 2 | 32 из 32 миссий собраны шаблоном `scripts/generate-planned-courses.mjs` |
