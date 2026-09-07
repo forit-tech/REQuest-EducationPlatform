@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-07T16:00:33.269Z",
-  "durationMs": 298,
+  "generatedAt": "2026-09-07T16:20:24.304Z",
+  "durationMs": 282,
   "corpus": {
     "courses": 75,
-    "legacyMissions": 1805,
+    "legacyMissions": 1761,
     "v2Tasks": 23,
     "skills": 44,
     "officialRequirements": 87,
@@ -12,9 +12,9 @@
   },
   "summary": {
     "legacy": {
-      "error": 395,
-      "warning": 284,
-      "info": 59
+      "error": 375,
+      "warning": 283,
+      "info": 58
     },
     "production": {
       "error": 0,
@@ -103,17 +103,12 @@
     "C2.normalized-answer-in-theory": {
       "severity": "error",
       "scope": "legacy",
-      "count": 3,
+      "count": 2,
       "samples": [
         {
           "where": "data-foundations/DATA-004",
           "message": "Ответ лежит в тексте перед вопросом с точностью до оформления",
           "sample": "Фотографии товаров"
-        },
-        {
-          "where": "pandas/PDA-101",
-          "message": "Ответ лежит в тексте перед вопросом с точностью до оформления",
-          "sample": "df[(df['amount'] > 1000) & (df['amount'] < 5000)]"
         },
         {
           "where": "sql-foundations/SQL-009",
@@ -125,7 +120,7 @@
     "C3.duplicate-prompt": {
       "severity": "error",
       "scope": "legacy",
-      "count": 226,
+      "count": 207,
       "samples": [
         {
           "where": "java-core-jvm/JVM-002",
@@ -151,7 +146,7 @@
       "samples": [
         {
           "where": "все курсы",
-          "message": "Продублированных формулировок 226, затронуто заданий 491"
+          "message": "Продублированных формулировок 207, затронуто заданий 453"
         }
       ]
     },
@@ -177,7 +172,7 @@
     "C3.template-course": {
       "severity": "info",
       "scope": "legacy",
-      "count": 57,
+      "count": 56,
       "samples": [
         {
           "where": "java-core-jvm",
@@ -215,7 +210,7 @@
     "C4.longest-is-correct": {
       "severity": "warning",
       "scope": "legacy",
-      "count": 25,
+      "count": 24,
       "samples": [
         {
           "where": "go-network-services",
@@ -238,7 +233,7 @@
       "samples": [
         {
           "where": "все курсы",
-          "message": "Распределение числа вариантов: 3 вариантов — 1374"
+          "message": "Распределение числа вариантов: 3 вариантов — 1289"
         }
       ]
     },
@@ -362,7 +357,6 @@
     "ml-engineering",
     "ml-observability",
     "model-serving",
-    "pandas",
     "product-analytics",
     "production",
     "rag-systems",
@@ -383,7 +377,6 @@
     "analytical-databases",
     "clickhouse",
     "data-cleaning",
-    "data-visualization",
     "large-data",
     "statistics"
   ],

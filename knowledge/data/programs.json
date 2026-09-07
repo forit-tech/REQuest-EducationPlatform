@@ -118,10 +118,10 @@
     "phase": "Обработка",
     "title": "Pandas",
     "goal": "Надёжно исследовать, преобразовывать и объединять табличные данные.",
-    "missionCount": 117,
+    "missionCount": 73,
     "status": "ready",
     "prerequisites": [
-      "numpy"
+      "python-core"
     ],
     "blocks": [
       "DataFrame и Series",

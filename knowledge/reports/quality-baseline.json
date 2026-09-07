@@ -1,17 +1,17 @@
 {
   "note": "Базовая линия качества старого контента. Число нарушений по каждому правилу не должно расти. Каждое исправление уменьшает эти числа — тогда базовую линию нужно перезаписать этой же командой.",
-  "updatedAt": "2026-09-07T10:38:57.739Z",
+  "updatedAt": "2026-09-07T16:19:35.179Z",
   "legacyErrors": {
     "C2.exact-answer-in-theory": 163,
-    "C2.normalized-answer-in-theory": 3,
-    "C3.duplicate-prompt": 226,
+    "C2.normalized-answer-in-theory": 2,
+    "C3.duplicate-prompt": 207,
     "C4.duplicate-options": 3
   },
   "legacyWarnings": {
     "C2.paraphrased-answer": 2,
     "C2.free-check": 140,
     "C3.duplicate-intro": 83,
-    "C4.longest-is-correct": 25,
+    "C4.longest-is-correct": 24,
     "C5.fragile-substring": 34
   }
 }

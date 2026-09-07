@@ -8,7 +8,7 @@
     "OUTLINE_ONLY": 149
   },
   "missionsByClass": {
-    "AUTHORED_REAL": 1210,
+    "AUTHORED_REAL": 1166,
     "AUTHORED_NEEDS_REVIEW": 75,
     "GENERATOR_SCAFFOLD": 195,
     "FAKE_PRACTICE": 325,
@@ -16,7 +16,7 @@
   },
   "runtime": {
     "courses": 75,
-    "missions": 1805
+    "missions": 1761
   },
   "curriculumLayer": {
     "courses": 355,
@@ -721,21 +721,24 @@
       "classification": "AUTHORED_REAL",
       "reasons": [],
       "overridden": false,
-      "missions": 117,
-      "codeLabMissions": 73,
+      "missions": 73,
+      "codeLabMissions": 41,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
       "starterAlreadySatisfies": 0,
-      "optionMissions": 117,
-      "longestAnswerRatio": 0.983,
+      "optionMissions": 32,
+      "longestAnswerRatio": 0.469,
       "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 336,
+      "unknownRequiredTokens": 68,
       "unknownTokenSamples": [
-        "import",
-        "pandas"
+        "assert",
+        "loc",
+        "sum",
+        "iloc",
+        "len"
       ],
       "prerequisiteByUsage": [],
       "sourceCoverage": [

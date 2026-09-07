@@ -5,13 +5,13 @@
 
 | Класс | Курсов | Миссий |
 |---|---:|---:|
-| AUTHORED_REAL | 31 | 1210 |
+| AUTHORED_REAL | 31 | 1166 |
 | AUTHORED_NEEDS_REVIEW | 4 | 75 |
 | GENERATOR_SCAFFOLD | 15 | 195 |
 | FAKE_PRACTICE | 25 | 325 |
 | OUTLINE_ONLY (проектный граф) | 149 | — |
 
-Runtime: 75 курсов, 1805 миссий. Проектный граф: 355 курсов, из них 149 без модулей.
+Runtime: 75 курсов, 1761 миссий. Проектный граф: 355 курсов, из них 149 без модулей.
 
 ## Курсы
 
@@ -36,7 +36,7 @@ Runtime: 75 курсов, 1805 миссий. Проектный граф: 355 к
 | `javascript-core` | AUTHORED_REAL | 19 | 14 | 0 | 90% | 0 | — |
 | `large-data` | AUTHORED_REAL | 40 | 15 | 0 | 100% | 3 | — |
 | `numpy` | AUTHORED_REAL | 48 | 24 | 0 | 67% | 2 | — |
-| `pandas` | AUTHORED_REAL | 117 | 73 | 0 | 98% | 4 | — |
+| `pandas` | AUTHORED_REAL | 73 | 41 | 0 | 47% | 4 | — |
 | `polars` | AUTHORED_REAL | 42 | 22 | 0 | 100% | 2 | — |
 | `postgresql` | AUTHORED_REAL | 54 | 24 | 0 | 100% | 1 | — |
 | `production-incidents` | AUTHORED_REAL | 36 | 12 | 0 | 100% | 1 | — |
