@@ -20,7 +20,7 @@
 | `go-network-services` | go | 10 | 3 | 13 | 6 | 0 | 1 |
 | `go-core-concurrency` | go | 11 | 2 | 12 | 4 | 0 | 2 |
 | `go-production` | go | 9 | 0 | 10 | 4 | 0 | 2 |
-| `python-core` | python | 69 | 6 | 1 | 1 | 1 | 1 |
+| `python-core` | python | 83 | 6 | 1 | 1 | 1 | 1 |
 | `data-modeling` | python | 25 | 5 | 0 | 1 | 0 | 0 |
 | `frontend-delivery` | javascript | 9 | 0 | 0 | 0 | 9 | 0 |
 | `frontend-quality` | javascript | 9 | 0 | 0 | 0 | 9 | 0 |
