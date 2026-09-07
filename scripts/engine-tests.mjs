@@ -33,6 +33,14 @@ async function check(name, run) {
   }
 }
 
+await check('маршрут блокирует следующий курс внутри одного этапа', () => {
+  const stage = { courseIds: ['python-first-steps', 'python-core', 'pandas'], prerequisites: ['sql-foundations'] }
+  const routeIds = new Set(['sql-foundations', ...stage.courseIds])
+  assert.deepEqual(engine.coursePrerequisitesInRoute(stage, 0, [], routeIds), ['sql-foundations'])
+  assert.deepEqual(engine.coursePrerequisitesInRoute(stage, 1, ['python-first-steps'], routeIds), ['python-first-steps'])
+  assert.deepEqual(engine.coursePrerequisitesInRoute(stage, 2, ['numpy'], routeIds), ['python-core'])
+})
+
 function walk(dir) {
   return readdirSync(dir).flatMap(entry => {
     const full = join(dir, entry)

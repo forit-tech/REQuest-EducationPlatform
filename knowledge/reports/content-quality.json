@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-07T09:08:47.148Z",
-  "durationMs": 750,
+  "generatedAt": "2026-09-07T16:00:33.269Z",
+  "durationMs": 298,
   "corpus": {
     "courses": 75,
     "legacyMissions": 1805,
@@ -12,8 +12,8 @@
   },
   "summary": {
     "legacy": {
-      "error": 398,
-      "warning": 289,
+      "error": 395,
+      "warning": 284,
       "info": 59
     },
     "production": {
@@ -81,7 +81,7 @@
     "C2.free-check": {
       "severity": "warning",
       "scope": "legacy",
-      "count": 141,
+      "count": 140,
       "samples": [
         {
           "where": "java-core-jvm/JVM-002",
@@ -103,7 +103,7 @@
     "C2.normalized-answer-in-theory": {
       "severity": "error",
       "scope": "legacy",
-      "count": 5,
+      "count": 3,
       "samples": [
         {
           "where": "data-foundations/DATA-004",
@@ -111,14 +111,14 @@
           "sample": "Фотографии товаров"
         },
         {
-          "where": "numpy/NPY-009",
+          "where": "pandas/PDA-101",
           "message": "Ответ лежит в тексте перед вопросом с точностью до оформления",
-          "sample": "Последний элемент"
+          "sample": "df[(df['amount'] > 1000) & (df['amount'] < 5000)]"
         },
         {
-          "where": "numpy/NPY-019",
+          "where": "sql-foundations/SQL-009",
           "message": "Ответ лежит в тексте перед вопросом с точностью до оформления",
-          "sample": "(amounts > 1000) & (amounts < 5000)"
+          "sample": "status = 'оплачен' OR (status = 'доставлен' AND amount > 5000)"
         }
       ]
     },
@@ -196,12 +196,8 @@
     "C4.duplicate-options": {
       "severity": "error",
       "scope": "legacy",
-      "count": 4,
+      "count": 3,
       "samples": [
-        {
-          "where": "numpy/NPY-019",
-          "message": "Варианты ответа повторяются"
-        },
         {
           "where": "sql-foundations/SQL-009",
           "message": "Варианты ответа повторяются"
@@ -209,13 +205,17 @@
         {
           "where": "sql-foundations/SQL-011",
           "message": "Варианты ответа повторяются"
+        },
+        {
+          "where": "sql-foundations/SQL-020",
+          "message": "Варианты ответа повторяются"
         }
       ]
     },
     "C4.longest-is-correct": {
       "severity": "warning",
       "scope": "legacy",
-      "count": 27,
+      "count": 25,
       "samples": [
         {
           "where": "go-network-services",
@@ -245,7 +245,7 @@
     "C5.fragile-substring": {
       "severity": "warning",
       "scope": "legacy",
-      "count": 36,
+      "count": 34,
       "samples": [
         {
           "where": "go-core/GOC-008",
@@ -362,7 +362,6 @@
     "ml-engineering",
     "ml-observability",
     "model-serving",
-    "numpy",
     "pandas",
     "product-analytics",
     "production",

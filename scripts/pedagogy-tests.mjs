@@ -32,6 +32,18 @@ check('python-core закрыт прямой зависимостью от Basic
   assert.deepEqual(core?.prerequisites, ['python-first-steps'])
 })
 
+check('порядок внутри этапа является обязательным, а не только визуальным', () => {
+  for (const program of programs) for (const stage of program.stages) {
+    for (let index = 1; index < stage.courseIds.length; index += 1) {
+      assert.notEqual(stage.courseIds[index], stage.courseIds[index - 1],
+        `${program.professionId}: курс продублирован подряд и не образует осмысленную ступень`)
+    }
+  }
+  const analyst = programs.find(program => program.professionId === 'data-analyst')
+  const pythonStage = analyst.stages.find(stage => stage.courseIds.includes('pandas'))
+  assert.deepEqual(pythonStage.courseIds.slice(-2), ['python-core', 'pandas'])
+})
+
 check('проверенные курсы размечают каждую миссию стадией и сущностью', () => {
   const audited = courses.filter(course => course.pedagogy?.audited)
   assert.ok(audited.length >= 2)

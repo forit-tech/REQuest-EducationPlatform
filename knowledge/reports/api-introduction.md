@@ -6,13 +6,12 @@
 библиотеки, которых человек ещё нигде не видел. Показом считается появление в стартовом файле
 или в тексте миссии — определение щедрое, поэтому числа ниже занижены.
 
-Курсов с кодом: 50. Из них с нарушениями: 13.
-Требований без показа: 16. Миссий с несколькими новыми сущностями сразу: 30.
+Курсов с кодом: 50. Из них с нарушениями: 11.
+Требований без показа: 14. Миссий с несколькими новыми сущностями сразу: 30.
 
 | Курс | Язык | Кодовых миссий | Требуется без показа | Много нового сразу |
 |---|---|---:|---:|---:|
 | `pandas` | python | 73 | 1 | 0 |
-| `numpy` | python | 32 | 1 | 0 |
 | `polars` | python | 22 | 6 | 1 |
 | `java-core` | java | 13 | 1 | 5 |
 | `javascript-core` | javascript | 14 | 0 | 5 |
@@ -26,7 +25,6 @@
 | `data-final-project` | python | 6 | 4 | 1 |
 | `react-architecture` | javascript | 9 | 2 | 1 |
 | `data-cleaning` | python | 25 | 1 | 0 |
-| `data-formats` | python | 23 | 1 | 0 |
 | `data-quality` | python | 28 | 1 | 0 |
 | `data-visualization` | python | 21 | 1 | 0 |
 | `etl-elt` | python | 19 | 1 | 0 |
@@ -36,6 +34,7 @@
 | `ai-evaluation-safety` | python | 9 | 0 | 0 |
 | `analytics-communication` | python | 9 | 0 | 0 |
 | `boosting` | python | 9 | 0 | 0 |
+| `data-formats` | python | 8 | 0 | 0 |
 | `data-pipelines` | python | 9 | 0 | 0 |
 | `data-platform-reliability` | python | 9 | 0 | 0 |
 | `frontend-delivery` | javascript | 9 | 0 | 0 |
@@ -48,6 +47,7 @@
 | `ml-engineering` | python | 9 | 0 | 0 |
 | `ml-observability` | python | 9 | 0 | 0 |
 | `model-serving` | python | 9 | 0 | 0 |
+| `numpy` | python | 24 | 0 | 0 |
 | `product-analytics` | python | 9 | 0 | 0 |
 | `production` | python | 9 | 0 | 0 |
 | `python-core` | python | 42 | 0 | 0 |

@@ -9,11 +9,11 @@
     "courses": 50,
     "coursesInRoutes": 46,
     "coursesOutsideRoutes": 4,
-    "coursesWithViolations": 13,
-    "requiredBeforeShown": 16,
+    "coursesWithViolations": 11,
+    "requiredBeforeShown": 14,
     "firstUseSameMission": 89,
     "multipleNewApis": 30,
-    "blankEditor": 83,
+    "blankEditor": 51,
     "outsideRoutes": {
       "courses": [
         "polars",
@@ -402,254 +402,6 @@
           "missionId": "PDA-109",
           "missionTitle": "Пропуски в ключе группировки",
           "token": "transform()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        }
-      ]
-    },
-    {
-      "id": "numpy",
-      "title": "NumPy",
-      "language": "python",
-      "noRoute": false,
-      "missions": 48,
-      "codeMissions": 32,
-      "inheritedTokens": 43,
-      "requiredTokens": 160,
-      "violations": 33,
-      "requiredBeforeShown": 1,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 32,
-      "findings": [
-        {
-          "rule": "required-before-shown",
-          "missionId": "NPY-002",
-          "missionTitle": "Список Python против массива",
-          "token": "np.array()",
-          "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-002",
-          "missionTitle": "Список Python против массива",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-003",
-          "missionTitle": "Однородность типа",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-004",
-          "missionTitle": "Тип элемента dtype",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-005",
-          "missionTitle": "Форма и размерность",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-006",
-          "missionTitle": "Что такое ось",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-007",
-          "missionTitle": "Способы создать массив",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-008",
-          "missionTitle": "Индексация с нуля",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-010",
-          "missionTitle": "Срезы",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-011",
-          "missionTitle": "Срез — это не копия",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-012",
-          "missionTitle": "Двумерная индексация",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-013",
-          "missionTitle": "Срез по двум осям",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-015",
-          "missionTitle": "Индексация списком индексов",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-017",
-          "missionTitle": "Маска как фильтр",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-018",
-          "missionTitle": "Условия соединяют & и |",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-019",
-          "missionTitle": "Скобки в составной маске",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-020",
-          "missionTitle": "Выбор значения по условию",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-026",
-          "missionTitle": "Векторизация условной логики",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-027",
-          "missionTitle": "vectorize не ускоряет",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-028",
-          "missionTitle": "Операции на месте",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-029",
-          "missionTitle": "Целочисленное переполнение",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-032",
-          "missionTitle": "Вычитание среднего по столбцам",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-033",
-          "missionTitle": "Несовместимые формы",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-034",
-          "missionTitle": "Явное добавление оси",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-035",
-          "missionTitle": "Взрыв памяти при трансляции",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-037",
-          "missionTitle": "axis=0 против axis=1",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-038",
-          "missionTitle": "Сохранение размерности",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-039",
-          "missionTitle": "NaN заражает расчёт",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-041",
-          "missionTitle": "Позиция минимума и максимума",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-043",
-          "missionTitle": "Изменение формы без копирования",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-044",
-          "missionTitle": "Копия или представление",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-045",
-          "missionTitle": "float32 против float64",
-          "token": "np.array()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "NPY-047",
-          "missionTitle": "Когда NumPy не нужен",
-          "token": "np.array()",
           "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
         }
       ]
@@ -2111,7 +1863,7 @@
       "noRoute": false,
       "missions": 52,
       "codeMissions": 25,
-      "inheritedTokens": 55,
+      "inheritedTokens": 82,
       "requiredTokens": 92,
       "violations": 1,
       "requiredBeforeShown": 1,
@@ -2129,37 +1881,13 @@
       ]
     },
     {
-      "id": "data-formats",
-      "title": "Форматы данных",
-      "language": "python",
-      "noRoute": false,
-      "missions": 34,
-      "codeMissions": 23,
-      "inheritedTokens": 43,
-      "requiredTokens": 92,
-      "violations": 1,
-      "requiredBeforeShown": 1,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "findings": [
-        {
-          "rule": "required-before-shown",
-          "missionId": "FMT-002",
-          "missionTitle": "Текстовые и двоичные форматы",
-          "token": "solve()",
-          "kind": "функция"
-        }
-      ]
-    },
-    {
       "id": "data-quality",
       "title": "Качество данных",
       "language": "python",
       "noRoute": false,
       "missions": 50,
       "codeMissions": 28,
-      "inheritedTokens": 45,
+      "inheritedTokens": 58,
       "requiredTokens": 102,
       "violations": 1,
       "requiredBeforeShown": 1,
@@ -2207,7 +1935,7 @@
       "noRoute": false,
       "missions": 46,
       "codeMissions": 19,
-      "inheritedTokens": 44,
+      "inheritedTokens": 57,
       "requiredTokens": 76,
       "violations": 1,
       "requiredBeforeShown": 1,
@@ -2231,7 +1959,7 @@
       "noRoute": false,
       "missions": 46,
       "codeMissions": 24,
-      "inheritedTokens": 55,
+      "inheritedTokens": 82,
       "requiredTokens": 86,
       "violations": 1,
       "requiredBeforeShown": 1,
@@ -2255,7 +1983,7 @@
       "noRoute": false,
       "missions": 40,
       "codeMissions": 15,
-      "inheritedTokens": 45,
+      "inheritedTokens": 58,
       "requiredTokens": 56,
       "violations": 1,
       "requiredBeforeShown": 1,
@@ -2303,7 +2031,7 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 51,
+      "inheritedTokens": 65,
       "requiredTokens": 32,
       "violations": 0,
       "requiredBeforeShown": 0,
@@ -2335,8 +2063,24 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 56,
+      "inheritedTokens": 83,
       "requiredTokens": 32,
+      "violations": 0,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "findings": []
+    },
+    {
+      "id": "data-formats",
+      "title": "Форматы данных",
+      "language": "python",
+      "noRoute": false,
+      "missions": 34,
+      "codeMissions": 8,
+      "inheritedTokens": 43,
+      "requiredTokens": 37,
       "violations": 0,
       "requiredBeforeShown": 0,
       "firstUseSameMission": 0,
@@ -2351,7 +2095,7 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 44,
+      "inheritedTokens": 57,
       "requiredTokens": 30,
       "violations": 0,
       "requiredBeforeShown": 0,
@@ -2367,7 +2111,7 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 45,
+      "inheritedTokens": 58,
       "requiredTokens": 26,
       "violations": 0,
       "requiredBeforeShown": 0,
@@ -2447,7 +2191,7 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 55,
+      "inheritedTokens": 82,
       "requiredTokens": 28,
       "violations": 0,
       "requiredBeforeShown": 0,
@@ -2463,7 +2207,7 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 51,
+      "inheritedTokens": 65,
       "requiredTokens": 31,
       "violations": 0,
       "requiredBeforeShown": 0,
@@ -2479,7 +2223,7 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 50,
+      "inheritedTokens": 64,
       "requiredTokens": 29,
       "violations": 0,
       "requiredBeforeShown": 0,
@@ -2495,7 +2239,7 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 56,
+      "inheritedTokens": 83,
       "requiredTokens": 29,
       "violations": 0,
       "requiredBeforeShown": 0,
@@ -2511,7 +2255,7 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 57,
+      "inheritedTokens": 84,
       "requiredTokens": 29,
       "violations": 0,
       "requiredBeforeShown": 0,
@@ -2527,8 +2271,24 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 56,
+      "inheritedTokens": 83,
       "requiredTokens": 31,
+      "violations": 0,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "findings": []
+    },
+    {
+      "id": "numpy",
+      "title": "NumPy",
+      "language": "python",
+      "noRoute": false,
+      "missions": 48,
+      "codeMissions": 24,
+      "inheritedTokens": 43,
+      "requiredTokens": 97,
       "violations": 0,
       "requiredBeforeShown": 0,
       "firstUseSameMission": 0,
@@ -2559,7 +2319,7 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 56,
+      "inheritedTokens": 83,
       "requiredTokens": 28,
       "violations": 0,
       "requiredBeforeShown": 0,
@@ -2576,7 +2336,7 @@
       "missions": 63,
       "codeMissions": 42,
       "inheritedTokens": 11,
-      "requiredTokens": 98,
+      "requiredTokens": 97,
       "violations": 0,
       "requiredBeforeShown": 0,
       "firstUseSameMission": 0,
@@ -2655,7 +2415,7 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 51,
+      "inheritedTokens": 65,
       "requiredTokens": 29,
       "violations": 0,
       "requiredBeforeShown": 0,
@@ -2703,7 +2463,7 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 45,
+      "inheritedTokens": 58,
       "requiredTokens": 28,
       "violations": 0,
       "requiredBeforeShown": 0,

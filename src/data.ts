@@ -1,4 +1,5 @@
 import type { Mission, MissionType, Room } from './types'
+import { coursePrerequisitesInRoute } from './core/task/route'
 import professionPrograms from '../knowledge/professions/programs.json'
 
 interface CourseFile {
@@ -56,14 +57,13 @@ export function roomsForProfession(professionId: string) {
   const routeIds = new Set(program.stages.flatMap(stage => stage.courseIds))
   const route: Room[] = []
   for (const stage of program.stages) {
-    stage.courseIds.forEach(courseId => {
+    stage.courseIds.forEach((courseId, courseIndex) => {
       const room = roomById.get(courseId)
       if (!room) return
-      const routePrerequisites = (room.prerequisites ?? []).filter(prerequisite => routeIds.has(prerequisite))
       route.push({
         ...room,
         index: String(route.length + 1).padStart(2, '0'),
-        prerequisites: routePrerequisites.length ? routePrerequisites : stage.prerequisites,
+        prerequisites: coursePrerequisitesInRoute(stage, courseIndex, room.prerequisites ?? [], routeIds),
       })
     })
   }

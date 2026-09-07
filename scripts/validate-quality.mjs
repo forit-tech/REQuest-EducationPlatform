@@ -38,6 +38,11 @@ const started = Date.now()
 const corpus = loadCorpus(root)
 const findings = runRules(corpus, engine)
 const elapsed = Date.now() - started
+const auditedCourseIds = new Set(corpus.courses.filter(course => course.pedagogy?.audited).map(course => course.id))
+const auditedFindings = findings.filter(item =>
+  item.scope === SCOPE.LEGACY
+  && item.severity !== 'info'
+  && auditedCourseIds.has(String(item.where).split('/')[0]))
 
 /* ------------------------------------------------------------- свод */
 
@@ -195,6 +200,11 @@ if (strictErrors.length) {
   failed = true
   console.error(`\nНовый контент обязан быть чистым, а ошибок ${strictErrors.length}:`)
   for (const item of strictErrors.slice(0, 10)) console.error(`  ✕ ${item.rule} · ${item.where}: ${item.message}`)
+}
+if (auditedFindings.length) {
+  failed = true
+  console.error(`\nКурсы с pedagogy.audited обязаны быть чистыми, находок ${auditedFindings.length}:`)
+  for (const item of auditedFindings.slice(0, 10)) console.error(`  ✕ ${item.rule} · ${item.where}: ${item.message}`)
 }
 // Целостность не прощается нигде, включая старый контент: базовая линия — это
 // уступка оформлению, а не разрешение хранить сломанное поведение.

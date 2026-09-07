@@ -22,7 +22,7 @@ Runtime: 75 курсов, 1805 миссий. Проектный граф: 355 к
 | `clickhouse` | AUTHORED_REAL | 48 | 24 | 0 | 100% | 1 | — |
 | `data-cleaning` | AUTHORED_REAL | 52 | 25 | 0 | 100% | 3 | — |
 | `data-final-project` | AUTHORED_REAL | 18 | 6 | 0 | 100% | 0 | — |
-| `data-formats` | AUTHORED_REAL | 34 | 23 | 0 | 88% | 10 | — |
+| `data-formats` | AUTHORED_REAL | 34 | 8 | 0 | 71% | 10 | — |
 | `data-modeling` | AUTHORED_REAL | 44 | 25 | 0 | 100% | 0 | — |
 | `data-quality` | AUTHORED_REAL | 50 | 28 | 0 | 100% | 1 | — |
 | `data-visualization` | AUTHORED_REAL | 44 | 21 | 0 | 100% | 1 | — |
@@ -35,12 +35,12 @@ Runtime: 75 курсов, 1805 миссий. Проектный граф: 355 к
 | `java-core` | AUTHORED_REAL | 17 | 13 | 0 | 88% | 0 | — |
 | `javascript-core` | AUTHORED_REAL | 19 | 14 | 0 | 90% | 0 | — |
 | `large-data` | AUTHORED_REAL | 40 | 15 | 0 | 100% | 3 | — |
-| `numpy` | AUTHORED_REAL | 48 | 32 | 0 | 69% | 2 | — |
+| `numpy` | AUTHORED_REAL | 48 | 24 | 0 | 67% | 2 | — |
 | `pandas` | AUTHORED_REAL | 117 | 73 | 0 | 98% | 4 | — |
 | `polars` | AUTHORED_REAL | 42 | 22 | 0 | 100% | 2 | — |
 | `postgresql` | AUTHORED_REAL | 54 | 24 | 0 | 100% | 1 | — |
 | `production-incidents` | AUTHORED_REAL | 36 | 12 | 0 | 100% | 1 | — |
-| `python-core` | AUTHORED_REAL | 63 | 42 | 0 | 81% | 1 | — |
+| `python-core` | AUTHORED_REAL | 63 | 42 | 0 | 71% | 1 | — |
 | `python-first-steps` | AUTHORED_REAL | 27 | 19 | 0 | 13% | 0 | — |
 | `react-architecture` | AUTHORED_REAL | 13 | 9 | 0 | 50% | 1 | — |
 | `react-core` | AUTHORED_REAL | 20 | 13 | 0 | 85% | 1 | — |

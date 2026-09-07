@@ -41,7 +41,7 @@
         "prompt": "Почему \"3490\" * 2 не является денежным расчётом?",
         "options": [
           "Это текст, поэтому операция повторяет строку",
-          "Python не умеет считать деньги",
+          "Python запрещает выполнять арифметику над значениями, которые пришли из переменных",
           "Число нельзя хранить в переменной"
         ],
         "answer": "Это текст, поэтому операция повторяет строку",
@@ -75,7 +75,7 @@
         "prompt": "Что изменяет int(price_raw)?",
         "options": [
           "Создаёт число из строки с цифрами",
-          "Переименовывает переменную",
+          "Переименовывает переменную и сохраняет прежний текст отдельно для дальнейшей печати",
           "Печатает значение без проверки"
         ],
         "answer": "Создаёт число из строки с цифрами",
@@ -315,16 +315,16 @@
         "explanation": "В заголовке if нужно булево условие, поэтому используется ==.",
         "workspaceFile": "solution.py",
         "starterCode": "status = \"paid\"\n\nif status ____ \"paid\":\n    print(\"Оплачен\")\nelse:\n    print(\"Нужна проверка\")\n",
-        "codeChecks": [
-          {
-            "label": "Используется сравнение",
-            "includes": "status == \"paid\""
-          },
-          {
-            "label": "Заполнитель удалён",
-            "includes": "if ",
-            "notIncludes": "____"
-          }
+      "codeChecks": [
+        {
+          "label": "Используется сравнение",
+          "includes": "status == \"paid\""
+        },
+        {
+          "label": "Сравнение стоит в заголовке условия",
+          "includes": "if status == \"paid\":",
+          "notIncludes": "____"
+        }
         ]
       },
       "hints": [
@@ -454,16 +454,16 @@
         "explanation": "После in указывается последовательность, из которой берутся элементы.",
         "workspaceFile": "solution.py",
         "starterCode": "statuses = [\"paid\", \"new\", \"paid\"]\n\nfor status in ____:\n    print(status)\n",
-        "codeChecks": [
-          {
-            "label": "Цикл читает statuses",
-            "includes": "for status in statuses:"
-          },
-          {
-            "label": "Заполнитель удалён",
-            "includes": "for ",
-            "notIncludes": "____"
-          }
+      "codeChecks": [
+        {
+          "label": "Цикл читает statuses",
+          "includes": "status in statuses"
+        },
+        {
+          "label": "Источник указан в заголовке цикла",
+          "includes": "for status in statuses:",
+          "notIncludes": "____"
+        }
         ]
       },
       "hints": [
@@ -851,15 +851,16 @@
         "explanation": "Параметры остались прежними, изменилось только обещание результата.",
         "workspaceFile": "solution.py",
         "starterCode": "def order_total(price, quantity):\n    return price * quantity\n\nprint(order_total(750, 4))\n",
-        "codeChecks": [
-          {
-            "label": "Доставка добавлена к результату",
-            "includes": "return price * quantity + 200"
-          },
-          {
-            "label": "Вызов функции сохранён",
-            "includes": "order_total(750, 4)"
-          }
+      "codeChecks": [
+        {
+          "label": "Доставка добавлена к результату",
+          "includes": "+ 200"
+        },
+        {
+          "label": "Доплата входит в возвращаемое значение",
+          "includes": "return price * quantity + 200",
+          "notIncludes": "return price * quantity\n"
+        }
         ]
       },
       "hints": [

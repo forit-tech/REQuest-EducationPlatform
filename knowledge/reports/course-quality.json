@@ -217,7 +217,7 @@
       "reasons": [],
       "overridden": false,
       "missions": 34,
-      "codeLabMissions": 23,
+      "codeLabMissions": 8,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "scaffoldTripletTitles": 0,
@@ -225,12 +225,15 @@
       "echoPhraseMissions": 0,
       "starterAlreadySatisfies": 0,
       "optionMissions": 34,
-      "longestAnswerRatio": 0.882,
+      "longestAnswerRatio": 0.706,
       "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 92,
+      "unknownRequiredTokens": 11,
       "unknownTokenSamples": [
-        "def",
-        "solve"
+        "assert",
+        "len",
+        "append",
+        "events",
+        "for"
       ],
       "prerequisiteByUsage": [],
       "sourceCoverage": [
@@ -679,7 +682,7 @@
       "reasons": [],
       "overridden": false,
       "missions": 48,
-      "codeLabMissions": 32,
+      "codeLabMissions": 24,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "scaffoldTripletTitles": 0,
@@ -687,12 +690,15 @@
       "echoPhraseMissions": 0,
       "starterAlreadySatisfies": 0,
       "optionMissions": 48,
-      "longestAnswerRatio": 0.688,
+      "longestAnswerRatio": 0.667,
       "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 128,
+      "unknownRequiredTokens": 36,
       "unknownTokenSamples": [
-        "import",
-        "numpy"
+        "assert",
+        "and",
+        "copy",
+        "array",
+        "values"
       ],
       "prerequisiteByUsage": [],
       "sourceCoverage": [
@@ -872,7 +878,7 @@
       "echoPhraseMissions": 0,
       "starterAlreadySatisfies": 0,
       "optionMissions": 21,
-      "longestAnswerRatio": 0.81,
+      "longestAnswerRatio": 0.714,
       "literalAnswerLeak": 0,
       "unknownRequiredTokens": 23,
       "unknownTokenSamples": [

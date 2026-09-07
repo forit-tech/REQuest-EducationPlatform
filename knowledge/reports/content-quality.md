@@ -1,10 +1,10 @@
 # Качество учебного контента
 
-Собрано 07.09.2026, 10:08:47 за 750 мс.
+Собрано 08.09.2026, 00:00:33 за 298 мс.
 
 | Периметр | Ошибки | Предупреждения | Наблюдения |
 |---|---:|---:|---:|
-| Старый контент | 398 | 289 | 59 |
+| Старый контент | 395 | 284 | 59 |
 | Учебный материал | 0 | 5 | 30 |
 | Тестовые фикстуры | 0 | 1 | 0 |
 
@@ -20,12 +20,12 @@
 |---|---|---|---:|
 | C3.duplicate-prompt | error | legacy | 226 |
 | C2.exact-answer-in-theory | error | legacy | 163 |
-| C2.normalized-answer-in-theory | error | legacy | 5 |
-| C4.duplicate-options | error | legacy | 4 |
-| C2.free-check | warning | legacy | 141 |
+| C2.normalized-answer-in-theory | error | legacy | 3 |
+| C4.duplicate-options | error | legacy | 3 |
+| C2.free-check | warning | legacy | 140 |
 | C3.duplicate-intro | warning | legacy | 83 |
-| C5.fragile-substring | warning | legacy | 36 |
-| C4.longest-is-correct | warning | legacy | 27 |
+| C5.fragile-substring | warning | legacy | 34 |
+| C4.longest-is-correct | warning | legacy | 25 |
 | C7.no-introduction | warning | production | 5 |
 | C2.paraphrased-answer | warning | legacy | 2 |
 | C1.missing-source | warning | fixture | 1 |

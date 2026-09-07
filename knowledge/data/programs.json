@@ -78,7 +78,8 @@
     "missionCount": 34,
     "status": "ready",
     "prerequisites": [
-      "data-foundations"
+      "data-foundations",
+      "python-core"
     ],
     "blocks": [
       "CSV и TSV",
