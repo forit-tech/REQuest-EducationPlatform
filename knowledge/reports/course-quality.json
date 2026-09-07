@@ -2,21 +2,21 @@
   "note": "Классификация runtime-курсов по происхождению содержания. Считается автоматически: npm run quality:report. Время сборки в файл не пишется намеренно — отчёт лежит в репозитории, и метка времени давала бы изменение в diff при каждом прогоне.",
   "totals": {
     "AUTHORED_REAL": 14,
-    "AUTHORED_NEEDS_REVIEW": 4,
-    "GENERATOR_SCAFFOLD": 32,
+    "AUTHORED_NEEDS_REVIEW": 5,
+    "GENERATOR_SCAFFOLD": 31,
     "FAKE_PRACTICE": 25,
     "OUTLINE_ONLY": 149
   },
   "missionsByClass": {
     "AUTHORED_REAL": 386,
-    "AUTHORED_NEEDS_REVIEW": 75,
-    "GENERATOR_SCAFFOLD": 1035,
+    "AUTHORED_NEEDS_REVIEW": 167,
+    "GENERATOR_SCAFFOLD": 956,
     "FAKE_PRACTICE": 325,
     "OUTLINE_ONLY": 0
   },
   "runtime": {
     "courses": 75,
-    "missions": 1821
+    "missions": 1834
   },
   "curriculumLayer": {
     "courses": 355,
@@ -675,6 +675,45 @@
       "sourceCoverage": [
         {
           "id": "go-documentation",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "python-core",
+      "path": "knowledge/data/python-core/course.json",
+      "title": "Python для работы с данными",
+      "level": "База",
+      "technology": "python",
+      "classification": "AUTHORED_NEEDS_REVIEW",
+      "reasons": [
+        "45 из 92 миссий собраны шаблоном `scripts/generate-planned-courses.mjs`"
+      ],
+      "overridden": false,
+      "missions": 92,
+      "codeLabMissions": 58,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "plannedScaffoldMissions": 45,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 66,
+      "longestAnswerRatio": 0.788,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 116,
+      "unknownTokenSamples": [
+        "int",
+        "print",
+        "type",
+        "for",
+        "else"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "python-docs",
           "class": "GROUNDING"
         }
       ]
@@ -1656,45 +1695,6 @@
         {
           "id": "sql-murder-mystery",
           "class": "ADAPTABLE_OER"
-        }
-      ]
-    },
-    {
-      "id": "python-core",
-      "path": "knowledge/data/python-core/course.json",
-      "title": "Python для работы с данными",
-      "level": "База",
-      "technology": "python",
-      "classification": "GENERATOR_SCAFFOLD",
-      "reasons": [
-        "45 из 79 миссий собраны шаблоном `scripts/generate-planned-courses.mjs`"
-      ],
-      "overridden": false,
-      "missions": 79,
-      "codeLabMissions": 50,
-      "fakePracticeMissions": 0,
-      "planStubMissions": 0,
-      "plannedScaffoldMissions": 45,
-      "scaffoldTripletTitles": 0,
-      "templateObjectiveMissions": 0,
-      "echoPhraseMissions": 0,
-      "starterAlreadySatisfies": 0,
-      "optionMissions": 61,
-      "longestAnswerRatio": 0.836,
-      "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 110,
-      "unknownTokenSamples": [
-        "int",
-        "print",
-        "type",
-        "for",
-        "else"
-      ],
-      "prerequisiteByUsage": [],
-      "sourceCoverage": [
-        {
-          "id": "python-docs",
-          "class": "GROUNDING"
         }
       ]
     },

@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-06T19:12:51.952Z",
-  "durationMs": 636,
+  "generatedAt": "2026-09-07T12:17:19.064Z",
+  "durationMs": 331,
   "corpus": {
     "courses": 75,
-    "legacyMissions": 1821,
+    "legacyMissions": 1834,
     "v2Tasks": 23,
     "skills": 44,
     "officialRequirements": 87,
@@ -13,7 +13,7 @@
   "summary": {
     "legacy": {
       "error": 398,
-      "warning": 304,
+      "warning": 303,
       "info": 59
     },
     "production": {
@@ -210,7 +210,7 @@
     "C4.longest-is-correct": {
       "severity": "warning",
       "scope": "legacy",
-      "count": 21,
+      "count": 26,
       "samples": [
         {
           "where": "go-network-services",
@@ -233,7 +233,7 @@
       "samples": [
         {
           "where": "все курсы",
-          "message": "Распределение числа вариантов: 3 вариантов — 1414"
+          "message": "Распределение числа вариантов: 3 вариантов — 1419"
         }
       ]
     },
