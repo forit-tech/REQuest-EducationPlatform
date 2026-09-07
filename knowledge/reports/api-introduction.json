@@ -17,10 +17,10 @@
     "coursesOutsideRoutes": 5,
     "coursesWithViolations": 18,
     "requiredBeforeShown": 54,
-    "firstUseSameMission": 93,
+    "firstUseSameMission": 92,
     "multipleNewApis": 43,
-    "blankEditor": 111,
-    "checkPassesOnStarter": 138,
+    "blankEditor": 107,
+    "checkPassesOnStarter": 137,
     "checkPassesOnStarterCritical": 0,
     "hintIsNotTeaching": 12,
     "hintIsNotTeachingCritical": 8,
@@ -3365,147 +3365,6 @@
       "noReinforcement": 3
     },
     {
-      "id": "python-core",
-      "title": "Python для работы с данными",
-      "language": "python",
-      "noRoute": false,
-      "missions": 135,
-      "codeMissions": 83,
-      "inheritedTokens": 12,
-      "requiredTokens": 211,
-      "violations": 16,
-      "requiredBeforeShown": 6,
-      "firstUseSameMission": 1,
-      "multipleNewApis": 1,
-      "blankEditor": 6,
-      "checkPassesOnStarter": 1,
-      "checkPassesOnStarterCritical": 0,
-      "hintIsNotTeaching": 1,
-      "hintIsNotTeachingCritical": 0,
-      "findings": [
-        {
-          "rule": "hint-is-not-teaching",
-          "missionId": "PYC-003",
-          "missionTitle": "Исправь расчёт выручки",
-          "token": "price = int(price_raw)",
-          "kind": "подсказка выдаёт фрагмент проверки дословно",
-          "severity": "warning"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "PYC-005",
-          "missionTitle": "Проверь весь пакет заказов",
-          "token": "for",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "check-passes-on-starter",
-          "missionId": "PYC-005",
-          "missionTitle": "Проверь весь пакет заказов",
-          "token": "for",
-          "kind": "1 из 3 проверок выполнены комментарием в стартовом файле",
-          "severity": "warning"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "PYC-008",
-          "missionTitle": "Условия и циклы: практический выбор",
-          "token": "for",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "PYC-009",
-          "missionTitle": "Условия и циклы: проверка результата",
-          "token": "for",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "PYC-012",
-          "missionTitle": "Коллекции: механика",
-          "token": "for",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "PYC-013",
-          "missionTitle": "Коллекции: практический выбор",
-          "token": "словарь или блок",
-          "kind": "синтаксис",
-          "evidence": "не встречалось нигде"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "PYC-013",
-          "missionTitle": "Коллекции: практический выбор",
-          "token": "словарь или блок",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "PYC-014",
-          "missionTitle": "Коллекции: проверка результата",
-          "token": "for",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "PYC-015",
-          "missionTitle": "Коллекции: типичная ловушка",
-          "token": "append()",
-          "kind": "функция",
-          "evidence": "названо словом, синтаксис не показан"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "PYC-015",
-          "missionTitle": "Коллекции: типичная ловушка",
-          "token": "append()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "PYC-017",
-          "missionTitle": "Функции: механика",
-          "token": "solve()",
-          "kind": "функция",
-          "evidence": "не встречалось нигде"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "PYC-017",
-          "missionTitle": "Функции: механика",
-          "token": "def",
-          "kind": "ключевое слово",
-          "evidence": "не встречалось нигде"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "PYC-017",
-          "missionTitle": "Функции: механика",
-          "token": "return",
-          "kind": "ключевое слово",
-          "evidence": "не встречалось нигде"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "PYC-017",
-          "missionTitle": "Функции: механика",
-          "token": "solve(), def, return",
-          "kind": "3 новых сущностей сразу"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "PYC-048",
-          "missionTitle": "Тестирование и отладка: практический выбор",
-          "token": "assert",
-          "kind": "ключевое слово",
-          "evidence": "не встречалось нигде"
-        }
-      ]
-    },
-    {
       "id": "data-modeling",
       "title": "Моделирование данных",
       "language": "python",
@@ -3610,6 +3469,104 @@
       "ladderGap": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 0
+    },
+    {
+      "id": "python-core",
+      "title": "Python для работы с данными",
+      "language": "python",
+      "noRoute": false,
+      "missions": 152,
+      "codeMissions": 94,
+      "inheritedTokens": 12,
+      "requiredTokens": 232,
+      "violations": 10,
+      "requiredBeforeShown": 6,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 1,
+      "blankEditor": 2,
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 1,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "hint-is-not-teaching",
+          "missionId": "PYC-003",
+          "missionTitle": "Исправь расчёт выручки",
+          "token": "price = int(price_raw)",
+          "kind": "подсказка выдаёт фрагмент проверки дословно",
+          "severity": "warning"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "PYC-013",
+          "missionTitle": "Коллекции: практический выбор",
+          "token": "словарь или блок",
+          "kind": "синтаксис",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PYC-013",
+          "missionTitle": "Коллекции: практический выбор",
+          "token": "словарь или блок",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "PYC-015",
+          "missionTitle": "Коллекции: типичная ловушка",
+          "token": "append()",
+          "kind": "функция",
+          "evidence": "названо словом, синтаксис не показан"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PYC-015",
+          "missionTitle": "Коллекции: типичная ловушка",
+          "token": "append()",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "PYC-017",
+          "missionTitle": "Функции: механика",
+          "token": "solve()",
+          "kind": "функция",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "PYC-017",
+          "missionTitle": "Функции: механика",
+          "token": "def",
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "PYC-017",
+          "missionTitle": "Функции: механика",
+          "token": "return",
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "PYC-017",
+          "missionTitle": "Функции: механика",
+          "token": "solve(), def, return",
+          "kind": "3 новых сущностей сразу"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "PYC-048",
+          "missionTitle": "Тестирование и отладка: практический выбор",
+          "token": "assert",
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
+        }
+      ]
     },
     {
       "id": "frontend-delivery",

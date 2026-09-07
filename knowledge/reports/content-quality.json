@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-07T12:38:42.409Z",
-  "durationMs": 306,
+  "generatedAt": "2026-09-07T12:45:17.762Z",
+  "durationMs": 305,
   "corpus": {
     "courses": 75,
-    "legacyMissions": 1877,
+    "legacyMissions": 1894,
     "v2Tasks": 23,
     "skills": 44,
     "officialRequirements": 87,
@@ -13,7 +13,7 @@
   "summary": {
     "legacy": {
       "error": 398,
-      "warning": 302,
+      "warning": 299,
       "info": 59
     },
     "production": {
@@ -81,7 +81,7 @@
     "C2.free-check": {
       "severity": "warning",
       "scope": "legacy",
-      "count": 143,
+      "count": 142,
       "samples": [
         {
           "where": "java-core-jvm/JVM-002",
@@ -244,14 +244,14 @@
       "samples": [
         {
           "where": "все курсы",
-          "message": "Распределение числа вариантов: 3 вариантов — 1436"
+          "message": "Распределение числа вариантов: 3 вариантов — 1441"
         }
       ]
     },
     "C5.fragile-substring": {
       "severity": "warning",
       "scope": "legacy",
-      "count": 47,
+      "count": 45,
       "samples": [
         {
           "where": "go-core/GOC-008",
