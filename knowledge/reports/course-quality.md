@@ -28,7 +28,7 @@ Runtime: 75 курсов, 1761 миссий. Проектный граф: 355 к
 | `data-visualization` | AUTHORED_REAL | 44 | 21 | 0 | 100% | 1 | — |
 | `duckdb` | AUTHORED_REAL | 30 | 13 | 0 | 100% | 1 | — |
 | `etl-elt` | AUTHORED_REAL | 46 | 19 | 0 | 100% | 1 | — |
-| `exploratory-data-analysis` | AUTHORED_REAL | 46 | 24 | 0 | 100% | 0 | — |
+| `exploratory-data-analysis` | AUTHORED_REAL | 46 | 22 | 0 | 79% | 0 | — |
 | `go-core` | AUTHORED_REAL | 16 | 12 | 0 | 69% | 0 | — |
 | `go-core-concurrency` | AUTHORED_REAL | 16 | 11 | 0 | 75% | 1 | — |
 | `go-network-services` | AUTHORED_REAL | 16 | 10 | 0 | 88% | 1 | — |

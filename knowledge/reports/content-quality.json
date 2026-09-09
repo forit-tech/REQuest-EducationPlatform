@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-07T16:33:40.899Z",
-  "durationMs": 293,
+  "generatedAt": "2026-09-09T07:48:36.068Z",
+  "durationMs": 270,
   "corpus": {
     "courses": 75,
     "legacyMissions": 1761,
@@ -13,8 +13,8 @@
   "summary": {
     "legacy": {
       "error": 362,
-      "warning": 278,
-      "info": 57
+      "warning": 272,
+      "info": 56
     },
     "production": {
       "error": 0,
@@ -172,7 +172,7 @@
     "C3.template-course": {
       "severity": "info",
       "scope": "legacy",
-      "count": 55,
+      "count": 54,
       "samples": [
         {
           "where": "java-core-jvm",
@@ -210,7 +210,7 @@
     "C4.longest-is-correct": {
       "severity": "warning",
       "scope": "legacy",
-      "count": 23,
+      "count": 22,
       "samples": [
         {
           "where": "go-network-services",
@@ -233,14 +233,14 @@
       "samples": [
         {
           "where": "все курсы",
-          "message": "Распределение числа вариантов: 3 вариантов — 1262"
+          "message": "Распределение числа вариантов: 3 вариантов — 1240"
         }
       ]
     },
     "C5.fragile-substring": {
       "severity": "warning",
       "scope": "legacy",
-      "count": 30,
+      "count": 25,
       "samples": [
         {
           "where": "go-core/GOC-008",

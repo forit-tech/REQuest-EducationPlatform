@@ -1,10 +1,10 @@
 # Качество учебного контента
 
-Собрано 08.09.2026, 00:33:40 за 293 мс.
+Собрано 09.09.2026, 09:48:36 за 270 мс.
 
 | Периметр | Ошибки | Предупреждения | Наблюдения |
 |---|---:|---:|---:|
-| Старый контент | 362 | 278 | 57 |
+| Старый контент | 362 | 272 | 56 |
 | Учебный материал | 0 | 5 | 30 |
 | Тестовые фикстуры | 0 | 1 | 0 |
 
@@ -24,12 +24,12 @@
 | C2.normalized-answer-in-theory | error | legacy | 2 |
 | C2.free-check | warning | legacy | 140 |
 | C3.duplicate-intro | warning | legacy | 83 |
-| C5.fragile-substring | warning | legacy | 30 |
-| C4.longest-is-correct | warning | legacy | 23 |
+| C5.fragile-substring | warning | legacy | 25 |
+| C4.longest-is-correct | warning | legacy | 22 |
 | C7.no-introduction | warning | production | 5 |
 | C2.paraphrased-answer | warning | legacy | 2 |
 | C1.missing-source | warning | fixture | 1 |
-| C3.template-course | info | legacy | 55 |
+| C3.template-course | info | legacy | 54 |
 | C7.progression | info | production | 26 |
 | C8.coverage | info | production | 3 |
 | C3.duplicate-reach | info | legacy | 1 |

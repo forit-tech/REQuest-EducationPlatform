@@ -6,8 +6,8 @@
 библиотеки, которых человек ещё нигде не видел. Показом считается появление в стартовом файле
 или в тексте миссии — определение щедрое, поэтому числа ниже занижены.
 
-Курсов с кодом: 50. Из них с нарушениями: 9.
-Требований без показа: 12. Миссий с несколькими новыми сущностями сразу: 30.
+Курсов с кодом: 50. Из них с нарушениями: 8.
+Требований без показа: 11. Миссий с несколькими новыми сущностями сразу: 30.
 
 | Курс | Язык | Кодовых миссий | Требуется без показа | Много нового сразу |
 |---|---|---:|---:|---:|
@@ -26,7 +26,6 @@
 | `data-quality` | python | 28 | 1 | 0 |
 | `data-visualization` | python | 21 | 1 | 0 |
 | `etl-elt` | python | 19 | 1 | 0 |
-| `exploratory-data-analysis` | python | 24 | 1 | 0 |
 | `large-data` | python | 15 | 1 | 0 |
 | `statistics` | python | 32 | 1 | 0 |
 | `ai-evaluation-safety` | python | 9 | 0 | 0 |
@@ -36,6 +35,7 @@
 | `data-formats` | python | 8 | 0 | 0 |
 | `data-pipelines` | python | 9 | 0 | 0 |
 | `data-platform-reliability` | python | 9 | 0 | 0 |
+| `exploratory-data-analysis` | python | 22 | 0 | 0 |
 | `frontend-delivery` | javascript | 9 | 0 | 0 |
 | `frontend-quality` | javascript | 9 | 0 | 0 |
 | `java-core-jvm` | java | 9 | 0 | 0 |

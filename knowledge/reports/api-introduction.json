@@ -9,8 +9,8 @@
     "courses": 50,
     "coursesInRoutes": 46,
     "coursesOutsideRoutes": 4,
-    "coursesWithViolations": 9,
-    "requiredBeforeShown": 12,
+    "coursesWithViolations": 8,
+    "requiredBeforeShown": 11,
     "firstUseSameMission": 89,
     "multipleNewApis": 30,
     "blankEditor": 0,
@@ -1548,30 +1548,6 @@
       ]
     },
     {
-      "id": "exploratory-data-analysis",
-      "title": "Разведочный анализ данных",
-      "language": "python",
-      "noRoute": false,
-      "missions": 46,
-      "codeMissions": 24,
-      "inheritedTokens": 148,
-      "requiredTokens": 86,
-      "violations": 1,
-      "requiredBeforeShown": 1,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "findings": [
-        {
-          "rule": "required-before-shown",
-          "missionId": "EDA-002",
-          "missionTitle": "Обзор набора: механика",
-          "token": "solve()",
-          "kind": "функция"
-        }
-      ]
-    },
-    {
       "id": "large-data",
       "title": "Работа с большими данными",
       "language": "python",
@@ -1732,6 +1708,22 @@
       "findings": []
     },
     {
+      "id": "exploratory-data-analysis",
+      "title": "Разведочный анализ данных",
+      "language": "python",
+      "noRoute": false,
+      "missions": 46,
+      "codeMissions": 22,
+      "inheritedTokens": 148,
+      "requiredTokens": 125,
+      "violations": 0,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "findings": []
+    },
+    {
       "id": "frontend-delivery",
       "title": "Frontend как продукт",
       "language": "javascript",
@@ -1802,7 +1794,7 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 148,
+      "inheritedTokens": 169,
       "requiredTokens": 28,
       "violations": 0,
       "requiredBeforeShown": 0,
@@ -1946,7 +1938,7 @@
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 149,
+      "inheritedTokens": 170,
       "requiredTokens": 28,
       "violations": 0,
       "requiredBeforeShown": 0,
