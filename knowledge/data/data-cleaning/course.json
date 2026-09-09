@@ -310,8 +310,8 @@
       "id": "CLN-010",
       "title": "Ограничение значений показано",
       "concept": "validity",
-      "stage": "shown",
-      "type": "quiz",
+      "stage": "filled",
+      "type": "lab",
       "minutes": 7,
       "xp": 65,
       "difficulty": "основа",
@@ -321,14 +321,27 @@
       "intro": "Если договор разрешает прижать измерительную погрешность к границе, используют явное правило:\n\nclean[\"humidity\"] = sensors[\"humidity\"].clip(lower=0, upper=100)\n\nclip не подходит для невозможных значений, которые нужно расследовать.",
       "productionContext": "Очистка считается корректной, когда правило связано со смыслом поля, а изменение строк, типов и ключевых метрик можно проверить.",
       "task": {
-        "prompt": "Когда clip допустим?",
+        "prompt": "Когда clip допустим? В редакторе заполни условие mask: влажность вне диапазона 0..100 должна стать пропуском.",
         "options": [
           "Когда правило прижатия к границе согласовано",
           "Для любого выброса без исследования",
           "Чтобы скрыть ошибки источника"
         ],
         "answer": "Когда правило прижатия к границе согласовано",
-        "explanation": "Операция корректна только как реализация заранее определённого договора."
+        "explanation": "Операция корректна только как реализация заранее определённого договора.",
+        "workspaceFile": "solution.py",
+        "starterCode": "import pandas as pd\n\nsensors = pd.DataFrame({\"humidity\": [45, -3, 103]})\nclean = sensors.copy()\nclean[\"humidity\"] = sensors[\"humidity\"].mask(____)\n",
+        "codeChecks": [
+          {
+            "label": "Невозможные значения помечены",
+            "includes": "mask(~sensors[\"humidity\"].between(0, 100))",
+            "notIncludes": "____"
+          },
+          {
+            "label": "Два дефекта подтверждены",
+            "includes": "assert clean[\"humidity\"].isna().sum() == 2"
+          }
+        ]
       },
       "hints": [
         "Сначала назови дефект, затем правило исправления и проверяемый инвариант."
@@ -730,7 +743,7 @@
       "intro": "Перезапись исходного поля уничтожает возможность отличить реальное значение от ограниченного.",
       "productionContext": "Очистка считается корректной, когда правило связано со смыслом поля, а изменение строк, типов и ключевых метрик можно проверить.",
       "task": {
-        "prompt": "Сохрани amount и запиши ограниченное значение в amount_capped. Проверь исходный максимум.",
+        "prompt": "Сохрани amount и запиши ограниченное значение в amount_capped. Проверь, что исходное первое значение осталось выше границы.",
         "answer": "Код применяет объявленное правило очистки и проверяет ожидаемый инвариант.",
         "explanation": "Ограниченная версия пригодна для расчёта, исходная — для расследования.",
         "workspaceFile": "solution.py",
@@ -743,7 +756,7 @@
           },
           {
             "label": "Исходный хвост сохранён",
-            "includes": "assert orders[\"amount\"].max() > upper"
+            "includes": "assert orders[\"amount\"].iloc[0] > upper"
           }
         ]
       },
@@ -934,7 +947,7 @@
           },
           {
             "label": "Зона сохранена",
-            "includes": "assert str(moscow_time.dt.tz) == \"Europe/Moscow\""
+            "includes": "assert moscow_time.dt.tz is not None"
           }
         ]
       },
@@ -1263,8 +1276,8 @@
       "id": "CLN-040",
       "title": "Таблица курсов показана",
       "concept": "units",
-      "stage": "shown",
-      "type": "quiz",
+      "stage": "filled",
+      "type": "lab",
       "minutes": 7,
       "xp": 65,
       "difficulty": "основа",
@@ -1274,14 +1287,26 @@
       "intro": "Для валют используют таблицу коэффициентов:\n\nrates = {\"RUB\": 1.0, \"USD\": 92.5}\nrate = payments[\"currency\"].map(rates)\npayments[\"amount_rub\"] = payments[\"amount\"] * rate\n\nmap возвращает NaN для валюты без курса — это сигнал, а не повод подставить единицу.",
       "productionContext": "Очистка считается корректной, когда правило связано со смыслом поля, а изменение строк, типов и ключевых метрик можно проверить.",
       "task": {
-        "prompt": "Что означает NaN в rate?",
+        "prompt": "Что означает NaN в rate? В редакторе используй готовую маску notna и проверь, что EUR не прошёл пересчёт.",
         "options": [
           "Для валюты нет согласованного курса",
           "Сумма платежа равна нулю",
           "Валюта автоматически считается RUB"
         ],
         "answer": "Для валюты нет согласованного курса",
-        "explanation": "Отсутствующий коэффициент блокирует доказуемый пересчёт."
+        "explanation": "Отсутствующий коэффициент блокирует доказуемый пересчёт.",
+        "workspaceFile": "solution.py",
+        "starterCode": "import pandas as pd\n\npayments = pd.DataFrame({\"amount\": [100, 2, 5], \"currency\": [\"RUB\", \"USD\", \"EUR\"]})\nrates = {\"RUB\": 1.0, \"USD\": 92.5}\nrate = payments[\"currency\"].map(rates)\npayments[\"amount_rub\"] = payments[\"amount\"] * rate\nvalid = payments[\"amount_rub\"].notna()\n",
+        "codeChecks": [
+          {
+            "label": "Неизвестная валюта не прошла",
+            "includes": "assert valid.iloc[2] == False"
+          },
+          {
+            "label": "Известный курс применён",
+            "includes": "assert payments[\"amount_rub\"].iloc[1] == 185.0"
+          }
+        ]
       },
       "hints": [
         "Сначала назови дефект, затем правило исправления и проверяемый инвариант."

@@ -1,16 +1,16 @@
 {
   "note": "Классификация runtime-курсов по происхождению содержания. Считается автоматически: npm run quality:report. Время сборки в файл не пишется намеренно — отчёт лежит в репозитории, и метка времени давала бы изменение в diff при каждом прогоне.",
   "totals": {
-    "AUTHORED_REAL": 31,
+    "AUTHORED_REAL": 18,
     "AUTHORED_NEEDS_REVIEW": 4,
-    "GENERATOR_SCAFFOLD": 15,
+    "GENERATOR_SCAFFOLD": 28,
     "FAKE_PRACTICE": 25,
     "OUTLINE_ONLY": 149
   },
   "missionsByClass": {
-    "AUTHORED_REAL": 1166,
+    "AUTHORED_REAL": 620,
     "AUTHORED_NEEDS_REVIEW": 75,
-    "GENERATOR_SCAFFOLD": 195,
+    "GENERATOR_SCAFFOLD": 741,
     "FAKE_PRACTICE": 325,
     "OUTLINE_ONLY": 0
   },
@@ -24,120 +24,6 @@
   },
   "courses": [
     {
-      "id": "advanced-sql",
-      "path": "knowledge/data/advanced-sql/course.json",
-      "title": "Продвинутый SQL",
-      "level": "Средний",
-      "technology": "sql",
-      "classification": "AUTHORED_REAL",
-      "reasons": [],
-      "overridden": false,
-      "missions": 62,
-      "codeLabMissions": 32,
-      "fakePracticeMissions": 0,
-      "planStubMissions": 0,
-      "scaffoldTripletTitles": 0,
-      "templateObjectiveMissions": 0,
-      "echoPhraseMissions": 0,
-      "starterAlreadySatisfies": 0,
-      "optionMissions": 62,
-      "longestAnswerRatio": 1,
-      "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 38,
-      "unknownTokenSamples": [
-        "SELECT",
-        "WITH",
-        "WHERE"
-      ],
-      "prerequisiteByUsage": [],
-      "sourceCoverage": [
-        {
-          "id": "pgexercises",
-          "class": "ADAPTABLE_OER"
-        },
-        {
-          "id": "select-star-sql",
-          "class": "ADAPTABLE_OER"
-        },
-        {
-          "id": "postgresql-docs",
-          "class": "GROUNDING"
-        }
-      ]
-    },
-    {
-      "id": "analytical-databases",
-      "path": "knowledge/data/analytical-databases/course.json",
-      "title": "Аналитические базы данных",
-      "level": "Средний",
-      "technology": "sql",
-      "classification": "AUTHORED_REAL",
-      "reasons": [],
-      "overridden": false,
-      "missions": 32,
-      "codeLabMissions": 13,
-      "fakePracticeMissions": 0,
-      "planStubMissions": 0,
-      "scaffoldTripletTitles": 0,
-      "templateObjectiveMissions": 0,
-      "echoPhraseMissions": 0,
-      "starterAlreadySatisfies": 0,
-      "optionMissions": 32,
-      "longestAnswerRatio": 1,
-      "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 17,
-      "unknownTokenSamples": [
-        "SELECT",
-        "WHERE",
-        "GROUP"
-      ],
-      "prerequisiteByUsage": [],
-      "sourceCoverage": [
-        {
-          "id": "apache-parquet-format",
-          "class": "GROUNDING"
-        },
-        {
-          "id": "clickhouse-docs",
-          "class": "GROUNDING"
-        }
-      ]
-    },
-    {
-      "id": "clickhouse",
-      "path": "knowledge/data/clickhouse/course.json",
-      "title": "ClickHouse",
-      "level": "Продвинутый",
-      "technology": "sql",
-      "classification": "AUTHORED_REAL",
-      "reasons": [],
-      "overridden": false,
-      "missions": 48,
-      "codeLabMissions": 24,
-      "fakePracticeMissions": 0,
-      "planStubMissions": 0,
-      "scaffoldTripletTitles": 0,
-      "templateObjectiveMissions": 0,
-      "echoPhraseMissions": 0,
-      "starterAlreadySatisfies": 0,
-      "optionMissions": 48,
-      "longestAnswerRatio": 1,
-      "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 30,
-      "unknownTokenSamples": [
-        "SELECT",
-        "GROUP",
-        "WHERE"
-      ],
-      "prerequisiteByUsage": [],
-      "sourceCoverage": [
-        {
-          "id": "clickhouse-docs",
-          "class": "GROUNDING"
-        }
-      ]
-    },
-    {
       "id": "data-cleaning",
       "path": "knowledge/data/data-cleaning/course.json",
       "title": "Очистка данных",
@@ -147,9 +33,10 @@
       "reasons": [],
       "overridden": false,
       "missions": 52,
-      "codeLabMissions": 27,
+      "codeLabMissions": 29,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -157,7 +44,7 @@
       "optionMissions": 25,
       "longestAnswerRatio": 0.76,
       "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 70,
+      "unknownRequiredTokens": 77,
       "unknownTokenSamples": [
         "assert",
         "assign",
@@ -182,34 +69,6 @@
       ]
     },
     {
-      "id": "data-final-project",
-      "path": "knowledge/data/data-final-project/course.json",
-      "title": "Финальный проект: платформа розничных данных",
-      "level": "Продвинутый",
-      "technology": "python",
-      "classification": "AUTHORED_REAL",
-      "reasons": [],
-      "overridden": false,
-      "missions": 18,
-      "codeLabMissions": 6,
-      "fakePracticeMissions": 0,
-      "planStubMissions": 0,
-      "scaffoldTripletTitles": 0,
-      "templateObjectiveMissions": 0,
-      "echoPhraseMissions": 0,
-      "starterAlreadySatisfies": 0,
-      "optionMissions": 18,
-      "longestAnswerRatio": 1,
-      "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 24,
-      "unknownTokenSamples": [
-        "def",
-        "solve"
-      ],
-      "prerequisiteByUsage": [],
-      "sourceCoverage": []
-    },
-    {
       "id": "data-formats",
       "path": "knowledge/data/data-formats/course.json",
       "title": "Форматы данных",
@@ -222,6 +81,7 @@
       "codeLabMissions": 8,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -282,170 +142,6 @@
       ]
     },
     {
-      "id": "data-modeling",
-      "path": "knowledge/data/data-modeling/course.json",
-      "title": "Моделирование данных",
-      "level": "Средний",
-      "technology": "python",
-      "classification": "AUTHORED_REAL",
-      "reasons": [],
-      "overridden": false,
-      "missions": 44,
-      "codeLabMissions": 25,
-      "fakePracticeMissions": 0,
-      "planStubMissions": 0,
-      "scaffoldTripletTitles": 0,
-      "templateObjectiveMissions": 0,
-      "echoPhraseMissions": 0,
-      "starterAlreadySatisfies": 0,
-      "optionMissions": 44,
-      "longestAnswerRatio": 1,
-      "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 85,
-      "unknownTokenSamples": [
-        "def",
-        "solve",
-        "print"
-      ],
-      "prerequisiteByUsage": [],
-      "sourceCoverage": []
-    },
-    {
-      "id": "data-quality",
-      "path": "knowledge/data/data-quality/course.json",
-      "title": "Качество данных",
-      "level": "Средний",
-      "technology": "python",
-      "classification": "AUTHORED_REAL",
-      "reasons": [],
-      "overridden": false,
-      "missions": 50,
-      "codeLabMissions": 28,
-      "fakePracticeMissions": 0,
-      "planStubMissions": 0,
-      "scaffoldTripletTitles": 0,
-      "templateObjectiveMissions": 0,
-      "echoPhraseMissions": 0,
-      "starterAlreadySatisfies": 0,
-      "optionMissions": 50,
-      "longestAnswerRatio": 1,
-      "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 97,
-      "unknownTokenSamples": [
-        "def",
-        "solve",
-        "print"
-      ],
-      "prerequisiteByUsage": [],
-      "sourceCoverage": [
-        {
-          "id": "turing-way",
-          "class": "ADAPTABLE_OER"
-        }
-      ]
-    },
-    {
-      "id": "data-visualization",
-      "path": "knowledge/data/data-visualization/course.json",
-      "title": "Визуализация данных",
-      "level": "База",
-      "technology": "python",
-      "classification": "AUTHORED_REAL",
-      "reasons": [],
-      "overridden": false,
-      "missions": 44,
-      "codeLabMissions": 21,
-      "fakePracticeMissions": 0,
-      "planStubMissions": 0,
-      "scaffoldTripletTitles": 0,
-      "templateObjectiveMissions": 0,
-      "echoPhraseMissions": 0,
-      "starterAlreadySatisfies": 0,
-      "optionMissions": 44,
-      "longestAnswerRatio": 1,
-      "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 75,
-      "unknownTokenSamples": [
-        "def",
-        "solve",
-        "print"
-      ],
-      "prerequisiteByUsage": [],
-      "sourceCoverage": [
-        {
-          "id": "microsoft-data-science-for-beginners",
-          "class": "ADAPTABLE_OER"
-        }
-      ]
-    },
-    {
-      "id": "duckdb",
-      "path": "knowledge/data/duckdb/course.json",
-      "title": "DuckDB",
-      "level": "Средний",
-      "technology": "sql",
-      "classification": "AUTHORED_REAL",
-      "reasons": [],
-      "overridden": false,
-      "missions": 30,
-      "codeLabMissions": 13,
-      "fakePracticeMissions": 0,
-      "planStubMissions": 0,
-      "scaffoldTripletTitles": 0,
-      "templateObjectiveMissions": 0,
-      "echoPhraseMissions": 0,
-      "starterAlreadySatisfies": 0,
-      "optionMissions": 30,
-      "longestAnswerRatio": 1,
-      "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 15,
-      "unknownTokenSamples": [
-        "SELECT",
-        "JOIN",
-        "WHERE"
-      ],
-      "prerequisiteByUsage": [],
-      "sourceCoverage": [
-        {
-          "id": "duckdb-docs",
-          "class": "GROUNDING"
-        }
-      ]
-    },
-    {
-      "id": "etl-elt",
-      "path": "knowledge/data/etl-elt/course.json",
-      "title": "Основы ETL и ELT",
-      "level": "Средний",
-      "technology": "python",
-      "classification": "AUTHORED_REAL",
-      "reasons": [],
-      "overridden": false,
-      "missions": 46,
-      "codeLabMissions": 19,
-      "fakePracticeMissions": 0,
-      "planStubMissions": 0,
-      "scaffoldTripletTitles": 0,
-      "templateObjectiveMissions": 0,
-      "echoPhraseMissions": 0,
-      "starterAlreadySatisfies": 0,
-      "optionMissions": 46,
-      "longestAnswerRatio": 1,
-      "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 76,
-      "unknownTokenSamples": [
-        "def",
-        "solve"
-      ],
-      "prerequisiteByUsage": [],
-      "sourceCoverage": [
-        {
-          "id": "turing-way",
-          "class": "ADAPTABLE_OER"
-        }
-      ]
-    },
-    {
       "id": "exploratory-data-analysis",
       "path": "knowledge/data/exploratory-data-analysis/course.json",
       "title": "Разведочный анализ данных",
@@ -455,9 +151,10 @@
       "reasons": [],
       "overridden": false,
       "missions": 46,
-      "codeLabMissions": 22,
+      "codeLabMissions": 24,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -465,13 +162,13 @@
       "optionMissions": 24,
       "longestAnswerRatio": 0.792,
       "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 63,
+      "unknownRequiredTokens": 66,
       "unknownTokenSamples": [
         "assert",
         "len",
         "median",
-        "value_counts",
-        "normalize"
+        "loc",
+        "value_counts"
       ],
       "prerequisiteByUsage": [],
       "sourceCoverage": []
@@ -489,6 +186,7 @@
       "codeLabMissions": 12,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -518,6 +216,7 @@
       "codeLabMissions": 11,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -548,6 +247,7 @@
       "codeLabMissions": 10,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -581,6 +281,7 @@
       "codeLabMissions": 13,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -609,6 +310,7 @@
       "codeLabMissions": 14,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -635,48 +337,6 @@
       "sourceCoverage": []
     },
     {
-      "id": "large-data",
-      "path": "knowledge/data/large-data/course.json",
-      "title": "Работа с большими данными",
-      "level": "Средний",
-      "technology": "python",
-      "classification": "AUTHORED_REAL",
-      "reasons": [],
-      "overridden": false,
-      "missions": 40,
-      "codeLabMissions": 15,
-      "fakePracticeMissions": 0,
-      "planStubMissions": 0,
-      "scaffoldTripletTitles": 0,
-      "templateObjectiveMissions": 0,
-      "echoPhraseMissions": 0,
-      "starterAlreadySatisfies": 0,
-      "optionMissions": 40,
-      "longestAnswerRatio": 1,
-      "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 54,
-      "unknownTokenSamples": [
-        "def",
-        "solve",
-        "print"
-      ],
-      "prerequisiteByUsage": [],
-      "sourceCoverage": [
-        {
-          "id": "apache-parquet-format",
-          "class": "GROUNDING"
-        },
-        {
-          "id": "apache-arrow-docs",
-          "class": "GROUNDING"
-        },
-        {
-          "id": "polars-user-guide",
-          "class": "GROUNDING"
-        }
-      ]
-    },
-    {
       "id": "numpy",
       "path": "knowledge/data/numpy/course.json",
       "title": "NumPy",
@@ -689,6 +349,7 @@
       "codeLabMissions": 24,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -729,6 +390,7 @@
       "codeLabMissions": 41,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -736,7 +398,7 @@
       "optionMissions": 32,
       "longestAnswerRatio": 0.469,
       "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 68,
+      "unknownRequiredTokens": 69,
       "unknownTokenSamples": [
         "assert",
         "loc",
@@ -765,109 +427,6 @@
       ]
     },
     {
-      "id": "polars",
-      "path": "knowledge/data/polars/course.json",
-      "title": "Polars",
-      "level": "Средний",
-      "technology": "python",
-      "classification": "AUTHORED_REAL",
-      "reasons": [],
-      "overridden": false,
-      "missions": 42,
-      "codeLabMissions": 22,
-      "fakePracticeMissions": 0,
-      "planStubMissions": 0,
-      "scaffoldTripletTitles": 0,
-      "templateObjectiveMissions": 0,
-      "echoPhraseMissions": 0,
-      "starterAlreadySatisfies": 0,
-      "optionMissions": 42,
-      "longestAnswerRatio": 1,
-      "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 104,
-      "unknownTokenSamples": [
-        "import",
-        "polars"
-      ],
-      "prerequisiteByUsage": [],
-      "sourceCoverage": [
-        {
-          "id": "apache-arrow-docs",
-          "class": "GROUNDING"
-        },
-        {
-          "id": "polars-user-guide",
-          "class": "GROUNDING"
-        }
-      ]
-    },
-    {
-      "id": "postgresql",
-      "path": "knowledge/data/postgresql/course.json",
-      "title": "PostgreSQL",
-      "level": "Средний",
-      "technology": "sql",
-      "classification": "AUTHORED_REAL",
-      "reasons": [],
-      "overridden": false,
-      "missions": 54,
-      "codeLabMissions": 24,
-      "fakePracticeMissions": 0,
-      "planStubMissions": 0,
-      "scaffoldTripletTitles": 0,
-      "templateObjectiveMissions": 0,
-      "echoPhraseMissions": 0,
-      "starterAlreadySatisfies": 0,
-      "optionMissions": 54,
-      "longestAnswerRatio": 1,
-      "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 24,
-      "unknownTokenSamples": [
-        "SELECT"
-      ],
-      "prerequisiteByUsage": [],
-      "sourceCoverage": [
-        {
-          "id": "postgresql-docs",
-          "class": "GROUNDING"
-        }
-      ]
-    },
-    {
-      "id": "production-incidents",
-      "path": "knowledge/data/production-incidents/course.json",
-      "title": "Инциденты с данными",
-      "level": "Продвинутый",
-      "technology": "python",
-      "classification": "AUTHORED_REAL",
-      "reasons": [],
-      "overridden": false,
-      "missions": 36,
-      "codeLabMissions": 12,
-      "fakePracticeMissions": 0,
-      "planStubMissions": 0,
-      "scaffoldTripletTitles": 0,
-      "templateObjectiveMissions": 0,
-      "echoPhraseMissions": 0,
-      "starterAlreadySatisfies": 0,
-      "optionMissions": 36,
-      "longestAnswerRatio": 1,
-      "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 42,
-      "unknownTokenSamples": [
-        "def",
-        "solve",
-        "print"
-      ],
-      "prerequisiteByUsage": [],
-      "sourceCoverage": [
-        {
-          "id": "sql-murder-mystery",
-          "class": "ADAPTABLE_OER"
-        }
-      ]
-    },
-    {
       "id": "python-core",
       "path": "knowledge/data/python-core/course.json",
       "title": "Python: базовые конструкции",
@@ -880,6 +439,7 @@
       "codeLabMissions": 42,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -916,6 +476,7 @@
       "codeLabMissions": 19,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -943,6 +504,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -979,6 +541,7 @@
       "codeLabMissions": 13,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -1009,6 +572,7 @@
       "codeLabMissions": 26,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -1050,6 +614,7 @@
       "codeLabMissions": 39,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -1114,6 +679,7 @@
       "codeLabMissions": 33,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -1158,6 +724,7 @@
       "codeLabMissions": 8,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -1185,6 +752,7 @@
       "codeLabMissions": 0,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 4,
       "echoPhraseMissions": 4,
@@ -1212,6 +780,7 @@
       "codeLabMissions": 0,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -1252,6 +821,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -1287,6 +857,7 @@
       "codeLabMissions": 0,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -1298,6 +869,92 @@
       "unknownTokenSamples": [],
       "prerequisiteByUsage": [],
       "sourceCoverage": []
+    },
+    {
+      "id": "advanced-sql",
+      "path": "knowledge/data/advanced-sql/course.json",
+      "title": "Продвинутый SQL",
+      "level": "Средний",
+      "technology": "sql",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "62 из 62 миссий собраны шаблоном `scripts/generate-planned-courses.mjs`"
+      ],
+      "overridden": false,
+      "missions": 62,
+      "codeLabMissions": 32,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "plannedScaffoldMissions": 62,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 62,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 38,
+      "unknownTokenSamples": [
+        "SELECT",
+        "WITH",
+        "WHERE"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "pgexercises",
+          "class": "ADAPTABLE_OER"
+        },
+        {
+          "id": "select-star-sql",
+          "class": "ADAPTABLE_OER"
+        },
+        {
+          "id": "postgresql-docs",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "analytical-databases",
+      "path": "knowledge/data/analytical-databases/course.json",
+      "title": "Аналитические базы данных",
+      "level": "Средний",
+      "technology": "sql",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "32 из 32 миссий собраны шаблоном `scripts/generate-planned-courses.mjs`"
+      ],
+      "overridden": false,
+      "missions": 32,
+      "codeLabMissions": 13,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "plannedScaffoldMissions": 32,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 32,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 17,
+      "unknownTokenSamples": [
+        "SELECT",
+        "WHERE",
+        "GROUP"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "apache-parquet-format",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "clickhouse-docs",
+          "class": "GROUNDING"
+        }
+      ]
     },
     {
       "id": "capacity-reliability",
@@ -1316,6 +973,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1354,6 +1012,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1380,6 +1039,43 @@
       ]
     },
     {
+      "id": "clickhouse",
+      "path": "knowledge/data/clickhouse/course.json",
+      "title": "ClickHouse",
+      "level": "Продвинутый",
+      "technology": "sql",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "48 из 48 миссий собраны шаблоном `scripts/generate-planned-courses.mjs`"
+      ],
+      "overridden": false,
+      "missions": 48,
+      "codeLabMissions": 24,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "plannedScaffoldMissions": 48,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 48,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 30,
+      "unknownTokenSamples": [
+        "SELECT",
+        "GROUP",
+        "WHERE"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "clickhouse-docs",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
       "id": "containers-kubernetes",
       "path": "knowledge/devops/containers-kubernetes/course.json",
       "title": "Контейнеры и Kubernetes",
@@ -1396,6 +1092,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1418,6 +1115,143 @@
       ]
     },
     {
+      "id": "data-final-project",
+      "path": "knowledge/data/data-final-project/course.json",
+      "title": "Финальный проект: платформа розничных данных",
+      "level": "Продвинутый",
+      "technology": "python",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "18 из 18 миссий собраны шаблоном `scripts/generate-planned-courses.mjs`"
+      ],
+      "overridden": false,
+      "missions": 18,
+      "codeLabMissions": 6,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "plannedScaffoldMissions": 18,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 18,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 24,
+      "unknownTokenSamples": [
+        "def",
+        "solve"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
+      "id": "data-modeling",
+      "path": "knowledge/data/data-modeling/course.json",
+      "title": "Моделирование данных",
+      "level": "Средний",
+      "technology": "python",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "44 из 44 миссий собраны шаблоном `scripts/generate-planned-courses.mjs`"
+      ],
+      "overridden": false,
+      "missions": 44,
+      "codeLabMissions": 25,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "plannedScaffoldMissions": 44,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 44,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 85,
+      "unknownTokenSamples": [
+        "def",
+        "solve",
+        "print"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
+      "id": "data-quality",
+      "path": "knowledge/data/data-quality/course.json",
+      "title": "Качество данных",
+      "level": "Средний",
+      "technology": "python",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "50 из 50 миссий собраны шаблоном `scripts/generate-planned-courses.mjs`"
+      ],
+      "overridden": false,
+      "missions": 50,
+      "codeLabMissions": 28,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "plannedScaffoldMissions": 50,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 50,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 97,
+      "unknownTokenSamples": [
+        "def",
+        "solve",
+        "print"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "turing-way",
+          "class": "ADAPTABLE_OER"
+        }
+      ]
+    },
+    {
+      "id": "data-visualization",
+      "path": "knowledge/data/data-visualization/course.json",
+      "title": "Визуализация данных",
+      "level": "База",
+      "technology": "python",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "44 из 44 миссий собраны шаблоном `scripts/generate-planned-courses.mjs`"
+      ],
+      "overridden": false,
+      "missions": 44,
+      "codeLabMissions": 21,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "plannedScaffoldMissions": 44,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 44,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 75,
+      "unknownTokenSamples": [
+        "def",
+        "solve",
+        "print"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "microsoft-data-science-for-beginners",
+          "class": "ADAPTABLE_OER"
+        }
+      ]
+    },
+    {
       "id": "defensive-engineering",
       "path": "knowledge/cybersecurity/defensive-engineering/course.json",
       "title": "Инженерия защитных мер",
@@ -1434,6 +1268,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1447,6 +1282,79 @@
       ],
       "prerequisiteByUsage": [],
       "sourceCoverage": []
+    },
+    {
+      "id": "duckdb",
+      "path": "knowledge/data/duckdb/course.json",
+      "title": "DuckDB",
+      "level": "Средний",
+      "technology": "sql",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "30 из 30 миссий собраны шаблоном `scripts/generate-planned-courses.mjs`"
+      ],
+      "overridden": false,
+      "missions": 30,
+      "codeLabMissions": 13,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "plannedScaffoldMissions": 30,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 30,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 15,
+      "unknownTokenSamples": [
+        "SELECT",
+        "JOIN",
+        "WHERE"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "duckdb-docs",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "etl-elt",
+      "path": "knowledge/data/etl-elt/course.json",
+      "title": "Основы ETL и ELT",
+      "level": "Средний",
+      "technology": "python",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "46 из 46 миссий собраны шаблоном `scripts/generate-planned-courses.mjs`"
+      ],
+      "overridden": false,
+      "missions": 46,
+      "codeLabMissions": 19,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "plannedScaffoldMissions": 46,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 46,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 76,
+      "unknownTokenSamples": [
+        "def",
+        "solve"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "turing-way",
+          "class": "ADAPTABLE_OER"
+        }
+      ]
     },
     {
       "id": "incident-response",
@@ -1465,6 +1373,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1487,6 +1396,51 @@
       ]
     },
     {
+      "id": "large-data",
+      "path": "knowledge/data/large-data/course.json",
+      "title": "Работа с большими данными",
+      "level": "Средний",
+      "technology": "python",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "40 из 40 миссий собраны шаблоном `scripts/generate-planned-courses.mjs`"
+      ],
+      "overridden": false,
+      "missions": 40,
+      "codeLabMissions": 15,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "plannedScaffoldMissions": 40,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 40,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 54,
+      "unknownTokenSamples": [
+        "def",
+        "solve",
+        "print"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "apache-parquet-format",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "apache-arrow-docs",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "polars-user-guide",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
       "id": "linux-network-ops",
       "path": "knowledge/devops/linux-network-ops/course.json",
       "title": "Linux и сети для эксплуатации",
@@ -1503,6 +1457,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1536,6 +1491,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1574,6 +1530,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1607,6 +1564,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1628,6 +1586,118 @@
       ]
     },
     {
+      "id": "polars",
+      "path": "knowledge/data/polars/course.json",
+      "title": "Polars",
+      "level": "Средний",
+      "technology": "python",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "42 из 42 миссий собраны шаблоном `scripts/generate-planned-courses.mjs`"
+      ],
+      "overridden": false,
+      "missions": 42,
+      "codeLabMissions": 22,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "plannedScaffoldMissions": 42,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 42,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 104,
+      "unknownTokenSamples": [
+        "import",
+        "polars"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "apache-arrow-docs",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "polars-user-guide",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "postgresql",
+      "path": "knowledge/data/postgresql/course.json",
+      "title": "PostgreSQL",
+      "level": "Средний",
+      "technology": "sql",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "54 из 54 миссий собраны шаблоном `scripts/generate-planned-courses.mjs`"
+      ],
+      "overridden": false,
+      "missions": 54,
+      "codeLabMissions": 24,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "plannedScaffoldMissions": 54,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 54,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 24,
+      "unknownTokenSamples": [
+        "SELECT"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "postgresql-docs",
+          "class": "GROUNDING"
+        }
+      ]
+    },
+    {
+      "id": "production-incidents",
+      "path": "knowledge/data/production-incidents/course.json",
+      "title": "Инциденты с данными",
+      "level": "Продвинутый",
+      "technology": "python",
+      "classification": "GENERATOR_SCAFFOLD",
+      "reasons": [
+        "36 из 36 миссий собраны шаблоном `scripts/generate-planned-courses.mjs`"
+      ],
+      "overridden": false,
+      "missions": 36,
+      "codeLabMissions": 12,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "plannedScaffoldMissions": 36,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 36,
+      "longestAnswerRatio": 1,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 42,
+      "unknownTokenSamples": [
+        "def",
+        "solve",
+        "print"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "sql-murder-mystery",
+          "class": "ADAPTABLE_OER"
+        }
+      ]
+    },
+    {
       "id": "risk-iam",
       "path": "knowledge/cybersecurity/risk-iam/course.json",
       "title": "Риски, IAM и управление безопасностью",
@@ -1644,6 +1714,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1676,6 +1747,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1714,6 +1786,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1751,6 +1824,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1789,6 +1863,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1825,6 +1900,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1868,6 +1944,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1901,6 +1978,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1931,6 +2009,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1977,6 +2056,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2010,6 +2090,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2042,6 +2123,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2080,6 +2162,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2117,6 +2200,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2155,6 +2239,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2197,6 +2282,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2227,6 +2313,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2259,6 +2346,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2313,6 +2401,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2346,6 +2435,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2378,6 +2468,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2411,6 +2502,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2443,6 +2535,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2476,6 +2569,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2514,6 +2608,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2556,6 +2651,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2591,6 +2687,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2621,6 +2718,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2659,6 +2757,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2694,6 +2793,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2726,6 +2826,7 @@
       "codeLabMissions": 9,
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
+      "plannedScaffoldMissions": 0,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,

@@ -9,13 +9,17 @@
  *   npm run quality:test
  */
 import assert from 'node:assert/strict'
-import { readFileSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { runRules } from './quality/rules.mjs'
 import { loadCorpus as loadCorpusReal } from './quality/corpus.mjs'
 import { SCOPE, STRICT_SCOPES, jaccard, normalize } from './quality/corpus.mjs'
 import { INTEGRITY_RULES } from './quality/rules.mjs'
+import {
+  DISTRACTORS, GENERATOR_PATH, PHRASES, generatorDrift, isPlannedScaffold,
+  plannedScaffoldMarkers, plannedScaffoldMissions,
+} from './quality/planned-scaffold.mjs'
 
 const root = resolve(import.meta.dirname, '..')
 const buildDir = join(root, 'build', 'engine')
@@ -272,6 +276,79 @@ check('в корпусе нет ни одного дефекта целостн�
   const corpus = loadCorpusReal(root)
   const defects = runRules(corpus, engine).filter(item => item.severity === 'error' && INTEGRITY_RULES.has(item.rule))
   assert.deepEqual(defects.map(item => `${item.rule} · ${item.where}`), [])
+})
+
+/* ------------------------------------------- подпись шаблона курсов */
+
+const scaffold = ({ topic = 'Коллекции', angle = 'механика', ...over } = {}) => ({
+  id: 'S-001', type: 'lab',
+  title: `${topic}: ${angle}`,
+  intro: `Общее дело курса. В теме «${topic}» рабочее правило формулируется так: правило темы. `
+    + 'Практика этой миссии — проследить путь от входных значений к выходным.',
+  productionContext: `На этапе «${angle}» результатом работы считается не только преобразованный набор, `
+    + 'но и доказательство: таблица входа и выхода.',
+  hints: [`Сначала назови единицу наблюдения и ожидаемый инвариант для темы «${topic}».`],
+  task: {
+    prompt: `Как безопасно разобраться в механике? Контекст: ${topic}.`,
+    options: ['Проследить на малом примере путь значений.', DISTRACTORS[0], DISTRACTORS[2]],
+    answer: 'Проследить на малом примере путь значений.',
+  },
+  ...over,
+})
+
+check('шаблонная миссия узнаётся по всем шести признакам', () => {
+  const marks = plannedScaffoldMarkers(scaffold())
+  assert.deepEqual(Object.entries(marks).filter(([, hit]) => !hit), [])
+})
+
+check('финальная миссия узнаётся по пяти признакам из шести', () => {
+  const boss = scaffold({ title: 'Итоговое испытание: Python для работы с данными' })
+  assert.equal(plannedScaffoldMarkers(boss).title, false)
+  assert.ok(isPlannedScaffold(boss), 'пять совпадений — это всё ещё шаблон')
+})
+
+check('четырёх признаков для приговора мало', () => {
+  const edited = scaffold({ title: 'Свой заголовок', hints: ['Своя подсказка.'] })
+  assert.ok(!isPlannedScaffold(edited))
+})
+
+check('признак не зависит от списка тем курса', () => {
+  // Темы курса переписывают при переработке программы раньше, чем миссии.
+  // Если признак сверяется с ними, правка одной строки молча снимает диагноз.
+  const course = { skills: ['Совершенно другие темы'], missions: [scaffold(), scaffold()] }
+  assert.equal(plannedScaffoldMissions(course), 2)
+  assert.equal(plannedScaffoldMissions({ missions: [scaffold()] }), 1)
+})
+
+check('авторская миссия признаком не считается', () => {
+  const authored = {
+    id: 'A-001', title: 'Поменяй слово', type: 'lab',
+    intro: 'Программа здоровается с человеком, но приветствие устарело.',
+    hints: ['Меняй только текст внутри кавычек.'],
+    task: { prompt: 'Замени слово в кавычках на своё.', options: ['Да', 'Нет'], answer: 'Да' },
+  }
+  assert.equal(plannedScaffoldMissions({ missions: [authored] }), 0)
+})
+
+check('признак совпадает с генератором', () => {
+  const source = join(root, GENERATOR_PATH)
+  if (!existsSync(source)) return
+  assert.deepEqual(generatorDrift(readFileSync(source, 'utf8')), [],
+    'формулировки генератора изменились — обновите scripts/quality/planned-scaffold.mjs')
+})
+
+check('расхождение с генератором замечается', () => {
+  // Сверка, которая не умеет падать, ничего не сторожит.
+  const drift = generatorDrift('const angles = []\n')
+  assert.ok(drift.includes('типичная ловушка'), drift.join(', '))
+  assert.ok(drift.includes(PHRASES.hint), drift.join(', '))
+})
+
+check('на авторском курсе каталога признак молчит', () => {
+  const corpus = loadCorpusReal(root)
+  const pilot = corpus.courses.find(course => course.id === 'python-first-steps')
+  assert.ok(pilot, 'курс python-first-steps не найден')
+  assert.equal(plannedScaffoldMissions(pilot), 0)
 })
 
 console.log(`\nПройдено проверок валидатора: ${passed}`)

@@ -1,19 +1,33 @@
 {
-  "note": "Нарушения правила «нельзя требовать то, чего не показали». Считается автоматически: npm run api:audit. Показом считается любое упоминание конструкции в стартовом файле или тексте миссии, поэтому числа ниже — нижняя граница: доказать, что конструкцию объяснили, а не просто показали, машина не может.",
+  "note": "Нарушения правила «нельзя требовать то, чего не показали». Считается автоматически: npm run api:audit. Показом функции или метода считается только пример синтаксиса вызова; имя, названное в прозе, показом не является. Подсказки в показ не входят. Комментарий в стартовом файле не считается ни исполненным кодом, ни выполненным требованием.",
   "rules": {
-    "required-before-shown": "миссия требует написать конструкцию, которой человек ещё нигде не видел",
-    "multiple-new-apis-at-once": "в одной миссии впервые требуется больше 1 новых сущностей",
-    "blank-editor-task": "человек начинает с пустого редактора: в стартовом файле нет ни одной исполняемой строки"
+    "required-before-shown": "миссия требует написать конструкцию, синтаксис которой человеку нигде не показывали",
+    "independent-use-right-after-first-sight": "конструкцию показали первый раз и в этой же миссии требуют написать самостоятельно",
+    "multiple-new-apis-at-once": "в одной миссии впервые требуется больше одной новой сущности",
+    "blank-editor-task": "человек начинает с пустого редактора: в стартовом файле нет ни одной исполняемой строки",
+    "check-passes-on-starter": "автоматическая проверка выполнена стартовым файлом до действий ученика",
+    "hint-is-not-teaching": "подсказка содержит фрагмент, который требует проверка: задание решается копированием",
+    "ladder-gap": "конструкцию требуют написать с чистого места, а ступени «измени» и «дополни» она не проходила",
+    "declared-but-never-required": "навык объявлен введённым, но ни одна автоматическая проверка во всём каталоге его не требует",
+    "introduced-without-reinforcement": "навык требуется только в той миссии, где введён, и больше нигде не закрепляется"
   },
   "totals": {
     "courses": 50,
     "coursesInRoutes": 46,
     "coursesOutsideRoutes": 4,
-    "coursesWithViolations": 7,
-    "requiredBeforeShown": 10,
-    "firstUseSameMission": 89,
-    "multipleNewApis": 30,
+    "coursesWithViolations": 9,
+    "requiredBeforeShown": 19,
+    "firstUseSameMission": 92,
+    "multipleNewApis": 35,
     "blankEditor": 0,
+    "checkPassesOnStarter": 137,
+    "checkPassesOnStarterCritical": 0,
+    "hintIsNotTeaching": 11,
+    "hintIsNotTeachingCritical": 7,
+    "ladderGap": 0,
+    "declaredNeverRequired": 2,
+    "noReinforcement": 39,
+    "skillsOutsideAnalysis": 2,
     "outsideRoutes": {
       "courses": [
         "polars",
@@ -26,6 +40,954 @@
   },
   "courses": [
     {
+      "id": "javascript-core",
+      "title": "JavaScript: основы языка",
+      "language": "javascript",
+      "noRoute": false,
+      "missions": 19,
+      "codeMissions": 14,
+      "inheritedTokens": 0,
+      "requiredTokens": 24,
+      "violations": 32,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 18,
+      "multipleNewApis": 6,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 2,
+      "hintIsNotTeachingCritical": 2,
+      "findings": [
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-003",
+          "missionTitle": "let и const: два способа объявить",
+          "token": "const",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-003",
+          "missionTitle": "let и const: два способа объявить",
+          "token": "let",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "JSC-003",
+          "missionTitle": "let и const: два способа объявить",
+          "token": "const, let",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-005",
+          "missionTitle": "Числа и операторы: посчитать заказ",
+          "token": "*",
+          "kind": "оператор"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-006",
+          "missionTitle": "Строки: собрать сообщение",
+          "token": "словарь или блок",
+          "kind": "синтаксис"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-007",
+          "missionTitle": "Массив: список товаров",
+          "token": "push()",
+          "kind": "функция"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-008",
+          "missionTitle": "Условие: пускать заказ в оплату",
+          "token": "if",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-008",
+          "missionTitle": "Условие: пускать заказ в оплату",
+          "token": "else",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "hint-is-not-teaching",
+          "missionId": "JSC-008",
+          "missionTitle": "Условие: пускать заказ в оплату",
+          "token": "else",
+          "kind": "подсказка выдаёт фрагмент проверки, и конструкция видна человеку впервые",
+          "severity": "critical"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "JSC-008",
+          "missionTitle": "Условие: пускать заказ в оплату",
+          "token": "if, else",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-010",
+          "missionTitle": "Цикл: пройти по всей корзине",
+          "token": "for",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-010",
+          "missionTitle": "Цикл: пройти по всей корзине",
+          "token": "+=",
+          "kind": "оператор"
+        },
+        {
+          "rule": "hint-is-not-teaching",
+          "missionId": "JSC-010",
+          "missionTitle": "Цикл: пройти по всей корзине",
+          "token": "total +=",
+          "kind": "подсказка выдаёт фрагмент проверки, и конструкция видна человеку впервые",
+          "severity": "critical"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "JSC-010",
+          "missionTitle": "Цикл: пройти по всей корзине",
+          "token": "for, +=",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-011",
+          "missionTitle": "Функция: вынести расчёт",
+          "token": "function",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-011",
+          "missionTitle": "Функция: вынести расчёт",
+          "token": "return",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "JSC-011",
+          "missionTitle": "Функция: вынести расчёт",
+          "token": "function, return",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-012",
+          "missionTitle": "Стрелочная функция: короткая запись",
+          "token": "=>",
+          "kind": "оператор"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-015",
+          "missionTitle": "map и filter: список без цикла",
+          "token": "filter()",
+          "kind": "функция"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-015",
+          "missionTitle": "map и filter: список без цикла",
+          "token": "map()",
+          "kind": "функция"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "JSC-015",
+          "missionTitle": "map и filter: список без цикла",
+          "token": "filter(), map()",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-016",
+          "missionTitle": "Модуль: вынести расчёт в отдельный файл",
+          "token": "export",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-016",
+          "missionTitle": "Модуль: вынести расчёт в отдельный файл",
+          "token": "import",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "JSC-016",
+          "missionTitle": "Модуль: вынести расчёт в отдельный файл",
+          "token": "export, import",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-017",
+          "missionTitle": "Обещание: результат, которого ещё нет",
+          "token": "then()",
+          "kind": "функция"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-019",
+          "missionTitle": "Итоговое дело: дождаться ответа сервера",
+          "token": "async",
+          "kind": "ключевое слово"
+        },
+        {
+          "courseId": "javascript-core",
+          "missionId": "JSC-001",
+          "token": "js-console",
+          "rule": "declared-but-never-required",
+          "kind": "навык «Вывод в консоль» объявлен введённым, но ни одна проверка его не требует"
+        },
+        {
+          "courseId": "javascript-core",
+          "missionId": "JSC-006",
+          "token": "js-template",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Шаблонная строка» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "javascript-core",
+          "missionId": "JSC-014",
+          "token": "js-destructuring",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Деструктуризация» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "javascript-core",
+          "missionId": "JSC-014",
+          "token": "js-spread",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Копирование через spread» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "javascript-core",
+          "missionId": "JSC-019",
+          "token": "js-async",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Промисы и async/await» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "javascript-core",
+          "missionId": "JSC-009",
+          "token": "js-equality",
+          "rule": "declared-but-never-required",
+          "kind": "навык «Строгое и нестрогое сравнение» объявлен введённым, но ни одна проверка его не требует"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 2,
+      "noReinforcement": 4
+    },
+    {
+      "id": "java-core",
+      "title": "Java: основы языка",
+      "language": "java",
+      "noRoute": false,
+      "missions": 17,
+      "codeMissions": 13,
+      "inheritedTokens": 0,
+      "requiredTokens": 28,
+      "violations": 30,
+      "requiredBeforeShown": 4,
+      "firstUseSameMission": 16,
+      "multipleNewApis": 7,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 1,
+      "hintIsNotTeachingCritical": 1,
+      "findings": [
+        {
+          "rule": "required-before-shown",
+          "missionId": "JAV-003",
+          "missionTitle": "Вывод: изменить готовую программу",
+          "token": "System.out.println()",
+          "kind": "вызов библиотеки",
+          "evidence": "названо словом, синтаксис не показан"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "JAV-003",
+          "missionTitle": "Вывод: изменить готовую программу",
+          "token": "println()",
+          "kind": "функция",
+          "evidence": "названо словом, синтаксис не показан"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "JAV-003",
+          "missionTitle": "Вывод: изменить готовую программу",
+          "token": "System.out.println(), println()",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-006",
+          "missionTitle": "Арифметика: посчитать сумму сверки",
+          "token": "*",
+          "kind": "оператор"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-007",
+          "missionTitle": "Условие: пропускать операцию или нет",
+          "token": "if",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-007",
+          "missionTitle": "Условие: пропускать операцию или нет",
+          "token": "else",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "hint-is-not-teaching",
+          "missionId": "JAV-007",
+          "missionTitle": "Условие: пропускать операцию или нет",
+          "token": "else",
+          "kind": "подсказка выдаёт фрагмент проверки, и конструкция видна человеку впервые",
+          "severity": "critical"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "JAV-007",
+          "missionTitle": "Условие: пропускать операцию или нет",
+          "token": "if, else",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-008",
+          "missionTitle": "Цикл: пройти по всем операциям",
+          "token": "for",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-009",
+          "missionTitle": "Массив: фиксированный список сумм",
+          "token": "+=",
+          "kind": "оператор"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-010",
+          "missionTitle": "Метод: вынести расчёт из main",
+          "token": "return",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-012",
+          "missionTitle": "Класс и объект: операция как одна величина",
+          "token": "Operation()",
+          "kind": "функция"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-012",
+          "missionTitle": "Класс и объект: операция как одна величина",
+          "token": "new",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "JAV-012",
+          "missionTitle": "Класс и объект: операция как одна величина",
+          "token": "Operation(), new",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "JAV-013",
+          "missionTitle": "Коллекция: список, который растёт",
+          "token": "add()",
+          "kind": "функция",
+          "evidence": "названо словом, синтаксис не показан"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "JAV-013",
+          "missionTitle": "Коллекция: список, который растёт",
+          "token": "size()",
+          "kind": "функция",
+          "evidence": "названо словом, синтаксис не показан"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-013",
+          "missionTitle": "Коллекция: список, который растёт",
+          "token": "<",
+          "kind": "оператор"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "JAV-013",
+          "missionTitle": "Коллекция: список, который растёт",
+          "token": "add(), size(), <",
+          "kind": "3 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-014",
+          "missionTitle": "Исключение: перехватить сбой",
+          "token": "try",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-014",
+          "missionTitle": "Исключение: перехватить сбой",
+          "token": "catch",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "JAV-014",
+          "missionTitle": "Исключение: перехватить сбой",
+          "token": "try, catch",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-015",
+          "missionTitle": "Интерфейс: договор для разных источников",
+          "token": "interface",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-015",
+          "missionTitle": "Интерфейс: договор для разных источников",
+          "token": "implements",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "JAV-015",
+          "missionTitle": "Интерфейс: договор для разных источников",
+          "token": "interface, implements",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-017",
+          "missionTitle": "Итоговое дело: отчёт по сверке",
+          "token": "stream()",
+          "kind": "функция"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-017",
+          "missionTitle": "Итоговое дело: отчёт по сверке",
+          "token": "filter()",
+          "kind": "функция"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-017",
+          "missionTitle": "Итоговое дело: отчёт по сверке",
+          "token": "sum()",
+          "kind": "функция"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "JAV-017",
+          "missionTitle": "Итоговое дело: отчёт по сверке",
+          "token": "stream(), filter(), sum()",
+          "kind": "3 новых сущностей сразу"
+        },
+        {
+          "courseId": "java-core",
+          "missionId": "JAV-014",
+          "token": "java-exceptions",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Исключения» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "java-core",
+          "missionId": "JAV-016",
+          "token": "java-generics",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Обобщения» требуется только в миссии, где введён"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 2
+    },
+    {
+      "id": "go-core",
+      "title": "Go: основы языка",
+      "language": "go",
+      "noRoute": false,
+      "missions": 16,
+      "codeMissions": 12,
+      "inheritedTokens": 0,
+      "requiredTokens": 27,
+      "violations": 29,
+      "requiredBeforeShown": 2,
+      "firstUseSameMission": 14,
+      "multipleNewApis": 6,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 2,
+      "hintIsNotTeachingCritical": 2,
+      "findings": [
+        {
+          "rule": "required-before-shown",
+          "missionId": "GOC-003",
+          "missionTitle": "Вывод: изменить готовую программу",
+          "token": "fmt.Println()",
+          "kind": "метод или функция модуля",
+          "evidence": "названо словом, синтаксис не показан"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "GOC-003",
+          "missionTitle": "Вывод: изменить готовую программу",
+          "token": "Println()",
+          "kind": "функция",
+          "evidence": "названо словом, синтаксис не показан"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "GOC-003",
+          "missionTitle": "Вывод: изменить готовую программу",
+          "token": "fmt.Println(), Println()",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GOC-004",
+          "missionTitle": "Переменные: короткое объявление",
+          "token": ":=",
+          "kind": "оператор"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GOC-006",
+          "missionTitle": "Функция: параметр и возвращаемое значение",
+          "token": "return",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GOC-008",
+          "missionTitle": "Условие: пропускать или задержать",
+          "token": "if",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GOC-008",
+          "missionTitle": "Условие: пропускать или задержать",
+          "token": "else",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "hint-is-not-teaching",
+          "missionId": "GOC-008",
+          "missionTitle": "Условие: пропускать или задержать",
+          "token": "else",
+          "kind": "подсказка выдаёт фрагмент проверки, и конструкция видна человеку впервые",
+          "severity": "critical"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "GOC-008",
+          "missionTitle": "Условие: пропускать или задержать",
+          "token": "if, else",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GOC-009",
+          "missionTitle": "Цикл: пройти по всей смене",
+          "token": "for",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GOC-011",
+          "missionTitle": "Слайс: список рейсов",
+          "token": "список",
+          "kind": "синтаксис"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GOC-011",
+          "missionTitle": "Слайс: список рейсов",
+          "token": "append()",
+          "kind": "функция"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "GOC-011",
+          "missionTitle": "Слайс: список рейсов",
+          "token": "список, append()",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GOC-012",
+          "missionTitle": "Карта: вес по номеру рейса",
+          "token": "map",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GOC-012",
+          "missionTitle": "Карта: вес по номеру рейса",
+          "token": "range",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "GOC-012",
+          "missionTitle": "Карта: вес по номеру рейса",
+          "token": "map, range",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GOC-013",
+          "missionTitle": "Структура: рейс как одна величина",
+          "token": "type",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GOC-013",
+          "missionTitle": "Структура: рейс как одна величина",
+          "token": "struct",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "GOC-013",
+          "missionTitle": "Структура: рейс как одна величина",
+          "token": "type, struct",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GOC-015",
+          "missionTitle": "Интерфейс: договор вместо конкретного типа",
+          "token": "interface",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GOC-016",
+          "missionTitle": "Итоговое дело: отчёт по смене",
+          "token": "errors.New()",
+          "kind": "метод или функция модуля"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GOC-016",
+          "missionTitle": "Итоговое дело: отчёт по смене",
+          "token": "defer",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "hint-is-not-teaching",
+          "missionId": "GOC-016",
+          "missionTitle": "Итоговое дело: отчёт по смене",
+          "token": "defer",
+          "kind": "подсказка выдаёт фрагмент проверки, и конструкция видна человеку впервые",
+          "severity": "critical"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "GOC-016",
+          "missionTitle": "Итоговое дело: отчёт по смене",
+          "token": "errors.New(), defer",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "courseId": "go-core",
+          "missionId": "GOC-004",
+          "token": "go-vars",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Короткое объявление переменной» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "go-core",
+          "missionId": "GOC-007",
+          "token": "go-multi-return",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Несколько возвращаемых значений» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "go-core",
+          "missionId": "GOC-014",
+          "token": "go-methods",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Методы с получателем» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "go-core",
+          "missionId": "GOC-015",
+          "token": "go-interfaces",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Интерфейсы» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "go-core",
+          "missionId": "GOC-016",
+          "token": "go-errors",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Ошибки как значения» требуется только в миссии, где введён"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 5
+    },
+    {
+      "id": "go-network-services",
+      "title": "Сетевые сервисы на Go",
+      "language": "go",
+      "noRoute": false,
+      "missions": 16,
+      "codeMissions": 10,
+      "inheritedTokens": 65,
+      "requiredTokens": 34,
+      "violations": 29,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 16,
+      "multipleNewApis": 6,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 1,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GNS-003",
+          "missionTitle": "Первый обработчик",
+          "token": "http.HandleFunc()",
+          "kind": "метод или функция модуля"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GNS-003",
+          "missionTitle": "Первый обработчик",
+          "token": "http.ListenAndServe()",
+          "kind": "метод или функция модуля"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "GNS-003",
+          "missionTitle": "Первый обработчик",
+          "token": "http.HandleFunc(), http.ListenAndServe()",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GNS-004",
+          "missionTitle": "Ответ в JSON",
+          "token": "json.NewEncoder()",
+          "kind": "метод или функция модуля"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GNS-006",
+          "missionTitle": "Параметры запроса и статус ответа",
+          "token": "r.URL.Query()",
+          "kind": "вызов библиотеки"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GNS-009",
+          "missionTitle": "Middleware: общая обёртка",
+          "token": "withLogging()",
+          "kind": "функция"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GNS-009",
+          "missionTitle": "Middleware: общая обёртка",
+          "token": "next.ServeHTTP()",
+          "kind": "метод или функция модуля"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "GNS-009",
+          "missionTitle": "Middleware: общая обёртка",
+          "token": "withLogging(), next.ServeHTTP()",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GNS-010",
+          "missionTitle": "Контекст запроса",
+          "token": "r.Context()",
+          "kind": "метод или функция модуля"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GNS-010",
+          "missionTitle": "Контекст запроса",
+          "token": "context.WithValue()",
+          "kind": "метод или функция модуля"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "GNS-010",
+          "missionTitle": "Контекст запроса",
+          "token": "r.Context(), context.WithValue()",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GNS-012",
+          "missionTitle": "База: подключение и пул",
+          "token": "sql.Open()",
+          "kind": "метод или функция модуля"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GNS-012",
+          "missionTitle": "База: подключение и пул",
+          "token": "SetMaxOpenConns()",
+          "kind": "функция"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GNS-012",
+          "missionTitle": "База: подключение и пул",
+          "token": "SetMaxIdleConns()",
+          "kind": "функция"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "GNS-012",
+          "missionTitle": "База: подключение и пул",
+          "token": "sql.Open(), SetMaxOpenConns(), SetMaxIdleConns()",
+          "kind": "3 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GNS-013",
+          "missionTitle": "Запрос с контекстом и закрытием строк",
+          "token": "QueryContext()",
+          "kind": "функция"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GNS-013",
+          "missionTitle": "Запрос с контекстом и закрытием строк",
+          "token": "rows.Close()",
+          "kind": "метод или функция модуля"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "GNS-013",
+          "missionTitle": "Запрос с контекстом и закрытием строк",
+          "token": "QueryContext(), rows.Close()",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GNS-014",
+          "missionTitle": "Транзакция: всё или ничего",
+          "token": "db.BeginTx()",
+          "kind": "метод или функция модуля"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GNS-014",
+          "missionTitle": "Транзакция: всё или ничего",
+          "token": "tx.Rollback()",
+          "kind": "метод или функция модуля"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "GNS-014",
+          "missionTitle": "Транзакция: всё или ничего",
+          "token": "tx.Commit()",
+          "kind": "метод или функция модуля"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "GNS-014",
+          "missionTitle": "Транзакция: всё или ничего",
+          "token": "db.BeginTx(), tx.Rollback(), tx.Commit()",
+          "kind": "3 новых сущностей сразу"
+        },
+        {
+          "rule": "hint-is-not-teaching",
+          "missionId": "GNS-016",
+          "missionTitle": "Итоговое дело: оплата ровно один раз",
+          "token": "INSERT INTO payment_keys",
+          "kind": "подсказка выдаёт фрагмент проверки дословно",
+          "severity": "warning"
+        },
+        {
+          "courseId": "go-network-services",
+          "missionId": "GNS-004",
+          "token": "go-json",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Кодирование и разбор JSON» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "go-network-services",
+          "missionId": "GNS-008",
+          "token": "go-http-config",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Настройка сервера и таймауты» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "go-network-services",
+          "missionId": "GNS-009",
+          "token": "go-middleware",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Middleware» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "go-network-services",
+          "missionId": "GNS-010",
+          "token": "go-request-context",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Контекст запроса» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "go-network-services",
+          "missionId": "GNS-012",
+          "token": "go-sql-pool",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Пул соединений с базой» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "go-network-services",
+          "missionId": "GNS-013",
+          "token": "go-sql-query",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Запрос к базе с контекстом» требуется только в миссии, где введён"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 6
+    },
+    {
       "id": "polars",
       "title": "Polars",
       "language": "python",
@@ -33,47 +995,56 @@
       "missions": 42,
       "codeMissions": 22,
       "inheritedTokens": 0,
-      "requiredTokens": 103,
+      "requiredTokens": 104,
       "violations": 29,
       "requiredBeforeShown": 6,
       "firstUseSameMission": 0,
       "multipleNewApis": 1,
       "blankEditor": 22,
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
       "findings": [
         {
           "rule": "required-before-shown",
           "missionId": "PLR-002",
           "missionTitle": "Основы Polars: механика",
           "token": "import",
-          "kind": "ключевое слово"
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
         },
         {
           "rule": "required-before-shown",
           "missionId": "PLR-002",
           "missionTitle": "Основы Polars: механика",
           "token": "as",
-          "kind": "ключевое слово"
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
         },
         {
           "rule": "required-before-shown",
           "missionId": "PLR-002",
           "missionTitle": "Основы Polars: механика",
           "token": "transform()",
-          "kind": "функция"
+          "kind": "функция",
+          "evidence": "не встречалось нигде"
         },
         {
           "rule": "required-before-shown",
           "missionId": "PLR-002",
           "missionTitle": "Основы Polars: механика",
           "token": "def",
-          "kind": "ключевое слово"
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
         },
         {
           "rule": "required-before-shown",
           "missionId": "PLR-002",
           "missionTitle": "Основы Polars: механика",
           "token": "assert",
-          "kind": "ключевое слово"
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
         },
         {
           "rule": "blank-editor-task",
@@ -171,7 +1142,8 @@
           "missionId": "PLR-022",
           "missionTitle": "Соединения: механика",
           "token": "print()",
-          "kind": "функция"
+          "kind": "функция",
+          "evidence": "не встречалось нигде"
         },
         {
           "rule": "blank-editor-task",
@@ -240,652 +1212,13 @@
           "rule": "blank-editor-task",
           "missionId": "PLR-040",
           "missionTitle": "Polars и Pandas: механика",
-          "token": "import, transform(), def, assert",
+          "token": "import, as, transform(), def, assert",
           "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
         }
-      ]
-    },
-    {
-      "id": "java-core",
-      "title": "Java: основы языка",
-      "language": "java",
-      "noRoute": false,
-      "missions": 17,
-      "codeMissions": 13,
-      "inheritedTokens": 0,
-      "requiredTokens": 23,
-      "violations": 21,
-      "requiredBeforeShown": 1,
-      "firstUseSameMission": 15,
-      "multipleNewApis": 5,
-      "blankEditor": 0,
-      "findings": [
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-003",
-          "missionTitle": "Вывод: изменить готовую программу",
-          "token": "System.out.println()",
-          "kind": "вызов библиотеки"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-003",
-          "missionTitle": "Вывод: изменить готовую программу",
-          "token": "println()",
-          "kind": "функция"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "JAV-003",
-          "missionTitle": "Вывод: изменить готовую программу",
-          "token": "System.out.println(), println()",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-006",
-          "missionTitle": "Арифметика: посчитать сумму сверки",
-          "token": "*",
-          "kind": "оператор"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-007",
-          "missionTitle": "Условие: пропускать операцию или нет",
-          "token": "if",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-007",
-          "missionTitle": "Условие: пропускать операцию или нет",
-          "token": "else",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "JAV-007",
-          "missionTitle": "Условие: пропускать операцию или нет",
-          "token": "if, else",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-008",
-          "missionTitle": "Цикл: пройти по всем операциям",
-          "token": "for",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-009",
-          "missionTitle": "Массив: фиксированный список сумм",
-          "token": "+=",
-          "kind": "оператор"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-010",
-          "missionTitle": "Метод: вынести расчёт из main",
-          "token": "return",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-012",
-          "missionTitle": "Класс и объект: операция как одна величина",
-          "token": "new",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-013",
-          "missionTitle": "Коллекция: список, который растёт",
-          "token": "size()",
-          "kind": "функция"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-014",
-          "missionTitle": "Исключение: перехватить сбой",
-          "token": "try",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-014",
-          "missionTitle": "Исключение: перехватить сбой",
-          "token": "catch",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "JAV-014",
-          "missionTitle": "Исключение: перехватить сбой",
-          "token": "try, catch",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-015",
-          "missionTitle": "Интерфейс: договор для разных источников",
-          "token": "interface",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-015",
-          "missionTitle": "Интерфейс: договор для разных источников",
-          "token": "implements",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "JAV-015",
-          "missionTitle": "Интерфейс: договор для разных источников",
-          "token": "interface, implements",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "JAV-017",
-          "missionTitle": "Итоговое дело: отчёт по сверке",
-          "token": "stream()",
-          "kind": "функция"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-017",
-          "missionTitle": "Итоговое дело: отчёт по сверке",
-          "token": "filter()",
-          "kind": "функция"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "JAV-017",
-          "missionTitle": "Итоговое дело: отчёт по сверке",
-          "token": "stream(), filter()",
-          "kind": "2 новых сущностей сразу"
-        }
-      ]
-    },
-    {
-      "id": "javascript-core",
-      "title": "JavaScript: основы языка",
-      "language": "javascript",
-      "noRoute": false,
-      "missions": 19,
-      "codeMissions": 14,
-      "inheritedTokens": 0,
-      "requiredTokens": 21,
-      "violations": 21,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 16,
-      "multipleNewApis": 5,
-      "blankEditor": 0,
-      "findings": [
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-003",
-          "missionTitle": "let и const: два способа объявить",
-          "token": "const",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-003",
-          "missionTitle": "let и const: два способа объявить",
-          "token": "let",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "JSC-003",
-          "missionTitle": "let и const: два способа объявить",
-          "token": "const, let",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-005",
-          "missionTitle": "Числа и операторы: посчитать заказ",
-          "token": "*",
-          "kind": "оператор"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-006",
-          "missionTitle": "Строки: собрать сообщение",
-          "token": "словарь или блок",
-          "kind": "синтаксис"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-007",
-          "missionTitle": "Массив: список товаров",
-          "token": "push()",
-          "kind": "функция"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-008",
-          "missionTitle": "Условие: пускать заказ в оплату",
-          "token": "if",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-008",
-          "missionTitle": "Условие: пускать заказ в оплату",
-          "token": "else",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "JSC-008",
-          "missionTitle": "Условие: пускать заказ в оплату",
-          "token": "if, else",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-010",
-          "missionTitle": "Цикл: пройти по всей корзине",
-          "token": "for",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-010",
-          "missionTitle": "Цикл: пройти по всей корзине",
-          "token": "+=",
-          "kind": "оператор"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "JSC-010",
-          "missionTitle": "Цикл: пройти по всей корзине",
-          "token": "for, +=",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-011",
-          "missionTitle": "Функция: вынести расчёт",
-          "token": "function",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-011",
-          "missionTitle": "Функция: вынести расчёт",
-          "token": "return",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "JSC-011",
-          "missionTitle": "Функция: вынести расчёт",
-          "token": "function, return",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-012",
-          "missionTitle": "Стрелочная функция: короткая запись",
-          "token": "=>",
-          "kind": "оператор"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-016",
-          "missionTitle": "Модуль: вынести расчёт в отдельный файл",
-          "token": "export",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-016",
-          "missionTitle": "Модуль: вынести расчёт в отдельный файл",
-          "token": "import",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "JSC-016",
-          "missionTitle": "Модуль: вынести расчёт в отдельный файл",
-          "token": "export, import",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-017",
-          "missionTitle": "Обещание: результат, которого ещё нет",
-          "token": "then()",
-          "kind": "функция"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-019",
-          "missionTitle": "Итоговое дело: дождаться ответа сервера",
-          "token": "async",
-          "kind": "ключевое слово"
-        }
-      ]
-    },
-    {
-      "id": "go-core",
-      "title": "Go: основы языка",
-      "language": "go",
-      "noRoute": false,
-      "missions": 16,
-      "codeMissions": 12,
-      "inheritedTokens": 0,
-      "requiredTokens": 26,
-      "violations": 20,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 15,
-      "multipleNewApis": 5,
-      "blankEditor": 0,
-      "findings": [
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-003",
-          "missionTitle": "Вывод: изменить готовую программу",
-          "token": "fmt.Println()",
-          "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-003",
-          "missionTitle": "Вывод: изменить готовую программу",
-          "token": "Println()",
-          "kind": "функция"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "GOC-003",
-          "missionTitle": "Вывод: изменить готовую программу",
-          "token": "fmt.Println(), Println()",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-004",
-          "missionTitle": "Переменные: короткое объявление",
-          "token": ":=",
-          "kind": "оператор"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-006",
-          "missionTitle": "Функция: параметр и возвращаемое значение",
-          "token": "return",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-008",
-          "missionTitle": "Условие: пропускать или задержать",
-          "token": "if",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-008",
-          "missionTitle": "Условие: пропускать или задержать",
-          "token": "else",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "GOC-008",
-          "missionTitle": "Условие: пропускать или задержать",
-          "token": "if, else",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-009",
-          "missionTitle": "Цикл: пройти по всей смене",
-          "token": "for",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-011",
-          "missionTitle": "Слайс: список рейсов",
-          "token": "список",
-          "kind": "синтаксис"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-011",
-          "missionTitle": "Слайс: список рейсов",
-          "token": "append()",
-          "kind": "функция"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "GOC-011",
-          "missionTitle": "Слайс: список рейсов",
-          "token": "список, append()",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-012",
-          "missionTitle": "Карта: вес по номеру рейса",
-          "token": "range",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-013",
-          "missionTitle": "Структура: рейс как одна величина",
-          "token": "type",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-013",
-          "missionTitle": "Структура: рейс как одна величина",
-          "token": "struct",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "GOC-013",
-          "missionTitle": "Структура: рейс как одна величина",
-          "token": "type, struct",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-015",
-          "missionTitle": "Интерфейс: договор вместо конкретного типа",
-          "token": "interface",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-016",
-          "missionTitle": "Итоговое дело: отчёт по смене",
-          "token": "errors.New()",
-          "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-016",
-          "missionTitle": "Итоговое дело: отчёт по смене",
-          "token": "defer",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "GOC-016",
-          "missionTitle": "Итоговое дело: отчёт по смене",
-          "token": "errors.New(), defer",
-          "kind": "2 новых сущностей сразу"
-        }
-      ]
-    },
-    {
-      "id": "go-network-services",
-      "title": "Сетевые сервисы на Go",
-      "language": "go",
-      "noRoute": false,
-      "missions": 16,
-      "codeMissions": 10,
-      "inheritedTokens": 65,
-      "requiredTokens": 33,
-      "violations": 20,
-      "requiredBeforeShown": 3,
-      "firstUseSameMission": 12,
-      "multipleNewApis": 5,
-      "blankEditor": 0,
-      "findings": [
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GNS-003",
-          "missionTitle": "Первый обработчик",
-          "token": "http.HandleFunc()",
-          "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GNS-003",
-          "missionTitle": "Первый обработчик",
-          "token": "http.ListenAndServe()",
-          "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "GNS-003",
-          "missionTitle": "Первый обработчик",
-          "token": "http.HandleFunc(), http.ListenAndServe()",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GNS-004",
-          "missionTitle": "Ответ в JSON",
-          "token": "json.NewEncoder()",
-          "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GNS-006",
-          "missionTitle": "Параметры запроса и статус ответа",
-          "token": "r.URL.Query()",
-          "kind": "вызов библиотеки"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GNS-009",
-          "missionTitle": "Middleware: общая обёртка",
-          "token": "next.ServeHTTP()",
-          "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GNS-010",
-          "missionTitle": "Контекст запроса",
-          "token": "r.Context()",
-          "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GNS-010",
-          "missionTitle": "Контекст запроса",
-          "token": "context.WithValue()",
-          "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "GNS-010",
-          "missionTitle": "Контекст запроса",
-          "token": "r.Context(), context.WithValue()",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "GNS-012",
-          "missionTitle": "База: подключение и пул",
-          "token": "SetMaxOpenConns()",
-          "kind": "функция"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "GNS-012",
-          "missionTitle": "База: подключение и пул",
-          "token": "SetMaxIdleConns()",
-          "kind": "функция"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GNS-012",
-          "missionTitle": "База: подключение и пул",
-          "token": "sql.Open()",
-          "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "GNS-012",
-          "missionTitle": "База: подключение и пул",
-          "token": "SetMaxOpenConns(), SetMaxIdleConns(), sql.Open()",
-          "kind": "3 новых сущностей сразу"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "GNS-013",
-          "missionTitle": "Запрос с контекстом и закрытием строк",
-          "token": "QueryContext()",
-          "kind": "функция"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GNS-013",
-          "missionTitle": "Запрос с контекстом и закрытием строк",
-          "token": "rows.Close()",
-          "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "GNS-013",
-          "missionTitle": "Запрос с контекстом и закрытием строк",
-          "token": "QueryContext(), rows.Close()",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GNS-014",
-          "missionTitle": "Транзакция: всё или ничего",
-          "token": "db.BeginTx()",
-          "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GNS-014",
-          "missionTitle": "Транзакция: всё или ничего",
-          "token": "tx.Rollback()",
-          "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GNS-014",
-          "missionTitle": "Транзакция: всё или ничего",
-          "token": "tx.Commit()",
-          "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "GNS-014",
-          "missionTitle": "Транзакция: всё или ничего",
-          "token": "db.BeginTx(), tx.Rollback(), tx.Commit()",
-          "kind": "3 новых сущностей сразу"
-        }
-      ]
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "go-core-concurrency",
@@ -896,11 +1229,15 @@
       "codeMissions": 11,
       "inheritedTokens": 42,
       "requiredTokens": 30,
-      "violations": 18,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 14,
-      "multipleNewApis": 4,
+      "violations": 23,
+      "requiredBeforeShown": 1,
+      "firstUseSameMission": 12,
+      "multipleNewApis": 3,
       "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 2,
+      "hintIsNotTeachingCritical": 1,
       "findings": [
         {
           "rule": "independent-use-right-after-first-sight",
@@ -931,11 +1268,12 @@
           "kind": "2 новых сущностей сразу"
         },
         {
-          "rule": "independent-use-right-after-first-sight",
+          "rule": "required-before-shown",
           "missionId": "GCC-008",
           "missionTitle": "Буферизованный канал",
           "token": "cap()",
-          "kind": "функция"
+          "kind": "функция",
+          "evidence": "названо словом, синтаксис не показан"
         },
         {
           "rule": "independent-use-right-after-first-sight",
@@ -980,6 +1318,14 @@
           "kind": "ключевое слово"
         },
         {
+          "rule": "hint-is-not-teaching",
+          "missionId": "GCC-012",
+          "missionTitle": "select: ждать из нескольких источников",
+          "token": "case",
+          "kind": "подсказка выдаёт фрагмент проверки, и конструкция видна человеку впервые",
+          "severity": "critical"
+        },
+        {
           "rule": "multiple-new-apis-at-once",
           "missionId": "GCC-012",
           "missionTitle": "select: ждать из нескольких источников",
@@ -1001,18 +1347,12 @@
           "kind": "метод или функция модуля"
         },
         {
-          "rule": "independent-use-right-after-first-sight",
+          "rule": "hint-is-not-teaching",
           "missionId": "GCC-014",
           "missionTitle": "Контекст: отмена сверху вниз",
           "token": "ctx.Done()",
-          "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "GCC-014",
-          "missionTitle": "Контекст: отмена сверху вниз",
-          "token": "context.WithCancel(), ctx.Done()",
-          "kind": "2 новых сущностей сразу"
+          "kind": "подсказка выдаёт фрагмент проверки дословно",
+          "severity": "warning"
         },
         {
           "rule": "independent-use-right-after-first-sight",
@@ -1027,8 +1367,46 @@
           "missionTitle": "Итоговое дело: последние тридцать секунд",
           "token": "context.WithTimeout()",
           "kind": "метод или функция модуля"
+        },
+        {
+          "courseId": "go-core-concurrency",
+          "missionId": "GCC-003",
+          "token": "go-goroutines",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Горутины» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "go-core-concurrency",
+          "missionId": "GCC-003",
+          "token": "go-sleep",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Пауза выполнения» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "go-core-concurrency",
+          "missionId": "GCC-008",
+          "token": "go-buffered",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Буферизованный канал» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "go-core-concurrency",
+          "missionId": "GCC-013",
+          "token": "go-timeout",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Ограничение ожидания по времени» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "go-core-concurrency",
+          "missionId": "GCC-015",
+          "token": "go-mutex",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Мьютекс и защита состояния» требуется только в миссии, где введён"
         }
-      ]
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 5
     },
     {
       "id": "go-production",
@@ -1039,11 +1417,15 @@
       "codeMissions": 9,
       "inheritedTokens": 103,
       "requiredTokens": 28,
-      "violations": 14,
+      "violations": 20,
       "requiredBeforeShown": 0,
-      "firstUseSameMission": 10,
-      "multipleNewApis": 4,
+      "firstUseSameMission": 9,
+      "multipleNewApis": 3,
       "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 2,
+      "hintIsNotTeachingCritical": 0,
       "findings": [
         {
           "rule": "independent-use-right-after-first-sight",
@@ -1060,11 +1442,12 @@
           "kind": "метод или функция модуля"
         },
         {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GPR-008",
-          "missionTitle": "Fuzz-тест: искать вход, о котором не подумали",
-          "token": "f.Add()",
-          "kind": "метод или функция модуля"
+          "rule": "hint-is-not-teaching",
+          "missionId": "GPR-006",
+          "missionTitle": "Бенчмарк: измерить, а не угадать",
+          "token": "b.N",
+          "kind": "подсказка выдаёт фрагмент проверки дословно",
+          "severity": "warning"
         },
         {
           "rule": "independent-use-right-after-first-sight",
@@ -1072,13 +1455,6 @@
           "missionTitle": "Fuzz-тест: искать вход, о котором не подумали",
           "token": "f.Fuzz()",
           "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "GPR-008",
-          "missionTitle": "Fuzz-тест: искать вход, о котором не подумали",
-          "token": "f.Add(), f.Fuzz()",
-          "kind": "2 новых сущностей сразу"
         },
         {
           "rule": "independent-use-right-after-first-sight",
@@ -1123,6 +1499,14 @@
           "kind": "2 новых сущностей сразу"
         },
         {
+          "rule": "hint-is-not-teaching",
+          "missionId": "GPR-013",
+          "missionTitle": "Проверка готовности",
+          "token": "http.StatusServiceUnavailable",
+          "kind": "подсказка выдаёт фрагмент проверки дословно",
+          "severity": "warning"
+        },
+        {
           "rule": "independent-use-right-after-first-sight",
           "missionId": "GPR-014",
           "missionTitle": "Корректная остановка",
@@ -1142,8 +1526,343 @@
           "missionTitle": "Корректная остановка",
           "token": "signal.Notify(), srv.Shutdown()",
           "kind": "2 новых сущностей сразу"
+        },
+        {
+          "courseId": "go-production",
+          "missionId": "GPR-003",
+          "token": "go-testing",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Тесты» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "go-production",
+          "missionId": "GPR-004",
+          "token": "go-table-tests",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Табличные тесты» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "go-production",
+          "missionId": "GPR-006",
+          "token": "go-benchmark",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Бенчмарки» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "go-production",
+          "missionId": "GPR-008",
+          "token": "go-fuzz",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Fuzz-тесты» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "go-production",
+          "missionId": "GPR-009",
+          "token": "go-pprof",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Профилирование» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "go-production",
+          "missionId": "GPR-013",
+          "token": "go-health",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Проверки живости и готовности» требуется только в миссии, где введён"
         }
-      ]
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 6
+    },
+    {
+      "id": "react-core",
+      "title": "React: модель интерфейса",
+      "language": "javascript",
+      "noRoute": false,
+      "missions": 20,
+      "codeMissions": 13,
+      "inheritedTokens": 43,
+      "requiredTokens": 19,
+      "violations": 19,
+      "requiredBeforeShown": 1,
+      "firstUseSameMission": 7,
+      "multipleNewApis": 2,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 1,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "RCT-010",
+          "missionTitle": "Состояние: кнопка меняет интерфейс",
+          "token": "useState()",
+          "kind": "функция"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "RCT-010",
+          "missionTitle": "Состояние: кнопка меняет интерфейс",
+          "token": "setCount()",
+          "kind": "функция"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "RCT-010",
+          "missionTitle": "Состояние: кнопка меняет интерфейс",
+          "token": "useState(), setCount()",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "RCT-012",
+          "missionTitle": "Условный рендер",
+          "token": ":",
+          "kind": "1 из 2 проверок выполнены комментарием в стартовом файле",
+          "severity": "warning"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "RCT-016",
+          "missionTitle": "Отправка формы",
+          "token": "preventDefault()",
+          "kind": "функция"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "RCT-017",
+          "missionTitle": "Эффект: загрузить данные",
+          "token": "useEffect()",
+          "kind": "функция"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "RCT-019",
+          "missionTitle": "Очистка эффекта",
+          "token": "clearInterval()",
+          "kind": "функция"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "RCT-020",
+          "missionTitle": "Итоговое дело: загрузка, ошибка, результат",
+          "token": "setError()",
+          "kind": "функция",
+          "evidence": "названо словом, синтаксис не показан"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "RCT-020",
+          "missionTitle": "Итоговое дело: загрузка, ошибка, результат",
+          "token": "setLoading()",
+          "kind": "функция"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "RCT-020",
+          "missionTitle": "Итоговое дело: загрузка, ошибка, результат",
+          "token": "catch",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "RCT-020",
+          "missionTitle": "Итоговое дело: загрузка, ошибка, результат",
+          "token": "setError(), setLoading(), catch",
+          "kind": "3 новых сущностей сразу"
+        },
+        {
+          "courseId": "react-core",
+          "missionId": "RCT-012",
+          "token": "jsx-conditional",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Условие в разметке» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "react-core",
+          "missionId": "RCT-013",
+          "token": "react-keys",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Ключи элементов списка» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "react-core",
+          "missionId": "RCT-015",
+          "token": "react-controlled",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Управляемое поле» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "react-core",
+          "missionId": "RCT-016",
+          "token": "react-form-submit",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Отправка формы» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "react-core",
+          "missionId": "RCT-017",
+          "token": "react-effect",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Эффекты» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "react-core",
+          "missionId": "RCT-017",
+          "token": "react-deps",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Массив зависимостей» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "react-core",
+          "missionId": "RCT-019",
+          "token": "react-cleanup",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Очистка эффекта» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "react-core",
+          "missionId": "RCT-019",
+          "token": "js-timers",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Таймеры браузера» требуется только в миссии, где введён"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 8
+    },
+    {
+      "id": "react-architecture",
+      "title": "Архитектура React-приложения",
+      "language": "javascript",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 69,
+      "requiredTokens": 38,
+      "violations": 14,
+      "requiredBeforeShown": 7,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 2,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 1,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 1,
+      "hintIsNotTeachingCritical": 1,
+      "findings": [
+        {
+          "rule": "required-before-shown",
+          "missionId": "RCA-006",
+          "missionTitle": "Лаборатория: инвалидируй кэш после мутации",
+          "token": "useQueryClient()",
+          "kind": "функция",
+          "evidence": "названо словом, синтаксис не показан"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "RCA-006",
+          "missionTitle": "Лаборатория: инвалидируй кэш после мутации",
+          "token": "invalidateQueries()",
+          "kind": "функция",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "RCA-006",
+          "missionTitle": "Лаборатория: инвалидируй кэш после мутации",
+          "token": "mutation.mutate()",
+          "kind": "метод или функция модуля",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "RCA-006",
+          "missionTitle": "Лаборатория: инвалидируй кэш после мутации",
+          "token": "useQueryClient(), invalidateQueries(), mutation.mutate()",
+          "kind": "3 новых сущностей сразу"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "RCA-009",
+          "missionTitle": "Лаборатория: ленивая загрузка и 404",
+          "token": "lazy()",
+          "kind": "функция",
+          "evidence": "названо словом, синтаксис не показан"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "RCA-011",
+          "missionTitle": "Сократи область обновления состояния",
+          "token": "SearchBox()",
+          "kind": "функция",
+          "evidence": "названо словом, синтаксис не показан"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "RCA-011",
+          "missionTitle": "Сократи область обновления состояния",
+          "token": "const [query, setQuery] = useState(\"\") · <OrderList orders={orders} />",
+          "kind": "2 из 4 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "RCA-012",
+          "missionTitle": "Лаборатория: оптимизируй измеренную границу",
+          "token": "memo()",
+          "kind": "функция",
+          "evidence": "названо словом, синтаксис не показан"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "RCA-012",
+          "missionTitle": "Лаборатория: оптимизируй измеренную границу",
+          "token": "useMemo()",
+          "kind": "функция",
+          "evidence": "названо словом, синтаксис не показан"
+        },
+        {
+          "rule": "hint-is-not-teaching",
+          "missionId": "RCA-012",
+          "missionTitle": "Лаборатория: оптимизируй измеренную границу",
+          "token": "useMemo(() => · [orders, query]",
+          "kind": "подсказка выдаёт фрагмент проверки, и конструкция видна человеку впервые",
+          "severity": "critical"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "RCA-012",
+          "missionTitle": "Лаборатория: оптимизируй измеренную границу",
+          "token": "memo(), useMemo()",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "courseId": "react-architecture",
+          "missionId": "RCA-006",
+          "token": "react-mutation",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Мутация и инвалидирование кэша» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "react-architecture",
+          "missionId": "RCA-009",
+          "token": "react-lazy",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Ленивая загрузка маршрута» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "react-architecture",
+          "missionId": "RCA-012",
+          "token": "react-use-memo",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Мемоизация вычисления» требуется только в миссии, где введён"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 3
     },
     {
       "id": "data-modeling",
@@ -1159,34 +1878,42 @@
       "firstUseSameMission": 0,
       "multipleNewApis": 1,
       "blankEditor": 5,
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
       "findings": [
         {
           "rule": "required-before-shown",
           "missionId": "DMD-002",
           "missionTitle": "Сущности и связи: механика",
           "token": "solve()",
-          "kind": "функция"
+          "kind": "функция",
+          "evidence": "не встречалось нигде"
         },
         {
           "rule": "required-before-shown",
           "missionId": "DMD-002",
           "missionTitle": "Сущности и связи: механика",
           "token": "def",
-          "kind": "ключевое слово"
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
         },
         {
           "rule": "required-before-shown",
           "missionId": "DMD-002",
           "missionTitle": "Сущности и связи: механика",
           "token": "return",
-          "kind": "ключевое слово"
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
         },
         {
           "rule": "required-before-shown",
           "missionId": "DMD-002",
           "missionTitle": "Сущности и связи: механика",
           "token": "assert",
-          "kind": "ключевое слово"
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
         },
         {
           "rule": "multiple-new-apis-at-once",
@@ -1200,7 +1927,8 @@
           "missionId": "DMD-022",
           "missionTitle": "Многие ко многим: механика",
           "token": "print()",
-          "kind": "функция"
+          "kind": "функция",
+          "evidence": "не встречалось нигде"
         },
         {
           "rule": "blank-editor-task",
@@ -1237,7 +1965,682 @@
           "token": "print()",
           "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
         }
-      ]
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    {
+      "id": "frontend-delivery",
+      "title": "Frontend как продукт",
+      "language": "javascript",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 43,
+      "requiredTokens": 39,
+      "violations": 9,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 9,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "FDL-002",
+          "missionTitle": "Код: Состояние и поток данных",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "FDL-003",
+          "missionTitle": "Лаборатория: Состояние и поток данных",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "FDL-005",
+          "missionTitle": "Код: Компоненты и дизайн-система",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "FDL-006",
+          "missionTitle": "Лаборатория: Компоненты и дизайн-система",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "FDL-008",
+          "missionTitle": "Код: Сборка и доставка",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "FDL-009",
+          "missionTitle": "Лаборатория: Сборка и доставка",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "FDL-011",
+          "missionTitle": "Код: Наблюдаемый релиз",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "FDL-012",
+          "missionTitle": "Лаборатория: Наблюдаемый релиз",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "FDL-013",
+          "missionTitle": "Итоговое дело: Компонент, который знает всё",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    {
+      "id": "frontend-quality",
+      "title": "Качество frontend",
+      "language": "javascript",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 43,
+      "requiredTokens": 41,
+      "violations": 9,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 9,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "FQL-002",
+          "missionTitle": "Код: Доступность интерфейса",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "FQL-003",
+          "missionTitle": "Лаборатория: Доступность интерфейса",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "FQL-005",
+          "missionTitle": "Код: Web performance",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "FQL-006",
+          "missionTitle": "Лаборатория: Web performance",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "FQL-008",
+          "missionTitle": "Код: Тестовая стратегия UI",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "FQL-009",
+          "missionTitle": "Лаборатория: Тестовая стратегия UI",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "FQL-011",
+          "missionTitle": "Код: Безопасность браузера",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "FQL-012",
+          "missionTitle": "Лаборатория: Безопасность браузера",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "FQL-013",
+          "missionTitle": "Итоговое дело: Быстрый экран, медленная покупка",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    {
+      "id": "java-core-jvm",
+      "title": "Java и устройство JVM",
+      "language": "java",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 44,
+      "requiredTokens": 33,
+      "violations": 9,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 9,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "JVM-002",
+          "missionTitle": "Код: Типы и объектная модель",
+          "token": "return new Plan(artifact, steps)",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "JVM-003",
+          "missionTitle": "Лаборатория: Типы и объектная модель",
+          "token": "return new Plan(artifact, steps)",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "JVM-005",
+          "missionTitle": "Код: Коллекции и обобщения",
+          "token": "return new Plan(artifact, steps)",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "JVM-006",
+          "missionTitle": "Лаборатория: Коллекции и обобщения",
+          "token": "return new Plan(artifact, steps)",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "JVM-008",
+          "missionTitle": "Код: Исключения и ресурсы",
+          "token": "return new Plan(artifact, steps)",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "JVM-009",
+          "missionTitle": "Лаборатория: Исключения и ресурсы",
+          "token": "return new Plan(artifact, steps)",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "JVM-011",
+          "missionTitle": "Код: Потоки и модель памяти",
+          "token": "return new Plan(artifact, steps)",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "JVM-012",
+          "missionTitle": "Лаборатория: Потоки и модель памяти",
+          "token": "return new Plan(artifact, steps)",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "JVM-013",
+          "missionTitle": "Итоговое дело: Поток, который не удалось остановить",
+          "token": "return new Plan(artifact, steps)",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    {
+      "id": "java-production",
+      "title": "Java-сервис в продакшене",
+      "language": "java",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 48,
+      "requiredTokens": 32,
+      "violations": 9,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 9,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "JPR-002",
+          "missionTitle": "Код: Тестовая стратегия",
+          "token": "return new Plan(artifact, steps)",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "JPR-003",
+          "missionTitle": "Лаборатория: Тестовая стратегия",
+          "token": "return new Plan(artifact, steps)",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "JPR-005",
+          "missionTitle": "Код: Логи, метрики и трассы",
+          "token": "return new Plan(artifact, steps)",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "JPR-006",
+          "missionTitle": "Лаборатория: Логи, метрики и трассы",
+          "token": "return new Plan(artifact, steps)",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "JPR-008",
+          "missionTitle": "Код: Память и производительность JVM",
+          "token": "return new Plan(artifact, steps)",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "JPR-009",
+          "missionTitle": "Лаборатория: Память и производительность JVM",
+          "token": "return new Plan(artifact, steps)",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "JPR-011",
+          "missionTitle": "Код: Устойчивый релиз",
+          "token": "return new Plan(artifact, steps)",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "JPR-012",
+          "missionTitle": "Лаборатория: Устойчивый релиз",
+          "token": "return new Plan(artifact, steps)",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "JPR-013",
+          "missionTitle": "Итоговое дело: Релиз без следов",
+          "token": "return new Plan(artifact, steps)",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    {
+      "id": "react-production",
+      "title": "React в продакшене",
+      "language": "javascript",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 100,
+      "requiredTokens": 41,
+      "violations": 9,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 9,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "RCP-002",
+          "missionTitle": "Код: Тестирование поведения",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "RCP-003",
+          "missionTitle": "Лаборатория: Тестирование поведения",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "RCP-005",
+          "missionTitle": "Код: Доступность динамического UI",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "RCP-006",
+          "missionTitle": "Лаборатория: Доступность динамического UI",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "RCP-008",
+          "missionTitle": "Код: Ошибки и восстановление",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "RCP-009",
+          "missionTitle": "Лаборатория: Ошибки и восстановление",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "RCP-011",
+          "missionTitle": "Код: Доставка и мониторинг",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "RCP-012",
+          "missionTitle": "Лаборатория: Доставка и мониторинг",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "RCP-013",
+          "missionTitle": "Итоговое дело: Белый экран после оплаты",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    {
+      "id": "spring-services",
+      "title": "Сервисы на Spring",
+      "language": "java",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 48,
+      "requiredTokens": 30,
+      "violations": 9,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 9,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "SPR-002",
+          "missionTitle": "Код: HTTP-контракт и контроллер",
+          "token": "return new Plan(artifact, steps)",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "SPR-003",
+          "missionTitle": "Лаборатория: HTTP-контракт и контроллер",
+          "token": "return new Plan(artifact, steps)",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "SPR-005",
+          "missionTitle": "Код: Внедрение зависимостей и слои",
+          "token": "return new Plan(artifact, steps)",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "SPR-006",
+          "missionTitle": "Лаборатория: Внедрение зависимостей и слои",
+          "token": "return new Plan(artifact, steps)",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "SPR-008",
+          "missionTitle": "Код: JPA и транзакции",
+          "token": "return new Plan(artifact, steps)",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "SPR-009",
+          "missionTitle": "Лаборатория: JPA и транзакции",
+          "token": "return new Plan(artifact, steps)",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "SPR-011",
+          "missionTitle": "Код: Валидация и безопасность",
+          "token": "return new Plan(artifact, steps)",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "SPR-012",
+          "missionTitle": "Лаборатория: Валидация и безопасность",
+          "token": "return new Plan(artifact, steps)",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "SPR-013",
+          "missionTitle": "Итоговое дело: Заказ создан дважды",
+          "token": "return new Plan(artifact, steps)",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    {
+      "id": "web-platform-foundations",
+      "title": "Web-платформа",
+      "language": "javascript",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 42,
+      "requiredTokens": 42,
+      "violations": 9,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 9,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "WPF-002",
+          "missionTitle": "Код: Семантический HTML",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "WPF-003",
+          "missionTitle": "Лаборатория: Семантический HTML",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "WPF-005",
+          "missionTitle": "Код: CSS и адаптивный layout",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "WPF-006",
+          "missionTitle": "Лаборатория: CSS и адаптивный layout",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "WPF-008",
+          "missionTitle": "Код: JavaScript и event loop",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "WPF-009",
+          "missionTitle": "Лаборатория: JavaScript и event loop",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "WPF-011",
+          "missionTitle": "Код: HTTP и Web API",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "WPF-012",
+          "missionTitle": "Лаборатория: HTTP и Web API",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "WPF-013",
+          "missionTitle": "Итоговое дело: Страница без голоса",
+          "token": "return { artifact, steps }",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "production-incidents",
@@ -1253,34 +2656,42 @@
       "firstUseSameMission": 0,
       "multipleNewApis": 1,
       "blankEditor": 2,
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
       "findings": [
         {
           "rule": "required-before-shown",
           "missionId": "INC-002",
           "missionTitle": "Смена разделителя: механика",
           "token": "solve()",
-          "kind": "функция"
+          "kind": "функция",
+          "evidence": "не встречалось нигде"
         },
         {
           "rule": "required-before-shown",
           "missionId": "INC-002",
           "missionTitle": "Смена разделителя: механика",
           "token": "def",
-          "kind": "ключевое слово"
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
         },
         {
           "rule": "required-before-shown",
           "missionId": "INC-002",
           "missionTitle": "Смена разделителя: механика",
           "token": "return",
-          "kind": "ключевое слово"
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
         },
         {
           "rule": "required-before-shown",
           "missionId": "INC-002",
           "missionTitle": "Смена разделителя: механика",
           "token": "assert",
-          "kind": "ключевое слово"
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
         },
         {
           "rule": "multiple-new-apis-at-once",
@@ -1294,7 +2705,8 @@
           "missionId": "INC-017",
           "missionTitle": "Часовые пояса: механика",
           "token": "print()",
-          "kind": "функция"
+          "kind": "функция",
+          "evidence": "не встречалось нигде"
         },
         {
           "rule": "blank-editor-task",
@@ -1310,73 +2722,10 @@
           "token": "print()",
           "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
         }
-      ]
-    },
-    {
-      "id": "react-core",
-      "title": "React: модель интерфейса",
-      "language": "javascript",
-      "noRoute": false,
-      "missions": 20,
-      "codeMissions": 13,
-      "inheritedTokens": 43,
-      "requiredTokens": 17,
-      "violations": 7,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 6,
-      "multipleNewApis": 1,
-      "blankEditor": 0,
-      "findings": [
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "RCT-010",
-          "missionTitle": "Состояние: кнопка меняет интерфейс",
-          "token": "setCount()",
-          "kind": "функция"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "RCT-016",
-          "missionTitle": "Отправка формы",
-          "token": "preventDefault()",
-          "kind": "функция"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "RCT-019",
-          "missionTitle": "Очистка эффекта",
-          "token": "clearInterval()",
-          "kind": "функция"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "RCT-020",
-          "missionTitle": "Итоговое дело: загрузка, ошибка, результат",
-          "token": "setLoading()",
-          "kind": "функция"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "RCT-020",
-          "missionTitle": "Итоговое дело: загрузка, ошибка, результат",
-          "token": "setError()",
-          "kind": "функция"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "RCT-020",
-          "missionTitle": "Итоговое дело: загрузка, ошибка, результат",
-          "token": "catch",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "RCT-020",
-          "missionTitle": "Итоговое дело: загрузка, ошибка, результат",
-          "token": "setLoading(), setError(), catch",
-          "kind": "3 новых сущностей сразу"
-        }
-      ]
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "data-final-project",
@@ -1392,34 +2741,42 @@
       "firstUseSameMission": 0,
       "multipleNewApis": 1,
       "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
       "findings": [
         {
           "rule": "required-before-shown",
           "missionId": "FIN-002",
           "missionTitle": "Инвентаризация источников: механика",
           "token": "solve()",
-          "kind": "функция"
+          "kind": "функция",
+          "evidence": "не встречалось нигде"
         },
         {
           "rule": "required-before-shown",
           "missionId": "FIN-002",
           "missionTitle": "Инвентаризация источников: механика",
           "token": "def",
-          "kind": "ключевое слово"
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
         },
         {
           "rule": "required-before-shown",
           "missionId": "FIN-002",
           "missionTitle": "Инвентаризация источников: механика",
           "token": "return",
-          "kind": "ключевое слово"
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
         },
         {
           "rule": "required-before-shown",
           "missionId": "FIN-002",
           "missionTitle": "Инвентаризация источников: механика",
           "token": "assert",
-          "kind": "ключевое слово"
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
         },
         {
           "rule": "multiple-new-apis-at-once",
@@ -1428,52 +2785,1018 @@
           "token": "solve(), def, return, assert",
           "kind": "4 новых сущностей сразу"
         }
-      ]
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
-      "id": "react-architecture",
-      "title": "Архитектура React-приложения",
-      "language": "javascript",
+      "id": "ai-evaluation-safety",
+      "title": "Оценка и безопасность ИИ",
+      "language": "python",
       "noRoute": false,
       "missions": 13,
       "codeMissions": 9,
-      "inheritedTokens": 69,
-      "requiredTokens": 32,
+      "inheritedTokens": 78,
+      "requiredTokens": 37,
       "violations": 4,
-      "requiredBeforeShown": 2,
-      "firstUseSameMission": 1,
-      "multipleNewApis": 1,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
       "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
       "findings": [
         {
-          "rule": "required-before-shown",
-          "missionId": "RCA-006",
-          "missionTitle": "Лаборатория: инвалидируй кэш после мутации",
-          "token": "invalidateQueries()",
-          "kind": "функция"
+          "rule": "check-passes-on-starter",
+          "missionId": "AIE-002",
+          "missionTitle": "Код: Набор оценивания",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
         },
         {
-          "rule": "required-before-shown",
-          "missionId": "RCA-006",
-          "missionTitle": "Лаборатория: инвалидируй кэш после мутации",
-          "token": "mutation.mutate()",
-          "kind": "метод или функция модуля"
+          "rule": "check-passes-on-starter",
+          "missionId": "AIE-005",
+          "missionTitle": "Код: Метрики и судьи",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
         },
         {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "RCA-006",
-          "missionTitle": "Лаборатория: инвалидируй кэш после мутации",
-          "token": "invalidateQueries(), mutation.mutate()",
-          "kind": "2 новых сущностей сразу"
+          "rule": "check-passes-on-starter",
+          "missionId": "AIE-008",
+          "missionTitle": "Код: Prompt injection и границы доверия",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
         },
         {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "RCA-011",
-          "missionTitle": "Сократи область обновления состояния",
-          "token": "SearchBox()",
-          "kind": "функция"
+          "rule": "check-passes-on-starter",
+          "missionId": "AIE-011",
+          "missionTitle": "Код: Трассировка и выпуск",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
         }
-      ]
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    {
+      "id": "analytics-communication",
+      "title": "Аналитика, которая меняет решение",
+      "language": "python",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 106,
+      "requiredTokens": 36,
+      "violations": 4,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "ANC-002",
+          "missionTitle": "Код: Тезис и аудитория",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "ANC-005",
+          "missionTitle": "Код: Честная визуализация",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "ANC-008",
+          "missionTitle": "Код: Неопределённость и ограничения",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "ANC-011",
+          "missionTitle": "Код: Защита рекомендации",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    {
+      "id": "boosting",
+      "title": "Бустинг на табличных данных",
+      "language": "python",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 133,
+      "requiredTokens": 37,
+      "violations": 4,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "BST-002",
+          "missionTitle": "Код: Деревья решений",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "BST-005",
+          "missionTitle": "Код: Градиентный бустинг",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "BST-008",
+          "missionTitle": "Код: Категории и переобучение",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "BST-011",
+          "missionTitle": "Код: Интерпретация и ограничения",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    {
+      "id": "data-pipelines",
+      "title": "Надёжные конвейеры данных",
+      "language": "python",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 57,
+      "requiredTokens": 35,
+      "violations": 4,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "DEP-002",
+          "missionTitle": "Код: ETL, ELT и границы этапов",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "DEP-005",
+          "missionTitle": "Код: Идемпотентность",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "DEP-008",
+          "missionTitle": "Код: Инкремент и контрольная точка",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "DEP-011",
+          "missionTitle": "Код: Опоздавшие данные и backfill",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    {
+      "id": "data-platform-reliability",
+      "title": "Надёжность платформы данных",
+      "language": "python",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 58,
+      "requiredTokens": 31,
+      "violations": 4,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "DER-002",
+          "missionTitle": "Код: Контракты данных",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "DER-005",
+          "missionTitle": "Код: Lineage и область влияния",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "DER-008",
+          "missionTitle": "Код: SLA, SLO и наблюдаемость",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "DER-011",
+          "missionTitle": "Код: Стоимость и управление платформой",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    {
+      "id": "linear-algebra",
+      "title": "Линейная алгебра для ML",
+      "language": "python",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 179,
+      "requiredTokens": 33,
+      "violations": 4,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "LAL-002",
+          "missionTitle": "Код: Векторы и признаки",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "LAL-005",
+          "missionTitle": "Код: Скалярное произведение и расстояние",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "LAL-008",
+          "missionTitle": "Код: Матрицы и преобразования",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "LAL-011",
+          "missionTitle": "Код: SVD и PCA",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    {
+      "id": "llm-applications",
+      "title": "LLM-приложения",
+      "language": "python",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 78,
+      "requiredTokens": 36,
+      "violations": 4,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "AIA-002",
+          "missionTitle": "Код: Контекст и инструкция",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "AIA-005",
+          "missionTitle": "Код: Структурированный вывод",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "AIA-008",
+          "missionTitle": "Код: Tool calling",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "AIA-011",
+          "missionTitle": "Код: Стоимость, задержка и fallback",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    {
+      "id": "ml-baseline",
+      "title": "Первая модель машинного обучения",
+      "language": "python",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 77,
+      "requiredTokens": 34,
+      "violations": 4,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "MLB-002",
+          "missionTitle": "Код: Постановка задачи и target",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "MLB-005",
+          "missionTitle": "Код: Baseline и разбиение",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "MLB-008",
+          "missionTitle": "Код: Утечка данных",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "MLB-011",
+          "missionTitle": "Код: Метрики и порог",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    {
+      "id": "ml-engineering",
+      "title": "Инженерия обучения моделей",
+      "language": "python",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 133,
+      "requiredTokens": 34,
+      "violations": 4,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "MLE-002",
+          "missionTitle": "Код: Воспроизводимое окружение",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "MLE-005",
+          "missionTitle": "Код: Эксперименты и артефакты",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "MLE-008",
+          "missionTitle": "Код: Конвейер обучения",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "MLE-011",
+          "missionTitle": "Код: Реестр моделей",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    {
+      "id": "ml-observability",
+      "title": "Наблюдаемость ML-систем",
+      "language": "python",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 134,
+      "requiredTokens": 34,
+      "violations": 4,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "MLO-002",
+          "missionTitle": "Код: Метрики сервиса и модели",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "MLO-005",
+          "missionTitle": "Код: Дрейф данных",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "MLO-008",
+          "missionTitle": "Код: Качество с задержанной разметкой",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "MLO-011",
+          "missionTitle": "Код: Переобучение и инциденты",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    {
+      "id": "model-serving",
+      "title": "Сервинг и релиз моделей",
+      "language": "python",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 133,
+      "requiredTokens": 36,
+      "violations": 4,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "MSV-002",
+          "missionTitle": "Код: Контракт инференса",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "MSV-005",
+          "missionTitle": "Код: Batch и online serving",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "MSV-008",
+          "missionTitle": "Код: Производительность и деградация",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "MSV-011",
+          "missionTitle": "Код: Безопасный релиз",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    {
+      "id": "product-analytics",
+      "title": "Продуктовая аналитика",
+      "language": "python",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 93,
+      "requiredTokens": 34,
+      "violations": 4,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "PRA-002",
+          "missionTitle": "Код: События и план отслеживания",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "PRA-005",
+          "missionTitle": "Код: Воронка",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "PRA-008",
+          "missionTitle": "Код: Когорты и удержание",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "PRA-011",
+          "missionTitle": "Код: Юнит-экономика и сегменты",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    {
+      "id": "production",
+      "title": "Модель выходит в прод",
+      "language": "python",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 180,
+      "requiredTokens": 33,
+      "violations": 4,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "MPR-002",
+          "missionTitle": "Код: Контракт модели и API",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "MPR-005",
+          "missionTitle": "Код: Контейнер и артефакты",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "MPR-008",
+          "missionTitle": "Код: Мониторинг качества и drift",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "MPR-011",
+          "missionTitle": "Код: Canary и rollback",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    {
+      "id": "python-databases-async",
+      "title": "Асинхронный Python и данные",
+      "language": "python",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 44,
+      "requiredTokens": 33,
+      "violations": 4,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "PDB-002",
+          "missionTitle": "Код: Event loop и неблокирующий ввод-вывод",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "PDB-005",
+          "missionTitle": "Код: Отмена и структурная конкурентность",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "PDB-008",
+          "missionTitle": "Код: Пул и транзакции базы",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "PDB-011",
+          "missionTitle": "Код: Очереди и фоновые задачи",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    {
+      "id": "python-service-production",
+      "title": "Python-сервис в продакшене",
+      "language": "python",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 45,
+      "requiredTokens": 35,
+      "violations": 4,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "PSP-002",
+          "missionTitle": "Код: Тесты и контракты",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "PSP-005",
+          "missionTitle": "Код: Наблюдаемость",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "PSP-008",
+          "missionTitle": "Код: Процессы и производительность",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "PSP-011",
+          "missionTitle": "Код: Релиз и надёжность",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    {
+      "id": "python-web-api",
+      "title": "Web API на Python",
+      "language": "python",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 43,
+      "requiredTokens": 38,
+      "violations": 4,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "PWA-002",
+          "missionTitle": "Код: HTTP и ресурсный API",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "PWA-005",
+          "missionTitle": "Код: Схемы и валидация",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "PWA-008",
+          "missionTitle": "Код: Зависимости и архитектура",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "PWA-011",
+          "missionTitle": "Код: Аутентификация и авторизация",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    {
+      "id": "rag-systems",
+      "title": "RAG и корпоративные знания",
+      "language": "python",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 78,
+      "requiredTokens": 34,
+      "violations": 4,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "RAG-002",
+          "missionTitle": "Код: Подготовка и разбиение документов",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "RAG-005",
+          "missionTitle": "Код: Гибридный поиск",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "RAG-008",
+          "missionTitle": "Код: Reranking и контекст",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "RAG-011",
+          "missionTitle": "Код: Цитаты, freshness и доступ",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    {
+      "id": "streaming-platforms",
+      "title": "Потоковые платформы",
+      "language": "python",
+      "noRoute": false,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 58,
+      "requiredTokens": 33,
+      "violations": 4,
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "DES-002",
+          "missionTitle": "Код: Топики, партиции и порядок",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "DES-005",
+          "missionTitle": "Код: Семантика доставки",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "DES-008",
+          "missionTitle": "Код: Event time и watermark",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "DES-011",
+          "missionTitle": "Код: Состояние и восстановление",
+          "token": "return {\"artifact\": artifact, \"steps\": steps}",
+          "kind": "1 из 3 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "data-quality",
@@ -1489,15 +3812,23 @@
       "firstUseSameMission": 0,
       "multipleNewApis": 0,
       "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
       "findings": [
         {
           "rule": "required-before-shown",
           "missionId": "DQL-002",
           "missionTitle": "Полнота: механика",
           "token": "solve()",
-          "kind": "функция"
+          "kind": "функция",
+          "evidence": "не встречалось нигде"
         }
-      ]
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "data-visualization",
@@ -1506,22 +3837,30 @@
       "noRoute": false,
       "missions": 44,
       "codeMissions": 21,
-      "inheritedTokens": 92,
+      "inheritedTokens": 93,
       "requiredTokens": 78,
       "violations": 1,
       "requiredBeforeShown": 1,
       "firstUseSameMission": 0,
       "multipleNewApis": 0,
       "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
       "findings": [
         {
           "rule": "required-before-shown",
           "missionId": "VIZ-002",
           "missionTitle": "Выбор графика: механика",
           "token": "solve()",
-          "kind": "функция"
+          "kind": "функция",
+          "evidence": "не встречалось нигде"
         }
-      ]
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "etl-elt",
@@ -1537,15 +3876,23 @@
       "firstUseSameMission": 0,
       "multipleNewApis": 0,
       "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
       "findings": [
         {
           "rule": "required-before-shown",
           "missionId": "ETL-002",
           "missionTitle": "Извлечение, преобразование и загрузка: механика",
           "token": "solve()",
-          "kind": "функция"
+          "kind": "функция",
+          "evidence": "не встречалось нигде"
         }
-      ]
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "large-data",
@@ -1561,63 +3908,23 @@
       "firstUseSameMission": 0,
       "multipleNewApis": 0,
       "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
       "findings": [
         {
           "rule": "required-before-shown",
           "missionId": "BIG-002",
           "missionTitle": "Оперативная память: механика",
           "token": "solve()",
-          "kind": "функция"
+          "kind": "функция",
+          "evidence": "не встречалось нигде"
         }
-      ]
-    },
-    {
-      "id": "ai-evaluation-safety",
-      "title": "Оценка и безопасность ИИ",
-      "language": "python",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 77,
-      "requiredTokens": 32,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "findings": []
-    },
-    {
-      "id": "analytics-communication",
-      "title": "Аналитика, которая меняет решение",
-      "language": "python",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 104,
-      "requiredTokens": 31,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "findings": []
-    },
-    {
-      "id": "boosting",
-      "title": "Бустинг на табличных данных",
-      "language": "python",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 131,
-      "requiredTokens": 32,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "findings": []
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "data-cleaning",
@@ -1625,15 +3932,22 @@
       "language": "python",
       "noRoute": false,
       "missions": 52,
-      "codeMissions": 27,
-      "inheritedTokens": 121,
-      "requiredTokens": 159,
+      "codeMissions": 29,
+      "inheritedTokens": 122,
+      "requiredTokens": 171,
       "violations": 0,
       "requiredBeforeShown": 0,
       "firstUseSameMission": 0,
       "multipleNewApis": 0,
       "blankEditor": 0,
-      "findings": []
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "data-formats",
@@ -1649,39 +3963,14 @@
       "firstUseSameMission": 0,
       "multipleNewApis": 0,
       "blankEditor": 0,
-      "findings": []
-    },
-    {
-      "id": "data-pipelines",
-      "title": "Надёжные конвейеры данных",
-      "language": "python",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 57,
-      "requiredTokens": 30,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "findings": []
-    },
-    {
-      "id": "data-platform-reliability",
-      "title": "Надёжность платформы данных",
-      "language": "python",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 58,
-      "requiredTokens": 26,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "findings": []
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "exploratory-data-analysis",
@@ -1689,175 +3978,22 @@
       "language": "python",
       "noRoute": false,
       "missions": 46,
-      "codeMissions": 22,
-      "inheritedTokens": 148,
-      "requiredTokens": 125,
+      "codeMissions": 24,
+      "inheritedTokens": 151,
+      "requiredTokens": 135,
       "violations": 0,
       "requiredBeforeShown": 0,
       "firstUseSameMission": 0,
       "multipleNewApis": 0,
       "blankEditor": 0,
-      "findings": []
-    },
-    {
-      "id": "frontend-delivery",
-      "title": "Frontend как продукт",
-      "language": "javascript",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 43,
-      "requiredTokens": 39,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "findings": []
-    },
-    {
-      "id": "frontend-quality",
-      "title": "Качество frontend",
-      "language": "javascript",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 43,
-      "requiredTokens": 41,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "findings": []
-    },
-    {
-      "id": "java-core-jvm",
-      "title": "Java и устройство JVM",
-      "language": "java",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 44,
-      "requiredTokens": 33,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "findings": []
-    },
-    {
-      "id": "java-production",
-      "title": "Java-сервис в продакшене",
-      "language": "java",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 48,
-      "requiredTokens": 32,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "findings": []
-    },
-    {
-      "id": "linear-algebra",
-      "title": "Линейная алгебра для ML",
-      "language": "python",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 175,
-      "requiredTokens": 28,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "findings": []
-    },
-    {
-      "id": "llm-applications",
-      "title": "LLM-приложения",
-      "language": "python",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 77,
-      "requiredTokens": 31,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "findings": []
-    },
-    {
-      "id": "ml-baseline",
-      "title": "Первая модель машинного обучения",
-      "language": "python",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 76,
-      "requiredTokens": 29,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "findings": []
-    },
-    {
-      "id": "ml-engineering",
-      "title": "Инженерия обучения моделей",
-      "language": "python",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 131,
-      "requiredTokens": 29,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "findings": []
-    },
-    {
-      "id": "ml-observability",
-      "title": "Наблюдаемость ML-систем",
-      "language": "python",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 132,
-      "requiredTokens": 29,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "findings": []
-    },
-    {
-      "id": "model-serving",
-      "title": "Сервинг и релиз моделей",
-      "language": "python",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 131,
-      "requiredTokens": 31,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "findings": []
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "numpy",
@@ -1873,7 +4009,14 @@
       "firstUseSameMission": 0,
       "multipleNewApis": 0,
       "blankEditor": 0,
-      "findings": []
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "pandas",
@@ -1883,45 +4026,20 @@
       "missions": 73,
       "codeMissions": 41,
       "inheritedTokens": 43,
-      "requiredTokens": 211,
+      "requiredTokens": 215,
       "violations": 0,
       "requiredBeforeShown": 0,
       "firstUseSameMission": 0,
       "multipleNewApis": 0,
       "blankEditor": 0,
-      "findings": []
-    },
-    {
-      "id": "product-analytics",
-      "title": "Продуктовая аналитика",
-      "language": "python",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 92,
-      "requiredTokens": 29,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "findings": []
-    },
-    {
-      "id": "production",
-      "title": "Модель выходит в прод",
-      "language": "python",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 176,
-      "requiredTokens": 28,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "findings": []
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "python-core",
@@ -1937,23 +4055,14 @@
       "firstUseSameMission": 0,
       "multipleNewApis": 0,
       "blankEditor": 0,
-      "findings": []
-    },
-    {
-      "id": "python-databases-async",
-      "title": "Асинхронный Python и данные",
-      "language": "python",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 44,
-      "requiredTokens": 28,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "findings": []
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "python-first-steps",
@@ -1969,87 +4078,14 @@
       "firstUseSameMission": 0,
       "multipleNewApis": 0,
       "blankEditor": 0,
-      "findings": []
-    },
-    {
-      "id": "python-service-production",
-      "title": "Python-сервис в продакшене",
-      "language": "python",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 45,
-      "requiredTokens": 30,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "findings": []
-    },
-    {
-      "id": "python-web-api",
-      "title": "Web API на Python",
-      "language": "python",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 43,
-      "requiredTokens": 33,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "findings": []
-    },
-    {
-      "id": "rag-systems",
-      "title": "RAG и корпоративные знания",
-      "language": "python",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 77,
-      "requiredTokens": 29,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "findings": []
-    },
-    {
-      "id": "react-production",
-      "title": "React в продакшене",
-      "language": "javascript",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 100,
-      "requiredTokens": 41,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "findings": []
-    },
-    {
-      "id": "spring-services",
-      "title": "Сервисы на Spring",
-      "language": "java",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 48,
-      "requiredTokens": 30,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "findings": []
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "statistics",
@@ -2059,29 +4095,20 @@
       "missions": 48,
       "codeMissions": 33,
       "inheritedTokens": 43,
-      "requiredTokens": 128,
+      "requiredTokens": 132,
       "violations": 0,
       "requiredBeforeShown": 0,
       "firstUseSameMission": 0,
       "multipleNewApis": 0,
       "blankEditor": 0,
-      "findings": []
-    },
-    {
-      "id": "streaming-platforms",
-      "title": "Потоковые платформы",
-      "language": "python",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 58,
-      "requiredTokens": 28,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "findings": []
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "technical-foundations",
@@ -2097,23 +4124,14 @@
       "firstUseSameMission": 0,
       "multipleNewApis": 0,
       "blankEditor": 0,
-      "findings": []
-    },
-    {
-      "id": "web-platform-foundations",
-      "title": "Web-платформа",
-      "language": "javascript",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 42,
-      "requiredTokens": 39,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "findings": []
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     }
   ]
 }

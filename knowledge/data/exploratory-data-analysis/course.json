@@ -283,8 +283,8 @@
       "id": "EDA-009",
       "title": "Частоты категорий показаны",
       "concept": "distributions",
-      "stage": "shown",
-      "type": "quiz",
+      "stage": "filled",
+      "type": "lab",
       "minutes": 7,
       "xp": 65,
       "difficulty": "основа",
@@ -294,14 +294,26 @@
       "intro": "Для категорий форму показывает частота:\n\nstatus_share = orders[\"status\"].value_counts(normalize=True, dropna=False)\ntotal_share = status_share.sum()\n\nnormalize даёт доли, dropna=False не прячет отсутствующие статусы, а сумма долей должна быть единицей.",
       "productionContext": "EDA не доказывает причинность: он описывает данные, проверяет их границы и формулирует гипотезы так, чтобы следующий анализ мог их опровергнуть.",
       "task": {
-        "prompt": "Зачем оставлять NaN в частотах?",
+        "prompt": "Зачем оставлять NaN в частотах? В редакторе проверь, что готовые доли вместе дают единицу.",
         "options": [
           "Чтобы доли описывали все строки набора",
           "Чтобы NaN стал строкой paid",
           "Чтобы автоматически заполнить пропуски"
         ],
         "answer": "Чтобы доли описывали все строки набора",
-        "explanation": "Иначе знаменатель и видимое распределение будут расходиться."
+        "explanation": "Иначе знаменатель и видимое распределение будут расходиться.",
+        "workspaceFile": "solution.py",
+        "starterCode": "import pandas as pd\n\norders = pd.DataFrame({\"status\": [\"paid\", \"new\", None]})\nstatus_share = orders[\"status\"].value_counts(normalize=True, dropna=False)\ntotal_share = status_share.sum()\n",
+        "codeChecks": [
+          {
+            "label": "Сумма долей проверена",
+            "includes": "assert total_share == 1"
+          },
+          {
+            "label": "Известная категория не потеряна",
+            "includes": "assert status_share.loc[\"paid\"] > 0"
+          }
+        ]
       },
       "hints": [
         "Отдели наблюдение в данных от объяснения его причины."
@@ -1009,8 +1021,8 @@
       "id": "EDA-032",
       "title": "Скользящее среднее показано",
       "concept": "time-patterns",
-      "stage": "shown",
-      "type": "quiz",
+      "stage": "modified",
+      "type": "lab",
       "minutes": 7,
       "xp": 65,
       "difficulty": "основа",
@@ -1020,14 +1032,27 @@
       "intro": "Шум сглаживают без будущих значений:\n\ntrend = daily.rolling(window=7, min_periods=3).mean()\nfirst_is_missing = pd.isna(trend.iloc[0])\n\nКаждая точка использует текущее и предыдущие наблюдения, а pd.isna явно проверяет начало без достаточной истории.",
       "productionContext": "EDA не доказывает причинность: он описывает данные, проверяет их границы и формулирует гипотезы так, чтобы следующий анализ мог их опровергнуть.",
       "task": {
-        "prompt": "Зачем min_periods=3?",
+        "prompt": "Зачем нужен min_periods? В редакторе разреши расчёт после двух наблюдений и проверь пропуск в первой точке.",
         "options": [
           "Чтобы начало ряда появилось после трёх наблюдений",
           "Чтобы взять три будущих дня",
           "Чтобы удалить выходные"
         ],
         "answer": "Чтобы начало ряда появилось после трёх наблюдений",
-        "explanation": "Полное семидневное окно в начале ещё недоступно, но три точки уже дают осторожную оценку."
+        "explanation": "Полное семидневное окно в начале ещё недоступно, но минимальное число точек задаёт честный порог расчёта.",
+        "workspaceFile": "solution.py",
+        "starterCode": "import pandas as pd\n\ndaily = pd.Series([10, 12, 14, 16])\ntrend = daily.rolling(window=7, min_periods=3).mean()\nfirst_is_missing = pd.isna(trend.iloc[0])\n",
+        "codeChecks": [
+          {
+            "label": "Порог снижен до двух наблюдений",
+            "includes": "rolling(window=7, min_periods=2)",
+            "notIncludes": "min_periods=3"
+          },
+          {
+            "label": "Первый пропуск проверен",
+            "includes": "assert first_is_missing"
+          }
+        ]
       },
       "hints": [
         "Отдели наблюдение в данных от объяснения его причины."
@@ -1341,7 +1366,7 @@
           },
           {
             "label": "Начало истории проверено",
-            "includes": "assert baseline.iloc[:3].isna().all()"
+            "includes": "assert baseline.iloc[:3].isna().sum() == 3"
           }
         ]
       },

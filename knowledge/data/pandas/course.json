@@ -1205,7 +1205,7 @@
         "answer": "Код выполняет указанное преобразование и проверяет результат.",
         "explanation": "Именованные агрегаты создают предсказуемую плоскую схему.",
         "workspaceFile": "solution.py",
-        "starterCode": "import pandas as pd\n\norders = pd.DataFrame({\"city\": [\"Москва\", \"Москва\"], \"order_id\": [\"A-1\", \"A-2\"], \"amount\": [100, 200]})\nsummary = orders.groupby(\"city\").agg(total=(\"amount\", \"sum\"), ____)\n",
+        "starterCode": "import pandas as pd\n\norders = pd.DataFrame({\"city\": [\"Москва\", \"Москва\"], \"order_id\": [\"A-1\", \"A-2\"], \"amount\": [100, 200]})\nsummary = orders.groupby(\"city\").agg(total=(\"amount\", \"sum\"), ____).reset_index()\n",
         "codeChecks": [
           {
             "label": "Добавлен счётчик уникальных заказов",
@@ -1214,7 +1214,7 @@
           },
           {
             "label": "Схема результата проверена",
-            "includes": "assert list(summary.columns) == [\"total\", \"count\"]"
+            "includes": "assert list(summary.columns) == [\"city\", \"total\", \"count\"]"
           }
         ]
       },
@@ -1750,7 +1750,7 @@
       "id": "PDA-068",
       "title": "Разреши повторяющиеся пары",
       "concept": "reshape",
-      "stage": "debugged",
+      "stage": "filled",
       "type": "lab",
       "minutes": 7,
       "xp": 65,
@@ -1761,20 +1761,20 @@
       "intro": "pivot падает на повторяющейся паре ключей. pivot_table(index=..., columns=..., values=..., aggfunc=\"sum\") требует явно решить, как объединять повторы. pd.concat объединяет готовые таблицы по строкам или столбцам.",
       "productionContext": "Рабочая таблица должна сохранять смысл строки, типы столбцов и проверяемое число наблюдений.",
       "task": {
-        "prompt": "Замени pivot на pivot_table с суммой и проверь итог.",
+        "prompt": "Подставь sum в готовый pivot_table и проверь итог для A-1.",
         "answer": "Код выполняет указанное преобразование и проверяет результат.",
         "explanation": "Агрегация не должна появляться молча: она меняет смысл результата.",
         "workspaceFile": "solution.py",
-        "starterCode": "import pandas as pd\n\nlong = pd.DataFrame({\"order_id\": [\"A-1\", \"A-1\"], \"metric\": [\"amount\", \"amount\"], \"value\": [100, 20]})\nwide = long.pivot(index=\"order_id\", columns=\"metric\", values=\"value\")\n",
+        "starterCode": "import pandas as pd\n\nlong = pd.DataFrame({\"order_id\": [\"A-1\", \"A-1\"], \"metric\": [\"amount\", \"amount\"], \"value\": [100, 20]})\nwide = long.pivot_table(index=\"order_id\", columns=\"metric\", values=\"value\", aggfunc=____)\n",
         "codeChecks": [
           {
-            "label": "Повторы агрегируются явно",
-            "includes": "pivot_table(",
-            "notIncludes": ".pivot("
+            "label": "Повторы суммируются явно",
+            "includes": "aggfunc=\"sum\"",
+            "notIncludes": "aggfunc=____"
           },
           {
-            "label": "Выбрана сумма",
-            "includes": "aggfunc=\"sum\""
+            "label": "Итог проверен",
+            "includes": "assert wide.loc[\"A-1\", \"amount\"] == 120"
           }
         ]
       },
@@ -1921,7 +1921,7 @@
         "answer": "Код выполняет указанное преобразование и проверяет результат.",
         "explanation": "Частота должна соответствовать единице итоговой строки.",
         "workspaceFile": "solution.py",
-        "starterCode": "daily = events.resample(\"H\")[\"amount\"].sum()\n",
+        "starterCode": "daily = events.resample(\"H\")[\"amount\"].sum()\nsmooth = daily.rolling(3).mean()\n",
         "codeChecks": [
           {
             "label": "Выбраны дневные корзины",
@@ -2081,7 +2081,7 @@
       "intro": "astype(\"category\") полезен после измерения числа уникальных значений.",
       "productionContext": "Рабочая таблица должна сохранять смысл строки, типы столбцов и проверяемое число наблюдений.",
       "task": {
-        "prompt": "Преобразуй status в category и проверь dtype.",
+        "prompt": "Преобразуй status в category и сравни dtype с именем category без дополнительного преобразования.",
         "answer": "Код выполняет указанное преобразование и проверяет результат.",
         "explanation": "Преобразование имеет смысл, когда категории действительно повторяются.",
         "workspaceFile": "solution.py",
@@ -2093,7 +2093,7 @@
           },
           {
             "label": "Новый dtype проверен",
-            "includes": "assert str(orders[\"status\"].dtype) == \"category\""
+            "includes": "assert orders[\"status\"].dtype == \"category\""
           }
         ]
       },

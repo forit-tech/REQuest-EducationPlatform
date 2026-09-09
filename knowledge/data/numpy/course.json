@@ -666,7 +666,7 @@
           },
           {
             "label": "Результат проверен",
-            "includes": "assert filtered[0] == 5200 and len(filtered) == 2"
+            "includes": "assert filtered[0] == 5200 and filtered.shape[0] == 2"
           }
         ]
       },

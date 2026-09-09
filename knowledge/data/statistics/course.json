@@ -104,16 +104,16 @@
       "intro": "Медиана берёт центральную позицию упорядоченного набора. Готовая форма: median(values). Она почти не меняется от величины крайнего значения.",
       "productionContext": "Расхождение среднего и медианы — самый быстрый индикатор скошенного распределения.",
       "task": {
-        "prompt": "Посчитай average и typical для списка зарплат; проверь, что среднее выше медианы.",
+        "prompt": "Подставь salaries в готовый вызов median и проверь, что среднее выше медианы.",
         "answer": "Код рассчитывает статистику и проверяет заявленный инвариант.",
         "explanation": "Расхождение мер центра является сигналом скошенного распределения.",
         "workspaceFile": "solution.py",
-        "starterCode": "from statistics import mean, median\n\nsalaries = [80, 90, 100, 900]\naverage = mean(salaries)\ntypical = ____\n",
+        "starterCode": "from statistics import mean, median\n\nsalaries = [80, 90, 100, 900]\naverage = mean(salaries)\ntypical = median(____)\n",
         "codeChecks": [
           {
             "label": "Медиана рассчитана",
             "includes": "typical = median(salaries)",
-            "notIncludes": "typical = ____"
+            "notIncludes": "____"
           },
           {
             "label": "Асимметрия замечена",
@@ -130,7 +130,7 @@
         "skew"
       ],
       "concept": "descriptive",
-      "stage": "modified"
+      "stage": "filled"
     },
     {
       "id": "STAT-004",
@@ -145,11 +145,11 @@
       "intro": "Для категорий подходит mode(values) — наиболее частое значение. Складывать способы оплаты бессмысленно.",
       "productionContext": "Для категориального признака среднее и медиана не определены.",
       "task": {
-        "prompt": "Подставь mode для payments и проверь card.",
+        "prompt": "Подставь payments в готовый вызов mode и проверь card.",
         "answer": "Код рассчитывает статистику и проверяет заявленный инвариант.",
         "explanation": "Мода отвечает на осмысленный для категорий вопрос о частоте.",
         "workspaceFile": "solution.py",
-        "starterCode": "from statistics import mode\n\npayments = [\"card\", \"sbp\", \"card\"]\nmost_common = ____\n",
+        "starterCode": "from statistics import mode\n\npayments = [\"card\", \"sbp\", \"card\"]\nmost_common = mode(____)\n",
         "codeChecks": [
           {
             "label": "Использована мода",
@@ -225,16 +225,16 @@
       "intro": "Квантиль можно получить после сортировки. Для нечётного списка центральный элемент sorted_values[len(sorted_values) // 2] является медианой.",
       "productionContext": "Время ответа сервиса всегда описывают квантилями, а не средним.",
       "task": {
-        "prompt": "Отсортируй values и возьми центральный элемент. Проверь 30.",
+        "prompt": "Готовая строка уже сортирует пять values. Подставь индекс центрального элемента 2 и проверь 30.",
         "answer": "Код рассчитывает статистику и проверяет заявленный инвариант.",
         "explanation": "Позиционный показатель требует упорядоченного списка.",
         "workspaceFile": "solution.py",
-        "starterCode": "values = [50, 10, 30, 20, 40]\nsorted_values = ____\nmiddle = sorted_values[____]\n",
+        "starterCode": "values = [50, 10, 30, 20, 40]\nsorted_values = sorted(values)\nmiddle = sorted_values[____]\n",
         "codeChecks": [
           {
-            "label": "Значения упорядочены",
-            "includes": "sorted_values = sorted(values)",
-            "notIncludes": "sorted_values = ____"
+            "label": "Выбран центральный индекс",
+            "includes": "middle = sorted_values[2]",
+            "notIncludes": "____"
           },
           {
             "label": "Центр проверен",
