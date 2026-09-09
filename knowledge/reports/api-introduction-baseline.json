@@ -7,7 +7,7 @@
     "blankEditor": 0,
     "checkPassesOnStarter": 137,
     "hintIsNotTeaching": 11,
-    "ladderGap": 11,
+    "ladderGap": 0,
     "declaredNeverRequired": 4,
     "noReinforcement": 41
   },
@@ -111,17 +111,6 @@
       "declaredNeverRequired": 0,
       "noReinforcement": 6
     },
-    "python-core": {
-      "requiredBeforeShown": 6,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 1,
-      "blankEditor": 2,
-      "checkPassesOnStarter": 0,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 11,
-      "declaredNeverRequired": 2,
-      "noReinforcement": 0
-    },
     "react-core": {
       "requiredBeforeShown": 2,
       "firstUseSameMission": 4,
@@ -142,6 +131,17 @@
       "hintIsNotTeaching": 0,
       "ladderGap": 0,
       "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "python-core": {
+      "requiredBeforeShown": 6,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 1,
+      "blankEditor": 2,
+      "checkPassesOnStarter": 0,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "declaredNeverRequired": 2,
       "noReinforcement": 0
     },
     "frontend-delivery": {

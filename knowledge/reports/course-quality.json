@@ -9,14 +9,14 @@
   },
   "missionsByClass": {
     "AUTHORED_REAL": 386,
-    "AUTHORED_NEEDS_REVIEW": 234,
+    "AUTHORED_NEEDS_REVIEW": 242,
     "GENERATOR_SCAFFOLD": 956,
     "FAKE_PRACTICE": 325,
     "OUTLINE_ONLY": 0
   },
   "runtime": {
     "courses": 75,
-    "missions": 1901
+    "missions": 1909
   },
   "curriculumLayer": {
     "courses": 355,
@@ -687,11 +687,11 @@
       "technology": "python",
       "classification": "AUTHORED_NEEDS_REVIEW",
       "reasons": [
-        "45 из 159 миссий собраны шаблоном `scripts/generate-planned-courses.mjs`"
+        "45 из 167 миссий собраны шаблоном `scripts/generate-planned-courses.mjs`"
       ],
       "overridden": false,
-      "missions": 159,
-      "codeLabMissions": 97,
+      "missions": 167,
+      "codeLabMissions": 105,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 45,
@@ -702,7 +702,7 @@
       "optionMissions": 92,
       "longestAnswerRatio": 0.62,
       "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 153,
+      "unknownRequiredTokens": 154,
       "unknownTokenSamples": [
         "int",
         "print",

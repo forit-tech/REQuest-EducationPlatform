@@ -23,9 +23,9 @@
 | `polars` | python | 22 | 6 | 0 | 1 | 0 | 0 |
 | `go-core-concurrency` | go | 11 | 2 | 12 | 4 | 0 | 2 |
 | `go-production` | go | 9 | 0 | 10 | 4 | 0 | 2 |
-| `python-core` | python | 97 | 6 | 0 | 1 | 0 | 0 |
 | `react-core` | javascript | 13 | 2 | 4 | 1 | 1 | 0 |
 | `data-modeling` | python | 25 | 5 | 0 | 1 | 0 | 0 |
+| `python-core` | python | 105 | 6 | 0 | 1 | 0 | 0 |
 | `frontend-delivery` | javascript | 9 | 0 | 0 | 0 | 9 | 0 |
 | `frontend-quality` | javascript | 9 | 0 | 0 | 0 | 9 | 0 |
 | `java-core-jvm` | java | 9 | 0 | 0 | 0 | 9 | 0 |

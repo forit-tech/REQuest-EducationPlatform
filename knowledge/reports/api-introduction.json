@@ -24,7 +24,7 @@
     "checkPassesOnStarterCritical": 0,
     "hintIsNotTeaching": 11,
     "hintIsNotTeachingCritical": 8,
-    "ladderGap": 11,
+    "ladderGap": 0,
     "declaredNeverRequired": 4,
     "noReinforcement": 41,
     "skillsOutsideAnalysis": 2,
@@ -2785,201 +2785,6 @@
       "noReinforcement": 6
     },
     {
-      "id": "python-core",
-      "title": "Python для работы с данными",
-      "language": "python",
-      "noRoute": false,
-      "missions": 159,
-      "codeMissions": 97,
-      "inheritedTokens": 12,
-      "requiredTokens": 240,
-      "violations": 22,
-      "requiredBeforeShown": 6,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 1,
-      "blankEditor": 2,
-      "checkPassesOnStarter": 0,
-      "checkPassesOnStarterCritical": 0,
-      "hintIsNotTeaching": 0,
-      "hintIsNotTeachingCritical": 0,
-      "findings": [
-        {
-          "rule": "ladder-gap",
-          "missionId": "PYC-114",
-          "missionTitle": "Посчитай чистое количество",
-          "token": "-",
-          "kind": "оператор",
-          "evidence": "пройдены только стадии: transferred"
-        },
-        {
-          "rule": "ladder-gap",
-          "missionId": "PYC-123",
-          "missionTitle": "Целые паллеты",
-          "token": "//",
-          "kind": "оператор",
-          "evidence": "ни одной ступени до этой"
-        },
-        {
-          "rule": "ladder-gap",
-          "missionId": "PYC-129",
-          "missionTitle": "Панель из четырёх фильтров",
-          "token": "**",
-          "kind": "оператор",
-          "evidence": "ни одной ступени до этой"
-        },
-        {
-          "rule": "ladder-gap",
-          "missionId": "PYC-207",
-          "missionTitle": "Найди расхождение по количеству",
-          "token": "!=",
-          "kind": "оператор",
-          "evidence": "ни одной ступени до этой"
-        },
-        {
-          "rule": "ladder-gap",
-          "missionId": "PYC-209",
-          "missionTitle": "Уложится ли посылка в тариф",
-          "token": "<",
-          "kind": "оператор",
-          "evidence": "ни одной ступени до этой"
-        },
-        {
-          "rule": "ladder-gap",
-          "missionId": "PYC-210",
-          "missionTitle": "Мест меньше, чем просят",
-          "token": ">",
-          "kind": "оператор",
-          "evidence": "ни одной ступени до этой"
-        },
-        {
-          "rule": "ladder-gap",
-          "missionId": "PYC-212",
-          "missionTitle": "Бесплатный предел включительно",
-          "token": "<=",
-          "kind": "оператор",
-          "evidence": "ни одной ступени до этой"
-        },
-        {
-          "rule": "ladder-gap",
-          "missionId": "PYC-306",
-          "missionTitle": "Хладагент для мороза",
-          "token": "<",
-          "kind": "оператор",
-          "evidence": "пройдены только стадии: independent"
-        },
-        {
-          "rule": "ladder-gap",
-          "missionId": "PYC-309",
-          "missionTitle": "Платное хранение на складе",
-          "token": "else",
-          "kind": "ключевое слово",
-          "evidence": "ни одной ступени до этой"
-        },
-        {
-          "rule": "ladder-gap",
-          "missionId": "PYC-312",
-          "missionTitle": "Срочность доставки",
-          "token": "<=",
-          "kind": "оператор",
-          "evidence": "пройдены только стадии: independent"
-        },
-        {
-          "rule": "ladder-gap",
-          "missionId": "PYC-411",
-          "missionTitle": "Последняя посылка смены",
-          "token": "-",
-          "kind": "оператор",
-          "evidence": "пройдены только стадии: transferred, independent"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "PYC-013",
-          "missionTitle": "Коллекции: практический выбор",
-          "token": "словарь или блок",
-          "kind": "синтаксис",
-          "evidence": "не встречалось нигде"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "PYC-013",
-          "missionTitle": "Коллекции: практический выбор",
-          "token": "словарь или блок",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "PYC-015",
-          "missionTitle": "Коллекции: типичная ловушка",
-          "token": "append()",
-          "kind": "функция",
-          "evidence": "названо словом, синтаксис не показан"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "PYC-015",
-          "missionTitle": "Коллекции: типичная ловушка",
-          "token": "append()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "PYC-017",
-          "missionTitle": "Функции: механика",
-          "token": "solve()",
-          "kind": "функция",
-          "evidence": "не встречалось нигде"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "PYC-017",
-          "missionTitle": "Функции: механика",
-          "token": "def",
-          "kind": "ключевое слово",
-          "evidence": "не встречалось нигде"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "PYC-017",
-          "missionTitle": "Функции: механика",
-          "token": "return",
-          "kind": "ключевое слово",
-          "evidence": "не встречалось нигде"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "PYC-017",
-          "missionTitle": "Функции: механика",
-          "token": "solve(), def, return",
-          "kind": "3 новых сущностей сразу"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "PYC-048",
-          "missionTitle": "Тестирование и отладка: практический выбор",
-          "token": "assert",
-          "kind": "ключевое слово",
-          "evidence": "не встречалось нигде"
-        },
-        {
-          "courseId": "python-core",
-          "missionId": "PYC-026",
-          "token": "py-files",
-          "rule": "declared-but-never-required",
-          "kind": "навык «Чтение и запись файлов» объявлен введённым, но ни одна проверка его не требует"
-        },
-        {
-          "courseId": "python-core",
-          "missionId": "PYC-031",
-          "token": "py-exceptions",
-          "rule": "declared-but-never-required",
-          "kind": "навык «Исключения» объявлен введённым, но ни одна проверка его не требует"
-        }
-      ],
-      "ladderGap": 11,
-      "declaredNeverRequired": 2,
-      "noReinforcement": 0
-    },
-    {
       "id": "react-core",
       "title": "React: модель интерфейса",
       "language": "javascript",
@@ -3222,6 +3027,113 @@
       ],
       "ladderGap": 0,
       "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    {
+      "id": "python-core",
+      "title": "Python для работы с данными",
+      "language": "python",
+      "noRoute": false,
+      "missions": 167,
+      "codeMissions": 105,
+      "inheritedTokens": 12,
+      "requiredTokens": 248,
+      "violations": 11,
+      "requiredBeforeShown": 6,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 1,
+      "blankEditor": 2,
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "required-before-shown",
+          "missionId": "PYC-013",
+          "missionTitle": "Коллекции: практический выбор",
+          "token": "словарь или блок",
+          "kind": "синтаксис",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PYC-013",
+          "missionTitle": "Коллекции: практический выбор",
+          "token": "словарь или блок",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "PYC-015",
+          "missionTitle": "Коллекции: типичная ловушка",
+          "token": "append()",
+          "kind": "функция",
+          "evidence": "названо словом, синтаксис не показан"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PYC-015",
+          "missionTitle": "Коллекции: типичная ловушка",
+          "token": "append()",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "PYC-017",
+          "missionTitle": "Функции: механика",
+          "token": "solve()",
+          "kind": "функция",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "PYC-017",
+          "missionTitle": "Функции: механика",
+          "token": "def",
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "PYC-017",
+          "missionTitle": "Функции: механика",
+          "token": "return",
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "PYC-017",
+          "missionTitle": "Функции: механика",
+          "token": "solve(), def, return",
+          "kind": "3 новых сущностей сразу"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "PYC-048",
+          "missionTitle": "Тестирование и отладка: практический выбор",
+          "token": "assert",
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "courseId": "python-core",
+          "missionId": "PYC-026",
+          "token": "py-files",
+          "rule": "declared-but-never-required",
+          "kind": "навык «Чтение и запись файлов» объявлен введённым, но ни одна проверка его не требует"
+        },
+        {
+          "courseId": "python-core",
+          "missionId": "PYC-031",
+          "token": "py-exceptions",
+          "rule": "declared-but-never-required",
+          "kind": "навык «Исключения» объявлен введённым, но ни одна проверка его не требует"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 2,
       "noReinforcement": 0
     },
     {

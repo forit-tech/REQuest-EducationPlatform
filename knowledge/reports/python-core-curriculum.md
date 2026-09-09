@@ -1,7 +1,7 @@
 # python-core: предлагаемая программа
 
 Программа блока. Блоки 1, 2, 3, 4 и 5 написаны целиком и лежат в курсе;
-остальное — предложение: миссии не написаны. Написано 114 миссий из 199.
+остальное — предложение: миссии не написаны. Написано 122 миссии из 199.
 Продолжение `python-core-ladder.md` и `python-core-scaffold.md`.
 
 В таблицах ниже одна стадия — одна миссия, поэтому колонку «миссий» можно
@@ -139,12 +139,12 @@
 | 1.1 `*` ✅ | переменная, число, `+` | оператор `*` | `explained → shown → modified → debugged → filled` | 5 | `PYC-001`, `PYC-101`…`PYC-104` |
 | 1.2 `int()` ✅ | `*`, строка, число | встроенная функция `int()` | `explained → shown → modified → filled → independent` | 5 | `PYC-105`…`PYC-109` |
 | 1.3 `type()` ✅ | `int()` | встроенная функция `type()` | `shown → modified → independent` | 3 | `PYC-110`…`PYC-112` |
-| 1.4 `-` ✅ | `*`, `+` | оператор `-` | `shown → independent` | 2 | `PYC-113`, `PYC-114` |
+| 1.4 `-` ✅ | `*`, `+` | оператор `-` | `shown → filled → independent` | 3 | `PYC-113`, `PYC-137`, `PYC-114` |
 | 1.5 `/` ✅ | `*`, `-` | оператор `/` и дробный результат | `explained → shown → modified → independent` | 4 | `PYC-115`…`PYC-118` |
 | 1.6 `float()` ✅ | `/`, `int()`, `type()` | встроенная функция `float()` | `shown → modified → independent` | 3 | `PYC-119`…`PYC-121` |
-| 1.7 `//` ✅ | `/` | оператор `//` | `shown → independent` | 2 | `PYC-122`, `PYC-123` |
+| 1.7 `//` ✅ | `/` | оператор `//` | `shown → filled → independent` | 3 | `PYC-122`, `PYC-138`, `PYC-123` |
 | 1.8 `%` ✅ | `//` | оператор `%` | `explained → shown → filled → independent` | 4 | `PYC-124`…`PYC-127` |
-| 1.9 `**` ✅ | `*` | оператор `**` | `shown → independent` | 2 | `PYC-128`, `PYC-129` |
+| 1.9 `**` ✅ | `*` | оператор `**` | `shown → filled → independent` | 3 | `PYC-128`, `PYC-139`, `PYC-129` |
 | 1.10 Ошибка преобразования ✅ | `int()`, чтение ошибки | `ValueError` как явление, без `try` | `shown → debugged → transferred` | 3 | `PYC-130`…`PYC-132` |
 | 1.11 `input()` ✅ | `int()`, `float()`, `ValueError` | встроенная функция `input()` и то, что она всегда возвращает строку | `explained → shown → modified → independent` | 4 | `PYC-133`…`PYC-136` |
 | 1.12 Кейс блока ✅ | всё выше | ничего | `transferred` | 1 | `PYC-003` |
@@ -190,10 +190,10 @@
 | Модуль | Уже известно | Ровно что нового | Стадии | Миссий | Старые ID |
 |---|---|---|---|---:|---|
 | 2.1 `==` и `bool` ✅ | `=`, `type()`, число, строка | оператор `==` и тип его результата | `explained → shown → debugged → modified → independent` | 5 | `PYC-201`…`PYC-205` |
-| 2.2 `!=` ✅ | `==` | оператор `!=` | `shown → independent` | 2 | `PYC-206`, `PYC-207` |
-| 2.3 `<` ✅ | `==` | оператор `<` | `shown → independent` | 2 | `PYC-208`, `PYC-209` |
-| 2.4 `>` ✅ | `<` | оператор `>` | `independent` | 1 | `PYC-210` |
-| 2.5 `<=` и `>=` ✅ | `<`, `>`, `==` | пара операторов, одна механика | `shown → independent` | 2 | `PYC-211`, `PYC-212` |
+| 2.2 `!=` ✅ | `==` | оператор `!=` | `shown → filled → independent` | 3 | `PYC-206`, `PYC-214`, `PYC-207` |
+| 2.3 `<` ✅ | `==` | оператор `<` | `shown → filled → independent` | 3 | `PYC-208`, `PYC-215`, `PYC-209` |
+| 2.4 `>` ✅ | `<` | оператор `>` | `filled → independent` | 2 | `PYC-216`, `PYC-210` |
+| 2.5 `<=` и `>=` ✅ | `<`, `>`, `==` | пара операторов, одна механика | `shown → filled → independent` | 3 | `PYC-211`, `PYC-217`, `PYC-212` |
 | 2.6 Кейс блока ✅ | всё выше | ничего | `transferred` | 1 | `PYC-213` |
 
 `bool` вводится вместе с `==`, а не отдельным модулем: тип результата отдельно
@@ -221,7 +221,7 @@
 | Модуль | Уже известно | Ровно что нового | Стадии | Миссий | Старые ID |
 |---|---|---|---|---:|---|
 | 3.1 `if` ✅ | `==`, `bool` | `if` вместе с `:` и отступом как одним механизмом | `explained → shown → debugged → modified → filled → independent` | 6 | `PYC-301`…`PYC-306` |
-| 3.2 `else` ✅ | `if` | `else` | `explained → shown → independent` | 3 | `PYC-307`…`PYC-309` |
+| 3.2 `else` ✅ | `if` | `else` | `explained → shown → filled → independent` | 4 | `PYC-307`, `PYC-308`, `PYC-321`, `PYC-309` |
 | 3.3 `elif` ✅ | `if`, `else` | `elif` | `shown → modified → independent` | 3 | `PYC-310`…`PYC-312` |
 | 3.4 `not` ✅ | `bool` | условие из готового ответа и оператор `not` | `shown → independent` | 2 | `PYC-313`, `PYC-314` |
 | 3.5 `and` ✅ | `not` | оператор `and` | `shown → independent` | 2 | `PYC-315`, `PYC-316` |

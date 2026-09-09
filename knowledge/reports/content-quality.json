@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-09T07:54:06.068Z",
-  "durationMs": 351,
+  "generatedAt": "2026-09-09T07:59:00.347Z",
+  "durationMs": 335,
   "corpus": {
     "courses": 75,
-    "legacyMissions": 1901,
+    "legacyMissions": 1909,
     "v2Tasks": 23,
     "skills": 44,
     "officialRequirements": 87,
