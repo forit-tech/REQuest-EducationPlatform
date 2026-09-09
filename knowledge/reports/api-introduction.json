@@ -24,6 +24,10 @@
     "checkPassesOnStarterCritical": 0,
     "hintIsNotTeaching": 11,
     "hintIsNotTeachingCritical": 8,
+    "ladderGap": 11,
+    "declaredNeverRequired": 4,
+    "noReinforcement": 41,
+    "skillsOutsideAnalysis": 2,
     "outsideRoutes": {
       "courses": [
         "polars",
@@ -932,7 +936,10 @@
           "token": "import, as, transform(), def, assert",
           "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
         }
-      ]
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "numpy",
@@ -1219,7 +1226,259 @@
       ],
       "ladderGap": 0,
       "declaredNeverRequired": 0,
-      "noReinforcement": 2
+      "noReinforcement": 0
+    },
+    {
+      "id": "javascript-core",
+      "title": "JavaScript: основы языка",
+      "language": "javascript",
+      "noRoute": false,
+      "missions": 19,
+      "codeMissions": 14,
+      "inheritedTokens": 0,
+      "requiredTokens": 24,
+      "violations": 32,
+      "requiredBeforeShown": 2,
+      "firstUseSameMission": 16,
+      "multipleNewApis": 6,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 2,
+      "hintIsNotTeachingCritical": 2,
+      "findings": [
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-003",
+          "missionTitle": "let и const: два способа объявить",
+          "token": "const",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-003",
+          "missionTitle": "let и const: два способа объявить",
+          "token": "let",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "JSC-003",
+          "missionTitle": "let и const: два способа объявить",
+          "token": "const, let",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-005",
+          "missionTitle": "Числа и операторы: посчитать заказ",
+          "token": "*",
+          "kind": "оператор"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-006",
+          "missionTitle": "Строки: собрать сообщение",
+          "token": "словарь или блок",
+          "kind": "синтаксис"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "JSC-007",
+          "missionTitle": "Массив: список товаров",
+          "token": "push()",
+          "kind": "функция",
+          "evidence": "названо словом, синтаксис не показан"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-008",
+          "missionTitle": "Условие: пускать заказ в оплату",
+          "token": "if",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-008",
+          "missionTitle": "Условие: пускать заказ в оплату",
+          "token": "else",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "hint-is-not-teaching",
+          "missionId": "JSC-008",
+          "missionTitle": "Условие: пускать заказ в оплату",
+          "token": "else",
+          "kind": "подсказка выдаёт фрагмент проверки, и конструкция видна человеку впервые",
+          "severity": "critical"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "JSC-008",
+          "missionTitle": "Условие: пускать заказ в оплату",
+          "token": "if, else",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-010",
+          "missionTitle": "Цикл: пройти по всей корзине",
+          "token": "for",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-010",
+          "missionTitle": "Цикл: пройти по всей корзине",
+          "token": "+=",
+          "kind": "оператор"
+        },
+        {
+          "rule": "hint-is-not-teaching",
+          "missionId": "JSC-010",
+          "missionTitle": "Цикл: пройти по всей корзине",
+          "token": "total +=",
+          "kind": "подсказка выдаёт фрагмент проверки, и конструкция видна человеку впервые",
+          "severity": "critical"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "JSC-010",
+          "missionTitle": "Цикл: пройти по всей корзине",
+          "token": "for, +=",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-011",
+          "missionTitle": "Функция: вынести расчёт",
+          "token": "function",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-011",
+          "missionTitle": "Функция: вынести расчёт",
+          "token": "return",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "JSC-011",
+          "missionTitle": "Функция: вынести расчёт",
+          "token": "function, return",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-012",
+          "missionTitle": "Стрелочная функция: короткая запись",
+          "token": "=>",
+          "kind": "оператор"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "JSC-015",
+          "missionTitle": "map и filter: список без цикла",
+          "token": "filter()",
+          "kind": "функция",
+          "evidence": "названо словом, синтаксис не показан"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-015",
+          "missionTitle": "map и filter: список без цикла",
+          "token": "map()",
+          "kind": "функция"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "JSC-015",
+          "missionTitle": "map и filter: список без цикла",
+          "token": "filter(), map()",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-016",
+          "missionTitle": "Модуль: вынести расчёт в отдельный файл",
+          "token": "export",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-016",
+          "missionTitle": "Модуль: вынести расчёт в отдельный файл",
+          "token": "import",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "JSC-016",
+          "missionTitle": "Модуль: вынести расчёт в отдельный файл",
+          "token": "export, import",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-017",
+          "missionTitle": "Обещание: результат, которого ещё нет",
+          "token": "then()",
+          "kind": "функция"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JSC-019",
+          "missionTitle": "Итоговое дело: дождаться ответа сервера",
+          "token": "async",
+          "kind": "ключевое слово"
+        },
+        {
+          "courseId": "javascript-core",
+          "missionId": "JSC-001",
+          "token": "js-console",
+          "rule": "declared-but-never-required",
+          "kind": "навык «Вывод в консоль» объявлен введённым, но ни одна проверка его не требует"
+        },
+        {
+          "courseId": "javascript-core",
+          "missionId": "JSC-006",
+          "token": "js-template",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Шаблонная строка» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "javascript-core",
+          "missionId": "JSC-014",
+          "token": "js-destructuring",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Деструктуризация» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "javascript-core",
+          "missionId": "JSC-014",
+          "token": "js-spread",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Копирование через spread» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "javascript-core",
+          "missionId": "JSC-019",
+          "token": "js-async",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Промисы и async/await» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "javascript-core",
+          "missionId": "JSC-009",
+          "token": "js-equality",
+          "rule": "declared-but-never-required",
+          "kind": "навык «Строгое и нестрогое сравнение» объявлен введённым, но ни одна проверка его не требует"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 2,
+      "noReinforcement": 4
     },
     {
       "id": "go-core",
@@ -1230,7 +1489,7 @@
       "codeMissions": 12,
       "inheritedTokens": 0,
       "requiredTokens": 27,
-      "violations": 29,
+      "violations": 30,
       "requiredBeforeShown": 2,
       "firstUseSameMission": 14,
       "multipleNewApis": 6,
@@ -1428,6 +1687,13 @@
         },
         {
           "courseId": "go-core",
+          "missionId": "GOC-013",
+          "token": "go-structs",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Структуры» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "go-core",
           "missionId": "GOC-014",
           "token": "go-methods",
           "rule": "introduced-without-reinforcement",
@@ -1450,7 +1716,247 @@
       ],
       "ladderGap": 0,
       "declaredNeverRequired": 0,
-      "noReinforcement": 5
+      "noReinforcement": 6
+    },
+    {
+      "id": "java-core",
+      "title": "Java: основы языка",
+      "language": "java",
+      "noRoute": false,
+      "missions": 17,
+      "codeMissions": 13,
+      "inheritedTokens": 0,
+      "requiredTokens": 28,
+      "violations": 30,
+      "requiredBeforeShown": 5,
+      "firstUseSameMission": 15,
+      "multipleNewApis": 7,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 1,
+      "hintIsNotTeachingCritical": 1,
+      "findings": [
+        {
+          "rule": "required-before-shown",
+          "missionId": "JAV-003",
+          "missionTitle": "Вывод: изменить готовую программу",
+          "token": "System.out.println()",
+          "kind": "вызов библиотеки",
+          "evidence": "названо словом, синтаксис не показан"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "JAV-003",
+          "missionTitle": "Вывод: изменить готовую программу",
+          "token": "println()",
+          "kind": "функция",
+          "evidence": "названо словом, синтаксис не показан"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "JAV-003",
+          "missionTitle": "Вывод: изменить готовую программу",
+          "token": "System.out.println(), println()",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-006",
+          "missionTitle": "Арифметика: посчитать сумму сверки",
+          "token": "*",
+          "kind": "оператор"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-007",
+          "missionTitle": "Условие: пропускать операцию или нет",
+          "token": "if",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-007",
+          "missionTitle": "Условие: пропускать операцию или нет",
+          "token": "else",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "hint-is-not-teaching",
+          "missionId": "JAV-007",
+          "missionTitle": "Условие: пропускать операцию или нет",
+          "token": "else",
+          "kind": "подсказка выдаёт фрагмент проверки, и конструкция видна человеку впервые",
+          "severity": "critical"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "JAV-007",
+          "missionTitle": "Условие: пропускать операцию или нет",
+          "token": "if, else",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-008",
+          "missionTitle": "Цикл: пройти по всем операциям",
+          "token": "for",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-009",
+          "missionTitle": "Массив: фиксированный список сумм",
+          "token": "+=",
+          "kind": "оператор"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-010",
+          "missionTitle": "Метод: вынести расчёт из main",
+          "token": "return",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-012",
+          "missionTitle": "Класс и объект: операция как одна величина",
+          "token": "Operation()",
+          "kind": "функция"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-012",
+          "missionTitle": "Класс и объект: операция как одна величина",
+          "token": "new",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "JAV-012",
+          "missionTitle": "Класс и объект: операция как одна величина",
+          "token": "Operation(), new",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "JAV-013",
+          "missionTitle": "Коллекция: список, который растёт",
+          "token": "add()",
+          "kind": "функция",
+          "evidence": "названо словом, синтаксис не показан"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "JAV-013",
+          "missionTitle": "Коллекция: список, который растёт",
+          "token": "size()",
+          "kind": "функция",
+          "evidence": "названо словом, синтаксис не показан"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-013",
+          "missionTitle": "Коллекция: список, который растёт",
+          "token": "<",
+          "kind": "оператор"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "JAV-013",
+          "missionTitle": "Коллекция: список, который растёт",
+          "token": "add(), size(), <",
+          "kind": "3 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-014",
+          "missionTitle": "Исключение: перехватить сбой",
+          "token": "try",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-014",
+          "missionTitle": "Исключение: перехватить сбой",
+          "token": "catch",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "JAV-014",
+          "missionTitle": "Исключение: перехватить сбой",
+          "token": "try, catch",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-015",
+          "missionTitle": "Интерфейс: договор для разных источников",
+          "token": "interface",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-015",
+          "missionTitle": "Интерфейс: договор для разных источников",
+          "token": "implements",
+          "kind": "ключевое слово"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "JAV-015",
+          "missionTitle": "Интерфейс: договор для разных источников",
+          "token": "interface, implements",
+          "kind": "2 новых сущностей сразу"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "JAV-017",
+          "missionTitle": "Итоговое дело: отчёт по сверке",
+          "token": "stream()",
+          "kind": "функция",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-017",
+          "missionTitle": "Итоговое дело: отчёт по сверке",
+          "token": "filter()",
+          "kind": "функция"
+        },
+        {
+          "rule": "independent-use-right-after-first-sight",
+          "missionId": "JAV-017",
+          "missionTitle": "Итоговое дело: отчёт по сверке",
+          "token": "sum()",
+          "kind": "функция"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "JAV-017",
+          "missionTitle": "Итоговое дело: отчёт по сверке",
+          "token": "stream(), filter(), sum()",
+          "kind": "3 новых сущностей сразу"
+        },
+        {
+          "courseId": "java-core",
+          "missionId": "JAV-014",
+          "token": "java-exceptions",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Исключения» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "java-core",
+          "missionId": "JAV-016",
+          "token": "java-generics",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Обобщения» требуется только в миссии, где введён"
+        }
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 2
     },
     {
       "id": "go-network-services",
@@ -1462,8 +1968,8 @@
       "inheritedTokens": 65,
       "requiredTokens": 34,
       "violations": 29,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 16,
+      "requiredBeforeShown": 3,
+      "firstUseSameMission": 13,
       "multipleNewApis": 6,
       "blankEditor": 0,
       "checkPassesOnStarter": 0,
@@ -1549,6 +2055,22 @@
           "kind": "2 новых сущностей сразу"
         },
         {
+          "rule": "required-before-shown",
+          "missionId": "GNS-012",
+          "missionTitle": "База: подключение и пул",
+          "token": "SetMaxOpenConns()",
+          "kind": "функция",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "GNS-012",
+          "missionTitle": "База: подключение и пул",
+          "token": "SetMaxIdleConns()",
+          "kind": "функция",
+          "evidence": "не встречалось нигде"
+        },
+        {
           "rule": "independent-use-right-after-first-sight",
           "missionId": "GNS-012",
           "missionTitle": "База: подключение и пул",
@@ -1556,32 +2078,19 @@
           "kind": "метод или функция модуля"
         },
         {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GNS-012",
-          "missionTitle": "База: подключение и пул",
-          "token": "SetMaxOpenConns()",
-          "kind": "функция"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GNS-012",
-          "missionTitle": "База: подключение и пул",
-          "token": "SetMaxIdleConns()",
-          "kind": "функция"
-        },
-        {
           "rule": "multiple-new-apis-at-once",
           "missionId": "GNS-012",
           "missionTitle": "База: подключение и пул",
-          "token": "sql.Open(), SetMaxOpenConns(), SetMaxIdleConns()",
+          "token": "SetMaxOpenConns(), SetMaxIdleConns(), sql.Open()",
           "kind": "3 новых сущностей сразу"
         },
         {
-          "rule": "independent-use-right-after-first-sight",
+          "rule": "required-before-shown",
           "missionId": "GNS-013",
           "missionTitle": "Запрос с контекстом и закрытием строк",
           "token": "QueryContext()",
-          "kind": "функция"
+          "kind": "функция",
+          "evidence": "не встречалось нигде"
         },
         {
           "rule": "independent-use-right-after-first-sight",
@@ -1908,816 +2417,10 @@
           "token": "import, as, transform(), def, assert",
           "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
         }
-      ]
-    },
-    {
-      "id": "java-core",
-      "title": "Java: основы языка",
-      "language": "java",
-      "noRoute": false,
-      "missions": 17,
-      "codeMissions": 13,
-      "inheritedTokens": 0,
-      "requiredTokens": 28,
-      "violations": 28,
-      "requiredBeforeShown": 5,
-      "firstUseSameMission": 15,
-      "multipleNewApis": 7,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "checkPassesOnStarterCritical": 0,
-      "hintIsNotTeaching": 1,
-      "hintIsNotTeachingCritical": 1,
-      "findings": [
-        {
-          "rule": "required-before-shown",
-          "missionId": "JAV-003",
-          "missionTitle": "Вывод: изменить готовую программу",
-          "token": "System.out.println()",
-          "kind": "вызов библиотеки",
-          "evidence": "названо словом, синтаксис не показан"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "JAV-003",
-          "missionTitle": "Вывод: изменить готовую программу",
-          "token": "println()",
-          "kind": "функция",
-          "evidence": "названо словом, синтаксис не показан"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "JAV-003",
-          "missionTitle": "Вывод: изменить готовую программу",
-          "token": "System.out.println(), println()",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-006",
-          "missionTitle": "Арифметика: посчитать сумму сверки",
-          "token": "*",
-          "kind": "оператор"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-007",
-          "missionTitle": "Условие: пропускать операцию или нет",
-          "token": "if",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-007",
-          "missionTitle": "Условие: пропускать операцию или нет",
-          "token": "else",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "hint-is-not-teaching",
-          "missionId": "JAV-007",
-          "missionTitle": "Условие: пропускать операцию или нет",
-          "token": "else",
-          "kind": "подсказка выдаёт фрагмент проверки, и конструкция видна человеку впервые",
-          "severity": "critical"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "JAV-007",
-          "missionTitle": "Условие: пропускать операцию или нет",
-          "token": "if, else",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-008",
-          "missionTitle": "Цикл: пройти по всем операциям",
-          "token": "for",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-009",
-          "missionTitle": "Массив: фиксированный список сумм",
-          "token": "+=",
-          "kind": "оператор"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-010",
-          "missionTitle": "Метод: вынести расчёт из main",
-          "token": "return",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-012",
-          "missionTitle": "Класс и объект: операция как одна величина",
-          "token": "Operation()",
-          "kind": "функция"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-012",
-          "missionTitle": "Класс и объект: операция как одна величина",
-          "token": "new",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "JAV-012",
-          "missionTitle": "Класс и объект: операция как одна величина",
-          "token": "Operation(), new",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "JAV-013",
-          "missionTitle": "Коллекция: список, который растёт",
-          "token": "add()",
-          "kind": "функция",
-          "evidence": "названо словом, синтаксис не показан"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "JAV-013",
-          "missionTitle": "Коллекция: список, который растёт",
-          "token": "size()",
-          "kind": "функция",
-          "evidence": "названо словом, синтаксис не показан"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-013",
-          "missionTitle": "Коллекция: список, который растёт",
-          "token": "<",
-          "kind": "оператор"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "JAV-013",
-          "missionTitle": "Коллекция: список, который растёт",
-          "token": "add(), size(), <",
-          "kind": "3 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-014",
-          "missionTitle": "Исключение: перехватить сбой",
-          "token": "try",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-014",
-          "missionTitle": "Исключение: перехватить сбой",
-          "token": "catch",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "JAV-014",
-          "missionTitle": "Исключение: перехватить сбой",
-          "token": "try, catch",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-015",
-          "missionTitle": "Интерфейс: договор для разных источников",
-          "token": "interface",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-015",
-          "missionTitle": "Интерфейс: договор для разных источников",
-          "token": "implements",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "JAV-015",
-          "missionTitle": "Интерфейс: договор для разных источников",
-          "token": "interface, implements",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "JAV-017",
-          "missionTitle": "Итоговое дело: отчёт по сверке",
-          "token": "stream()",
-          "kind": "функция",
-          "evidence": "не встречалось нигде"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-017",
-          "missionTitle": "Итоговое дело: отчёт по сверке",
-          "token": "filter()",
-          "kind": "функция"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JAV-017",
-          "missionTitle": "Итоговое дело: отчёт по сверке",
-          "token": "sum()",
-          "kind": "функция"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "JAV-017",
-          "missionTitle": "Итоговое дело: отчёт по сверке",
-          "token": "stream(), filter(), sum()",
-          "kind": "3 новых сущностей сразу"
-        }
-      ]
-    },
-    {
-      "id": "javascript-core",
-      "title": "JavaScript: основы языка",
-      "language": "javascript",
-      "noRoute": false,
-      "missions": 19,
-      "codeMissions": 14,
-      "inheritedTokens": 0,
-      "requiredTokens": 24,
-      "violations": 26,
-      "requiredBeforeShown": 2,
-      "firstUseSameMission": 16,
-      "multipleNewApis": 6,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "checkPassesOnStarterCritical": 0,
-      "hintIsNotTeaching": 2,
-      "hintIsNotTeachingCritical": 2,
-      "findings": [
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-003",
-          "missionTitle": "let и const: два способа объявить",
-          "token": "const",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-003",
-          "missionTitle": "let и const: два способа объявить",
-          "token": "let",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "JSC-003",
-          "missionTitle": "let и const: два способа объявить",
-          "token": "const, let",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-005",
-          "missionTitle": "Числа и операторы: посчитать заказ",
-          "token": "*",
-          "kind": "оператор"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-006",
-          "missionTitle": "Строки: собрать сообщение",
-          "token": "словарь или блок",
-          "kind": "синтаксис"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "JSC-007",
-          "missionTitle": "Массив: список товаров",
-          "token": "push()",
-          "kind": "функция",
-          "evidence": "названо словом, синтаксис не показан"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-008",
-          "missionTitle": "Условие: пускать заказ в оплату",
-          "token": "if",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-008",
-          "missionTitle": "Условие: пускать заказ в оплату",
-          "token": "else",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "hint-is-not-teaching",
-          "missionId": "JSC-008",
-          "missionTitle": "Условие: пускать заказ в оплату",
-          "token": "else",
-          "kind": "подсказка выдаёт фрагмент проверки, и конструкция видна человеку впервые",
-          "severity": "critical"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "JSC-008",
-          "missionTitle": "Условие: пускать заказ в оплату",
-          "token": "if, else",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-010",
-          "missionTitle": "Цикл: пройти по всей корзине",
-          "token": "for",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-010",
-          "missionTitle": "Цикл: пройти по всей корзине",
-          "token": "+=",
-          "kind": "оператор"
-        },
-        {
-          "rule": "hint-is-not-teaching",
-          "missionId": "JSC-010",
-          "missionTitle": "Цикл: пройти по всей корзине",
-          "token": "total +=",
-          "kind": "подсказка выдаёт фрагмент проверки, и конструкция видна человеку впервые",
-          "severity": "critical"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "JSC-010",
-          "missionTitle": "Цикл: пройти по всей корзине",
-          "token": "for, +=",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-011",
-          "missionTitle": "Функция: вынести расчёт",
-          "token": "function",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-011",
-          "missionTitle": "Функция: вынести расчёт",
-          "token": "return",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "JSC-011",
-          "missionTitle": "Функция: вынести расчёт",
-          "token": "function, return",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-012",
-          "missionTitle": "Стрелочная функция: короткая запись",
-          "token": "=>",
-          "kind": "оператор"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "JSC-015",
-          "missionTitle": "map и filter: список без цикла",
-          "token": "filter()",
-          "kind": "функция",
-          "evidence": "названо словом, синтаксис не показан"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-015",
-          "missionTitle": "map и filter: список без цикла",
-          "token": "map()",
-          "kind": "функция"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "JSC-015",
-          "missionTitle": "map и filter: список без цикла",
-          "token": "filter(), map()",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-016",
-          "missionTitle": "Модуль: вынести расчёт в отдельный файл",
-          "token": "export",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-016",
-          "missionTitle": "Модуль: вынести расчёт в отдельный файл",
-          "token": "import",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "JSC-016",
-          "missionTitle": "Модуль: вынести расчёт в отдельный файл",
-          "token": "export, import",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-017",
-          "missionTitle": "Обещание: результат, которого ещё нет",
-          "token": "then()",
-          "kind": "функция"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "JSC-019",
-          "missionTitle": "Итоговое дело: дождаться ответа сервера",
-          "token": "async",
-          "kind": "ключевое слово"
-        }
-      ]
-    },
-    {
-      "id": "go-core",
-      "title": "Go: основы языка",
-      "language": "go",
-      "noRoute": false,
-      "missions": 16,
-      "codeMissions": 12,
-      "inheritedTokens": 0,
-      "requiredTokens": 27,
-      "violations": 24,
-      "requiredBeforeShown": 2,
-      "firstUseSameMission": 14,
-      "multipleNewApis": 6,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "checkPassesOnStarterCritical": 0,
-      "hintIsNotTeaching": 2,
-      "hintIsNotTeachingCritical": 2,
-      "findings": [
-        {
-          "rule": "required-before-shown",
-          "missionId": "GOC-003",
-          "missionTitle": "Вывод: изменить готовую программу",
-          "token": "fmt.Println()",
-          "kind": "метод или функция модуля",
-          "evidence": "названо словом, синтаксис не показан"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "GOC-003",
-          "missionTitle": "Вывод: изменить готовую программу",
-          "token": "Println()",
-          "kind": "функция",
-          "evidence": "названо словом, синтаксис не показан"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "GOC-003",
-          "missionTitle": "Вывод: изменить готовую программу",
-          "token": "fmt.Println(), Println()",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-004",
-          "missionTitle": "Переменные: короткое объявление",
-          "token": ":=",
-          "kind": "оператор"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-006",
-          "missionTitle": "Функция: параметр и возвращаемое значение",
-          "token": "return",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-008",
-          "missionTitle": "Условие: пропускать или задержать",
-          "token": "if",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-008",
-          "missionTitle": "Условие: пропускать или задержать",
-          "token": "else",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "hint-is-not-teaching",
-          "missionId": "GOC-008",
-          "missionTitle": "Условие: пропускать или задержать",
-          "token": "else",
-          "kind": "подсказка выдаёт фрагмент проверки, и конструкция видна человеку впервые",
-          "severity": "critical"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "GOC-008",
-          "missionTitle": "Условие: пропускать или задержать",
-          "token": "if, else",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-009",
-          "missionTitle": "Цикл: пройти по всей смене",
-          "token": "for",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-011",
-          "missionTitle": "Слайс: список рейсов",
-          "token": "список",
-          "kind": "синтаксис"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-011",
-          "missionTitle": "Слайс: список рейсов",
-          "token": "append()",
-          "kind": "функция"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "GOC-011",
-          "missionTitle": "Слайс: список рейсов",
-          "token": "список, append()",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-012",
-          "missionTitle": "Карта: вес по номеру рейса",
-          "token": "map",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-012",
-          "missionTitle": "Карта: вес по номеру рейса",
-          "token": "range",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "GOC-012",
-          "missionTitle": "Карта: вес по номеру рейса",
-          "token": "map, range",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-013",
-          "missionTitle": "Структура: рейс как одна величина",
-          "token": "type",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-013",
-          "missionTitle": "Структура: рейс как одна величина",
-          "token": "struct",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "GOC-013",
-          "missionTitle": "Структура: рейс как одна величина",
-          "token": "type, struct",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-015",
-          "missionTitle": "Интерфейс: договор вместо конкретного типа",
-          "token": "interface",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-016",
-          "missionTitle": "Итоговое дело: отчёт по смене",
-          "token": "errors.New()",
-          "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GOC-016",
-          "missionTitle": "Итоговое дело: отчёт по смене",
-          "token": "defer",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "hint-is-not-teaching",
-          "missionId": "GOC-016",
-          "missionTitle": "Итоговое дело: отчёт по смене",
-          "token": "defer",
-          "kind": "подсказка выдаёт фрагмент проверки, и конструкция видна человеку впервые",
-          "severity": "critical"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "GOC-016",
-          "missionTitle": "Итоговое дело: отчёт по смене",
-          "token": "errors.New(), defer",
-          "kind": "2 новых сущностей сразу"
-        }
-      ]
-    },
-    {
-      "id": "go-network-services",
-      "title": "Сетевые сервисы на Go",
-      "language": "go",
-      "noRoute": false,
-      "missions": 16,
-      "codeMissions": 10,
-      "inheritedTokens": 65,
-      "requiredTokens": 34,
-      "violations": 23,
-      "requiredBeforeShown": 3,
-      "firstUseSameMission": 13,
-      "multipleNewApis": 6,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "checkPassesOnStarterCritical": 0,
-      "hintIsNotTeaching": 1,
-      "hintIsNotTeachingCritical": 0,
-      "findings": [
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GNS-003",
-          "missionTitle": "Первый обработчик",
-          "token": "http.HandleFunc()",
-          "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GNS-003",
-          "missionTitle": "Первый обработчик",
-          "token": "http.ListenAndServe()",
-          "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "GNS-003",
-          "missionTitle": "Первый обработчик",
-          "token": "http.HandleFunc(), http.ListenAndServe()",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GNS-004",
-          "missionTitle": "Ответ в JSON",
-          "token": "json.NewEncoder()",
-          "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GNS-006",
-          "missionTitle": "Параметры запроса и статус ответа",
-          "token": "r.URL.Query()",
-          "kind": "вызов библиотеки"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GNS-009",
-          "missionTitle": "Middleware: общая обёртка",
-          "token": "withLogging()",
-          "kind": "функция"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GNS-009",
-          "missionTitle": "Middleware: общая обёртка",
-          "token": "next.ServeHTTP()",
-          "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "GNS-009",
-          "missionTitle": "Middleware: общая обёртка",
-          "token": "withLogging(), next.ServeHTTP()",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GNS-010",
-          "missionTitle": "Контекст запроса",
-          "token": "r.Context()",
-          "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GNS-010",
-          "missionTitle": "Контекст запроса",
-          "token": "context.WithValue()",
-          "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "GNS-010",
-          "missionTitle": "Контекст запроса",
-          "token": "r.Context(), context.WithValue()",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "GNS-012",
-          "missionTitle": "База: подключение и пул",
-          "token": "SetMaxOpenConns()",
-          "kind": "функция",
-          "evidence": "не встречалось нигде"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "GNS-012",
-          "missionTitle": "База: подключение и пул",
-          "token": "SetMaxIdleConns()",
-          "kind": "функция",
-          "evidence": "не встречалось нигде"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GNS-012",
-          "missionTitle": "База: подключение и пул",
-          "token": "sql.Open()",
-          "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "GNS-012",
-          "missionTitle": "База: подключение и пул",
-          "token": "SetMaxOpenConns(), SetMaxIdleConns(), sql.Open()",
-          "kind": "3 новых сущностей сразу"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "GNS-013",
-          "missionTitle": "Запрос с контекстом и закрытием строк",
-          "token": "QueryContext()",
-          "kind": "функция",
-          "evidence": "не встречалось нигде"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GNS-013",
-          "missionTitle": "Запрос с контекстом и закрытием строк",
-          "token": "rows.Close()",
-          "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "GNS-013",
-          "missionTitle": "Запрос с контекстом и закрытием строк",
-          "token": "QueryContext(), rows.Close()",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GNS-014",
-          "missionTitle": "Транзакция: всё или ничего",
-          "token": "db.BeginTx()",
-          "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GNS-014",
-          "missionTitle": "Транзакция: всё или ничего",
-          "token": "tx.Rollback()",
-          "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "GNS-014",
-          "missionTitle": "Транзакция: всё или ничего",
-          "token": "tx.Commit()",
-          "kind": "метод или функция модуля"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "GNS-014",
-          "missionTitle": "Транзакция: всё или ничего",
-          "token": "db.BeginTx(), tx.Rollback(), tx.Commit()",
-          "kind": "3 новых сущностей сразу"
-        },
-        {
-          "rule": "hint-is-not-teaching",
-          "missionId": "GNS-016",
-          "missionTitle": "Итоговое дело: оплата ровно один раз",
-          "token": "INSERT INTO payment_keys",
-          "kind": "подсказка выдаёт фрагмент проверки дословно",
-          "severity": "warning"
-        }
-      ]
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "go-core-concurrency",
@@ -2728,8 +2431,8 @@
       "codeMissions": 11,
       "inheritedTokens": 42,
       "requiredTokens": 30,
-      "violations": 23,
-      "requiredBeforeShown": 1,
+      "violations": 26,
+      "requiredBeforeShown": 2,
       "firstUseSameMission": 12,
       "multipleNewApis": 3,
       "blankEditor": 0,
@@ -2891,6 +2594,13 @@
         },
         {
           "courseId": "go-core-concurrency",
+          "missionId": "GCC-009",
+          "token": "go-close",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Закрытие канала» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "go-core-concurrency",
           "missionId": "GCC-013",
           "token": "go-timeout",
           "rule": "introduced-without-reinforcement",
@@ -2906,7 +2616,7 @@
       ],
       "ladderGap": 0,
       "declaredNeverRequired": 0,
-      "noReinforcement": 5
+      "noReinforcement": 6
     },
     {
       "id": "go-production",
@@ -2917,7 +2627,7 @@
       "codeMissions": 9,
       "inheritedTokens": 103,
       "requiredTokens": 28,
-      "violations": 20,
+      "violations": 22,
       "requiredBeforeShown": 0,
       "firstUseSameMission": 9,
       "multipleNewApis": 3,
@@ -3075,6 +2785,201 @@
       "noReinforcement": 6
     },
     {
+      "id": "python-core",
+      "title": "Python для работы с данными",
+      "language": "python",
+      "noRoute": false,
+      "missions": 159,
+      "codeMissions": 97,
+      "inheritedTokens": 12,
+      "requiredTokens": 240,
+      "violations": 22,
+      "requiredBeforeShown": 6,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 1,
+      "blankEditor": 2,
+      "checkPassesOnStarter": 0,
+      "checkPassesOnStarterCritical": 0,
+      "hintIsNotTeaching": 0,
+      "hintIsNotTeachingCritical": 0,
+      "findings": [
+        {
+          "rule": "ladder-gap",
+          "missionId": "PYC-114",
+          "missionTitle": "Посчитай чистое количество",
+          "token": "-",
+          "kind": "оператор",
+          "evidence": "пройдены только стадии: transferred"
+        },
+        {
+          "rule": "ladder-gap",
+          "missionId": "PYC-123",
+          "missionTitle": "Целые паллеты",
+          "token": "//",
+          "kind": "оператор",
+          "evidence": "ни одной ступени до этой"
+        },
+        {
+          "rule": "ladder-gap",
+          "missionId": "PYC-129",
+          "missionTitle": "Панель из четырёх фильтров",
+          "token": "**",
+          "kind": "оператор",
+          "evidence": "ни одной ступени до этой"
+        },
+        {
+          "rule": "ladder-gap",
+          "missionId": "PYC-207",
+          "missionTitle": "Найди расхождение по количеству",
+          "token": "!=",
+          "kind": "оператор",
+          "evidence": "ни одной ступени до этой"
+        },
+        {
+          "rule": "ladder-gap",
+          "missionId": "PYC-209",
+          "missionTitle": "Уложится ли посылка в тариф",
+          "token": "<",
+          "kind": "оператор",
+          "evidence": "ни одной ступени до этой"
+        },
+        {
+          "rule": "ladder-gap",
+          "missionId": "PYC-210",
+          "missionTitle": "Мест меньше, чем просят",
+          "token": ">",
+          "kind": "оператор",
+          "evidence": "ни одной ступени до этой"
+        },
+        {
+          "rule": "ladder-gap",
+          "missionId": "PYC-212",
+          "missionTitle": "Бесплатный предел включительно",
+          "token": "<=",
+          "kind": "оператор",
+          "evidence": "ни одной ступени до этой"
+        },
+        {
+          "rule": "ladder-gap",
+          "missionId": "PYC-306",
+          "missionTitle": "Хладагент для мороза",
+          "token": "<",
+          "kind": "оператор",
+          "evidence": "пройдены только стадии: independent"
+        },
+        {
+          "rule": "ladder-gap",
+          "missionId": "PYC-309",
+          "missionTitle": "Платное хранение на складе",
+          "token": "else",
+          "kind": "ключевое слово",
+          "evidence": "ни одной ступени до этой"
+        },
+        {
+          "rule": "ladder-gap",
+          "missionId": "PYC-312",
+          "missionTitle": "Срочность доставки",
+          "token": "<=",
+          "kind": "оператор",
+          "evidence": "пройдены только стадии: independent"
+        },
+        {
+          "rule": "ladder-gap",
+          "missionId": "PYC-411",
+          "missionTitle": "Последняя посылка смены",
+          "token": "-",
+          "kind": "оператор",
+          "evidence": "пройдены только стадии: transferred, independent"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "PYC-013",
+          "missionTitle": "Коллекции: практический выбор",
+          "token": "словарь или блок",
+          "kind": "синтаксис",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PYC-013",
+          "missionTitle": "Коллекции: практический выбор",
+          "token": "словарь или блок",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "PYC-015",
+          "missionTitle": "Коллекции: типичная ловушка",
+          "token": "append()",
+          "kind": "функция",
+          "evidence": "названо словом, синтаксис не показан"
+        },
+        {
+          "rule": "blank-editor-task",
+          "missionId": "PYC-015",
+          "missionTitle": "Коллекции: типичная ловушка",
+          "token": "append()",
+          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "PYC-017",
+          "missionTitle": "Функции: механика",
+          "token": "solve()",
+          "kind": "функция",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "PYC-017",
+          "missionTitle": "Функции: механика",
+          "token": "def",
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "PYC-017",
+          "missionTitle": "Функции: механика",
+          "token": "return",
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "rule": "multiple-new-apis-at-once",
+          "missionId": "PYC-017",
+          "missionTitle": "Функции: механика",
+          "token": "solve(), def, return",
+          "kind": "3 новых сущностей сразу"
+        },
+        {
+          "rule": "required-before-shown",
+          "missionId": "PYC-048",
+          "missionTitle": "Тестирование и отладка: практический выбор",
+          "token": "assert",
+          "kind": "ключевое слово",
+          "evidence": "не встречалось нигде"
+        },
+        {
+          "courseId": "python-core",
+          "missionId": "PYC-026",
+          "token": "py-files",
+          "rule": "declared-but-never-required",
+          "kind": "навык «Чтение и запись файлов» объявлен введённым, но ни одна проверка его не требует"
+        },
+        {
+          "courseId": "python-core",
+          "missionId": "PYC-031",
+          "token": "py-exceptions",
+          "rule": "declared-but-never-required",
+          "kind": "навык «Исключения» объявлен введённым, но ни одна проверка его не требует"
+        }
+      ],
+      "ladderGap": 11,
+      "declaredNeverRequired": 2,
+      "noReinforcement": 0
+    },
+    {
       "id": "react-core",
       "title": "React: модель интерфейса",
       "language": "javascript",
@@ -3082,11 +2987,11 @@
       "missions": 20,
       "codeMissions": 13,
       "inheritedTokens": 43,
-      "requiredTokens": 19,
-      "violations": 19,
-      "requiredBeforeShown": 1,
-      "firstUseSameMission": 7,
-      "multipleNewApis": 2,
+      "requiredTokens": 17,
+      "violations": 16,
+      "requiredBeforeShown": 2,
+      "firstUseSameMission": 4,
+      "multipleNewApis": 1,
       "blankEditor": 0,
       "checkPassesOnStarter": 1,
       "checkPassesOnStarterCritical": 0,
@@ -3097,22 +3002,8 @@
           "rule": "independent-use-right-after-first-sight",
           "missionId": "RCT-010",
           "missionTitle": "Состояние: кнопка меняет интерфейс",
-          "token": "useState()",
-          "kind": "функция"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "RCT-010",
-          "missionTitle": "Состояние: кнопка меняет интерфейс",
           "token": "setCount()",
           "kind": "функция"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "RCT-010",
-          "missionTitle": "Состояние: кнопка меняет интерфейс",
-          "token": "useState(), setCount()",
-          "kind": "2 новых сущностей сразу"
         },
         {
           "rule": "check-passes-on-starter",
@@ -3123,18 +3014,12 @@
           "severity": "warning"
         },
         {
-          "rule": "independent-use-right-after-first-sight",
+          "rule": "required-before-shown",
           "missionId": "RCT-016",
           "missionTitle": "Отправка формы",
           "token": "preventDefault()",
-          "kind": "функция"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "RCT-017",
-          "missionTitle": "Эффект: загрузить данные",
-          "token": "useEffect()",
-          "kind": "функция"
+          "kind": "функция",
+          "evidence": "названо словом, синтаксис не показан"
         },
         {
           "rule": "independent-use-right-after-first-sight",
@@ -3232,137 +3117,6 @@
       "ladderGap": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 8
-    },
-    {
-      "id": "react-architecture",
-      "title": "Архитектура React-приложения",
-      "language": "javascript",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 69,
-      "requiredTokens": 38,
-      "violations": 14,
-      "requiredBeforeShown": 7,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 2,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 1,
-      "checkPassesOnStarterCritical": 0,
-      "hintIsNotTeaching": 1,
-      "hintIsNotTeachingCritical": 1,
-      "findings": [
-        {
-          "rule": "required-before-shown",
-          "missionId": "RCA-006",
-          "missionTitle": "Лаборатория: инвалидируй кэш после мутации",
-          "token": "useQueryClient()",
-          "kind": "функция",
-          "evidence": "названо словом, синтаксис не показан"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "RCA-006",
-          "missionTitle": "Лаборатория: инвалидируй кэш после мутации",
-          "token": "invalidateQueries()",
-          "kind": "функция",
-          "evidence": "не встречалось нигде"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "RCA-006",
-          "missionTitle": "Лаборатория: инвалидируй кэш после мутации",
-          "token": "mutation.mutate()",
-          "kind": "метод или функция модуля",
-          "evidence": "не встречалось нигде"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "RCA-006",
-          "missionTitle": "Лаборатория: инвалидируй кэш после мутации",
-          "token": "useQueryClient(), invalidateQueries(), mutation.mutate()",
-          "kind": "3 новых сущностей сразу"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "RCA-009",
-          "missionTitle": "Лаборатория: ленивая загрузка и 404",
-          "token": "lazy()",
-          "kind": "функция",
-          "evidence": "названо словом, синтаксис не показан"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "RCA-011",
-          "missionTitle": "Сократи область обновления состояния",
-          "token": "SearchBox()",
-          "kind": "функция",
-          "evidence": "названо словом, синтаксис не показан"
-        },
-        {
-          "rule": "check-passes-on-starter",
-          "missionId": "RCA-011",
-          "missionTitle": "Сократи область обновления состояния",
-          "token": "const [query, setQuery] = useState(\"\") · <OrderList orders={orders} />",
-          "kind": "2 из 4 проверок выполнены стартовым файлом",
-          "severity": "warning"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "RCA-012",
-          "missionTitle": "Лаборатория: оптимизируй измеренную границу",
-          "token": "memo()",
-          "kind": "функция",
-          "evidence": "названо словом, синтаксис не показан"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "RCA-012",
-          "missionTitle": "Лаборатория: оптимизируй измеренную границу",
-          "token": "useMemo()",
-          "kind": "функция",
-          "evidence": "названо словом, синтаксис не показан"
-        },
-        {
-          "rule": "hint-is-not-teaching",
-          "missionId": "RCA-012",
-          "missionTitle": "Лаборатория: оптимизируй измеренную границу",
-          "token": "useMemo(() => · [orders, query]",
-          "kind": "подсказка выдаёт фрагмент проверки, и конструкция видна человеку впервые",
-          "severity": "critical"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "RCA-012",
-          "missionTitle": "Лаборатория: оптимизируй измеренную границу",
-          "token": "memo(), useMemo()",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "courseId": "react-architecture",
-          "missionId": "RCA-006",
-          "token": "react-mutation",
-          "rule": "introduced-without-reinforcement",
-          "kind": "навык «Мутация и инвалидирование кэша» требуется только в миссии, где введён"
-        },
-        {
-          "courseId": "react-architecture",
-          "missionId": "RCA-009",
-          "token": "react-lazy",
-          "rule": "introduced-without-reinforcement",
-          "kind": "навык «Ленивая загрузка маршрута» требуется только в миссии, где введён"
-        },
-        {
-          "courseId": "react-architecture",
-          "missionId": "RCA-012",
-          "token": "react-use-memo",
-          "rule": "introduced-without-reinforcement",
-          "kind": "навык «Мемоизация вычисления» требуется только в миссии, где введён"
-        }
-      ],
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 3
     },
     {
       "id": "data-modeling",
@@ -3855,94 +3609,96 @@
       "noReinforcement": 0
     },
     {
-      "id": "python-core",
-      "title": "Python для работы с данными",
-      "language": "python",
+      "id": "react-architecture",
+      "title": "Архитектура React-приложения",
+      "language": "javascript",
       "noRoute": false,
-      "missions": 159,
-      "codeMissions": 97,
-      "inheritedTokens": 12,
-      "requiredTokens": 238,
+      "missions": 13,
+      "codeMissions": 9,
+      "inheritedTokens": 69,
+      "requiredTokens": 32,
       "violations": 9,
-      "requiredBeforeShown": 6,
+      "requiredBeforeShown": 3,
       "firstUseSameMission": 0,
       "multipleNewApis": 1,
-      "blankEditor": 2,
-      "checkPassesOnStarter": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 1,
       "checkPassesOnStarterCritical": 0,
-      "hintIsNotTeaching": 0,
-      "hintIsNotTeachingCritical": 0,
+      "hintIsNotTeaching": 1,
+      "hintIsNotTeachingCritical": 1,
       "findings": [
         {
           "rule": "required-before-shown",
-          "missionId": "PYC-013",
-          "missionTitle": "Коллекции: практический выбор",
-          "token": "словарь или блок",
-          "kind": "синтаксис",
-          "evidence": "не встречалось нигде"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "PYC-013",
-          "missionTitle": "Коллекции: практический выбор",
-          "token": "словарь или блок",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "PYC-015",
-          "missionTitle": "Коллекции: типичная ловушка",
-          "token": "append()",
-          "kind": "функция",
-          "evidence": "названо словом, синтаксис не показан"
-        },
-        {
-          "rule": "blank-editor-task",
-          "missionId": "PYC-015",
-          "missionTitle": "Коллекции: типичная ловушка",
-          "token": "append()",
-          "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "PYC-017",
-          "missionTitle": "Функции: механика",
-          "token": "solve()",
+          "missionId": "RCA-006",
+          "missionTitle": "Лаборатория: инвалидируй кэш после мутации",
+          "token": "invalidateQueries()",
           "kind": "функция",
           "evidence": "не встречалось нигде"
         },
         {
           "rule": "required-before-shown",
-          "missionId": "PYC-017",
-          "missionTitle": "Функции: механика",
-          "token": "def",
-          "kind": "ключевое слово",
-          "evidence": "не встречалось нигде"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "PYC-017",
-          "missionTitle": "Функции: механика",
-          "token": "return",
-          "kind": "ключевое слово",
+          "missionId": "RCA-006",
+          "missionTitle": "Лаборатория: инвалидируй кэш после мутации",
+          "token": "mutation.mutate()",
+          "kind": "метод или функция модуля",
           "evidence": "не встречалось нигде"
         },
         {
           "rule": "multiple-new-apis-at-once",
-          "missionId": "PYC-017",
-          "missionTitle": "Функции: механика",
-          "token": "solve(), def, return",
-          "kind": "3 новых сущностей сразу"
+          "missionId": "RCA-006",
+          "missionTitle": "Лаборатория: инвалидируй кэш после мутации",
+          "token": "invalidateQueries(), mutation.mutate()",
+          "kind": "2 новых сущностей сразу"
         },
         {
           "rule": "required-before-shown",
-          "missionId": "PYC-048",
-          "missionTitle": "Тестирование и отладка: практический выбор",
-          "token": "assert",
-          "kind": "ключевое слово",
-          "evidence": "не встречалось нигде"
+          "missionId": "RCA-011",
+          "missionTitle": "Сократи область обновления состояния",
+          "token": "SearchBox()",
+          "kind": "функция",
+          "evidence": "названо словом, синтаксис не показан"
+        },
+        {
+          "rule": "check-passes-on-starter",
+          "missionId": "RCA-011",
+          "missionTitle": "Сократи область обновления состояния",
+          "token": "const [query, setQuery] = useState(\"\") · <OrderList orders={orders} />",
+          "kind": "2 из 4 проверок выполнены стартовым файлом",
+          "severity": "warning"
+        },
+        {
+          "rule": "hint-is-not-teaching",
+          "missionId": "RCA-012",
+          "missionTitle": "Лаборатория: оптимизируй измеренную границу",
+          "token": "useMemo(() => · [orders, query]",
+          "kind": "подсказка выдаёт фрагмент проверки, и конструкция видна человеку впервые",
+          "severity": "critical"
+        },
+        {
+          "courseId": "react-architecture",
+          "missionId": "RCA-006",
+          "token": "react-mutation",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Мутация и инвалидирование кэша» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "react-architecture",
+          "missionId": "RCA-009",
+          "token": "react-lazy",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Ленивая загрузка маршрута» требуется только в миссии, где введён"
+        },
+        {
+          "courseId": "react-architecture",
+          "missionId": "RCA-012",
+          "token": "react-use-memo",
+          "rule": "introduced-without-reinforcement",
+          "kind": "навык «Мемоизация вычисления» требуется только в миссии, где введён"
         }
-      ]
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 3
     },
     {
       "id": "react-production",
@@ -4312,87 +4068,10 @@
           "token": "print()",
           "kind": "пустой стартовый файл, а конструкция ни разу не была в рабочем файле"
         }
-      ]
-    },
-    {
-      "id": "react-core",
-      "title": "React: модель интерфейса",
-      "language": "javascript",
-      "noRoute": false,
-      "missions": 20,
-      "codeMissions": 13,
-      "inheritedTokens": 43,
-      "requiredTokens": 17,
-      "violations": 8,
-      "requiredBeforeShown": 2,
-      "firstUseSameMission": 4,
-      "multipleNewApis": 1,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 1,
-      "checkPassesOnStarterCritical": 0,
-      "hintIsNotTeaching": 0,
-      "hintIsNotTeachingCritical": 0,
-      "findings": [
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "RCT-010",
-          "missionTitle": "Состояние: кнопка меняет интерфейс",
-          "token": "setCount()",
-          "kind": "функция"
-        },
-        {
-          "rule": "check-passes-on-starter",
-          "missionId": "RCT-012",
-          "missionTitle": "Условный рендер",
-          "token": ":",
-          "kind": "1 из 2 проверок выполнены комментарием в стартовом файле",
-          "severity": "warning"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "RCT-016",
-          "missionTitle": "Отправка формы",
-          "token": "preventDefault()",
-          "kind": "функция",
-          "evidence": "названо словом, синтаксис не показан"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "RCT-019",
-          "missionTitle": "Очистка эффекта",
-          "token": "clearInterval()",
-          "kind": "функция"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "RCT-020",
-          "missionTitle": "Итоговое дело: загрузка, ошибка, результат",
-          "token": "setError()",
-          "kind": "функция",
-          "evidence": "названо словом, синтаксис не показан"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "RCT-020",
-          "missionTitle": "Итоговое дело: загрузка, ошибка, результат",
-          "token": "setLoading()",
-          "kind": "функция"
-        },
-        {
-          "rule": "independent-use-right-after-first-sight",
-          "missionId": "RCT-020",
-          "missionTitle": "Итоговое дело: загрузка, ошибка, результат",
-          "token": "catch",
-          "kind": "ключевое слово"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "RCT-020",
-          "missionTitle": "Итоговое дело: загрузка, ошибка, результат",
-          "token": "setError(), setLoading(), catch",
-          "kind": "3 новых сущностей сразу"
-        }
-      ]
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "technical-foundations",
@@ -4464,7 +4143,10 @@
           "kind": "1 из 3 проверок выполнены комментарием в стартовом файле",
           "severity": "warning"
         }
-      ]
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "data-pipelines",
@@ -4531,7 +4213,10 @@
           "kind": "1 из 3 проверок выполнены стартовым файлом",
           "severity": "warning"
         }
-      ]
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "linear-algebra",
@@ -4598,7 +4283,10 @@
           "kind": "1 из 3 проверок выполнены стартовым файлом",
           "severity": "warning"
         }
-      ]
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "product-analytics",
@@ -4665,7 +4353,10 @@
           "kind": "1 из 3 проверок выполнены стартовым файлом",
           "severity": "warning"
         }
-      ]
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "python-web-api",
@@ -4732,75 +4423,10 @@
           "kind": "1 из 3 проверок выполнены стартовым файлом",
           "severity": "warning"
         }
-      ]
-    },
-    {
-      "id": "react-architecture",
-      "title": "Архитектура React-приложения",
-      "language": "javascript",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 69,
-      "requiredTokens": 32,
-      "violations": 6,
-      "requiredBeforeShown": 3,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 1,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 1,
-      "checkPassesOnStarterCritical": 0,
-      "hintIsNotTeaching": 1,
-      "hintIsNotTeachingCritical": 1,
-      "findings": [
-        {
-          "rule": "required-before-shown",
-          "missionId": "RCA-006",
-          "missionTitle": "Лаборатория: инвалидируй кэш после мутации",
-          "token": "invalidateQueries()",
-          "kind": "функция",
-          "evidence": "не встречалось нигде"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "RCA-006",
-          "missionTitle": "Лаборатория: инвалидируй кэш после мутации",
-          "token": "mutation.mutate()",
-          "kind": "метод или функция модуля",
-          "evidence": "не встречалось нигде"
-        },
-        {
-          "rule": "multiple-new-apis-at-once",
-          "missionId": "RCA-006",
-          "missionTitle": "Лаборатория: инвалидируй кэш после мутации",
-          "token": "invalidateQueries(), mutation.mutate()",
-          "kind": "2 новых сущностей сразу"
-        },
-        {
-          "rule": "required-before-shown",
-          "missionId": "RCA-011",
-          "missionTitle": "Сократи область обновления состояния",
-          "token": "SearchBox()",
-          "kind": "функция",
-          "evidence": "названо словом, синтаксис не показан"
-        },
-        {
-          "rule": "check-passes-on-starter",
-          "missionId": "RCA-011",
-          "missionTitle": "Сократи область обновления состояния",
-          "token": "const [query, setQuery] = useState(\"\") · <OrderList orders={orders} />",
-          "kind": "2 из 4 проверок выполнены стартовым файлом",
-          "severity": "warning"
-        },
-        {
-          "rule": "hint-is-not-teaching",
-          "missionId": "RCA-012",
-          "missionTitle": "Лаборатория: оптимизируй измеренную границу",
-          "token": "useMemo(() => · [orders, query]",
-          "kind": "подсказка выдаёт фрагмент проверки, и конструкция видна человеку впервые",
-          "severity": "critical"
-        }
-      ]
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "data-cleaning",
@@ -4860,7 +4486,10 @@
           "token": "solve(), def, return, assert",
           "kind": "4 новых сущностей сразу"
         }
-      ]
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "data-final-project",
@@ -4920,7 +4549,10 @@
           "token": "solve(), def, return, assert",
           "kind": "4 новых сущностей сразу"
         }
-      ]
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "data-formats",
@@ -4980,7 +4612,10 @@
           "token": "solve(), def, return, assert",
           "kind": "4 новых сущностей сразу"
         }
-      ]
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "etl-elt",
@@ -5040,7 +4675,10 @@
           "token": "solve(), def, return, assert",
           "kind": "4 новых сущностей сразу"
         }
-      ]
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "exploratory-data-analysis",
@@ -5100,7 +4738,10 @@
           "token": "solve(), def, return, assert",
           "kind": "4 новых сущностей сразу"
         }
-      ]
+      ],
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
     },
     {
       "id": "ai-evaluation-safety",
@@ -5271,62 +4912,6 @@
       "noReinforcement": 0
     },
     {
-      "id": "data-pipelines",
-      "title": "Надёжные конвейеры данных",
-      "language": "python",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 57,
-      "requiredTokens": 35,
-      "violations": 4,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 4,
-      "checkPassesOnStarterCritical": 0,
-      "hintIsNotTeaching": 0,
-      "hintIsNotTeachingCritical": 0,
-      "findings": [
-        {
-          "rule": "check-passes-on-starter",
-          "missionId": "DEP-002",
-          "missionTitle": "Код: ETL, ELT и границы этапов",
-          "token": "return {\"artifact\": artifact, \"steps\": steps}",
-          "kind": "1 из 3 проверок выполнены стартовым файлом",
-          "severity": "warning"
-        },
-        {
-          "rule": "check-passes-on-starter",
-          "missionId": "DEP-005",
-          "missionTitle": "Код: Идемпотентность",
-          "token": "return {\"artifact\": artifact, \"steps\": steps}",
-          "kind": "1 из 3 проверок выполнены стартовым файлом",
-          "severity": "warning"
-        },
-        {
-          "rule": "check-passes-on-starter",
-          "missionId": "DEP-008",
-          "missionTitle": "Код: Инкремент и контрольная точка",
-          "token": "return {\"artifact\": artifact, \"steps\": steps}",
-          "kind": "1 из 3 проверок выполнены стартовым файлом",
-          "severity": "warning"
-        },
-        {
-          "rule": "check-passes-on-starter",
-          "missionId": "DEP-011",
-          "missionTitle": "Код: Опоздавшие данные и backfill",
-          "token": "return {\"artifact\": artifact, \"steps\": steps}",
-          "kind": "1 из 3 проверок выполнены стартовым файлом",
-          "severity": "warning"
-        }
-      ],
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    {
       "id": "data-platform-reliability",
       "title": "Надёжность платформы данных",
       "language": "python",
@@ -5373,62 +4958,6 @@
           "rule": "check-passes-on-starter",
           "missionId": "DER-011",
           "missionTitle": "Код: Стоимость и управление платформой",
-          "token": "return {\"artifact\": artifact, \"steps\": steps}",
-          "kind": "1 из 3 проверок выполнены стартовым файлом",
-          "severity": "warning"
-        }
-      ],
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    {
-      "id": "linear-algebra",
-      "title": "Линейная алгебра для ML",
-      "language": "python",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 179,
-      "requiredTokens": 33,
-      "violations": 4,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 4,
-      "checkPassesOnStarterCritical": 0,
-      "hintIsNotTeaching": 0,
-      "hintIsNotTeachingCritical": 0,
-      "findings": [
-        {
-          "rule": "check-passes-on-starter",
-          "missionId": "LAL-002",
-          "missionTitle": "Код: Векторы и признаки",
-          "token": "return {\"artifact\": artifact, \"steps\": steps}",
-          "kind": "1 из 3 проверок выполнены стартовым файлом",
-          "severity": "warning"
-        },
-        {
-          "rule": "check-passes-on-starter",
-          "missionId": "LAL-005",
-          "missionTitle": "Код: Скалярное произведение и расстояние",
-          "token": "return {\"artifact\": artifact, \"steps\": steps}",
-          "kind": "1 из 3 проверок выполнены стартовым файлом",
-          "severity": "warning"
-        },
-        {
-          "rule": "check-passes-on-starter",
-          "missionId": "LAL-008",
-          "missionTitle": "Код: Матрицы и преобразования",
-          "token": "return {\"artifact\": artifact, \"steps\": steps}",
-          "kind": "1 из 3 проверок выполнены стартовым файлом",
-          "severity": "warning"
-        },
-        {
-          "rule": "check-passes-on-starter",
-          "missionId": "LAL-011",
-          "missionTitle": "Код: SVD и PCA",
           "token": "return {\"artifact\": artifact, \"steps\": steps}",
           "kind": "1 из 3 проверок выполнены стартовым файлом",
           "severity": "warning"
@@ -5719,62 +5248,6 @@
       "noReinforcement": 0
     },
     {
-      "id": "product-analytics",
-      "title": "Продуктовая аналитика",
-      "language": "python",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 93,
-      "requiredTokens": 34,
-      "violations": 4,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 4,
-      "checkPassesOnStarterCritical": 0,
-      "hintIsNotTeaching": 0,
-      "hintIsNotTeachingCritical": 0,
-      "findings": [
-        {
-          "rule": "check-passes-on-starter",
-          "missionId": "PRA-002",
-          "missionTitle": "Код: События и план отслеживания",
-          "token": "return {\"artifact\": artifact, \"steps\": steps}",
-          "kind": "1 из 3 проверок выполнены стартовым файлом",
-          "severity": "warning"
-        },
-        {
-          "rule": "check-passes-on-starter",
-          "missionId": "PRA-005",
-          "missionTitle": "Код: Воронка",
-          "token": "return {\"artifact\": artifact, \"steps\": steps}",
-          "kind": "1 из 3 проверок выполнены стартовым файлом",
-          "severity": "warning"
-        },
-        {
-          "rule": "check-passes-on-starter",
-          "missionId": "PRA-008",
-          "missionTitle": "Код: Когорты и удержание",
-          "token": "return {\"artifact\": artifact, \"steps\": steps}",
-          "kind": "1 из 3 проверок выполнены стартовым файлом",
-          "severity": "warning"
-        },
-        {
-          "rule": "check-passes-on-starter",
-          "missionId": "PRA-011",
-          "missionTitle": "Код: Юнит-экономика и сегменты",
-          "token": "return {\"artifact\": artifact, \"steps\": steps}",
-          "kind": "1 из 3 проверок выполнены стартовым файлом",
-          "severity": "warning"
-        }
-      ],
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    {
       "id": "production",
       "title": "Модель выходит в прод",
       "language": "python",
@@ -5933,62 +5406,6 @@
           "rule": "check-passes-on-starter",
           "missionId": "PSP-011",
           "missionTitle": "Код: Релиз и надёжность",
-          "token": "return {\"artifact\": artifact, \"steps\": steps}",
-          "kind": "1 из 3 проверок выполнены стартовым файлом",
-          "severity": "warning"
-        }
-      ],
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    {
-      "id": "python-web-api",
-      "title": "Web API на Python",
-      "language": "python",
-      "noRoute": false,
-      "missions": 13,
-      "codeMissions": 9,
-      "inheritedTokens": 43,
-      "requiredTokens": 38,
-      "violations": 4,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 4,
-      "checkPassesOnStarterCritical": 0,
-      "hintIsNotTeaching": 0,
-      "hintIsNotTeachingCritical": 0,
-      "findings": [
-        {
-          "rule": "check-passes-on-starter",
-          "missionId": "PWA-002",
-          "missionTitle": "Код: HTTP и ресурсный API",
-          "token": "return {\"artifact\": artifact, \"steps\": steps}",
-          "kind": "1 из 3 проверок выполнены стартовым файлом",
-          "severity": "warning"
-        },
-        {
-          "rule": "check-passes-on-starter",
-          "missionId": "PWA-005",
-          "missionTitle": "Код: Схемы и валидация",
-          "token": "return {\"artifact\": artifact, \"steps\": steps}",
-          "kind": "1 из 3 проверок выполнены стартовым файлом",
-          "severity": "warning"
-        },
-        {
-          "rule": "check-passes-on-starter",
-          "missionId": "PWA-008",
-          "missionTitle": "Код: Зависимости и архитектура",
-          "token": "return {\"artifact\": artifact, \"steps\": steps}",
-          "kind": "1 из 3 проверок выполнены стартовым файлом",
-          "severity": "warning"
-        },
-        {
-          "rule": "check-passes-on-starter",
-          "missionId": "PWA-011",
-          "missionTitle": "Код: Аутентификация и авторизация",
           "token": "return {\"artifact\": artifact, \"steps\": steps}",
           "kind": "1 из 3 проверок выполнены стартовым файлом",
           "severity": "warning"
@@ -6175,38 +5592,6 @@
       "noReinforcement": 0
     },
     {
-      "id": "etl-elt",
-      "title": "Основы ETL и ELT",
-      "language": "python",
-      "noRoute": false,
-      "missions": 46,
-      "codeMissions": 19,
-      "inheritedTokens": 57,
-      "requiredTokens": 76,
-      "violations": 1,
-      "requiredBeforeShown": 1,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "checkPassesOnStarterCritical": 0,
-      "hintIsNotTeaching": 0,
-      "hintIsNotTeachingCritical": 0,
-      "findings": [
-        {
-          "rule": "required-before-shown",
-          "missionId": "ETL-002",
-          "missionTitle": "Извлечение, преобразование и загрузка: механика",
-          "token": "solve()",
-          "kind": "функция",
-          "evidence": "не встречалось нигде"
-        }
-      ],
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    {
       "id": "large-data",
       "title": "Работа с большими данными",
       "language": "python",
@@ -6256,122 +5641,16 @@
       "checkPassesOnStarterCritical": 0,
       "hintIsNotTeaching": 0,
       "hintIsNotTeachingCritical": 0,
-      "findings": [],
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    {
-      "id": "data-formats",
-      "title": "Форматы данных",
-      "language": "python",
-      "noRoute": false,
-      "missions": 34,
-      "codeMissions": 8,
-      "inheritedTokens": 43,
-      "requiredTokens": 37,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "checkPassesOnStarterCritical": 0,
-      "hintIsNotTeaching": 0,
-      "hintIsNotTeachingCritical": 0,
-      "findings": [],
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    {
-      "id": "exploratory-data-analysis",
-      "title": "Разведочный анализ данных",
-      "language": "python",
-      "noRoute": false,
-      "missions": 46,
-      "codeMissions": 24,
-      "inheritedTokens": 151,
-      "requiredTokens": 135,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "checkPassesOnStarterCritical": 0,
-      "hintIsNotTeaching": 0,
-      "hintIsNotTeachingCritical": 0,
-      "findings": [],
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    {
-      "id": "numpy",
-      "title": "NumPy",
-      "language": "python",
-      "noRoute": false,
-      "missions": 48,
-      "codeMissions": 24,
-      "inheritedTokens": 43,
-      "requiredTokens": 97,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "checkPassesOnStarterCritical": 0,
-      "hintIsNotTeaching": 0,
-      "hintIsNotTeachingCritical": 0,
-      "findings": [],
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    {
-      "id": "pandas",
-      "title": "Pandas",
-      "language": "python",
-      "noRoute": false,
-      "missions": 73,
-      "codeMissions": 41,
-      "inheritedTokens": 43,
-      "requiredTokens": 215,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "checkPassesOnStarterCritical": 0,
-      "hintIsNotTeaching": 0,
-      "hintIsNotTeachingCritical": 0,
-      "findings": [],
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    {
-      "id": "python-core",
-      "title": "Python: базовые конструкции",
-      "language": "python",
-      "noRoute": false,
-      "missions": 63,
-      "codeMissions": 42,
-      "inheritedTokens": 11,
-      "requiredTokens": 97,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "checkPassesOnStarterCritical": 0,
-      "hintIsNotTeaching": 0,
-      "hintIsNotTeachingCritical": 0,
-      "findings": [],
+      "findings": [
+        {
+          "rule": "required-before-shown",
+          "missionId": "STAT-002",
+          "missionTitle": "Среднее",
+          "token": "solve()",
+          "kind": "функция",
+          "evidence": "не встречалось нигде"
+        }
+      ],
       "ladderGap": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 0
@@ -6385,52 +5664,6 @@
       "codeMissions": 19,
       "inheritedTokens": 5,
       "requiredTokens": 24,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "checkPassesOnStarterCritical": 0,
-      "hintIsNotTeaching": 0,
-      "hintIsNotTeachingCritical": 0,
-      "findings": [],
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    {
-      "id": "statistics",
-      "title": "Статистика и эксперименты",
-      "language": "python",
-      "noRoute": false,
-      "missions": 48,
-      "codeMissions": 33,
-      "inheritedTokens": 43,
-      "requiredTokens": 132,
-      "violations": 0,
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "checkPassesOnStarterCritical": 0,
-      "hintIsNotTeaching": 0,
-      "hintIsNotTeachingCritical": 0,
-      "findings": [],
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    {
-      "id": "technical-foundations",
-      "title": "Технический фундамент",
-      "language": "python",
-      "noRoute": false,
-      "missions": 16,
-      "codeMissions": 0,
-      "inheritedTokens": 0,
-      "requiredTokens": 0,
       "violations": 0,
       "requiredBeforeShown": 0,
       "firstUseSameMission": 0,

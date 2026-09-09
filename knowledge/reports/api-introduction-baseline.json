@@ -7,11 +7,33 @@
     "blankEditor": 0,
     "checkPassesOnStarter": 137,
     "hintIsNotTeaching": 11,
-    "ladderGap": 0,
-    "declaredNeverRequired": 2,
-    "noReinforcement": 39
+    "ladderGap": 11,
+    "declaredNeverRequired": 4,
+    "noReinforcement": 41
   },
   "byCourse": {
+    "pandas": {
+      "requiredBeforeShown": 5,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 2,
+      "blankEditor": 73,
+      "checkPassesOnStarter": 0,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "numpy": {
+      "requiredBeforeShown": 4,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 1,
+      "blankEditor": 32,
+      "checkPassesOnStarter": 0,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
     "javascript-core": {
       "requiredBeforeShown": 0,
       "firstUseSameMission": 18,
@@ -23,17 +45,6 @@
       "declaredNeverRequired": 2,
       "noReinforcement": 4
     },
-    "java-core": {
-      "requiredBeforeShown": 4,
-      "firstUseSameMission": 16,
-      "multipleNewApis": 7,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "hintIsNotTeaching": 1,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 2
-    },
     "go-core": {
       "requiredBeforeShown": 2,
       "firstUseSameMission": 14,
@@ -43,7 +54,18 @@
       "hintIsNotTeaching": 2,
       "ladderGap": 0,
       "declaredNeverRequired": 0,
-      "noReinforcement": 5
+      "noReinforcement": 6
+    },
+    "java-core": {
+      "requiredBeforeShown": 5,
+      "firstUseSameMission": 15,
+      "multipleNewApis": 7,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "hintIsNotTeaching": 1,
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 2
     },
     "go-network-services": {
       "requiredBeforeShown": 0,
@@ -76,7 +98,7 @@
       "hintIsNotTeaching": 2,
       "ladderGap": 0,
       "declaredNeverRequired": 0,
-      "noReinforcement": 5
+      "noReinforcement": 6
     },
     "go-production": {
       "requiredBeforeShown": 0,
@@ -89,27 +111,27 @@
       "declaredNeverRequired": 0,
       "noReinforcement": 6
     },
+    "python-core": {
+      "requiredBeforeShown": 6,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 1,
+      "blankEditor": 2,
+      "checkPassesOnStarter": 0,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 11,
+      "declaredNeverRequired": 2,
+      "noReinforcement": 0
+    },
     "react-core": {
-      "requiredBeforeShown": 1,
-      "firstUseSameMission": 7,
-      "multipleNewApis": 2,
+      "requiredBeforeShown": 2,
+      "firstUseSameMission": 4,
+      "multipleNewApis": 1,
       "blankEditor": 0,
       "checkPassesOnStarter": 1,
       "hintIsNotTeaching": 0,
       "ladderGap": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 8
-    },
-    "react-architecture": {
-      "requiredBeforeShown": 7,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 2,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 1,
-      "hintIsNotTeaching": 1,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 3
     },
     "data-modeling": {
       "requiredBeforeShown": 5,
@@ -166,6 +188,17 @@
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
+    "react-architecture": {
+      "requiredBeforeShown": 3,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 1,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 1,
+      "hintIsNotTeaching": 1,
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 3
+    },
     "react-production": {
       "requiredBeforeShown": 0,
       "firstUseSameMission": 0,
@@ -210,7 +243,106 @@
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
+    "technical-foundations": {
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 3,
+      "multipleNewApis": 1,
+      "blankEditor": 1,
+      "checkPassesOnStarter": 2,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "data-pipelines": {
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 2,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "linear-algebra": {
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 2,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "product-analytics": {
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 2,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "python-web-api": {
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 2,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "data-cleaning": {
+      "requiredBeforeShown": 4,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 1,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
     "data-final-project": {
+      "requiredBeforeShown": 4,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 1,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "data-formats": {
+      "requiredBeforeShown": 4,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 1,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "etl-elt": {
+      "requiredBeforeShown": 4,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 1,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "exploratory-data-analysis": {
       "requiredBeforeShown": 4,
       "firstUseSameMission": 0,
       "multipleNewApis": 1,
@@ -254,29 +386,7 @@
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
-    "data-pipelines": {
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 4,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
     "data-platform-reliability": {
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 4,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    "linear-algebra": {
       "requiredBeforeShown": 0,
       "firstUseSameMission": 0,
       "multipleNewApis": 0,
@@ -342,17 +452,6 @@
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
-    "product-analytics": {
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 4,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
     "production": {
       "requiredBeforeShown": 0,
       "firstUseSameMission": 0,
@@ -376,17 +475,6 @@
       "noReinforcement": 0
     },
     "python-service-production": {
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 4,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    "python-web-api": {
       "requiredBeforeShown": 0,
       "firstUseSameMission": 0,
       "multipleNewApis": 0,
@@ -441,17 +529,6 @@
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
-    "etl-elt": {
-      "requiredBeforeShown": 1,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
     "large-data": {
       "requiredBeforeShown": 1,
       "firstUseSameMission": 0,
@@ -474,84 +551,7 @@
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
-    "data-formats": {
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    "exploratory-data-analysis": {
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    "numpy": {
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    "pandas": {
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    "python-core": {
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
     "python-first-steps": {
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    "statistics": {
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    "technical-foundations": {
       "requiredBeforeShown": 0,
       "firstUseSameMission": 0,
       "multipleNewApis": 0,

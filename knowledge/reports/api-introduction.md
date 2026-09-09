@@ -14,22 +14,33 @@
 
 | Курс | Язык | Кодовых миссий | Требуется без показа | Показ и требование сразу | Много нового сразу | Проверка на старте | Ответ в подсказке |
 |---|---|---:|---:|---:|---:|---:|---:|
-| `javascript-core` | javascript | 14 | 0 | 18 | 6 | 0 | 2 |
-| `java-core` | java | 13 | 4 | 16 | 7 | 0 | 1 |
+| `pandas` | python | 73 | 5 | 0 | 2 | 0 | 0 |
+| `numpy` | python | 32 | 4 | 0 | 1 | 0 | 0 |
+| `javascript-core` | javascript | 14 | 2 | 16 | 6 | 0 | 2 |
 | `go-core` | go | 12 | 2 | 14 | 6 | 0 | 2 |
+| `java-core` | java | 13 | 5 | 15 | 7 | 0 | 1 |
 | `go-network-services` | go | 10 | 3 | 13 | 6 | 0 | 1 |
+| `polars` | python | 22 | 6 | 0 | 1 | 0 | 0 |
 | `go-core-concurrency` | go | 11 | 2 | 12 | 4 | 0 | 2 |
 | `go-production` | go | 9 | 0 | 10 | 4 | 0 | 2 |
+| `python-core` | python | 97 | 6 | 0 | 1 | 0 | 0 |
+| `react-core` | javascript | 13 | 2 | 4 | 1 | 1 | 0 |
 | `data-modeling` | python | 25 | 5 | 0 | 1 | 0 | 0 |
 | `frontend-delivery` | javascript | 9 | 0 | 0 | 0 | 9 | 0 |
 | `frontend-quality` | javascript | 9 | 0 | 0 | 0 | 9 | 0 |
 | `java-core-jvm` | java | 9 | 0 | 0 | 0 | 9 | 0 |
 | `java-production` | java | 9 | 0 | 0 | 0 | 9 | 0 |
-| `python-core` | python | 97 | 6 | 0 | 1 | 0 | 0 |
+| `react-architecture` | javascript | 9 | 3 | 0 | 1 | 1 | 1 |
 | `react-production` | javascript | 9 | 0 | 0 | 0 | 9 | 0 |
 | `spring-services` | java | 9 | 0 | 0 | 0 | 9 | 0 |
 | `web-platform-foundations` | javascript | 9 | 0 | 0 | 0 | 9 | 0 |
 | `production-incidents` | python | 12 | 5 | 0 | 1 | 0 | 0 |
+| `technical-foundations` | python | 2 | 0 | 3 | 1 | 2 | 0 |
+| `data-pipelines` | python | 9 | 0 | 2 | 0 | 4 | 0 |
+| `linear-algebra` | python | 9 | 0 | 2 | 0 | 4 | 0 |
+| `product-analytics` | python | 9 | 0 | 2 | 0 | 4 | 0 |
+| `python-web-api` | python | 9 | 0 | 2 | 0 | 4 | 0 |
+| `data-cleaning` | python | 25 | 4 | 0 | 1 | 0 | 0 |
 | `data-final-project` | python | 6 | 4 | 0 | 1 | 0 | 0 |
 | `ai-evaluation-safety` | python | 9 | 0 | 0 | 0 | 4 | 0 |
 | `analytics-communication` | python | 9 | 0 | 0 | 0 | 4 | 0 |
