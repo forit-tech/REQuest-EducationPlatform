@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-09T07:48:36.068Z",
-  "durationMs": 270,
+  "generatedAt": "2026-09-09T08:50:12.694Z",
+  "durationMs": 588,
   "corpus": {
     "courses": 75,
     "legacyMissions": 1761,
@@ -12,8 +12,8 @@
   },
   "summary": {
     "legacy": {
-      "error": 362,
-      "warning": 272,
+      "error": 361,
+      "warning": 271,
       "info": 56
     },
     "production": {
@@ -120,7 +120,7 @@
     "C3.duplicate-prompt": {
       "severity": "error",
       "scope": "legacy",
-      "count": 194,
+      "count": 193,
       "samples": [
         {
           "where": "java-core-jvm/JVM-002",
@@ -146,7 +146,7 @@
       "samples": [
         {
           "where": "все курсы",
-          "message": "Продублированных формулировок 194, затронуто заданий 427"
+          "message": "Продублированных формулировок 193, затронуто заданий 425"
         }
       ]
     },
@@ -210,7 +210,7 @@
     "C4.longest-is-correct": {
       "severity": "warning",
       "scope": "legacy",
-      "count": 22,
+      "count": 21,
       "samples": [
         {
           "where": "go-network-services",
@@ -233,7 +233,7 @@
       "samples": [
         {
           "where": "все курсы",
-          "message": "Распределение числа вариантов: 3 вариантов — 1240"
+          "message": "Распределение числа вариантов: 3 вариантов — 1207"
         }
       ]
     },
@@ -376,8 +376,7 @@
     "advanced-sql",
     "analytical-databases",
     "clickhouse",
-    "large-data",
-    "statistics"
+    "large-data"
   ],
   "admissionCoverage": {
     "fa-ml-engineer-2026": {

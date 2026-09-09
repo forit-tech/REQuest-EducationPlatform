@@ -6,8 +6,8 @@
 библиотеки, которых человек ещё нигде не видел. Показом считается появление в стартовом файле
 или в тексте миссии — определение щедрое, поэтому числа ниже занижены.
 
-Курсов с кодом: 50. Из них с нарушениями: 8.
-Требований без показа: 11. Миссий с несколькими новыми сущностями сразу: 30.
+Курсов с кодом: 50. Из них с нарушениями: 7.
+Требований без показа: 10. Миссий с несколькими новыми сущностями сразу: 30.
 
 | Курс | Язык | Кодовых миссий | Требуется без показа | Много нового сразу |
 |---|---|---:|---:|---:|
@@ -27,7 +27,6 @@
 | `data-visualization` | python | 21 | 1 | 0 |
 | `etl-elt` | python | 19 | 1 | 0 |
 | `large-data` | python | 15 | 1 | 0 |
-| `statistics` | python | 32 | 1 | 0 |
 | `ai-evaluation-safety` | python | 9 | 0 | 0 |
 | `analytics-communication` | python | 9 | 0 | 0 |
 | `boosting` | python | 9 | 0 | 0 |
@@ -58,6 +57,7 @@
 | `rag-systems` | python | 9 | 0 | 0 |
 | `react-production` | javascript | 9 | 0 | 0 |
 | `spring-services` | java | 9 | 0 | 0 |
+| `statistics` | python | 33 | 0 | 0 |
 | `streaming-platforms` | python | 9 | 0 | 0 |
 | `technical-foundations` | python | 0 | 0 | 0 |
 | `web-platform-foundations` | javascript | 9 | 0 | 0 |

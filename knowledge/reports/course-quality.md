@@ -46,7 +46,7 @@ Runtime: 75 курсов, 1761 миссий. Проектный граф: 355 к
 | `react-core` | AUTHORED_REAL | 20 | 13 | 0 | 85% | 1 | — |
 | `relational-databases` | AUTHORED_REAL | 40 | 26 | 0 | 95% | 3 | — |
 | `sql-foundations` | AUTHORED_REAL | 58 | 39 | 0 | 74% | 8 | — |
-| `statistics` | AUTHORED_REAL | 48 | 32 | 0 | 92% | 3 | — |
+| `statistics` | AUTHORED_REAL | 48 | 33 | 0 | 67% | 3 | — |
 | `yaml-basics` | AUTHORED_REAL | 14 | 8 | 0 | 93% | 0 | — |
 | `analyst-metrics` | AUTHORED_NEEDS_REVIEW | 13 | 0 | 0 | 92% | 0 | 4 миссий повторяют одну фразу в контексте, объяснении и подсказке |
 | `data-foundations` | AUTHORED_NEEDS_REVIEW | 30 | 0 | 0 | 53% | 3 | 1 миссий содержат ответ дословно в тексте задания |
