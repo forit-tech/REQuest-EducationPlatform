@@ -5,9 +5,9 @@
 
 | Класс | Курсов | Миссий |
 |---|---:|---:|
-| AUTHORED_REAL | 31 | 1197 |
+| AUTHORED_REAL | 14 | 386 |
 | AUTHORED_NEEDS_REVIEW | 4 | 75 |
-| GENERATOR_SCAFFOLD | 15 | 195 |
+| GENERATOR_SCAFFOLD | 32 | 1006 |
 | FAKE_PRACTICE | 25 | 325 |
 | OUTLINE_ONLY (проектный граф) | 149 | — |
 
@@ -17,30 +17,13 @@ Runtime: 75 курсов, 1792 миссий. Проектный граф: 355 к
 
 | Курс | Класс | Миссий | Практики | Подделок | Длинный ответ | Источников | Почему |
 |---|---|---:|---:|---:|---:|---:|---|
-| `advanced-sql` | AUTHORED_REAL | 62 | 32 | 0 | 100% | 3 | — |
-| `analytical-databases` | AUTHORED_REAL | 32 | 13 | 0 | 100% | 2 | — |
-| `clickhouse` | AUTHORED_REAL | 48 | 24 | 0 | 100% | 1 | — |
-| `data-cleaning` | AUTHORED_REAL | 52 | 25 | 0 | 100% | 3 | — |
-| `data-final-project` | AUTHORED_REAL | 18 | 6 | 0 | 100% | 0 | — |
 | `data-formats` | AUTHORED_REAL | 34 | 23 | 0 | 88% | 10 | — |
-| `data-modeling` | AUTHORED_REAL | 44 | 25 | 0 | 100% | 0 | — |
-| `data-quality` | AUTHORED_REAL | 50 | 28 | 0 | 100% | 1 | — |
-| `data-visualization` | AUTHORED_REAL | 44 | 21 | 0 | 100% | 1 | — |
-| `duckdb` | AUTHORED_REAL | 30 | 13 | 0 | 100% | 1 | — |
-| `etl-elt` | AUTHORED_REAL | 46 | 19 | 0 | 100% | 1 | — |
-| `exploratory-data-analysis` | AUTHORED_REAL | 46 | 24 | 0 | 100% | 0 | — |
 | `go-core` | AUTHORED_REAL | 16 | 12 | 0 | 69% | 0 | — |
 | `go-core-concurrency` | AUTHORED_REAL | 16 | 11 | 0 | 75% | 1 | — |
 | `go-network-services` | AUTHORED_REAL | 16 | 10 | 0 | 88% | 1 | — |
 | `java-core` | AUTHORED_REAL | 17 | 13 | 0 | 88% | 0 | — |
 | `javascript-core` | AUTHORED_REAL | 19 | 14 | 0 | 90% | 0 | — |
-| `large-data` | AUTHORED_REAL | 40 | 15 | 0 | 100% | 3 | — |
 | `numpy` | AUTHORED_REAL | 48 | 32 | 0 | 69% | 2 | — |
-| `pandas` | AUTHORED_REAL | 117 | 73 | 0 | 98% | 4 | — |
-| `polars` | AUTHORED_REAL | 42 | 22 | 0 | 100% | 2 | — |
-| `postgresql` | AUTHORED_REAL | 54 | 24 | 0 | 100% | 1 | — |
-| `production-incidents` | AUTHORED_REAL | 36 | 12 | 0 | 100% | 1 | — |
-| `python-core` | AUTHORED_REAL | 50 | 33 | 0 | 100% | 1 | — |
 | `python-first-steps` | AUTHORED_REAL | 27 | 19 | 0 | 13% | 0 | — |
 | `react-architecture` | AUTHORED_REAL | 13 | 9 | 0 | 50% | 1 | — |
 | `react-core` | AUTHORED_REAL | 20 | 13 | 0 | 85% | 1 | — |
@@ -52,15 +35,32 @@ Runtime: 75 курсов, 1792 миссий. Проектный граф: 355 к
 | `data-foundations` | AUTHORED_NEEDS_REVIEW | 30 | 0 | 0 | 53% | 3 | 1 миссий содержат ответ дословно в тексте задания |
 | `go-production` | AUTHORED_NEEDS_REVIEW | 16 | 9 | 0 | 81% | 1 | 1 миссий содержат ответ дословно в тексте задания |
 | `technical-foundations` | AUTHORED_NEEDS_REVIEW | 16 | 2 | 0 | 75% | 0 | 1 миссий содержат ответ дословно в тексте задания |
+| `advanced-sql` | GENERATOR_SCAFFOLD | 62 | 32 | 0 | 100% | 3 | 62 из 62 миссий собраны шаблоном `scripts/generate-planned-courses.mjs` |
+| `analytical-databases` | GENERATOR_SCAFFOLD | 32 | 13 | 0 | 100% | 2 | 32 из 32 миссий собраны шаблоном `scripts/generate-planned-courses.mjs` |
 | `capacity-reliability` | GENERATOR_SCAFFOLD | 13 | 9 | 0 | 100% | 1 | 12 из 13 заголовков — одна тема под несколькими типами; 12 из 13 миссий с шаблонной учебной целью; 12 миссий повторяют одну фразу в контексте, объяснении и подсказке |
 | `cicd-infrastructure` | GENERATOR_SCAFFOLD | 13 | 9 | 0 | 100% | 2 | 12 из 13 заголовков — одна тема под несколькими типами; 12 из 13 миссий с шаблонной учебной целью; 12 миссий повторяют одну фразу в контексте, объяснении и подсказке |
+| `clickhouse` | GENERATOR_SCAFFOLD | 48 | 24 | 0 | 100% | 1 | 48 из 48 миссий собраны шаблоном `scripts/generate-planned-courses.mjs` |
 | `containers-kubernetes` | GENERATOR_SCAFFOLD | 13 | 9 | 0 | 100% | 1 | 12 из 13 заголовков — одна тема под несколькими типами; 12 из 13 миссий с шаблонной учебной целью; 12 миссий повторяют одну фразу в контексте, объяснении и подсказке |
+| `data-cleaning` | GENERATOR_SCAFFOLD | 52 | 25 | 0 | 100% | 3 | 52 из 52 миссий собраны шаблоном `scripts/generate-planned-courses.mjs` |
+| `data-final-project` | GENERATOR_SCAFFOLD | 18 | 6 | 0 | 100% | 0 | 18 из 18 миссий собраны шаблоном `scripts/generate-planned-courses.mjs` |
+| `data-modeling` | GENERATOR_SCAFFOLD | 44 | 25 | 0 | 100% | 0 | 44 из 44 миссий собраны шаблоном `scripts/generate-planned-courses.mjs` |
+| `data-quality` | GENERATOR_SCAFFOLD | 50 | 28 | 0 | 100% | 1 | 50 из 50 миссий собраны шаблоном `scripts/generate-planned-courses.mjs` |
+| `data-visualization` | GENERATOR_SCAFFOLD | 44 | 21 | 0 | 100% | 1 | 44 из 44 миссий собраны шаблоном `scripts/generate-planned-courses.mjs` |
 | `defensive-engineering` | GENERATOR_SCAFFOLD | 13 | 9 | 0 | 100% | 0 | 12 из 13 заголовков — одна тема под несколькими типами; 12 из 13 миссий с шаблонной учебной целью; 12 миссий повторяют одну фразу в контексте, объяснении и подсказке |
+| `duckdb` | GENERATOR_SCAFFOLD | 30 | 13 | 0 | 100% | 1 | 30 из 30 миссий собраны шаблоном `scripts/generate-planned-courses.mjs` |
+| `etl-elt` | GENERATOR_SCAFFOLD | 46 | 19 | 0 | 100% | 1 | 46 из 46 миссий собраны шаблоном `scripts/generate-planned-courses.mjs` |
+| `exploratory-data-analysis` | GENERATOR_SCAFFOLD | 46 | 24 | 0 | 100% | 0 | 46 из 46 миссий собраны шаблоном `scripts/generate-planned-courses.mjs` |
 | `incident-response` | GENERATOR_SCAFFOLD | 13 | 9 | 0 | 100% | 1 | 12 из 13 заголовков — одна тема под несколькими типами; 12 из 13 миссий с шаблонной учебной целью; 12 миссий повторяют одну фразу в контексте, объяснении и подсказке |
+| `large-data` | GENERATOR_SCAFFOLD | 40 | 15 | 0 | 100% | 3 | 40 из 40 миссий собраны шаблоном `scripts/generate-planned-courses.mjs` |
 | `linux-network-ops` | GENERATOR_SCAFFOLD | 13 | 9 | 0 | 100% | 0 | 12 из 13 заголовков — одна тема под несколькими типами; 12 из 13 миссий с шаблонной учебной целью; 12 миссий повторяют одну фразу в контексте, объяснении и подсказке |
 | `observability-incidents` | GENERATOR_SCAFFOLD | 13 | 9 | 0 | 100% | 1 | 12 из 13 заголовков — одна тема под несколькими типами; 12 из 13 миссий с шаблонной учебной целью; 12 миссий повторяют одну фразу в контексте, объяснении и подсказке |
+| `pandas` | GENERATOR_SCAFFOLD | 117 | 73 | 0 | 98% | 4 | 96 из 117 миссий собраны шаблоном `scripts/generate-planned-courses.mjs` |
 | `pentest-methodology` | GENERATOR_SCAFFOLD | 13 | 9 | 0 | 100% | 0 | 12 из 13 заголовков — одна тема под несколькими типами; 12 из 13 миссий с шаблонной учебной целью; 12 миссий повторяют одну фразу в контексте, объяснении и подсказке |
 | `pentest-reporting` | GENERATOR_SCAFFOLD | 13 | 9 | 0 | 100% | 1 | 12 из 13 заголовков — одна тема под несколькими типами; 12 из 13 миссий с шаблонной учебной целью; 12 миссий повторяют одну фразу в контексте, объяснении и подсказке |
+| `polars` | GENERATOR_SCAFFOLD | 42 | 22 | 0 | 100% | 2 | 42 из 42 миссий собраны шаблоном `scripts/generate-planned-courses.mjs` |
+| `postgresql` | GENERATOR_SCAFFOLD | 54 | 24 | 0 | 100% | 1 | 54 из 54 миссий собраны шаблоном `scripts/generate-planned-courses.mjs` |
+| `production-incidents` | GENERATOR_SCAFFOLD | 36 | 12 | 0 | 100% | 1 | 36 из 36 миссий собраны шаблоном `scripts/generate-planned-courses.mjs` |
+| `python-core` | GENERATOR_SCAFFOLD | 50 | 33 | 0 | 100% | 1 | 45 из 50 миссий собраны шаблоном `scripts/generate-planned-courses.mjs` |
 | `risk-iam` | GENERATOR_SCAFFOLD | 13 | 9 | 0 | 100% | 0 | 12 из 13 заголовков — одна тема под несколькими типами; 12 из 13 миссий с шаблонной учебной целью; 12 миссий повторяют одну фразу в контексте, объяснении и подсказке |
 | `security-foundations` | GENERATOR_SCAFFOLD | 13 | 9 | 0 | 100% | 1 | 12 из 13 заголовков — одна тема под несколькими типами; 12 из 13 миссий с шаблонной учебной целью; 12 миссий повторяют одну фразу в контексте, объяснении и подсказке |
 | `soc-detection` | GENERATOR_SCAFFOLD | 13 | 9 | 0 | 100% | 1 | 12 из 13 заголовков — одна тема под несколькими типами; 12 из 13 миссий с шаблонной учебной целью; 12 миссий повторяют одну фразу в контексте, объяснении и подсказке |

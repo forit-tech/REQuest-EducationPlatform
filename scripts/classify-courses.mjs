@@ -21,6 +21,7 @@
 import { mkdirSync, readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { loadCorpus } from './quality/corpus.mjs'
+import { GENERATOR_PATH, generatorDrift, plannedScaffoldMissions } from './quality/planned-scaffold.mjs'
 
 const root = resolve(import.meta.dirname, '..')
 const reportsDir = join(root, 'knowledge', 'reports')
@@ -215,12 +216,13 @@ for (const source of sourceCatalog.sources ?? []) {
 function classify(metrics) {
   const reasons = []
   const { missions, codeLab, fakePractice, triplets, templateObjectives, echo,
-    starterSatisfies, literalAnswerLeak } = metrics
+    starterSatisfies, literalAnswerLeak, plannedScaffold } = metrics
 
   if (missions === 0) return { classification: CLASSES.OUTLINE_ONLY, reasons: ['нет миссий'] }
 
   const share = value => value / missions
   const generatorSignatures = [
+    share(plannedScaffold) >= 0.5 && `${plannedScaffold} из ${missions} миссий собраны шаблоном \`${GENERATOR_PATH}\``,
     share(triplets) >= 0.5 && `${triplets} из ${missions} заголовков — одна тема под несколькими типами`,
     share(templateObjectives) >= 0.5 && `${templateObjectives} из ${missions} миссий с шаблонной учебной целью`,
     share(echo) >= 0.3 && `${echo} миссий повторяют одну фразу в контексте, объяснении и подсказке`,
@@ -235,10 +237,19 @@ function classify(metrics) {
     return { classification: CLASSES.FAKE_PRACTICE, reasons }
   }
 
+  // Точное совпадение с формулировками генератора подтверждения вторым
+  // признаком не требует, в отличие от вероятностных признаков ниже: «Практика
+  // этой миссии — проследить на малом примере путь от входных значений» человек
+  // в половине миссий курса дословно не повторяет.
+  if (share(plannedScaffold) >= 0.5) {
+    return { classification: CLASSES.GENERATOR_SCAFFOLD, reasons: generatorSignatures }
+  }
+
   if (generatorSignatures.length >= 2) {
     return { classification: CLASSES.GENERATOR_SCAFFOLD, reasons: generatorSignatures }
   }
 
+  if (plannedScaffold) reasons.push(`${plannedScaffold} из ${missions} миссий собраны шаблоном \`${GENERATOR_PATH}\``)
   if (fakePractice) reasons.push(`${fakePractice} миссий проверяют русский литерал вместо поведения`)
   if (starterSatisfies) reasons.push(`${starterSatisfies} миссий проходят проверку без единой правки файла`)
   if (literalAnswerLeak) reasons.push(`${literalAnswerLeak} миссий содержат ответ дословно в тексте задания`)
@@ -256,6 +267,22 @@ const corpus = loadCorpus(root)
 const programs = readJson(join(root, 'knowledge', 'professions', 'programs.json'))
 const overrides = readJsonIf(overridesPath, {})
 const usageViolations = prerequisiteByUsage(corpus.courses, programs)
+
+// Признак шаблона обязан совпадать с генератором. Разойдись они — признак молча
+// перестанет срабатывать, и сгенерированные курсы вернутся в AUTHORED_REAL с
+// пустой графой «почему». Поэтому расхождение останавливает отчёт целиком:
+// неверная классификация хуже её отсутствия.
+const generatorSource = join(root, GENERATOR_PATH)
+if (existsSync(generatorSource)) {
+  const drift = generatorDrift(readFileSync(generatorSource, 'utf8'))
+  if (drift.length) {
+    console.error(`Признак шаблона разошёлся с ${GENERATOR_PATH}. Генератор больше не содержит:`)
+    for (const marker of drift.slice(0, 5)) console.error(`  ✕ ${marker}`)
+    if (drift.length > 5) console.error(`  … и ещё ${drift.length - 5}`)
+    console.error('\nПриведите scripts/quality/planned-scaffold.mjs к новым формулировкам генератора.')
+    process.exit(1)
+  }
+}
 
 const courses = corpus.courses.map(course => {
   const missions = course.missions ?? []
@@ -307,6 +334,7 @@ const courses = corpus.courses.map(course => {
     echo,
     starterSatisfies,
     literalAnswerLeak,
+    plannedScaffold: plannedScaffoldMissions(course),
   }
   const verdict = overrides[course.id]
     ? { classification: overrides[course.id].classification, reasons: [`ручное решение: ${overrides[course.id].why}`] }
@@ -324,6 +352,7 @@ const courses = corpus.courses.map(course => {
     codeLabMissions: metrics.codeLab,
     fakePracticeMissions: fakePractice,
     planStubMissions: planStubs,
+    plannedScaffoldMissions: metrics.plannedScaffold,
     scaffoldTripletTitles: metrics.triplets,
     templateObjectiveMissions: templateObjectives,
     echoPhraseMissions: echo,
