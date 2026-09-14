@@ -54,16 +54,63 @@ export function codeCheckPattern(fragment: string): RegExp {
  * Совместимая проверка кода по подстроке.
  *
  * Это временный механизм: он проверяет форму записи, а не поведение программы.
- * Правило одно — новый матчер обязан пропускать всё, что пропускала прямая
- * подстрока, и дополнительно прощать форматирование. Настоящая проверка
- * поведения (тесты, сравнение вывода, численный допуск) приходит с моделью
- * заданий V2.
+ * Матчер прощает форматирование, но не засчитывает ожидаемую запись внутри
+ * комментария. Настоящая проверка поведения (тесты, сравнение вывода,
+ * численный допуск) приходит с моделью заданий V2.
  */
-export function passesCodeCheck(code: string, fragment: string) {
+export interface LegacyCodeCheck {
+  includes: string
+  notIncludes?: string
+  minOccurrences?: number
+}
+
+/** Убирает Python-комментарий, сохраняя `#` внутри строковых литералов. */
+function stripHashComment(line: string) {
+  let quote = ''
+  let escaped = false
+  for (let index = 0; index < line.length; index += 1) {
+    const character = line[index]
+    if (escaped) {
+      escaped = false
+      continue
+    }
+    if (quote && character === '\\') {
+      escaped = true
+      continue
+    }
+    if (character === '"' || character === "'" || character === '`') {
+      quote = quote === character ? '' : quote || character
+      continue
+    }
+    if (!quote && character === '#') return line.slice(0, index)
+  }
+  return line
+}
+
+/** Убирает комментарии: ожидаемый фрагмент в подсказке не является решением. */
+function executableCode(code: string) {
+  return code.split('\n').map(line => {
+    const trimmed = line.trimStart()
+    if (trimmed.startsWith('#') || trimmed.startsWith('//')) return ''
+    // В Python `//` — оператор, поэтому без языка задания безопасно удалять
+    // только целую JS-комментарий-строку, но не хвост после исполняемого кода.
+    return stripHashComment(line)
+  }).join('\n')
+}
+
+export function passesCodeCheck(code: string, fragmentOrCheck: string | LegacyCodeCheck) {
+  const check = typeof fragmentOrCheck === 'string' ? { includes: fragmentOrCheck } : fragmentOrCheck
+  const fragment = check.includes
   if (!fragment) return true
-  if (code.includes(fragment)) return true
+  const source = executableCode(code)
+  if (check.notIncludes && source.includes(check.notIncludes)) return false
+  const exactOccurrences = source.split(fragment).length - 1
+  if (check.minOccurrences && exactOccurrences >= check.minOccurrences) return true
+  if (!check.minOccurrences && exactOccurrences > 0) return true
   try {
-    return codeCheckPattern(fragment).test(code)
+    const pattern = codeCheckPattern(fragment)
+    if (!check.minOccurrences) return pattern.test(source)
+    return [...source.matchAll(new RegExp(pattern.source, 'g'))].length >= check.minOccurrences
   } catch {
     return false
   }

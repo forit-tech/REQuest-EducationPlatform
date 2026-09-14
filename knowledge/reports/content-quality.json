@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-02T13:17:16.053Z",
-  "durationMs": 293,
+  "generatedAt": "2026-09-09T09:25:48.790Z",
+  "durationMs": 383,
   "corpus": {
-    "courses": 74,
-    "legacyMissions": 1765,
+    "courses": 75,
+    "legacyMissions": 1761,
     "v2Tasks": 23,
     "skills": 44,
     "officialRequirements": 87,
@@ -12,9 +12,9 @@
   },
   "summary": {
     "legacy": {
-      "error": 398,
-      "warning": 306,
-      "info": 60
+      "error": 361,
+      "warning": 271,
+      "info": 56
     },
     "production": {
       "error": 0,
@@ -81,7 +81,7 @@
     "C2.free-check": {
       "severity": "warning",
       "scope": "legacy",
-      "count": 145,
+      "count": 140,
       "samples": [
         {
           "where": "java-core-jvm/JVM-002",
@@ -103,7 +103,7 @@
     "C2.normalized-answer-in-theory": {
       "severity": "error",
       "scope": "legacy",
-      "count": 5,
+      "count": 2,
       "samples": [
         {
           "where": "data-foundations/DATA-004",
@@ -111,21 +111,16 @@
           "sample": "Фотографии товаров"
         },
         {
-          "where": "numpy/NPY-009",
+          "where": "sql-foundations/SQL-009",
           "message": "Ответ лежит в тексте перед вопросом с точностью до оформления",
-          "sample": "Последний элемент"
-        },
-        {
-          "where": "numpy/NPY-019",
-          "message": "Ответ лежит в тексте перед вопросом с точностью до оформления",
-          "sample": "(amounts > 1000) & (amounts < 5000)"
+          "sample": "status = 'оплачен' OR (status = 'доставлен' AND amount > 5000)"
         }
       ]
     },
     "C3.duplicate-prompt": {
       "severity": "error",
       "scope": "legacy",
-      "count": 226,
+      "count": 193,
       "samples": [
         {
           "where": "java-core-jvm/JVM-002",
@@ -151,7 +146,7 @@
       "samples": [
         {
           "where": "все курсы",
-          "message": "Продублированных формулировок 226, затронуто заданий 491"
+          "message": "Продублированных формулировок 193, затронуто заданий 425"
         }
       ]
     },
@@ -177,7 +172,7 @@
     "C3.template-course": {
       "severity": "info",
       "scope": "legacy",
-      "count": 58,
+      "count": 54,
       "samples": [
         {
           "where": "java-core-jvm",
@@ -196,12 +191,8 @@
     "C4.duplicate-options": {
       "severity": "error",
       "scope": "legacy",
-      "count": 4,
+      "count": 3,
       "samples": [
-        {
-          "where": "numpy/NPY-019",
-          "message": "Варианты ответа повторяются"
-        },
         {
           "where": "sql-foundations/SQL-009",
           "message": "Варианты ответа повторяются"
@@ -209,13 +200,17 @@
         {
           "where": "sql-foundations/SQL-011",
           "message": "Варианты ответа повторяются"
+        },
+        {
+          "where": "sql-foundations/SQL-020",
+          "message": "Варианты ответа повторяются"
         }
       ]
     },
     "C4.longest-is-correct": {
       "severity": "warning",
       "scope": "legacy",
-      "count": 27,
+      "count": 21,
       "samples": [
         {
           "where": "go-network-services",
@@ -238,14 +233,14 @@
       "samples": [
         {
           "where": "все курсы",
-          "message": "Распределение числа вариантов: 3 вариантов — 1394"
+          "message": "Распределение числа вариантов: 3 вариантов — 1207"
         }
       ]
     },
     "C5.fragile-substring": {
       "severity": "warning",
       "scope": "legacy",
-      "count": 49,
+      "count": 25,
       "samples": [
         {
           "where": "go-core/GOC-008",
@@ -362,8 +357,6 @@
     "ml-engineering",
     "ml-observability",
     "model-serving",
-    "numpy",
-    "pandas",
     "product-analytics",
     "production",
     "rag-systems",
@@ -383,10 +376,7 @@
     "advanced-sql",
     "analytical-databases",
     "clickhouse",
-    "data-cleaning",
-    "data-visualization",
-    "large-data",
-    "statistics"
+    "large-data"
   ],
   "admissionCoverage": {
     "fa-ml-engineer-2026": {

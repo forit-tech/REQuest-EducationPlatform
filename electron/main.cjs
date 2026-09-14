@@ -1,10 +1,9 @@
 const { app, BrowserWindow, Menu, Notification, dialog, shell } = require('electron')
 const path = require('node:path')
-const { checkForUpdates, runUpdate, readSettings, writeSettings } = require('./updater.cjs')
+const { checkForUpdates, prepareUpdate, runUpdate, readSettings, writeSettings } = require('./updater.cjs')
 
 app.setName('REduQuest')
 
-/** Найденное, но ещё не применённое обновление. Ставится при выходе из приложения. */
 let pendingUpdate = null
 let checkTimer = null
 
@@ -38,41 +37,68 @@ function createWindow() {
   return window
 }
 
-/** Диалог с выбором: обновиться сейчас, при выходе или отложить. */
+function updateMessage(update) {
+  return update.kind === 'installer'
+    ? {
+        message: `Доступна REduQuest ${update.version} (установлена ${app.getVersion()}).`,
+        detail: update.notes || 'Новая версия будет скачана с GitHub Releases и установлена после закрытия приложения.',
+      }
+    : {
+        message: `REduQuest отстаёт от репозитория на ${update.behind} ${update.behind === 1 ? 'коммит' : 'коммитов'}.`,
+        detail: `${update.log}\n\nИсходники будут обновлены и приложение пересоберётся.`,
+      }
+}
+
+async function prepareOrExplain(window, update) {
+  try {
+    return await prepareUpdate(update)
+  } catch {
+    await dialog.showMessageBox(window, {
+      type: 'error',
+      title: 'Не удалось скачать обновление',
+      message: 'Обновление найдено, но подготовить его не получилось.',
+      detail: 'Проверьте подключение к интернету и попробуйте ещё раз.',
+      buttons: ['Хорошо'],
+      noLink: true,
+    })
+    return null
+  }
+}
+
 async function askUpdate(window, update) {
+  const copy = updateMessage(update)
   const { response, checkboxChecked } = await dialog.showMessageBox(window, {
     type: 'info',
     title: 'Доступно обновление',
-    message: `REduQuest отстаёт от репозитория на ${update.behind} ${update.behind === 1 ? 'коммит' : 'коммитов'}.`,
-    detail: `${update.log}\n\nОбновление пересобирает приложение — это занимает пару минут.`,
+    ...copy,
     buttons: ['Обновить сейчас', 'Обновить при выходе', 'Пропустить'],
     defaultId: 1,
     cancelId: 2,
     checkboxLabel: 'Обновлять автоматически при выходе, не спрашивая',
-    checkboxChecked: true,
+    checkboxChecked: readSettings().autoUpdate,
     noLink: true,
   })
 
-  const settings = readSettings()
-  writeSettings({ ...settings, autoUpdate: checkboxChecked })
-
-  if (response === 0) {
-    if (runUpdate(update.projectRoot, { restart: true })) app.quit()
-    else dialog.showErrorBox('Обновление недоступно', 'Не найден scripts/update.ps1 в каталоге проекта.')
+  writeSettings({ ...readSettings(), autoUpdate: checkboxChecked })
+  if (response === 2) {
+    pendingUpdate = null
     return
   }
-  pendingUpdate = response === 1 ? update : null
+
+  const prepared = await prepareOrExplain(window, update)
+  if (!prepared) return
+  pendingUpdate = { ...prepared, restartAfterInstall: response === 0 }
+  if (response === 0) app.quit()
 }
 
-/**
- * Проверка не блокирует запуск и не перебивает работу.
- * При включённом автообновлении показывает уведомление и ставит апдейт в очередь на выход.
- */
 async function pollUpdates(window) {
   let update = null
   try { update = await checkForUpdates() } catch { return }
   if (!update || window.isDestroyed()) return
-  if (pendingUpdate && pendingUpdate.behind === update.behind) return
+
+  const identity = update.kind === 'installer' ? update.version : `${update.branch}:${update.behind}`
+  if (pendingUpdate?.identity === identity) return
+  update.identity = identity
 
   const { autoUpdate } = readSettings()
   if (!autoUpdate) {
@@ -80,52 +106,57 @@ async function pollUpdates(window) {
     return
   }
 
-  pendingUpdate = update
+  const prepared = await prepareOrExplain(window, update)
+  if (!prepared) return
+  pendingUpdate = { ...prepared, restartAfterInstall: false }
+
   if (Notification.isSupported()) {
     const note = new Notification({
       title: 'REduQuest обновится при выходе',
-      body: `Готово ${update.behind} ${update.behind === 1 ? 'изменение' : 'изменений'}. Нажмите, чтобы обновиться сейчас.`,
+      body: update.kind === 'installer'
+        ? `Версия ${update.version} уже скачана. Нажмите, чтобы установить сейчас.`
+        : `Готово изменений: ${update.behind}. Нажмите, чтобы обновиться сейчас.`,
       silent: true,
     })
-    note.on('click', () => { void askUpdate(window, update) })
+    note.on('click', () => { void askUpdate(window, prepared) })
     note.show()
   }
 }
 
 function buildMenu(window) {
-  const template = [
-    {
-      label: 'REduQuest',
-      submenu: [
-        {
-          label: 'Проверить обновления',
-          click: async () => {
-            const update = await checkForUpdates().catch(() => null)
-            if (!update) {
-              await dialog.showMessageBox(window, {
-                type: 'info', title: 'Обновлений нет',
-                message: 'Установлена последняя версия.', buttons: ['Хорошо'], noLink: true,
-              })
-              return
-            }
-            await askUpdate(window, update)
-          },
+  const template = [{
+    label: 'REduQuest',
+    submenu: [
+      {
+        label: 'Проверить обновления',
+        click: async () => {
+          const update = await checkForUpdates().catch(() => null)
+          if (!update) {
+            await dialog.showMessageBox(window, {
+              type: 'info',
+              title: 'Обновлений нет',
+              message: 'Установлена последняя опубликованная версия.',
+              buttons: ['Хорошо'],
+              noLink: true,
+            })
+            return
+          }
+          await askUpdate(window, update)
         },
-        { type: 'separator' },
-        { role: 'reload', label: 'Перезагрузить' },
-        { role: 'toggleDevTools', label: 'Инструменты разработчика' },
-        { type: 'separator' },
-        { role: 'quit', label: 'Выход' },
-      ],
-    },
-  ]
+      },
+      { type: 'separator' },
+      { role: 'reload', label: 'Перезагрузить' },
+      { role: 'toggleDevTools', label: 'Инструменты разработчика' },
+      { type: 'separator' },
+      { role: 'quit', label: 'Выход' },
+    ],
+  }]
   Menu.setApplicationMenu(Menu.buildFromTemplate(template))
 }
 
 app.whenReady().then(() => {
   const window = createWindow()
   buildMenu(window)
-  // Даём приложению прогрузиться, прежде чем лезть в сеть, дальше — раз в шесть часов.
   setTimeout(() => { void pollUpdates(window) }, 4000)
   checkTimer = setInterval(() => { void pollUpdates(window) }, 6 * 60 * 60 * 1000)
   app.on('activate', () => {
@@ -133,13 +164,12 @@ app.whenReady().then(() => {
   })
 })
 
-// Обновление применяется на выходе: пользователь не ждёт сборку посреди занятия.
 app.on('will-quit', () => {
   if (checkTimer) clearInterval(checkTimer)
   if (!pendingUpdate) return
   const update = pendingUpdate
   pendingUpdate = null
-  runUpdate(update.projectRoot, { restart: false })
+  runUpdate(update, { restart: update.restartAfterInstall })
 })
 
 app.on('window-all-closed', () => {

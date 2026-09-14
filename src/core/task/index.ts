@@ -17,5 +17,6 @@ export {
 export type { Remediation, SkillGraph, SkillNode } from './prerequisites'
 export { emptyResponse, isAnswered, rendererFor, resolveEnvironment } from './renderers'
 export type { RendererId } from './renderers'
+export { coursePrerequisitesInRoute } from './route'
 export { validateTask, validateTasks } from './validate'
 export type { ValidationContext, ValidationProblem } from './validate'

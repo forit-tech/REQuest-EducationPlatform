@@ -6,8 +6,8 @@
       "reason": "PDA-001..013 существовали одновременно в курсах pandas и python-databases-async",
       "canonical": {
         "course": "pandas",
-        "keeps": "PDA-001..117",
-        "why": "Владеет всем диапазоном, содержит 117 миссий и указан владельцем PDA-001 в knowledge/skills-registry.json"
+        "keeps": "пространство имён PDA-* (исторически PDA-001..117)",
+        "why": "Pandas остаётся владельцем префикса PDA; после педагогической пересборки курс содержит 73 миссии, а введение библиотеки зарегистрировано на PDA-002 в knowledge/skills-registry.json"
       },
       "renamed": {
         "course": "python-databases-async",

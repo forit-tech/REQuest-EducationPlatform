@@ -81,7 +81,12 @@ export function taskFromMission(mission: Mission, courseId: string): Task | unde
       id: 'code',
       label: 'Решение',
       response: { kind: 'code', files: [file], entry: file.path },
-      evaluation: { type: 'legacy-substring', checks: checks.map(check => ({ label: check.label, fragment: check.includes })) },
+      evaluation: { type: 'legacy-substring', checks: checks.map(check => ({
+        label: check.label,
+        fragment: check.includes,
+        notFragment: check.notIncludes,
+        minOccurrences: check.minOccurrences,
+      })) },
       evidences: ['coding'],
     }
     // Гипотеза была отдельным шагом старого раннера и учитывалась в зачёте.

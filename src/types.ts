@@ -14,6 +14,10 @@ export interface Mission {
   xp: number
   termIds?: import('./glossary').GlossaryTermId[]
   difficulty?: 'основа' | 'начальный' | 'средний' | 'продвинутый'
+  /** Явная ступень учебной лестницы для курсов, прошедших педагогический аудит. */
+  stage?: 'explained' | 'shown' | 'guided' | 'modified' | 'filled' | 'independent' | 'debugged' | 'transferred'
+  /** Одна сущность, которую эта миссия отрабатывает. */
+  concept?: string
   objectives?: string[]
   intro?: string
   productionContext?: string
@@ -35,6 +39,10 @@ export interface Mission {
     codeChecks?: Array<{
       label: string
       includes: string
+      /** Фрагмент обязан исчезнуть из решения. */
+      notIncludes?: string
+      /** Минимальное число появлений includes в исполняемом коде. */
+      minOccurrences?: number
     }>
   }
   hints?: string[]

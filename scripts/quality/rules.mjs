@@ -130,12 +130,12 @@ function answerLeakage(corpus, engine) {
     // Решение уже лежит в заготовке кода: писать нечего.
     const checks = task.codeChecks ?? []
     const starter = task.starterCode ?? ''
-    if (checks.length && checks.every(check => engine.passesCodeCheck(starter, check.includes))) {
+    if (checks.length && checks.every(check => engine.passesCodeCheck(starter, check))) {
       out.push(finding('C2.starter-already-passes', 'error', SCOPE.LEGACY, where, 'Заготовка кода уже проходит все проверки задания'))
     } else {
       // Отдельная, более мягкая метрика: часть обязательных фрагментов уже
       // лежит в заготовке. Задание при этом решаемо, но проверка ослаблена.
-      const free = checks.filter(check => engine.passesCodeCheck(starter, check.includes))
+      const free = checks.filter(check => engine.passesCodeCheck(starter, check))
       if (free.length) {
         out.push(finding('C2.free-check', 'warning', SCOPE.LEGACY, where,
           `${free.length} из ${checks.length} проверок выполнены заготовкой заранее`, free.map(check => check.label).join('; ')))

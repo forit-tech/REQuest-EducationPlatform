@@ -132,7 +132,7 @@
         { "title": "Операционная система и конкурентность", "goal": "Процессы, потоки, событийный цикл, файлы.", "courseIds": ["inf-os", "cs-concurrency", "cs-files"] },
         { "title": "Среда: Linux и сети", "goal": "Среда выполнения моделей.", "courseIds": ["inf-linux-basics", "inf-filesystem", "inf-users", "inf-permissions", "inf-processes", "inf-bash", "inf-packages", "inf-logs", "inf-cron", "inf-ssh", "inf-systemd", "net-basics", "net-models", "net-ipv4", "net-dhcp-dns", "net-transport", "net-http-tls"] },
         { "title": "Основы безопасности", "goal": "Доверие, криптография, доступ.", "courseIds": ["sec-fundamentals", "sec-crypto", "sec-auth"] },
-        { "title": "Данные и ML", "goal": "Понимать, что обучается.", "courseIds": ["da-data-basics", "da-numpy", "da-pandas", "da-cleaning", "ai-intro", "ai-ml-fundamentals"] },
+        { "title": "Контекст AI", "goal": "Связать уже освоенную подготовку данных с постановкой ML-задачи.", "courseIds": ["da-data-basics", "ai-intro", "ai-ml-fundamentals"] },
         { "title": "Инженерия обучения", "goal": "Повторяемый прогон вместо блокнота.", "courseIds": ["mle-engineering", "ai-neural-networks", "ai-pytorch", "mle-training-pipelines", "mle-testing", "mle-tracking", "mle-serialization"] },
         { "title": "Сервинг", "goal": "Модель как сервис.", "courseIds": ["web-http", "be-fastapi", "mle-serving", "mle-inference-modes", "do-build", "do-docker"] },
         { "title": "Нагрузка и надзор", "goal": "Скорость, деньги, деградация.", "courseIds": ["mle-optimization", "mle-monitoring", "mle-drift", "mle-retraining"] },
