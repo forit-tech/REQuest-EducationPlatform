@@ -14,6 +14,8 @@ export interface UserAccount {
   emailNotifications: boolean
   telegramNotifications: boolean
   desktopNotifications: boolean
+  /** Роль назначается только при первом запуске. Регистрация её не выдаёт. */
+  role?: 'admin'
   createdAt: string
 }
 
@@ -26,7 +28,7 @@ export interface UserProgress {
   updatedAt: string
 }
 
-export const STATE_VERSION = 3
+export const STATE_VERSION = 6
 
 interface StoredState {
   version: number
@@ -53,34 +55,173 @@ interface StoredState {
   diagnostics?: Record<string, import('./diagnostic/types').DiagnosticSession>
 }
 
+/**
+ * Миссии, снятые из каталога вместе с шаблонными хвостами курсов.
+ *
+ * `PYC-006..050` были выводом генератора: практика в них сводилась к заглушке
+ * `def solve()`, а темы, которые они объявляли, теперь написаны блоками 10–18
+ * того же курса. `NPY-001..047` и `NPY-BOSS-01` — прежний курс NumPy, где ни
+ * одна из тридцати двух кодовых миссий не давала человеку ни строки готового
+ * кода; он переписан блоками 1–24 с другой разбивкой тем. `PDA-001..117` —
+ * прежний курс Pandas: девяносто шесть из ста семнадцати миссий были выводом
+ * того же генератора, что и хвост python-core; он переписан блоками 1–29.
+ *
+ * Номера намеренно не переиспользованы — иначе человек, закрывший заглушку под
+ * старым номером, получил бы новую миссию уже отмеченной пройденной. Здесь
+ * отметка о прохождении снимается: это честнее, чем утверждать, что человек
+ * прошёл то, чего не было.
+ *
+ * Опыт и книга освоения не трогаются: опыт уже начислен и по списку миссий не
+ * пересчитывается, а освоение привязано к навыкам, а не к идентификаторам.
+ * Подробности — в `knowledge/migrations/mission-id-aliases.json`.
+ */
+const RETIRED_PYTHON_CORE = Array.from(
+  { length: 45 }, (_, index) => `PYC-${String(index + 6).padStart(3, '0')}`,
+)
+const RETIRED_NUMPY = [
+  ...Array.from({ length: 47 }, (_, index) => `NPY-${String(index + 1).padStart(3, '0')}`),
+  'NPY-BOSS-01',
+]
+const RETIRED_PANDAS = Array.from(
+  { length: 117 }, (_, index) => `PDA-${String(index + 1).padStart(3, '0')}`,
+)
+const RETIRED_MISSION_IDS = new Set([...RETIRED_PYTHON_CORE, ...RETIRED_NUMPY, ...RETIRED_PANDAS])
+
 /** Приводит состояние любой прошлой версии к текущей. Данные не теряются. */
 function migrateState(state: StoredState): StoredState {
   if (!state.mastery) state.mastery = {}
   if (!state.diagnostics) state.diagnostics = {}
+  if (state.version < 4) {
+    for (const progress of Object.values(state.progress ?? {})) {
+      progress.completedMissionIds = (progress.completedMissionIds ?? [])
+        .filter(id => !RETIRED_MISSION_IDS.has(id))
+    }
+  }
+  if (state.version < 6) {
+    // Демо-аккаунт уезжал вместе со сборкой и открывался сам. Убираем его
+    // только нетронутым: совпали и опыт, и серия, и число пройденных миссий.
+    // Если человек успел что-то на нём сделать, запись остаётся ему.
+    const demo = state.progress?.['local-alex']
+    const untouched = demo && demo.xp === DEMO_PROGRESS.xp && demo.streak === DEMO_PROGRESS.streak
+      && (demo.completedMissionIds ?? []).length === DEMO_PROGRESS.missions
+    if (untouched) {
+      state.users = (state.users ?? []).filter(user => user.id !== 'local-alex')
+      delete state.progress['local-alex']
+      if (state.sessionUserId === 'local-alex') { state.sessionUserId = null; state.rememberSession = false }
+    }
+  }
   state.version = STATE_VERSION
   return state
 }
 
 const STORAGE_KEY = 'request.local-state.v1'
+
+/**
+ * Служебная учётная запись разработчика. Существует только в QA-сборке.
+ *
+ * Публичная сборка собирается без этих переменных, поэтому в её бандл не
+ * попадает ни проверочная запись, ни сам факт, что такая учётная запись
+ * бывает: скрытого администратора у скачавшего приложение нет.
+ *
+ * Пароль не хранится нигде — ни здесь, ни в переменных. Хранится только
+ * проверочная запись PBKDF2: по ней можно проверить введённый пароль, но
+ * нельзя его восстановить. Сами переменные лежат в `.env.admin.local`,
+ * который закрыт от git.
+ */
+export const ADMIN_USERNAME = 'adminfort'
+const ADMIN_ID = 'account-adminfort'
+/**
+ * Переменная сборки читается и в браузере, и в проверках движка.
+ *
+ * Vite подставляет `import.meta.env` целым объектом, поэтому в публичной
+ * сборке нужного ключа там просто нет. В Node такого объекта не существует,
+ * и значение берётся из окружения процесса — так один и тот же код
+ * проверяется и как публичная сборка, и как QA.
+ */
+const buildEnv = (name: string) => {
+  const inlined = (import.meta as { env?: Record<string, string | undefined> }).env
+  if (inlined && inlined[name] !== undefined) return inlined[name]
+  return (globalThis as { process?: { env?: Record<string, string | undefined> } }).process?.env?.[name]
+}
+/** Соль и производный ключ хранятся через двоеточие: доллар в env-файле раскрывается. */
+const ADMIN_VERIFIER_SHAPE = /^[0-9a-f]{32}:[0-9a-f]{64}$/
+const adminVerifier = () => {
+  const stored = buildEnv('VITE_ADMIN_VERIFIER') ?? ''
+  return ADMIN_VERIFIER_SHAPE.test(stored) ? `pbkdf2$${stored.replace(':', '$')}` : ''
+}
+
+/** Собрана ли эта копия как QA-сборка: от этого зависят и учётная запись, и разметка замечаний. */
+export const isQaBuild = () => buildEnv('VITE_ADMIN_BUILD') === 'true' && adminVerifier() !== ''
+
+export const isAdmin = (account: UserAccount | null | undefined) => account?.role === 'admin'
+
+/**
+ * Признак административной сессии для интерфейса.
+ *
+ * Берётся из сохранённой учётной записи и нигде больше: ни адрес, ни флаг в
+ * интерфейсе его выдать не могут. Значение кешируется, потому что проверка
+ * доступности вызывается на каждый курс при отрисовке, и сбрасывается ровно
+ * там, где меняется текущая запись, — при входе, регистрации и выходе.
+ */
+let adminCache: boolean | null = null
+export function refreshAdminSession() {
+  adminCache = isAdmin(activeAccount())
+  return adminCache
+}
+export function adminSession() {
+  return adminCache ?? refreshAdminSession()
+}
 const LEGACY_DEMO_HASH = 'a592d463ed8517f99ea698b6ba8b12f2d2e839dc3e24564b597a8a1d9fcc5553'
 const DEMO_HASH = '95b3951ed7ec9cdbbd58edaef3c0617dfb711162a0a34e14abc5d0735ad58b50'
 
+/**
+ * Прогресс человека, который только что завёл учётную запись.
+ *
+ * Здесь раньше лежала витрина: 2480 XP, серия 12 дней и девять пройденных
+ * миссий. Она же служила запасным значением в `getProgress`, поэтому любой
+ * пользователь без записи прогресса получал чужие достижения и открытую
+ * середину маршрута. Пустой старт — единственное честное начало.
+ */
 const starterProgress = (): UserProgress => ({
-  xp: 2480,
-  streak: 12,
+  xp: 0,
+  streak: 0,
   currentRoomId: 'technical-foundations',
-  completedMissionIds: ['py-1', 'py-2', 'py-3', 'py-4', 'py-5', 'py-6', 'py-7', 'pd-1', 'pd-2'],
+  completedMissionIds: [],
   attempts: {},
   updatedAt: new Date().toISOString(),
 })
 
-const initialState = (): StoredState => {
-  const demo: UserAccount = {
-    id: 'local-alex', displayName: 'Алексей', username: 'alex_data', email: 'alex@request.local',
-    passwordHash: DEMO_HASH, emailNotifications: false, telegramNotifications: false,
-    desktopNotifications: false, createdAt: new Date().toISOString(),
-  }
-  return { version: STATE_VERSION, users: [demo], sessionUserId: null, rememberSession: false, sessionChosen: true, theme: 'future', progress: { [demo.id]: starterProgress() }, mastery: {}, diagnostics: {} }
+/** Витрина, с которой приложение собиралось до первого выпуска. */
+const DEMO_PROGRESS = { xp: 2480, streak: 12, missions: 9 }
+
+const initialState = (): StoredState => ({
+  version: STATE_VERSION, users: [], sessionUserId: null, rememberSession: false,
+  sessionChosen: true, theme: 'future', progress: {}, mastery: {}, diagnostics: {},
+})
+
+/**
+ * Учётная запись администратора появляется один раз и не выбирается сама.
+ *
+ * Она именно существует, а не входит: первый экран у всех одинаковый —
+ * «войти или зарегистрироваться». Повторный запуск второй записи не создаёт.
+ */
+function ensureAdmin(state: StoredState) {
+  if (!isQaBuild()) return state
+  if (state.users.some(user => user.username === ADMIN_USERNAME)) return state
+  state.users.push({
+    id: ADMIN_ID,
+    displayName: 'Фортуна',
+    username: ADMIN_USERNAME,
+    email: 'adminfort@reduquest.local',
+    passwordHash: adminVerifier(),
+    role: 'admin',
+    emailNotifications: false,
+    telegramNotifications: false,
+    desktopNotifications: false,
+    createdAt: new Date().toISOString(),
+  })
+  state.progress[ADMIN_ID] = starterProgress()
+  return state
 }
 
 export function loadState(): StoredState {
@@ -97,13 +238,24 @@ export function loadState(): StoredState {
         state.rememberSession = false
         state.sessionChosen = true
       }
+      ensureAdmin(state)
       saveState(state)
       return state
     }
   } catch { /* reset corrupted local state */ }
-  const state = initialState()
+  const state = ensureAdmin(initialState())
   saveState(state)
   return state
+}
+
+/**
+ * Есть ли на устройстве учётная запись человека: от этого зависит первый экран.
+ *
+ * Служебная запись администратора не считается — она существует на любой
+ * установке, и из-за неё новый человек попадал бы на вход вместо регистрации.
+ */
+export function hasAccounts() {
+  return loadState().users.some(user => user.username !== ADMIN_USERNAME)
 }
 
 export function saveState(state: StoredState) {
@@ -149,6 +301,7 @@ export async function login(identifier: string, password: string, remember: bool
 export async function register(input: { displayName: string; username: string; email: string; password: string }) {
   const state = loadState()
   if (state.users.some(user => user.email.toLowerCase() === input.email.trim().toLowerCase())) throw new Error('Эта почта уже привязана')
+  if (input.username.trim().toLowerCase() === ADMIN_USERNAME) throw new Error('Этот логин недоступен')
   if (state.users.some(user => user.username.toLowerCase() === input.username.trim().toLowerCase())) throw new Error('Этот никнейм уже занят')
   const account: UserAccount = {
     id: crypto.randomUUID(), displayName: input.displayName.trim(), username: input.username.trim(), email: input.email.trim(),
@@ -159,8 +312,9 @@ export async function register(input: { displayName: string; username: string; e
   state.sessionUserId = account.id
   state.rememberSession = true
   state.sessionChosen = true
-  state.progress[account.id] = { ...starterProgress(), xp: 0, streak: 0, completedMissionIds: [] }
+  state.progress[account.id] = starterProgress()
   saveState(state)
+  adminCache = false
   return account
 }
 
@@ -180,6 +334,7 @@ export async function changePassword(userId: string, currentPassword: string, ne
 }
 
 export function logout() {
+  adminCache = false
   const state = loadState()
   state.sessionUserId = null
   state.rememberSession = false

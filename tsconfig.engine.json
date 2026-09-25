@@ -19,8 +19,11 @@
     "src/types.ts",
     "src/core/tasks.ts",
     "src/core/storage.ts",
+    "src/core/qa.ts",
     "src/core/task/**/*.ts",
     "src/core/runtime/**/*.ts",
-    "src/core/diagnostic/**/*.ts"
+    "src/core/diagnostic/**/*.ts",
+    "src/story/casting.ts",
+    "src/story/emotions.ts"
   ]
 }

@@ -1,10 +1,11 @@
 import { useRef, useState, type ChangeEvent, type FormEvent } from 'react'
 import { Bell, Camera, Check, KeyRound, LogIn, Mail, Radio, RotateCcw, Save, ShieldCheck, UserPlus } from 'lucide-react'
 import { Button, Field, StatusBadge } from './ui'
-import { changePassword, login, register, resetProgress, updateAccount, type UserAccount, type UserProgress } from './core/storage'
+import { changePassword, hasAccounts, login, register, resetProgress, updateAccount, type UserAccount, type UserProgress } from './core/storage'
 
 export function AuthView({ onAuthenticated }: { onAuthenticated: (account: UserAccount) => void }) {
-  const [mode, setMode] = useState<'login' | 'register'>('login')
+  // На чистой установке входить некуда: первым показываем создание записи.
+  const [mode, setMode] = useState<'login' | 'register'>(() => hasAccounts() ? 'login' : 'register')
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
 
@@ -12,6 +13,9 @@ export function AuthView({ onAuthenticated }: { onAuthenticated: (account: UserA
     event.preventDefault(); setError(''); setBusy(true)
     const data = new FormData(event.currentTarget)
     try {
+      if (mode === 'register' && String(data.get('password')) !== String(data.get('passwordConfirm'))) {
+        throw new Error('Пароли не совпадают')
+      }
       const account = mode === 'login'
         ? await login(String(data.get('identifier')), String(data.get('password')), data.get('remember') === 'on')
         : await register({ displayName: String(data.get('displayName')), username: String(data.get('username')), email: String(data.get('email')), password: String(data.get('password')) })
@@ -23,11 +27,11 @@ export function AuthView({ onAuthenticated }: { onAuthenticated: (account: UserA
   return <main className="auth-page"><section className="auth-brand"><div className="auth-orbit"><span>∿</span></div><div className="section-kicker">REQUEST // ЛОКАЛЬНЫЙ ВХОД</div><h1>Твоя учебная станция<br/><span>помнит прогресс.</span></h1><p>Локальный аккаунт хранится только на этом устройстве. Синхронизация появится вместе с серверной частью.</p></section>
     <section className="auth-card"><div className="auth-tabs"><button className={mode === 'login' ? 'active' : ''} onClick={() => setMode('login')}><LogIn size={16}/>Вход</button><button className={mode === 'register' ? 'active' : ''} onClick={() => setMode('register')}><UserPlus size={16}/>Новый ID</button></div>
       <form onSubmit={submit}>{mode === 'register' && <><Field required name="displayName" label="Имя" placeholder="Как к вам обращаться"/><Field required name="username" label="Никнейм" placeholder="data_explorer" pattern="[A-Za-z0-9_]{3,24}"/></>}
-        {mode === 'login' ? <Field required name="identifier" autoComplete="username" label="Почта или никнейм" defaultValue="alex_data"/> : <Field required type="email" name="email" autoComplete="email" label="Почта" placeholder="you@example.com"/>}
-        <Field required type="password" name="password" autoComplete={mode === 'login' ? 'current-password' : 'new-password'} label="Пароль" defaultValue={mode === 'login' ? 'request2026' : ''} minLength={8}/>
+        {mode === 'login' ? <Field required name="identifier" autoComplete="username" label="Почта или никнейм" placeholder="you@example.com"/> : <Field required type="email" name="email" autoComplete="email" label="Почта" placeholder="you@example.com"/>}
+        <Field required type="password" name="password" autoComplete={mode === 'login' ? 'current-password' : 'new-password'} label="Пароль" minLength={8}/>
+        {mode === 'register' && <Field required type="password" name="passwordConfirm" autoComplete="new-password" label="Повторите пароль" minLength={8}/>}
         {mode === 'login' && <label className="check-row"><input type="checkbox" name="remember" defaultChecked/><span>Сохранить вход на этом устройстве</span></label>}
         {error && <div className="form-alert">{error}</div>}<Button disabled={busy} className="wide">{busy ? 'Подключение…' : mode === 'login' ? 'Войти на станцию' : 'Создать REduQuest ID'}</Button>
-        {mode === 'login' && <small className="demo-note">Демо-вход: alex_data / request2026</small>}
       </form></section></main>
 }
 
