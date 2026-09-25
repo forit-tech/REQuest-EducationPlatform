@@ -94,7 +94,7 @@
       ],
       "introducedIn": {
         "course": "python-core",
-        "mission": "PYC-016"
+        "mission": "PYC-1003"
       },
       "language": "python"
     },
@@ -106,7 +106,7 @@
       ],
       "introducedIn": {
         "course": "python-core",
-        "mission": "PYC-021"
+        "mission": "PYC-1102"
       },
       "language": "python"
     },
@@ -119,7 +119,7 @@
       ],
       "introducedIn": {
         "course": "python-core",
-        "mission": "PYC-026"
+        "mission": "PYC-1202"
       },
       "language": "python"
     },
@@ -132,7 +132,7 @@
       ],
       "introducedIn": {
         "course": "python-core",
-        "mission": "PYC-031"
+        "mission": "PYC-1404"
       },
       "language": "python"
     },
@@ -144,7 +144,7 @@
       ],
       "introducedIn": {
         "course": "python-core",
-        "mission": "PYC-041"
+        "mission": "PYC-1602"
       },
       "language": "python"
     },
@@ -156,7 +156,7 @@
       ],
       "introducedIn": {
         "course": "python-core",
-        "mission": "PYC-046"
+        "mission": "PYC-1702"
       },
       "language": "python"
     },
@@ -169,7 +169,7 @@
       ],
       "introducedIn": {
         "course": "numpy",
-        "mission": "NPY-001"
+        "mission": "NPY-0203"
       },
       "language": "python"
     },
@@ -182,7 +182,7 @@
       ],
       "introducedIn": {
         "course": "pandas",
-        "mission": "PDA-002"
+        "mission": "PDA-0203"
       },
       "language": "python"
     },

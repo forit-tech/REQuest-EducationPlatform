@@ -46,21 +46,12 @@
         "goal": "Строить, оценивать и объяснять модели.",
         "courseIds": [
           "linear-algebra",
+          "ml-foundations",
           "ml-baseline",
           "boosting"
         ],
         "prerequisites": [
           "statistics"
-        ]
-      },
-      {
-        "title": "Модель в продукте",
-        "goal": "Превратить модель в наблюдаемый и безопасный сервис.",
-        "courseIds": [
-          "production"
-        ],
-        "prerequisites": [
-          "boosting"
         ]
       }
     ]
@@ -149,6 +140,7 @@
           "numpy",
           "pandas",
           "statistics",
+          "ml-foundations",
           "ml-baseline",
           "boosting"
         ],
@@ -273,6 +265,7 @@
         "courseIds": [
           "numpy",
           "statistics",
+          "ml-foundations",
           "ml-baseline"
         ],
         "prerequisites": [
