@@ -27,7 +27,7 @@
  * контекста и что действительно нужно вводить отдельной миссией.
  */
 export const KEYWORDS = {
-  python: ['def', 'return', 'if', 'elif', 'else', 'for', 'while', 'in', 'import', 'from', 'as',
+  python: ['def', 'return', 'if', 'elif', 'else', 'for', 'while', 'in', 'break', 'continue', 'import', 'from', 'as',
     'class', 'try', 'except', 'finally', 'raise', 'with', 'lambda', 'yield', 'assert',
     'global', 'nonlocal', 'async', 'await'],
   javascript: ['function', 'return', 'if', 'else', 'for', 'while', 'const', 'let', 'var',
@@ -62,10 +62,20 @@ const SYNTAX = [
   ['запятая-разделитель', /,/],
 ]
 
-const CALL = /(?:([A-Za-z_][\w.]*)\s*\.\s*)?([A-Za-z_]\w*)\s*\(/g
+/**
+ * Вызов с необязательным префиксом.
+ *
+ * Решает не префикс, а точка перед именем: она и означает «вызов у чего-то».
+ * Префикс при этом бывает трёх видов — имя (`np.array()`, `text.strip()`),
+ * закрывающая скобка (`raw.strip().lower()`) и пустота, когда разбирается
+ * обязательный фрагмент проверки вида `.filter(`. Все три означают вызов
+ * метода; без отдельной группы под точку фрагмент `.filter(` разбирался как
+ * встроенная функция `filter()` и не совпадал с показанным `orders.filter()`.
+ */
+const CALL = /(?:([A-Za-z_][\w.]*|\))?\s*(\.)\s*)?([A-Za-z_]\w*)\s*\(/g
 
 /** Виды сущностей, показом которых считается только пример синтаксиса вызова. */
-const CALLABLE_KINDS = new Set(['функция', 'метод или функция модуля', 'вызов библиотеки'])
+const CALLABLE_KINDS = new Set(['функция', 'метод', 'метод или функция модуля', 'вызов библиотеки'])
 
 /* ---------------------------------------------------- исполняемый код */
 
@@ -186,17 +196,56 @@ export function passesCodeCheck(code, fragmentOrCheck) {
  * библиотеки для новичка — три разных механизма, и знание одного не даёт
  * знания другого.
  */
-export function extract(code, language) {
+/**
+ * Имена, которые в этом коде оказались модулями.
+ *
+ * Различие нужно затем, чтобы отличить функцию библиотеки от метода значения.
+ * `np` приходит из `import numpy as np`, и `np.array()` — это API библиотеки:
+ * знание одной её функции не даёт знания другой, и каждую вводят отдельно.
+ * `text` из `text = " MSK "` модулем не является, и `text.strip()` — это метод
+ * строки, тот же самый, что `raw.strip()` и `city.strip()`.
+ */
+const IMPORTS = {
+  python: [/\bimport\s+([\w.]+)\s+as\s+(\w+)/g, /\bimport\s+([\w.]+)/g, /\bfrom\s+[\w.]+\s+import\s+([\w, ]+)/g],
+  javascript: [/\bimport\s+(\w+)\s+from/g, /\brequire\(\s*['"][^'"]+['"]\s*\)/g],
+  go: [/\bimport\s+"([\w/]+)"/g, /^\s*"([\w/]+)"\s*$/gm],
+  java: [/\bimport\s+[\w.]*\.(\w+);/g],
+}
+
+export function moduleNames(code, language) {
+  const names = new Set()
+  for (const pattern of IMPORTS[language] ?? []) {
+    for (const match of String(code ?? '').matchAll(pattern)) {
+      for (const group of match.slice(1)) {
+        for (const part of String(group ?? '').split(',')) {
+          const name = part.trim().split('/').pop()?.split('.').pop() ?? ''
+          if (/^[A-Za-z_]\w*$/.test(name)) names.add(name)
+        }
+      }
+    }
+  }
+  return names
+}
+
+export function extract(code, language, modules = new Set()) {
   const found = new Map()
   const add = (kind, name) => { if (!found.has(name)) found.set(name, kind) }
   const text = String(code ?? '')
   if (!text.trim()) return found
 
   for (const match of text.matchAll(CALL)) {
-    const [, qualifier, name] = match
+    const [, qualifier, dot, name] = match
     if (KEYWORDS[language]?.includes(name)) continue
-    if (qualifier) add(qualifier.includes('.') ? 'вызов библиотеки' : 'метод или функция модуля', `${qualifier}.${name}()`)
-    else add('функция', `${name}()`)
+    if (!dot) { add('функция', `${name}()`); continue }
+    // Вызов у результата вызова или фрагмент проверки `.filter(` — метод.
+    if (!qualifier || qualifier === ')') add('метод', `.${name}()`)
+    // Составной префикс — всегда библиотека: `np.linalg.norm()`.
+    else if (qualifier.includes('.')) add('вызов библиотеки', `${qualifier}.${name}()`)
+    else if (modules.has(qualifier)) add('метод или функция модуля', `${qualifier}.${name}()`)
+    // Метод значения именуется без переменной. Иначе `raw.strip()` и
+    // `city.strip()` считались бы разными сущностями, и курс был бы обязан
+    // вводить обрезку краёв заново на каждом новом имени переменной.
+    else add('метод', `.${name}()`)
   }
   for (const keyword of KEYWORDS[language] ?? []) {
     if (new RegExp(`(^|[^\\w])${keyword}([^\\w]|$)`).test(text)) add('ключевое слово', keyword)
@@ -225,6 +274,19 @@ export function teachingSurfaceOf(mission) {
     task.prompt, task.explanation, (task.options ?? []).join(' ')].join('\n')
 }
 
+/**
+ * Текст миссии без рабочего файла: то, чем она объясняет, а не то, что показывает.
+ *
+ * Нужен отдельно от `teachingSurfaceOf`, потому что стартовый файл сам является
+ * предметом проверки: вопрос «объяснили ли то, что лежит в редакторе» нельзя
+ * решать текстом, в который этот же редактор и включён.
+ */
+export function proseSurfaceOf(mission) {
+  const task = mission.task ?? {}
+  return [mission.intro, mission.productionContext, task.prompt, task.explanation,
+    (task.options ?? []).join(' ')].join('\n')
+}
+
 /** Всё, что миссия вообще показала человеку на экране, включая подсказки. */
 export function surfaceOf(mission) {
   return [teachingSurfaceOf(mission), (mission.hints ?? []).join(' ')].join('\n')
@@ -240,7 +302,9 @@ export const hintTextOf = mission => (mission.hints ?? []).join('\n')
  * и «не встречалось нигде» — это разные диагнозы и разная починка.
  */
 export function mentionedIn(text, token) {
-  const bare = token.replace(/\(\)$/, '')
+  // Метод разбирается как `.strip()`: ведущая точка — часть записи вызова, а не
+  // имени. В прозе его называют словом «strip», и искать нужно именно имя.
+  const bare = token.replace(/\(\)$/, '').replace(/^\./, '')
   if (!/^[A-Za-z_][\w.]*$/.test(bare)) return false
   return new RegExp(`(^|[^\\w.])${bare.replace(/\./g, '\\.')}([^\\w]|$)`).test(text)
 }
@@ -315,13 +379,72 @@ function matchingKeys(collection, name) {
 
 const hasMatchingToken = (collection, name) => matchingKeys(collection, name).length > 0
 
+/**
+ * Объявления, сделанные в самом файле.
+ *
+ * `function PayButton()` и `func collect()` разбираются как вызов: скобка после
+ * имени выглядит одинаково и у объявления, и у обращения. Для правила о
+ * непрозрачном стартовом файле разница решающая — имя, которое файл объявляет у
+ * человека на глазах, незнакомым API не является, и требовать его отдельного
+ * введения бессмысленно. Здесь же оседают локальные привязки: `setSeconds` из
+ * `const [seconds, setSeconds] = useState(0)` человек видит рядом с объявлением,
+ * а не получает извне.
+ *
+ * Разбор нарочно грубый. Ошибка в сторону «объявлено» стоит пропущенной находки,
+ * ошибка в другую сторону — ложного обвинения курса, который всё сделал верно;
+ * для правила уровня «Старт» второе дороже.
+ */
+const DECLARATIONS = {
+  // `import` и `as` в список намеренно не входят: импортированное имя — это ровно
+  // тот внешний API, о котором правило и спрашивает, объявлением файла оно не является.
+  python: [/\bdef\s+(\w+)/g, /\bclass\s+(\w+)/g, /^[ \t]*(\w+)\s*=[^=]/gm,
+    /\bfor\s+([\w,\s]+?)\s+in\b/g],
+  javascript: [/\bfunction\s+(\w+)/g, /\bclass\s+(\w+)/g,
+    /\b(?:const|let|var)\s+(\w+)/g, /\b(?:const|let|var)\s*[[{]([^\]}]*)[\]}]/g],
+  go: [/\bfunc\s+(?:\([^)]*\)\s*)?(\w+)/g, /\btype\s+(\w+)/g,
+    /\bvar\s+(\w+)/g, /([\w,\s]+?)\s*:=/g],
+  java: [/\b(?:class|record|interface|enum)\s+(\w+)/g,
+    /\b[\w<>\[\],]+\s+(\w+)\s*\([^)]*\)\s*\{/g],
+}
+
+export function declaredIn(code, language) {
+  const names = new Set()
+  for (const pattern of DECLARATIONS[language] ?? []) {
+    for (const match of String(code ?? '').matchAll(pattern)) {
+      for (const part of match[1].split(',')) {
+        const name = part.trim()
+        if (/^[A-Za-z_]\w*$/.test(name)) names.add(name)
+      }
+    }
+  }
+  return names
+}
+
+/** Пропуск в задании «допиши имя»: подчёркивания вместо конструкции. */
+// Пропуск бывает и на месте метода: `.____()` разбирается как вызов, хотя
+// подчёркивания стоят вместо имени, которое человек и должен вписать.
+// Пропуск бывает и на месте метода: `.____()` разбирается как вызов, хотя
+// подчёркивания стоят вместо имени, которое человек и должен вписать.
+const isBlank = name => /^\.?_+(\(\))?$/.test(name)
+
 /** Всё, что миссия требует написать самостоятельно. */
-export function requiredBy(mission, language) {
+export function requiredBy(mission, language, modules = new Set()) {
   const task = mission.task ?? {}
   const starter = executableCode(task.starterCode, language)
+  const checkText = (task.codeChecks ?? []).map(check => check.includes).join('\n')
+  /**
+   * Имя, которое человек объявляет в этой же миссии.
+   *
+   * `def log_check():` и `log_check()` — объявление и вызов собственной
+   * функции, а не внешний API. Требовать, чтобы курс показал `log_check()`
+   * заранее, бессмысленно: имя придумывает сам ученик прямо здесь. Отдельными
+   * сущностями остаются `def` и `return` — вот их курс обязан ввести.
+   */
+  const ownNames = declaredIn(`${checkText}\n${starter}`, language)
   const required = new Map()
   for (const check of task.codeChecks ?? []) {
-    for (const [name, kind] of extract(check.includes, language)) {
+    for (const [name, kind] of extract(check.includes, language, modules)) {
+      if (ownNames.has(name.replace(/\(\)$/, '').replace(/^\./, ''))) continue
       // Уже лежащее в стартовом файле человек не пишет — это подсказка, а не
       // требование. Комментарий лежащим не считается: он не исполняется.
       if (presentIn(starter, name)) continue
@@ -354,6 +477,7 @@ export const VIOLATIONS = {
   CHECK_PASSES_ON_STARTER: 'check-passes-on-starter',
   HINT_IS_NOT_TEACHING: 'hint-is-not-teaching',
   LADDER_GAP: 'ladder-gap',
+  UNEXPLAINED_STARTER_API: 'unexplained-api-in-starter',
   DECLARED_NEVER_REQUIRED: 'declared-but-never-required',
   NO_REINFORCEMENT: 'introduced-without-reinforcement',
 }
@@ -377,9 +501,23 @@ export const RULE_TEXT = {
   [VIOLATIONS.CHECK_PASSES_ON_STARTER]: 'автоматическая проверка выполнена стартовым файлом до действий ученика',
   [VIOLATIONS.HINT_IS_NOT_TEACHING]: 'подсказка содержит фрагмент, который требует проверка: задание решается копированием',
   [VIOLATIONS.LADDER_GAP]: 'конструкцию требуют написать с чистого места, а ступени «измени» и «дополни» она не проходила',
+  [VIOLATIONS.UNEXPLAINED_STARTER_API]: 'в стартовом файле начального курса человек видит вызов или ключевое слово, которых ему не показывали и сейчас не объясняют',
   [VIOLATIONS.DECLARED_NEVER_REQUIRED]: 'навык объявлен введённым, но ни одна автоматическая проверка во всём каталоге его не требует',
   [VIOLATIONS.NO_REINFORCEMENT]: 'навык требуется только в той миссии, где введён, и больше нигде не закрепляется',
 }
+
+/**
+ * Сущности, чьё появление в стартовом файле требует объяснения прямо сейчас.
+ *
+ * Список намеренно уже полного разбора. Кавычка, запятая и знак равенства тоже
+ * являются сущностями, но в прозе они называются словами («кавычки», «запятая»),
+ * а не знаками, и поиск по имени их объяснение не находит: правило ловило бы
+ * их в каждой первой миссии любого курса. Вызов и ключевое слово, наоборот,
+ * пишутся в прозе ровно так же, как в коде, — `from`, `Path`, `read_text()`, —
+ * и именно они составляют непрозрачный для новичка стартовый файл из §8
+ * спецификации.
+ */
+const EXPLAINABLE_KINDS = new Set([...CALLABLE_KINDS, 'ключевое слово'])
 
 const NEW_API_LIMIT = 1
 
@@ -411,9 +549,16 @@ export function checksSatisfiedByStarter(mission, language) {
  *
  * `earlierCourses` — общий фундамент всех маршрутов текущего курса: только
  * показанное в каждом таком пути можно считать знанием любого его ученика.
+ *
+ * `beginner` включает правило о непрозрачном стартовом файле. Оно намеренно
+ * действует только на уровнях «Старт» и «База»: на продвинутом курсе человек
+ * обязан уметь читать незнакомую строку инфраструктуры, на начальном — нет.
  */
-export function analyzeCourse({ course, language, earlierCourses = [] }) {
+export function analyzeCourse({ course, language, earlierCourses = [], beginner = false }) {
   const knownBefore = new Map()
+  // Имена модулей копятся по ходу маршрута: от них зависит, считается вызов
+  // через точку функцией библиотеки или методом значения.
+  const modules = new Set()
   let seenText = ''
   // Отдельно от увиденного копится то, что человек держал в рабочем файле.
   // Хранится и текстом, и разобранным: имя `mentionedIn` найдёт, а знак
@@ -433,7 +578,7 @@ export function analyzeCourse({ course, language, earlierCourses = [] }) {
    */
   const rememberStage = (mission, required) => {
     if (!mission.stage) return
-    const inFile = extract(executableCode(mission.task?.starterCode, language), language).keys()
+    const inFile = extract(executableCode(mission.task?.starterCode, language), language, modules).keys()
     for (const name of [...required, ...inFile]) {
       if (!practised.has(name)) practised.set(name, new Set())
       practised.get(name).add(mission.stage)
@@ -442,14 +587,17 @@ export function analyzeCourse({ course, language, earlierCourses = [] }) {
   const rememberEdited = (code) => {
     const runnable = executableCode(code, language)
     editedText += `\n${runnable}`
-    for (const name of extract(runnable, language).keys()) editedTokens.add(name)
+    for (const name of extract(runnable, language, modules).keys()) editedTokens.add(name)
   }
+  /** Импорт, встреченный в тексте курса, делает имя модулем на всё, что дальше. */
+  const rememberModules = (text) => { for (const name of moduleNames(text, language)) modules.add(name) }
   for (const earlier of earlierCourses) {
     for (const mission of earlier.missions ?? []) {
       seenText += `\n${surfaceOf(mission)}`
+      rememberModules(surfaceOf(mission))
       rememberEdited(mission.task?.starterCode)
-      rememberStage(mission, requiredBy(mission, language).keys())
-      for (const [name, kind] of extract(surfaceOf(mission), language)) {
+      rememberStage(mission, requiredBy(mission, language, modules).keys())
+      for (const [name, kind] of extract(surfaceOf(mission), language, modules)) {
         if (!knownBefore.has(name)) knownBefore.set(name, kind)
       }
     }
@@ -459,12 +607,19 @@ export function analyzeCourse({ course, language, earlierCourses = [] }) {
   const findings = []
   let requiredTotal = 0
   for (const mission of course.missions ?? []) {
-    const required = requiredBy(mission, language)
+    // Импорты этой миссии учитываются до разбора: `np.array()` в той же миссии,
+    // где стоит `import numpy as np`, — вызов библиотеки, а не метод значения.
+    rememberModules(surfaceOf(mission))
+    // Импорт бывает только в обязательном фрагменте — в `NPY-002` он и есть
+    // часть требования. Для имени сущности это всё равно модуль: `np.array()`
+    // в отчёте должно называться вызовом библиотеки, а не методом значения.
+    rememberModules((mission.task?.codeChecks ?? []).map(check => check.includes).join('\n'))
+    const required = requiredBy(mission, language, modules)
     requiredTotal += required.size
     // Миссия вправе объяснить конструкцию в собственной вводной и тут же дать
     // её применить: «объяснили — показали — примени» это нормальный шаг. Но
     // показом считается только то, чем миссия учит, — без подсказок.
-    const shownHere = extract(teachingSurfaceOf(mission), language)
+    const shownHere = extract(teachingSurfaceOf(mission), language, modules)
     const hintText = hintTextOf(mission)
     const isNew = name => !hasMatchingToken(known, name)
     const unseen = [...required].filter(([name]) => isNew(name) && !hasMatchingToken(shownHere, name))
@@ -504,6 +659,35 @@ export function analyzeCourse({ course, language, earlierCourses = [] }) {
       })
     }
 
+    // §8 спецификации: на начальном уровне непрозрачен не только тот код, который
+    // человек обязан написать, но и тот, который лежит перед ним. Стартовый файл
+    // из `from pathlib import Path` и `read_text(encoding=...)` с просьбой «поменяй
+    // только имя файла» прячет педагогическую дыру, а не закрывает её: человек
+    // всё равно смотрит на конструкции, о которых курс не сказал ни слова.
+    // Сущность здесь не обязана быть показанной раньше — достаточно, чтобы миссия
+    // называла её сейчас: это и есть «объясняется прямо в этой миссии».
+    if (beginner) {
+      const prose = proseSurfaceOf(mission)
+      const starter = executableCode(mission.task?.starterCode, language)
+      const declared = declaredIn(starter, language)
+      const local = name => {
+        const bare = name.replace(/\(\)$/, '')
+        return bare.split('.').some(part => declared.has(part))
+      }
+      const explainedNow = name => mentionedIn(prose, name)
+        || mentionedIn(prose, name.replace(/\(\)$/, '').split('.').pop())
+      for (const [name, kind] of extract(starter, language, modules)) {
+        if (!EXPLAINABLE_KINDS.has(kind)) continue
+        if (isBlank(name) || local(name)) continue
+        if (!isNew(name) || required.has(name) || explainedNow(name)) continue
+        findings.push({
+          rule: VIOLATIONS.UNEXPLAINED_STARTER_API,
+          missionId: mission.id, missionTitle: mission.title, token: name, kind,
+          evidence: 'лежит в стартовом файле, раньше не встречалось, в тексте миссии не названо',
+        })
+      }
+    }
+
     const satisfied = checksSatisfiedByStarter(mission, language)
     const dead = satisfied.filter(check => check.byCode)
     const passingByComment = satisfied.filter(check => check.byCommentOnly)
@@ -539,7 +723,7 @@ export function analyzeCourse({ course, language, earlierCourses = [] }) {
       !check.byCode && !check.byCommentOnly && passesCodeCheck(hintText, check.includes))
     if (copyable.length) {
       const teaches = copyable.some(check =>
-        [...extract(check.includes, language).keys()].some(name => isNew(name)))
+        [...extract(check.includes, language, modules).keys()].some(name => isNew(name)))
       findings.push({
         rule: VIOLATIONS.HINT_IS_NOT_TEACHING,
         missionId: mission.id, missionTitle: mission.title,
@@ -572,7 +756,7 @@ export function analyzeCourse({ course, language, earlierCourses = [] }) {
     seenText += `\n${surfaceOf(mission)}`
     // В известное уходит вся поверхность, включая подсказки: человек их видел.
     // Запрет касается только той миссии, которая требует конструкцию прямо сейчас.
-    for (const [name, kind] of extract(surfaceOf(mission), language)) if (!known.has(name)) known.set(name, kind)
+    for (const [name, kind] of extract(surfaceOf(mission), language, modules)) if (!known.has(name)) known.set(name, kind)
     for (const [name, kind] of required) if (!known.has(name)) known.set(name, kind)
 
     const newHere = unseen.length + freshlyShown.length
@@ -652,6 +836,7 @@ export const RULE_FIELDS = {
   [VIOLATIONS.CHECK_PASSES_ON_STARTER]: 'checkPassesOnStarter',
   [VIOLATIONS.HINT_IS_NOT_TEACHING]: 'hintIsNotTeaching',
   [VIOLATIONS.LADDER_GAP]: 'ladderGap',
+  [VIOLATIONS.UNEXPLAINED_STARTER_API]: 'unexplainedStarterApi',
   [VIOLATIONS.DECLARED_NEVER_REQUIRED]: 'declaredNeverRequired',
   [VIOLATIONS.NO_REINFORCEMENT]: 'noReinforcement',
 }

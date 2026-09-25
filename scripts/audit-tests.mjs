@@ -13,7 +13,7 @@ import assert from 'node:assert/strict'
 import {
   auditSkillCoverage,
   RULE_FIELDS, VIOLATIONS, analyzeCourse, checksSatisfiedByStarter, compareToBaseline,
-  executableCode, extract, passesCodeCheck, requiredBy, teachingSurfaceOf,
+  declaredIn, executableCode, extract, moduleNames, passesCodeCheck, requiredBy, teachingSurfaceOf,
 } from './audit/introduction.mjs'
 
 let passed = 0
@@ -234,6 +234,142 @@ check('подсказка с пройденной конструкцией от�
   ]), VIOLATIONS.HINT_IS_NOT_TEACHING)
   assert.equal(findings.length, 1)
   assert.equal(findings[0].severity, 'warning')
+})
+
+/* ------------------------- 4b. метод значения против функции библиотеки */
+
+// Метод строки один и тот же, у какой бы переменной его ни вызвали. Функция
+// библиотеки — нет: знание `np.array()` не даёт знания `np.sqrt()`.
+
+/** Только вызовы: знаки и синтаксис здесь не проверяются. */
+const calls = (code, language, modules) =>
+  [...extract(code, language, modules)]
+    .filter(([, kind]) => kind !== 'синтаксис' && kind !== 'оператор' && kind !== 'ключевое слово')
+    .map(([name]) => name).sort()
+
+check('метод не зависит от имени переменной', () => {
+  assert.deepEqual(calls('raw.strip()\ncity.strip()', 'python'), ['.strip()'])
+})
+
+check('функция библиотеки остаётся с именем модуля', () => {
+  const modules = moduleNames('import numpy as np', 'python')
+  assert.ok(modules.has('np'), [...modules].join(', '))
+  const names = [...extract('np.array([1, 2])', 'python', modules).keys()]
+  assert.ok(names.includes('np.array()'), names.join(', '))
+})
+
+check('без импорта точка означает метод, а не модуль', () => {
+  const names = [...extract('text.strip()', 'python').keys()]
+  assert.ok(names.includes('.strip()') && !names.includes('text.strip()'), names.join(', '))
+})
+
+check('вызов в цепочке остаётся методом', () => {
+  assert.deepEqual(calls('raw.strip().lower()', 'python'), ['.lower()', '.strip()'])
+})
+
+check('фрагмент проверки с точки — тоже метод', () => {
+  assert.deepEqual(calls('.filter(', 'javascript'), ['.filter()'])
+})
+
+check('показанный метод закрывает требование с другим именем переменной', () => {
+  const findings = run([
+    lab('M-001', { intro: 'Обрезка краёв: raw.strip() отдаёт новую строку.', starter: 'raw = " x "\nclean = raw.strip()' }),
+    lab('M-002', { starter: 'city_raw = "  Казань "\ncity = city_raw', checks: ['city = city_raw.strip()'] }),
+  ])
+  assert.ok(!of(findings, VIOLATIONS.REQUIRED_BEFORE_SHOWN).some(item => item.token === '.strip()'),
+    JSON.stringify(findings))
+})
+
+check('функция библиотеки требования соседки не закрывает', () => {
+  const findings = of(run([
+    lab('M-003', { intro: 'Массив собирают так: np.array([1, 2]).', starter: 'import numpy as np\na = np.array([1, 2])' }),
+    lab('M-004', { starter: 'import numpy as np\nb = 0', checks: ['np.sqrt(16)'] }),
+  ]), VIOLATIONS.REQUIRED_BEFORE_SHOWN)
+  assert.ok(findings.some(item => item.token === 'np.sqrt()'), JSON.stringify(findings))
+})
+
+check('имя собственной функции требованием не считается', () => {
+  const mission = lab('N-001', { starter: '', checks: ['def log_check():\n    print("ок")', 'log_check()'] })
+  const required = [...requiredBy(mission, 'python').keys()]
+  assert.ok(!required.includes('log_check()'), required.join(', '))
+  assert.ok(required.includes('def'), required.join(', '))
+})
+
+check('вызов чужой функции требованием остаётся', () => {
+  const mission = lab('N-002', { starter: 'raw = "12"', checks: ['int(raw)'] })
+  assert.ok([...requiredBy(mission, 'python').keys()].includes('int()'))
+})
+
+/* ------------------------------- 5. непрозрачный стартовый файл начального курса */
+
+// Правило смотрит не на требование, а на то, что человек видит перед собой.
+// Прятать конструкцию в стартовый файл со словами «поменяй только имя файла»
+// нельзя: непонятной она от этого быть не перестаёт.
+
+// Первая миссия курса-фикстуры вводит `print()`: без неё правило законно ловит
+// и его тоже, и фикстуры перестают отвечать на тот вопрос, ради которого написаны.
+const printed = lab('F-000', { intro: 'Команда вывода пишется так: print("Привет").', starter: 'print("Привет")' })
+const beginner = missions =>
+  analyzeCourse({ course: { id: 'fixture', missions: [printed, ...missions] }, language: 'python', beginner: true })
+    .findings.filter(item => item.missionId !== printed.id)
+
+check('незнакомый вызов в стартовом файле — нарушение', () => {
+  const findings = of(beginner([lab('F-001', {
+    intro: 'Поменяй имя файла и запусти.',
+    starter: 'from pathlib import Path\ndata = Path("data.txt").read_text(encoding="utf-8")\nprint(data)',
+    checks: ['print(data)'],
+  })]), VIOLATIONS.UNEXPLAINED_STARTER_API)
+  // `read_text` вызван у результата `Path(...)`, поэтому разбирается как метод.
+  assert.deepEqual(findings.map(item => item.token).sort(), ['.read_text()', 'Path()', 'from', 'import'])
+})
+
+check('на среднем уровне правило молчит', () => {
+  const findings = of(run([lab('F-002', {
+    starter: 'from pathlib import Path\ndata = Path("data.txt").read_text()\nprint(data)',
+    checks: ['print(data)'],
+  })]), VIOLATIONS.UNEXPLAINED_STARTER_API)
+  assert.equal(findings.length, 0, JSON.stringify(findings))
+})
+
+check('названная в тексте миссии конструкция нарушением не является', () => {
+  const findings = of(beginner([lab('F-003', {
+    intro: 'Функция len() отвечает на вопрос «сколько элементов в списке».',
+    starter: 'items = [1, 2, 3]\nprint(len(items))',
+    checks: ['print(len(items))'],
+  })]), VIOLATIONS.UNEXPLAINED_STARTER_API)
+  assert.equal(findings.length, 0, JSON.stringify(findings))
+})
+
+check('объявленное в этом же файле имя вызовом извне не считается', () => {
+  const findings = of(beginner([lab('F-004', {
+    intro: 'Запусти готовый код.',
+    starter: 'def greet():\n    print("Привет")\n\ngreet()',
+    checks: ['greet()'],
+  })]), VIOLATIONS.UNEXPLAINED_STARTER_API)
+  assert.ok(!findings.some(item => item.token === 'greet()'), JSON.stringify(findings))
+})
+
+check('пропуск «допиши имя» конструкцией не считается', () => {
+  const findings = of(beginner([lab('F-005', {
+    intro: 'Допиши имя команды.', starter: '____("Готово")', checks: ['print("Готово")'],
+  })]), VIOLATIONS.UNEXPLAINED_STARTER_API)
+  assert.equal(findings.length, 0, JSON.stringify(findings))
+})
+
+check('показанное в прошлой миссии повторно не обвиняется', () => {
+  const findings = of(beginner([
+    lab('F-006', { intro: 'Вот вызов: len(items).', starter: 'items = [1]\nprint(len(items))' }),
+    lab('F-007', { intro: 'Запусти.', starter: 'items = [1, 2]\nprint(len(items))', checks: ['print(len(items))'] }),
+  ]), VIOLATIONS.UNEXPLAINED_STARTER_API)
+  assert.equal(findings.length, 0, JSON.stringify(findings))
+})
+
+check('объявления разбираются по языкам', () => {
+  assert.ok(declaredIn('function PayButton() {}\nconst [a, setA] = useState(0)', 'javascript').has('PayButton'))
+  assert.ok(declaredIn('const [a, setA] = useState(0)', 'javascript').has('setA'))
+  assert.ok(declaredIn('func collect(s string) {}', 'go').has('collect'))
+  assert.ok(declaredIn('record Plan(String artifact) {}\nstatic Plan buildPlan() {\n}', 'java').has('buildPlan'))
+  assert.ok(!declaredIn('print(total)', 'python').has('print'))
 })
 
 /* --------------------------------------------------- отрицательный контроль */

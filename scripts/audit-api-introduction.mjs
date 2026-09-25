@@ -51,6 +51,9 @@ const checkMode = process.argv.includes('--check')
 
 const readJson = path => JSON.parse(readFileSync(path, 'utf8'))
 
+/** Уровни, на которых стартовый файл обязан быть прозрачным целиком. */
+const BEGINNER_LEVELS = new Set(['Старт', 'База'])
+
 const languageByExtension = (() => {
   const registryPath = join(root, 'knowledge', 'skills-registry.json')
   const registry = existsSync(registryPath) ? readJson(registryPath) : {}
@@ -105,7 +108,10 @@ for (const course of corpus.courses) {
   const earlierCourses = precedingCourses(course.id)
     .map(id => courseById.get(id))
     .filter(earlier => courseLanguage(earlier) === language)
-  const { findings, requiredTotal, inheritedTokens } = analyzeCourse({ course, language, earlierCourses })
+  // Правило о непрозрачном стартовом файле действует только на начальных уровнях:
+  // см. `beginner` в analyzeCourse.
+  const beginner = BEGINNER_LEVELS.has(course.level)
+  const { findings, requiredTotal, inheritedTokens } = analyzeCourse({ course, language, earlierCourses, beginner })
 
   courses.push({
     id: course.id,
@@ -128,6 +134,8 @@ for (const course of corpus.courses) {
     checkPassesOnStarterCritical: countCritical(findings, VIOLATIONS.CHECK_PASSES_ON_STARTER),
     hintIsNotTeaching: countRule(findings, VIOLATIONS.HINT_IS_NOT_TEACHING),
     hintIsNotTeachingCritical: countCritical(findings, VIOLATIONS.HINT_IS_NOT_TEACHING),
+    beginner,
+    unexplainedStarterApi: countRule(findings, VIOLATIONS.UNEXPLAINED_STARTER_API),
     findings,
   })
 }
@@ -171,6 +179,7 @@ const totals = {
   checkPassesOnStarterCritical: total(routed, 'checkPassesOnStarterCritical'),
   hintIsNotTeaching: total(routed, 'hintIsNotTeaching'),
   hintIsNotTeachingCritical: total(routed, 'hintIsNotTeachingCritical'),
+  unexplainedStarterApi: total(routed, 'unexplainedStarterApi'),
   ladderGap: total(routed, 'ladderGap'),
   declaredNeverRequired: total(routed, 'declaredNeverRequired'),
   noReinforcement: total(routed, 'noReinforcement'),
@@ -202,11 +211,13 @@ const md = ['# Введение конструкций до требования
   `Требований без показа: ${totals.requiredBeforeShown}. Миссий с несколькими новыми сущностями сразу: ${totals.multipleNewApis}.`,
   `Проверок, выполненных стартовым файлом: ${totals.checkPassesOnStarter} (критических: ${totals.checkPassesOnStarterCritical}).`,
   `Подсказок, выдающих ответ: ${totals.hintIsNotTeaching} (критических: ${totals.hintIsNotTeachingCritical}).`,
-  '', '| Курс | Язык | Кодовых миссий | Требуется без показа | Показ и требование сразу | Много нового сразу | Проверка на старте | Ответ в подсказке |',
-  '|---|---|---:|---:|---:|---:|---:|---:|']
+  `Необъяснённых конструкций в стартовых файлах начальных курсов: ${totals.unexplainedStarterApi}.`,
+  '', '| Курс | Язык | Кодовых миссий | Требуется без показа | Показ и требование сразу | Много нового сразу | Проверка на старте | Ответ в подсказке | Непрозрачный старт |',
+  '|---|---|---:|---:|---:|---:|---:|---:|---:|']
 for (const course of courses) {
   md.push(`| \`${course.id}\` | ${course.language} | ${course.codeMissions} | ${course.requiredBeforeShown} `
-    + `| ${course.firstUseSameMission} | ${course.multipleNewApis} | ${course.checkPassesOnStarter} | ${course.hintIsNotTeaching} |`)
+    + `| ${course.firstUseSameMission} | ${course.multipleNewApis} | ${course.checkPassesOnStarter} | ${course.hintIsNotTeaching} `
+    + `| ${course.beginner ? course.unexplainedStarterApi : '—'} |`)
 }
 md.push('', 'Полный список с миссиями и токенами: `knowledge/reports/api-introduction.json`.', '')
 writeFileSync(markdownPath, md.join('\n'), 'utf8')

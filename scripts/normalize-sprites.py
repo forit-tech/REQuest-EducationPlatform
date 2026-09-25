@@ -18,7 +18,10 @@ from pathlib import Path
 from PIL import Image
 
 EMOTIONS = ("neutral", "happy", "worried", "surprised", "determined")
-NAME = re.compile(r"^([a-z]+)-(neutral|happy|worried|surprised|determined)-v(\d+)\.png$")
+# Эмоция в имени файла не перечисляется списком: набор объявлен один раз в
+# src/story/emotions.ts, а этот скрипт считает пиксели и про контракт знать не
+# обязан — соответствие контракту проверяет npm run audit:course.
+NAME = re.compile(r"^([a-z]+)-([a-z]+)-v(\d+)\.png$")
 
 # Доля фигуры в холсте. 0.95 повторяет сегодняшний средний кадр, поэтому общий
 # размер героя на сцене не меняется — уходит только разнобой между эмоциями.

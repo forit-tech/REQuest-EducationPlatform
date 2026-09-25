@@ -21,13 +21,25 @@
 import { mkdirSync, readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { loadCorpus } from './quality/corpus.mjs'
+import { isCyrillicLiteral } from './quality/fake-practice.mjs'
 import { GENERATOR_PATH, generatorDrift, plannedScaffoldMissions } from './quality/planned-scaffold.mjs'
+import {
+  PROFESSION_GENERATOR_PATH, professionGeneratorDrift, professionScaffoldMissions,
+} from './quality/profession-scaffold.mjs'
 
 const root = resolve(import.meta.dirname, '..')
 const reportsDir = join(root, 'knowledge', 'reports')
 const reportPath = join(reportsDir, 'course-quality.json')
 const markdownPath = join(reportsDir, 'course-quality.md')
 const baselinePath = join(reportsDir, 'course-quality-baseline.json')
+/**
+ * Компактная карта «курс → класс» для самого приложения.
+ *
+ * Интерфейс обязан отличать написанный курс от заготовки, а вывести это из
+ * содержимого на лету он не может: признаки считает классификатор. Полный
+ * отчёт для этого слишком тяжёл, поэтому рядом кладётся только вывод.
+ */
+const classificationPath = join(reportsDir, 'course-classification.json')
 const overridesPath = join(reportsDir, 'course-quality-overrides.json')
 const updating = process.argv.includes('--update-baseline')
 
@@ -53,20 +65,6 @@ const ORDER = [
 
 const TYPE_PREFIX = /^(Сцена|Код|Лаборатория|Разбор|Практика|Кейс):\s*/
 const TEMPLATE_OBJECTIVE = /^(понять принцип «|применить его в рабочем решении$)/
-/**
- * Русская строка как подменённое решение.
- *
- * Различать нужно два разных случая. `print("Москва")` и `city = "Казань"` —
- * нормальные задания для новичка: строка здесь данные, а проверяется код
- * вокруг неё. `artifact = "профиль дерева"` — подмена: человек не пишет код,
- * а вписывает формулировку под заранее известное имя.
- *
- * Отличает их не кириллица и не присваивание, а многословность: подменённое
- * решение — это всегда фраза, а не значение. Ловить присваивание нельзя: под
- * подозрение попадёт первая же миссия про переменные.
- */
-const CYRILLIC_PHRASE = /"[^"]*[а-яёА-ЯЁ][^"]*\s[^"]*"/
-const isCyrillicLiteral = fragment => CYRILLIC_PHRASE.test(fragment)
 /** Заглушка «назови артефакт и перечисли шаги» во всех языковых вариантах. */
 const PLAN_STUB = /\b(build_plan|buildPlan)\s*\(/
 const IDENTIFIER = /[A-Za-z_][A-Za-z0-9_]{2,}/g
@@ -220,13 +218,14 @@ for (const source of sourceCatalog.sources ?? []) {
 function classify(metrics) {
   const reasons = []
   const { missions, codeLab, fakePractice, triplets, templateObjectives, echo,
-    starterSatisfies, literalAnswerLeak, plannedScaffold } = metrics
+    starterSatisfies, literalAnswerLeak, plannedScaffold, professionScaffold } = metrics
 
   if (missions === 0) return { classification: CLASSES.OUTLINE_ONLY, reasons: ['нет миссий'] }
 
   const share = value => value / missions
   const generatorSignatures = [
     share(plannedScaffold) >= 0.5 && `${plannedScaffold} из ${missions} миссий собраны шаблоном \`${GENERATOR_PATH}\``,
+    share(professionScaffold) >= 0.5 && `${professionScaffold} из ${missions} миссий собраны шаблоном \`${PROFESSION_GENERATOR_PATH}\``,
     share(triplets) >= 0.5 && `${triplets} из ${missions} заголовков — одна тема под несколькими типами`,
     share(templateObjectives) >= 0.5 && `${templateObjectives} из ${missions} миссий с шаблонной учебной целью`,
     share(echo) >= 0.3 && `${echo} миссий повторяют одну фразу в контексте, объяснении и подсказке`,
@@ -245,7 +244,7 @@ function classify(metrics) {
   // признаком не требует, в отличие от вероятностных признаков ниже: «Практика
   // этой миссии — проследить на малом примере путь от входных значений» человек
   // в половине миссий курса дословно не повторяет.
-  if (share(plannedScaffold) >= 0.5) {
+  if (share(plannedScaffold) >= 0.5 || share(professionScaffold) >= 0.5) {
     return { classification: CLASSES.GENERATOR_SCAFFOLD, reasons: generatorSignatures }
   }
 
@@ -254,6 +253,7 @@ function classify(metrics) {
   }
 
   if (plannedScaffold) reasons.push(`${plannedScaffold} из ${missions} миссий собраны шаблоном \`${GENERATOR_PATH}\``)
+  if (professionScaffold) reasons.push(`${professionScaffold} из ${missions} миссий собраны шаблоном \`${PROFESSION_GENERATOR_PATH}\``)
   if (fakePractice) reasons.push(`${fakePractice} миссий проверяют русский литерал вместо поведения`)
   if (starterSatisfies) reasons.push(`${starterSatisfies} миссий проходят проверку без единой правки файла`)
   if (literalAnswerLeak) reasons.push(`${literalAnswerLeak} миссий содержат ответ дословно в тексте задания`)
@@ -284,6 +284,18 @@ if (existsSync(generatorSource)) {
     for (const marker of drift.slice(0, 5)) console.error(`  ✕ ${marker}`)
     if (drift.length > 5) console.error(`  … и ещё ${drift.length - 5}`)
     console.error('\nПриведите scripts/quality/planned-scaffold.mjs к новым формулировкам генератора.')
+    process.exit(1)
+  }
+}
+
+const professionGeneratorSource = join(root, PROFESSION_GENERATOR_PATH)
+if (existsSync(professionGeneratorSource)) {
+  const drift = professionGeneratorDrift(readFileSync(professionGeneratorSource, 'utf8'))
+  if (drift.length) {
+    console.error(`Признак шаблона разошёлся с ${PROFESSION_GENERATOR_PATH}. Генератор больше не содержит:`)
+    for (const marker of drift.slice(0, 5)) console.error(`  ✕ ${marker}`)
+    if (drift.length > 5) console.error(`  … и ещё ${drift.length - 5}`)
+    console.error('\nПриведите scripts/quality/profession-scaffold.mjs к новым формулировкам генератора.')
     process.exit(1)
   }
 }
@@ -339,6 +351,7 @@ const courses = corpus.courses.map(course => {
     starterSatisfies,
     literalAnswerLeak,
     plannedScaffold: plannedScaffoldMissions(course),
+    professionScaffold: professionScaffoldMissions(course),
   }
   const verdict = overrides[course.id]
     ? { classification: overrides[course.id].classification, reasons: [`ручное решение: ${overrides[course.id].why}`] }
@@ -357,6 +370,7 @@ const courses = corpus.courses.map(course => {
     fakePracticeMissions: fakePractice,
     planStubMissions: planStubs,
     plannedScaffoldMissions: metrics.plannedScaffold,
+    professionScaffoldMissions: metrics.professionScaffold,
     scaffoldTripletTitles: metrics.triplets,
     templateObjectiveMissions: templateObjectives,
     echoPhraseMissions: echo,
@@ -414,6 +428,9 @@ const report = {
 }
 mkdirSync(reportsDir, { recursive: true })
 writeFileSync(reportPath, `${JSON.stringify(report, null, 2)}\n`, 'utf8')
+const classification = Object.fromEntries(report.courses.map(course => [course.id, course.classification]))
+writeFileSync(classificationPath, `${JSON.stringify(classification, null, 2)}
+`, 'utf8')
 
 const md = ['# Происхождение содержания курсов', '',
   'Собирается автоматически: `npm run quality:report`. Классифицирует не качество формулировок',

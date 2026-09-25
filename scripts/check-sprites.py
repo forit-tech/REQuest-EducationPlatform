@@ -13,6 +13,7 @@ CSS выводит спрайт высотой до 900 CSS-пикселей (.v
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import sys
 from pathlib import Path
@@ -22,7 +23,10 @@ from PIL import Image
 # Консоль Windows по умолчанию не в UTF-8, а отчёт русский.
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-NAME = re.compile(r"^([a-z]+)-(neutral|happy|worried|surprised|determined)-v(\d+)\.png$")
+# Эмоция в имени файла не перечисляется списком: набор объявлен один раз в
+# src/story/emotions.ts, а этот скрипт считает пиксели и про контракт знать не
+# обязан — соответствие контракту проверяет npm run audit:course.
+NAME = re.compile(r"^([a-z]+)-([a-z]+)-v(\d+)\.png$")
 
 # Высота элемента из .vn-sprite и типовой масштаб экрана Windows.
 STAGE_HEIGHT = 900
@@ -44,6 +48,9 @@ def figure_height(path: Path) -> tuple[int, int]:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("directory", type=Path, nargs="?", default=Path("assets/characters/generated"))
+    # Разбор альфа-канала нужен не только человеку: аудит курса читает эти же
+    # числа из отчёта, чтобы не тянуть Pillow в node-скрипты.
+    parser.add_argument("--report", type=Path, default=Path("knowledge/reports/sprite-metrics.json"))
     arguments = parser.parse_args()
 
     newest: dict[tuple[str, str], tuple[int, Path]] = {}
@@ -67,6 +74,7 @@ def main() -> int:
 
     blurry: list[str] = []
     jumpy: list[str] = []
+    metrics: dict[str, dict[str, float]] = {"spreadByCharacter": {}, "stretchByCharacter": {}}
 
     print("Качество спрайтов REduQuest")
     print(f"  сцена выводит {STAGE_HEIGHT} CSS-px, экран x{DEVICE_SCALE} → нужно {round(STAGE_HEIGHT * DEVICE_SCALE)} px фигуры")
@@ -79,6 +87,9 @@ def main() -> int:
         stretch = STAGE_HEIGHT / (sum(canvas for _, canvas, _ in rows) / len(rows))
         spread = (max(rendered) - min(rendered)) / max(rendered) * 100
 
+        metrics["spreadByCharacter"][character] = round(spread, 2)
+        metrics["stretchByCharacter"][character] = round(stretch, 3)
+
         if stretch > SHARP_LIMIT:
             blurry.append(character)
         if spread > SPREAD_LIMIT:
@@ -90,6 +101,12 @@ def main() -> int:
             f"  {min(shares):>5.1f}..{max(shares):<5.1f}%"
             f"   x{stretch:>4.2f}      x{stretch * DEVICE_SCALE:>4.2f}"
         )
+
+    metrics["spreadLimit"] = SPREAD_LIMIT
+    metrics["sharpLimit"] = SHARP_LIMIT
+    metrics["requiredFigureHeight"] = round(STAGE_HEIGHT * DEVICE_SCALE)
+    arguments.report.parent.mkdir(parents=True, exist_ok=True)
+    arguments.report.write_text(json.dumps(metrics, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     print("")
     if jumpy:

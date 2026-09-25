@@ -13,6 +13,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { runRules } from './quality/rules.mjs'
+import { isCyrillicLiteral } from './quality/fake-practice.mjs'
 import { loadCorpus as loadCorpusReal } from './quality/corpus.mjs'
 import { SCOPE, STRICT_SCOPES, jaccard, normalize } from './quality/corpus.mjs'
 import { INTEGRITY_RULES } from './quality/rules.mjs'
@@ -20,6 +21,10 @@ import {
   DISTRACTORS, GENERATOR_PATH, PHRASES, generatorDrift, isPlannedScaffold,
   plannedScaffoldMarkers, plannedScaffoldMissions,
 } from './quality/planned-scaffold.mjs'
+import {
+  PHRASES as PROFESSION_PHRASES, PROFESSION_GENERATOR_PATH, isProfessionScaffold,
+  professionGeneratorDrift, professionScaffoldMarkers, professionScaffoldMissions,
+} from './quality/profession-scaffold.mjs'
 
 const root = resolve(import.meta.dirname, '..')
 const buildDir = join(root, 'build', 'engine')
@@ -349,6 +354,87 @@ check('на авторском курсе каталога признак мол
   const pilot = corpus.courses.find(course => course.id === 'python-first-steps')
   assert.ok(pilot, 'курс python-first-steps не найден')
   assert.equal(plannedScaffoldMissions(pilot), 0)
+})
+
+/* --------------------------- подмена решения против обычной фразы в коде */
+
+check('присваивание фразы — подмена решения', () => {
+  assert.equal(isCyrillicLiteral('artifact = "профиль дерева"'), true)
+  assert.equal(isCyrillicLiteral('steps = ["Ограничить глубину дерева"]'), true)
+  assert.equal(isCyrillicLiteral('artifact: "карта детализации"'), true)
+})
+
+check('фраза внутри вызова подменой не считается', () => {
+  // Формулировка здесь приходит из задания, а проверяется подстановка значений.
+  assert.equal(isCyrillicLiteral('print(f"{code}: {parcels} посылок за смену")'), false)
+  assert.equal(isCyrillicLiteral('raise ValueError("перевес не может быть отрицательным")'), false)
+  assert.equal(isCyrillicLiteral('def open_shift():\n    print("Смена открыта")'), false)
+})
+
+check('значение без пробела фразой не является', () => {
+  assert.equal(isCyrillicLiteral('city = "Казань"'), false)
+})
+
+/* ------------------------------- подпись второго генератора: триады профессий */
+
+// Тот же вопрос, что и выше, но про `generate-profession-courses.mjs`: до сих пор
+// его курсы держались на вероятностных признаках, а те снимаются правкой текста.
+
+const triad = (over = {}) => ({
+  id: 'XXX-002', title: 'Код: Идемпотентность', type: 'lab',
+  objectives: ['понять принцип «Идемпотентность»', 'применить его в рабочем решении'],
+  intro: 'Дежурная смена разбирает ночной сбой. Команда собрала факты, но результат нужно сделать воспроизводимым.',
+  productionContext: 'Повтор входа не должен создавать эффект. '
+    + 'В этой миссии ошибка не учебная: неверное решение попадёт в рабочую систему.',
+  hints: ['Отдели наблюдение от решения. Повтор входа не должен создавать эффект.'],
+  task: {
+    prompt: 'Добавь ключ операции. Заполни рабочий файл так, чтобы все автоматические проверки стали зелёными.',
+    workspaceFile: 'solution.py',
+    starterCode: 'case_context = "сбой"\n\ndef build_plan():\n    # TODO\n    artifact = ""\n    steps = []\n    return {"artifact": artifact, "steps": steps}\n',
+  },
+  ...over,
+})
+
+check('триада профессий узнаётся по всем шести признакам', () => {
+  const marks = professionScaffoldMarkers(triad())
+  assert.deepEqual(Object.entries(marks).filter(([, hit]) => !hit), [])
+})
+
+check('миссия-сцена без практики всё равно узнаётся', () => {
+  // У «Сцены» заготовки нет вовсе: четырёх признаков из шести достаточно.
+  const story = triad({ title: 'Сцена: Идемпотентность', task: { prompt: 'Какой принцип поможет?', options: ['Да', 'Нет'], answer: 'Да' } })
+  assert.ok(!professionScaffoldMarkers(story).practice)
+  assert.ok(isProfessionScaffold(story))
+})
+
+check('трёх признаков для приговора мало', () => {
+  const edited = triad({
+    title: 'Повтор без последствий', hints: ['Своя подсказка.'],
+    objectives: ['различать повтор и дубликат'],
+    task: { prompt: 'Свой вопрос.', workspaceFile: 'solution.py', starterCode: 'orders = []\n' },
+  })
+  assert.ok(!isProfessionScaffold(edited), JSON.stringify(professionScaffoldMarkers(edited)))
+})
+
+check('подпись триад совпадает с генератором', () => {
+  const source = join(root, PROFESSION_GENERATOR_PATH)
+  if (!existsSync(source)) return
+  assert.deepEqual(professionGeneratorDrift(readFileSync(source, 'utf8')), [],
+    'формулировки генератора изменились — обновите scripts/quality/profession-scaffold.mjs')
+})
+
+check('расхождение со вторым генератором замечается', () => {
+  const drift = professionGeneratorDrift('const curricula = {}\n')
+  assert.ok(drift.includes(PROFESSION_PHRASES.context), drift.join(', '))
+})
+
+check('на золотых курсах подпись триад молчит', () => {
+  const corpus = loadCorpusReal(root)
+  for (const id of ['python-first-steps', 'go-core', 'javascript-core', 'react-core', 'go-production']) {
+    const course = corpus.courses.find(item => item.id === id)
+    assert.ok(course, `курс ${id} не найден`)
+    assert.equal(professionScaffoldMissions(course), 0, id)
+  }
 })
 
 console.log(`\nПройдено проверок валидатора: ${passed}`)

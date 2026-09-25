@@ -170,12 +170,14 @@ await check('прохождение одной миссии не засчиты�
     const course = JSON.parse(readFileSync(file, 'utf8'))
     for (const mission of course.missions ?? []) byId.set(mission.id, (byId.get(mission.id) ?? 0) + 1)
   }
-  // Разведённые курсы: раньше оба использовали PDA-001.
-  assert.equal(byId.get('PDA-001'), 1, 'PDA-001 должен принадлежать ровно одному курсу')
+  // Разведённые курсы: раньше оба использовали PDA-001. Сам этот номер после
+  // переписывания pandas снят из каталога, поэтому проверяется не его наличие,
+  // а то, что он никому не принадлежит и не может засчитаться дважды.
+  assert.ok((byId.get('PDA-001') ?? 0) <= 1, 'PDA-001 не должен принадлежать двум курсам сразу')
   assert.equal(byId.get('PDB-001'), 1, 'переименованная миссия должна существовать под новым идентификатором')
-  const progress = ['PDA-001']
+  const progress = ['PDB-001']
   const completed = [...byId.keys()].filter(id => progress.includes(id))
-  assert.deepEqual(completed, ['PDA-001'], 'одна запись прогресса закрывает ровно одну миссию')
+  assert.deepEqual(completed, ['PDB-001'], 'одна запись прогресса закрывает ровно одну миссию')
 })
 
 await check('карта переименований описывает, что произошло с прогрессом', () => {
@@ -633,6 +635,134 @@ await check('пустой ввод не отправляется на прове
   assert.equal(engine.isAnswered(engine.emptyResponse(byId['fx-aho-corasick'].response)), true)
 })
 
+/* ------------------------------------------------- 11. учётные записи и роль */
+
+/**
+ * Режим сборки для проверки.
+ *
+ * Учётная запись администратора существует только в QA-сборке, поэтому обе
+ * сборки проверяются одним и тем же кодом: переменные читаются на каждый
+ * вызов, и достаточно переставить их в окружении процесса.
+ */
+function qaBuild(on) {
+  if (on) {
+    process.env.VITE_ADMIN_BUILD = 'true'
+    process.env.VITE_ADMIN_VERIFIER = '0'.repeat(32) + ':' + '0'.repeat(64)
+  } else {
+    delete process.env.VITE_ADMIN_BUILD
+    delete process.env.VITE_ADMIN_VERIFIER
+  }
+}
+
+/** Чистое хранилище для каждой проверки: прошлое состояние не должно протекать. */
+function freshStorage() {
+  const store = new Map()
+  globalThis.localStorage = {
+    getItem: key => (store.has(key) ? store.get(key) : null),
+    setItem: (key, value) => store.set(key, String(value)),
+    removeItem: key => store.delete(key),
+  }
+  return store
+}
+
+await check('чистая установка не содержит обычного пользователя по умолчанию', () => {
+  qaBuild(true)
+  freshStorage()
+  const state = storage.loadState()
+  const ordinary = state.users.filter(user => user.username !== storage.ADMIN_USERNAME)
+  assert.equal(ordinary.length, 0, 'на чистой установке обычных учётных записей быть не должно')
+  assert.equal(state.sessionUserId, null, 'никто не должен входить сам')
+  assert.ok(!state.users.some(user => user.id === 'local-alex'), 'демо-запись не создаётся')
+})
+
+await check('учётная запись администратора создаётся один раз', () => {
+  qaBuild(true)
+  freshStorage()
+  storage.loadState()
+  storage.loadState()
+  const state = storage.loadState()
+  const admins = state.users.filter(user => user.username === storage.ADMIN_USERNAME)
+  assert.equal(admins.length, 1, 'повторный запуск не должен создавать вторую запись')
+  assert.equal(admins[0].displayName, 'Фортуна')
+  assert.equal(admins[0].role, 'admin')
+})
+
+await check('пароль администратора хранится проверочной записью, а не текстом', () => {
+  qaBuild(true)
+  freshStorage()
+  const admin = storage.loadState().users.find(user => user.username === storage.ADMIN_USERNAME)
+  assert.ok(admin.passwordHash.startsWith('pbkdf2$'), 'ожидается запись PBKDF2')
+  assert.equal(admin.passwordHash.split('$').length, 3, 'запись состоит из соли и производного ключа')
+  assert.ok(!/orbita|lodka/i.test(JSON.stringify(admin)), 'пароль не должен лежать в учётной записи')
+})
+
+await check('регистрация даёт нулевой прогресс и не выдаёт роль', async () => {
+  qaBuild(true)
+  freshStorage()
+  storage.loadState()
+  const account = await storage.register({ displayName: 'Тест', username: 'testuser', email: 't@local.test', password: 'throwaway-1' })
+  assert.equal(account.role, undefined, 'роль через регистрацию не выдаётся')
+  const progress = storage.getProgress(account.id)
+  assert.equal(progress.xp, 0)
+  assert.equal(progress.streak, 0)
+  assert.deepEqual(progress.completedMissionIds, [])
+})
+
+await check('логин администратора забронирован для обычной регистрации', async () => {
+  qaBuild(true)
+  freshStorage()
+  storage.loadState()
+  await assert.rejects(
+    () => storage.register({ displayName: 'Чужой', username: storage.ADMIN_USERNAME, email: 'x@local.test', password: 'throwaway-2' }),
+    /недоступен/,
+    'занять логин администратора нельзя')
+})
+
+await check('неизвестному пользователю не подставляется чужой прогресс', () => {
+  qaBuild(true)
+  freshStorage()
+  storage.loadState()
+  const progress = storage.getProgress('нет-такого-пользователя')
+  assert.equal(progress.xp, 0, 'запасное значение обязано быть пустым')
+  assert.deepEqual(progress.completedMissionIds, [])
+})
+
+await check('нетронутая демо-запись удаляется при обновлении', () => {
+  qaBuild(true)
+  const store = freshStorage()
+  store.set('request.local-state.v1', JSON.stringify({
+    version: 5,
+    users: [{ id: 'local-alex', displayName: 'Алексей', username: 'alex_data', email: 'a@b.c', passwordHash: 'x', emailNotifications: false, telegramNotifications: false, desktopNotifications: false, createdAt: '2026-01-01T00:00:00Z' }],
+    sessionUserId: 'local-alex', rememberSession: true, sessionChosen: true, theme: 'future',
+    progress: { 'local-alex': { xp: 2480, streak: 12, currentRoomId: 'technical-foundations', completedMissionIds: ['py-1', 'py-2', 'py-3', 'py-4', 'py-5', 'py-6', 'py-7', 'pd-1', 'pd-2'], attempts: {}, updatedAt: '2026-01-01T00:00:00Z' } },
+  }))
+  const state = storage.loadState()
+  assert.ok(!state.users.some(user => user.id === 'local-alex'), 'витрина должна уйти')
+  assert.equal(state.sessionUserId, null, 'сессия демо-записи снимается')
+})
+
+await check('демо-запись с настоящей работой сохраняется', () => {
+  qaBuild(true)
+  const store = freshStorage()
+  store.set('request.local-state.v1', JSON.stringify({
+    version: 5,
+    users: [{ id: 'local-alex', displayName: 'Алексей', username: 'alex_data', email: 'a@b.c', passwordHash: 'x', emailNotifications: false, telegramNotifications: false, desktopNotifications: false, createdAt: '2026-01-01T00:00:00Z' }],
+    sessionUserId: 'local-alex', rememberSession: true, sessionChosen: true, theme: 'future',
+    progress: { 'local-alex': { xp: 3120, streak: 4, currentRoomId: 'python-core', completedMissionIds: ['PYC-001'], attempts: {}, updatedAt: '2026-01-01T00:00:00Z' } },
+  }))
+  const state = storage.loadState()
+  assert.ok(state.users.some(user => user.id === 'local-alex'), 'чужую работу удалять нельзя')
+})
+
+await check('публичная сборка не заводит учётную запись администратора', () => {
+  qaBuild(false)
+  freshStorage()
+  const state = storage.loadState()
+  assert.equal(state.users.length, 0, 'на публичной установке учётных записей нет совсем')
+  assert.ok(!state.users.some(user => user.username === storage.ADMIN_USERNAME), 'служебной записи быть не должно')
+  qaBuild(true)
+})
+
 /* ------------------------------------------------------------- 10. сохранения */
 
 await check('сохранение первой версии открывается и получает пустой журнал освоения', () => {
@@ -1042,7 +1172,208 @@ await check('диагностика короче полного экзамена
   assert.ok(knowsAll.probes < 12, `знающему человеку задано ${knowsAll.probes} проб`)
 })
 
+/* ------------------------------------------------------------- кастинг */
+
+const casting = await load('story/casting.js')
+const castBook = casting.castingBook(
+  JSON.parse(readFileSync(join(root, 'knowledge/story/cast.json'), 'utf8')),
+  JSON.parse(readFileSync(join(root, 'knowledge/story/casting.json'), 'utf8')),
+)
+const cast = (sourceId, teamIds) => casting.castCharacter(sourceId, teamIds, castBook)
+
+await check('авторский герой остаётся, если он есть в команде профессии', () => {
+  const result = cast('mira', ['mira', 'oleg', 'lena'])
+  assert.equal(result.ok, true)
+  assert.equal(result.id, 'mira')
+  assert.equal(result.kept, true)
+})
+
+await check('Мира не заменяется мужчиной', () => {
+  // Команда ml-engineer состоит из мужчин: замены нет, есть отказ.
+  const result = cast('mira', ['artem', 'vadim', 'alexey'])
+  assert.equal(result.ok, false)
+  assert.equal(result.reason, 'no-candidate')
+})
+
+await check('женская роль закрывается женщиной', () => {
+  // Напарницу-стажёра закрывает исследовательница: роль совместима по цепочке
+  // peer → research, пол совпадает.
+  const result = cast('mira', ['yana', 'artem', 'alexey'])
+  assert.equal(result.ok, true)
+  assert.equal(result.id, 'yana')
+  assert.equal(castBook.cast.find(member => member.id === result.id).gender, 'female')
+})
+
+await check('женщина не закрывает роль, которой нет в цепочке', () => {
+  // Соня — инженер по безопасности, а не напарница: пол совпадает, роль — нет.
+  const result = cast('mira', ['sonya', 'artem', 'alexey'])
+  assert.equal(result.ok, false)
+  assert.equal(result.reason, 'no-candidate')
+})
+
+await check('мужская роль закрывается мужчиной', () => {
+  const result = cast('oleg', ['mira', 'alexey', 'lena'])
+  assert.equal(result.ok, true)
+  assert.equal(result.id, 'alexey')
+  assert.equal(castBook.cast.find(member => member.id === result.id).gender, 'male')
+})
+
+await check('герой без пола не считается совместимым', () => {
+  const result = cast('narrator', ['mira', 'oleg', 'lena'])
+  assert.equal(result.ok, false)
+  assert.equal(result.reason, 'ungendered-source')
+})
+
+await check('неизвестный герой не подменяется первым попавшимся', () => {
+  const result = cast('нет-такого', ['mira', 'oleg', 'lena'])
+  assert.equal(result.ok, false)
+  assert.equal(result.reason, 'unknown-source')
+})
+
+await check('результат не зависит от порядка состава команды', () => {
+  const team = ['sonya', 'artem', 'alexey', 'irina']
+  const forward = cast('mira', team)
+  const backward = cast('mira', [...team].reverse())
+  const shuffled = cast('mira', [team[2], team[0], team[3], team[1]])
+  assert.equal(forward.ok, true)
+  assert.equal(backward.id, forward.id)
+  assert.equal(shuffled.id, forward.id)
+})
+
+await check('замена не выходит за пределы совместимых сюжетных ролей', () => {
+  // product закрывается product, lead или research — но не охраной периметра.
+  const result = cast('lena', ['damir', 'pavel', 'sonya'])
+  assert.equal(result.ok, false)
+  assert.equal(result.reason, 'no-candidate')
+})
+
+await check('у каждого героя есть сюжетная роль и разрешённые замены', () => {
+  for (const member of castBook.cast) {
+    if (member.id === 'narrator') continue
+    assert.ok(member.archetype, `${member.id}: не указана сюжетная роль`)
+    assert.ok(castBook.archetypeFallbacks[member.archetype], `${member.id}: роль ${member.archetype} не описана в casting.json`)
+    assert.ok(castBook.castableGenders.includes(member.gender), `${member.id}: пол ${member.gender} не годится для кастинга`)
+  }
+})
+
+/* ------------------------------------------------------------- эмоции */
+
+const emotionModule = await load('story/emotions.js')
+
+await check('каждая эмоция объявлена полностью', () => {
+  for (const emotion of emotionModule.emotions) {
+    assert.ok(emotion.label, `${emotion.id}: нет русского названия для брифа`)
+    assert.ok(['drawn', 'planned'].includes(emotion.status), `${emotion.id}: неизвестный статус ${emotion.status}`)
+  }
+})
+
+await check('нарисованная эмоция не подменяется', () => {
+  for (const emotion of emotionModule.emotions.filter(item => item.status === 'drawn')) {
+    assert.equal(emotion.shownAs, undefined, `${emotion.id}: у нарисованной позы осталась подмена`)
+    assert.equal(emotionModule.shownEmotion(emotion.id), emotion.id)
+  }
+})
+
+await check('запланированная эмоция подменяется нарисованной', () => {
+  const planned = emotionModule.emotions.filter(item => item.status === 'planned')
+  assert.ok(planned.length > 0, 'проверка потеряет смысл, если запланированных поз не осталось')
+  for (const emotion of planned) {
+    // Замена обязана быть нарисованной: цепочка «planned → planned» оставит
+    // сцену вообще без картинки.
+    assert.ok(emotionModule.drawnEmotionIds.includes(emotion.shownAs), `${emotion.id}: замена ${emotion.shownAs} сама не нарисована`)
+    assert.equal(emotionModule.shownEmotion(emotion.id), emotion.shownAs)
+  }
+})
+
+await check('набор эмоций не пуст и не содержит дублей', () => {
+  assert.equal(new Set(emotionModule.emotionIds).size, emotionModule.emotionIds.length)
+  assert.ok(emotionModule.drawnEmotionIds.includes('neutral'), 'спокойствие — последний запасной вариант сцены')
+})
+
 /* ---------------------------------------------------------------------- итог */
+
+/* ------------------------------------------------------ 12. разметка замечаний */
+
+const qa = await load('core/qa.js')
+
+/** Черновик замечания с обязательным контекстом миссии. */
+const draftIssue = (over = {}) => ({
+  createdBy: 'adminfort',
+  type: 'COURSE_LOGIC',
+  severity: 'high',
+  blocker: false,
+  courseId: 'pandas',
+  courseTitle: 'Pandas',
+  missionId: 'PDA-0903',
+  missionTitle: 'Не тот столбец',
+  missionStage: 'modified',
+  concept: 'pandas-aggregate',
+  targetArea: 'задание',
+  quote: 'здесь требуют .max()',
+  description: 'Метод требуется до того, как его показали',
+  appVersion: '0.0.0-test',
+  ...over,
+})
+
+await check('замечание переживает перезапуск и хранится отдельно от прогресса', () => {
+  const store = freshStorage()
+  qa.addIssue(draftIssue())
+  assert.ok(store.has('request.qa-issues.v1'), 'замечания лежат в своём ключе')
+  assert.ok(!store.has('request.local-state.v1'), 'прогресс при этом не создаётся')
+  const again = qa.listIssues()
+  assert.equal(again.length, 1)
+  assert.equal(again[0].missionId, 'PDA-0903')
+  assert.equal(again[0].status, 'open', 'новое замечание открыто')
+})
+
+await check('замечание не засчитывает миссию и не меняет прогресс', () => {
+  qaBuild(true)
+  freshStorage()
+  storage.loadState()
+  const before = JSON.stringify(storage.getProgress('account-adminfort'))
+  qa.addIssue(draftIssue())
+  assert.equal(JSON.stringify(storage.getProgress('account-adminfort')), before, 'прогресс обязан остаться прежним')
+})
+
+await check('состояние замечания меняется с открытого на исправленное', () => {
+  freshStorage()
+  const issue = qa.addIssue(draftIssue())
+  const fixed = qa.updateIssue(issue.id, { status: 'fixed', resolution: 'Метод показан раньше' })
+  assert.equal(fixed.status, 'fixed')
+  assert.ok(fixed.resolvedAt, 'время решения проставляется само')
+  assert.equal(qa.listIssues().filter(item => item.status === 'open').length, 0)
+})
+
+await check('выгрузка и текст для агента несут контекст миссии', () => {
+  freshStorage()
+  qa.addIssue(draftIssue())
+  const [issue] = qa.listIssues()
+  const forAgent = qa.issueForAgent(issue)
+  for (const part of ['PDA-0903', 'pandas', 'modified', 'задание']) {
+    assert.ok(forAgent.includes(part), `в тексте для агента нет «${part}»`)
+  }
+  const markdown = qa.issuesAsMarkdown(qa.listIssues())
+  assert.ok(markdown.includes('PDA-0903'), 'в выгрузке нет миссии')
+  assert.ok(markdown.includes('Метод требуется до того, как его показали'), 'в выгрузке нет описания')
+})
+
+await check('удаление замечания не трогает соседние', () => {
+  freshStorage()
+  const first = qa.addIssue(draftIssue())
+  qa.addIssue(draftIssue({ missionId: 'PDA-1001', description: 'Другое наблюдение' }))
+  qa.removeIssue(first.id)
+  const left = qa.listIssues()
+  assert.equal(left.length, 1)
+  assert.equal(left[0].missionId, 'PDA-1001')
+})
+
+await check('счётчик открытых замечаний считает только свою миссию', () => {
+  freshStorage()
+  qa.addIssue(draftIssue())
+  qa.addIssue(draftIssue({ missionId: 'PDA-1001' }))
+  assert.equal(qa.openIssueCount('PDA-0903'), 1)
+  assert.equal(qa.openIssueCount('PDA-9999'), 0)
+})
 
 console.log(`\nПройдено проверок: ${passed}`)
 if (failures.length) {

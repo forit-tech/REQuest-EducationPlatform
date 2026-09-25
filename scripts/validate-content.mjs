@@ -150,7 +150,9 @@ for (const narrative of professionNarratives) {
   validate(!narrativeProfessionIds.has(narrative.professionId), narrative.professionId, 'дублирующаяся сквозная новелла профессии')
   validate(Boolean(narrative.protagonist?.name && narrative.protagonist?.description && narrative.premise), narrative.professionId, 'не заполнены главный герой или завязка сквозной новеллы')
   validate(!protagonistNames.has(narrative.protagonist?.name), narrative.professionId, `главный герой повторяется в другой профессии: ${narrative.protagonist?.name}`)
-  validate(narrative.cast?.length === 3, narrative.professionId, 'в постоянной команде профессии должно быть три персонажа')
+  // Нижняя граница, а не точное число: состав растёт до порога из
+  // knowledge/story/casting.json, и его рост сторожит npm run audit:course.
+  validate(narrative.cast?.length >= 3, narrative.professionId, 'в постоянной команде профессии должно быть минимум три персонажа')
   validate(new Set(narrative.locations ?? []).size >= 4, narrative.professionId, 'в сквозной новелле должно быть минимум четыре разные главы-локации')
   for (const castId of narrative.cast ?? []) validate(illustratedCastIds.has(castId), narrative.professionId, `у постоянного персонажа нет иллюстрированных поз: ${castId}`)
   narrativeProfessionIds.add(narrative.professionId)

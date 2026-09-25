@@ -179,7 +179,7 @@ function duplicates(corpus) {
     const intro = String(mission.intro ?? '').trim()
     if (intro.length > 40) byIntro.set(intro, [...(byIntro.get(intro) ?? []), where])
     if ((task.options ?? []).length) {
-      const key = task.options.map(normalize).sort().join('|')
+      const key = task.options.map(sameAnswer).sort().join('|')
       optionSets.set(key, [...(optionSets.get(key) ?? []), where])
     }
   }
@@ -244,7 +244,7 @@ function multipleChoice(corpus) {
     if (!options.some(option => option.trim() === String(task.answer).trim())) {
       out.push(finding('C4.answer-not-in-options', 'error', SCOPE.LEGACY, where, 'Верного ответа нет среди вариантов'))
     }
-    if (new Set(options.map(normalize)).size !== options.length) {
+    if (new Set(options.map(sameAnswer)).size !== options.length) {
       out.push(finding('C4.duplicate-options', 'error', SCOPE.LEGACY, where, 'Варианты ответа повторяются'))
     }
     if (options.some(option => !option.trim())) out.push(finding('C4.empty-option', 'error', SCOPE.LEGACY, where, 'Пустой вариант ответа'))
@@ -383,6 +383,16 @@ const COVERAGE_ORDER = ['uncovered', 'mapped', 'taught', 'practiced', 'exam-read
  * Учитываются только задания периметра production. Фикстуры доказывают, что
  * движок способен выразить билет, но обучением не являются.
  */
+/**
+ * Сравнение вариантов ответа.
+ *
+ * `normalize` рассчитан на прозу и срезает всю пунктуацию, поэтому `(100,)`
+ * и `100` становятся одним вариантом. Ровно этим различием живут вопросы про
+ * `shape` и `ndim`, и правило обвиняло верно составленную миссию. Здесь
+ * достаточно снять регистр и лишние пробелы.
+ */
+const sameAnswer = option => String(option ?? '').trim().toLowerCase().replace(/s+/g, ' ')
+
 export function admissionCoverage(corpus) {
   const byRef = new Map()
   for (const { task } of corpus.productionTasks ?? []) {
