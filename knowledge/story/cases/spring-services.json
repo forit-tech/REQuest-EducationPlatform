@@ -1,183 +1,138 @@
 {
   "caseId": "case-spring-services",
   "courseId": "spring-services",
-  "number": "02",
+  "number": "23",
   "title": "Заказ создан дважды",
-  "logline": "После повторного запроса клиента в базе появились два заказа и два списания.",
-  "setting": "Продуктовая компания «Север»",
-  "cast": [
-    "sonya",
-    "artem",
-    "alexey"
-  ],
+  "logline": "Клиент нажал «оплатить» один раз. В базе два заказа, в письме — один, в отчёте — три.",
+  "setting": "Сервис заказов на Spring. Первая же нагрузка показала, что контракт понимают все по-разному.",
+  "cast": ["artem", "sonya", "alexey"],
   "acts": [
     {
-      "id": "spring-services-start",
-      "title": "Заказ создан дважды",
-      "trigger": {
-        "on": "caseStart"
-      },
+      "id": "spr-a0",
+      "title": "Один заказ, две записи",
+      "trigger": {"on": "caseStart"},
       "beats": [
-        {
-          "kind": "comic",
-          "panels": [
-            {
-              "speaker": "sonya",
-              "emotion": "surprised",
-              "scene": "office",
-              "caption": "После повторного запроса клиента в базе появились два заказа и два списания."
-            },
-            {
-              "speaker": "artem",
-              "emotion": "determined",
-              "scene": "screen",
-              "caption": "Сначала строим цепочку доказательств. Красивый ответ без проверки не принимается."
-            },
-            {
-              "speaker": "alexey",
-              "emotion": "worried",
-              "scene": "meeting",
-              "caption": "Решение нужно сегодня. Ошибка изменит план команды на квартал."
-            }
-          ]
-        },
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "determined",
-          "text": "Это дело про «Сервисы на Spring». Не проходи уроки отдельно: каждый найденный факт станет уликой в общем расследовании."
-        }
+        {"kind": "comic", "panels": [
+          {"caption": "За сутки: 14 заказов созданы дважды, 3 письма не ушли, 1 заказ оплачен и не создан.", "scene": "report"},
+          {"speaker": "artem", "emotion": "worried", "caption": "Мобильное приложение повторяет запрос, если ответ не пришёл за пять секунд.", "scene": "report"},
+          {"speaker": "sonya", "emotion": "neutral", "caption": "И наш сервис послушно создаёт второй заказ. Формально он прав: пришёл запрос — создал заказ.", "scene": "report"}
+        ]},
+        {"kind": "line", "speaker": "alexey", "emotion": "determined", "text": "Значит, у нас нет контракта. Есть привычка отвечать на запросы."},
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Начнём с того, что именно сервис обещает: какой метод, какой путь и что означает каждый код ответа."}
       ]
     },
     {
-      "id": "spring-services-brief",
-      "title": "Первая версия",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "SPR-001"
-      },
+      "id": "spr-a1",
+      "title": "Двести на любой случай",
+      "trigger": {"on": "beforeMission", "missionId": "SPR-002"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "sonya",
-          "emotion": "happy",
-          "text": "Я уже собрала материалы. Давай сначала договоримся, какой вопрос мы вообще пытаемся решить."
-        },
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "neutral",
-          "text": "Хорошее начало. Зафиксируй принцип — после этого рабочая станция откроет первую улику."
-        }
+        {"kind": "line", "speaker": "sonya", "emotion": "neutral", "text": "Сервис отвечает кодом «успех» всегда, даже когда заказ не создан. Ошибка лежит в теле ответа текстом."},
+        {"kind": "line", "speaker": "artem", "emotion": "surprised", "text": "И приложение не может отличить успех от отказа, не читая текст?"},
+        {"kind": "line", "speaker": "alexey", "emotion": "determined", "text": "Именно. Код ответа — это часть контракта, а не украшение. Сделай так, чтобы по нему можно было принимать решение."}
       ]
     },
     {
-      "id": "spring-services-evidence",
-      "title": "Улика не сходится",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "SPR-003"
-      },
+      "id": "spr-a2",
+      "title": "Повтор",
+      "trigger": {"on": "afterMission", "missionId": "SPR-003"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "sonya",
-          "emotion": "worried",
-          "text": "Проверка изменила число. Значит, первая версия была удобной, но неверной."
-        },
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "happy",
-          "text": "Именно поэтому мы оставляем воспроизводимые шаги. Ошибка, найденная до решения, — полезная улика."
-        }
+        {"kind": "line", "speaker": "artem", "emotion": "determined", "text": "Повтор запроса отличить можно: приложение присылает свой идентификатор попытки."},
+        {"kind": "line", "speaker": "sonya", "emotion": "neutral", "text": "Значит, второй запрос с тем же идентификатором должен вернуть первый заказ, а не создать новый."},
+        {"kind": "choice", "id": "spr-c1", "prompt": "Как обработать повтор?", "options": [
+          {"id": "idempotent", "text": "Хранить идентификатор попытки и возвращать по нему уже созданный заказ.", "reply": "Соня: «Повтор перестал быть вторым заказом. Приложение может спрашивать сколько угодно раз».", "trust": {"sonya": 4, "artem": 2}, "flags": ["case-spring-services:idempotent"]},
+          {"id": "dedup", "text": "Раз в час удалять дубли фоновой задачей: заказы всё равно похожи.", "reply": "Дубли исчезают через час. Письмо и списание к этому моменту уже ушли клиенту дважды.", "trust": {"sonya": -3}, "flags": ["case-spring-services:dedup"]}
+        ]}
       ]
     },
     {
-      "id": "spring-services-choice",
-      "title": "Давление срока",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "SPR-007"
-      },
+      "id": "spr-a2b",
+      "title": "Задача чистит не то",
+      "trigger": {"on": "afterMission", "missionId": "SPR-005"},
+      "requiresFlags": ["case-spring-services:dedup"],
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "alexey",
-          "emotion": "worried",
-          "text": "Мне нужна рекомендация через двадцать минут. Можно не показывать спорный сегмент?"
-        },
-        {
-          "kind": "choice",
-          "id": "spring-services-deadline-choice",
-          "prompt": "Как ты ответишь?",
-          "options": [
-            {
-              "id": "transparent",
-              "text": "Покажу спорный риск и объясню, как он влияет на решение.",
-              "reply": "Руководитель кивает: неприятный риск лучше скрытой ошибки.",
-              "trust": {
-                "alexey": 2,
-                "artem": 1
-              },
-              "flags": [
-                "spring-services-transparent"
-              ]
-            },
-            {
-              "id": "fast",
-              "text": "Уберу спорный риск ради короткого ответа.",
-              "reply": "Наставник ничего не говорит, но просит сохранить эту версию отдельно.",
-              "trust": {
-                "artem": -1
-              },
-              "flags": [
-                "spring-services-rushed"
-              ]
-            }
-          ]
-        }
+        {"kind": "line", "speaker": "artem", "emotion": "worried", "text": "Фоновая задача склеила два разных заказа одного клиента: он действительно заказал дважды."},
+        {"kind": "line", "speaker": "alexey", "emotion": "worried", "text": "Мы чиним следствие и создаём новое. Причина по-прежнему в том, что повтор для нас неотличим."}
       ]
     },
     {
-      "id": "spring-services-turn",
-      "title": "Решение выдерживает проверку",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "SPR-010"
-      },
+      "id": "spr-a3",
+      "title": "Всё в контроллере",
+      "trigger": {"on": "afterMission", "missionId": "SPR-006"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "sonya",
-          "emotion": "happy",
-          "text": "Теперь вывод не рассыпается, даже если изменить период и открыть сегменты."
-        },
-        {
-          "kind": "line",
-          "speaker": "alexey",
-          "emotion": "determined",
-          "text": "Хорошо. Доводи доказательства до итоговой рекомендации — я защищу её перед командой."
-        }
+        {"kind": "notification", "channel": "ticket", "from": "Соня", "title": "Контроллер на четыреста строк", "text": "Проверка данных, расчёт скидки, запись в базу и отправка письма лежат в одном методе. Тестов на него нет: их невозможно написать."},
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Я вынес расчёт скидки в отдельный класс, но он создаёт себе базу сам."},
+        {"kind": "line", "speaker": "sonya", "emotion": "determined", "text": "Тогда его по-прежнему нельзя проверить без базы. Пусть зависимости приходят снаружи — тогда в тесте на их место встанет заглушка."},
+        {"kind": "line", "speaker": "alexey", "emotion": "neutral", "text": "И заодно станет видно, сколько всего наш контроллер на самом деле делает."}
+      ]
+    },
+    {
+      "id": "spr-a4",
+      "title": "Письмо ушло, заказ не сохранился",
+      "trigger": {"on": "beforeMission", "missionId": "SPR-008"},
+      "beats": [
+        {"kind": "line", "speaker": "artem", "emotion": "worried", "text": "Заказ пишется тремя запросами. Если третий падает, первые два остаются."},
+        {"kind": "line", "speaker": "sonya", "emotion": "worried", "text": "А письмо уходит между вторым и третьим. Клиент получает подтверждение заказа, которого нет."},
+        {"kind": "line", "speaker": "alexey", "emotion": "determined", "text": "Значит, запись — это одна операция, а письмо отправляется после того, как она подтверждена. Посмотри, где у транзакции границы."}
+      ]
+    },
+    {
+      "id": "spr-a5",
+      "title": "Отрицательное количество",
+      "trigger": {"on": "afterMission", "missionId": "SPR-011"},
+      "beats": [
+        {"kind": "line", "speaker": "sonya", "emotion": "surprised", "text": "Запрос с количеством минус три создаёт заказ и возвращает клиенту деньги. Проверки нет ни в одном слое."},
+        {"kind": "choice", "id": "spr-c2", "prompt": "Где проверять входные данные?", "options": [
+          {"id": "boundary", "text": "На границе сервиса, до всякой бизнес-логики, и отвечать понятным кодом ошибки.", "reply": "Алексей: «Плохой запрос должен умирать на входе. Дальше него он становится нашей проблемой».", "trust": {"alexey": 4, "sonya": 3}, "flags": ["case-spring-services:validation"]},
+          {"id": "inside", "text": "В том месте, где считается сумма: там всё равно есть проверки.", "reply": "Сумма считается верно. Заказ с отрицательным количеством по-прежнему создаётся и попадает на склад.", "trust": {"alexey": -2}, "flags": ["case-spring-services:inside"]}
+        ]},
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "И тогда сообщение об ошибке пишем для того, кто вызывает сервис, а не для того, кто читает наши логи."}
+      ]
+    },
+    {
+      "id": "spr-a5b",
+      "title": "Минус три на складе",
+      "trigger": {"on": "afterMission", "missionId": "SPR-012"},
+      "requiresFlags": ["case-spring-services:inside"],
+      "beats": [
+        {"kind": "line", "speaker": "sonya", "emotion": "worried", "text": "Заказ с количеством минус три уехал на склад. Кладовщик третий час выясняет, что это значит."},
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Для нас это была строчка данных. Для него — рабочий день."}
+      ]
+    },
+    {
+      "id": "spr-a6",
+      "title": "Контракт вместо привычки",
+      "trigger": {"on": "afterMission", "missionId": "SPR-013"},
+      "beats": [
+        {"kind": "comic", "panels": [
+          {"speaker": "artem", "emotion": "happy", "caption": "Повтор возвращает тот же заказ, коды ответа означают то, что написано, письмо уходит после подтверждения.", "scene": "checkout"},
+          {"speaker": "sonya", "emotion": "happy", "caption": "И проверки стоят на входе, а не в трёх случайных местах.", "scene": "checkout"}
+        ]},
+        {"kind": "line", "speaker": "alexey", "emotion": "happy", "text": "Сервис — это обещание, которое можно проверить снаружи. Всё остальное — наши внутренние дела."},
+        {"kind": "line", "speaker": "narrator", "text": "Получен предмет: контракт сервиса заказов."}
       ]
     }
   ],
   "endings": [
     {
-      "id": "spring-services-gold",
-      "title": "Доказательство принято",
-      "summary": "Команда получила воспроизводимый вывод и безопасный следующий шаг.",
-      "minTrust": {
-        "artem": 1,
-        "alexey": 1
-      },
+      "id": "gold",
+      "title": "Ровно один заказ",
+      "summary": "Повтор запроса возвращает уже созданный заказ, коды ответа стали контрактом, запись заказа неделима, а плохой запрос умирает на входе. За две недели ни одного двойного заказа и ни одного письма о заказе, которого нет.",
+      "minTrust": {"alexey": 4, "sonya": 5},
+      "requiresFlags": ["case-spring-services:idempotent", "case-spring-services:validation"],
       "rank": "золото"
     },
     {
-      "id": "spring-services-silver",
-      "title": "Решение с оговорками",
-      "summary": "Вывод принят, но часть рисков придётся перепроверить после запуска.",
+      "id": "silver",
+      "title": "Слои разложены",
+      "summary": "Контроллер похудел, зависимости приходят снаружи, транзакция закрывает запись целиком. Но повтор запроса сервис по-прежнему не узнаёт: при плохой связи клиент получает два заказа и одно объяснение.",
+      "minTrust": {"alexey": 2},
       "rank": "серебро"
+    },
+    {
+      "id": "bronze",
+      "title": "Дубли чистит задача",
+      "summary": "Заказы дублируются, фоновая задача их подчищает, иногда склеивая настоящие. Проверки живут внутри расчёта, отрицательные количества доезжают до склада, и каждый разбор начинается с вопроса, что вообще обещает сервис.",
+      "rank": "бронза"
     }
   ]
 }

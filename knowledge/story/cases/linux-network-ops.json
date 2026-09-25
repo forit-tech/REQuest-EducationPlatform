@@ -3,181 +3,136 @@
   "courseId": "linux-network-ops",
   "number": "01",
   "title": "Порт открыт, сервис недоступен",
-  "logline": "После изменения конфигурации healthcheck проходит на хосте, но пользователи получают timeout.",
-  "setting": "Продуктовая компания «Север»",
-  "cast": [
-    "artem",
-    "gleb",
-    "lena"
-  ],
+  "logline": "Проверка порта зелёная, клиенты не доходят. Конфигурацию починили неделю назад — врёт не она.",
+  "setting": "Тот же платёжный сервис, неделю спустя. Он выложен, работает и при этом не отвечает.",
+  "cast": ["oleg", "gleb", "yana"],
   "acts": [
     {
-      "id": "linux-network-ops-start",
-      "title": "Порт открыт, сервис недоступен",
-      "trigger": {
-        "on": "caseStart"
-      },
+      "id": "lno-a0",
+      "title": "Зелёная проверка",
+      "trigger": {"on": "caseStart"},
       "beats": [
-        {
-          "kind": "comic",
-          "panels": [
-            {
-              "speaker": "artem",
-              "emotion": "surprised",
-              "scene": "office",
-              "caption": "После изменения конфигурации healthcheck проходит на хосте, но пользователи получают timeout."
-            },
-            {
-              "speaker": "gleb",
-              "emotion": "determined",
-              "scene": "screen",
-              "caption": "Сначала строим цепочку доказательств. Красивый ответ без проверки не принимается."
-            },
-            {
-              "speaker": "lena",
-              "emotion": "worried",
-              "scene": "meeting",
-              "caption": "Решение нужно сегодня. Ошибка изменит план команды на квартал."
-            }
-          ]
-        },
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "determined",
-          "text": "Это дело про «Linux и сети для эксплуатации». Не проходи уроки отдельно: каждый найденный факт станет уликой в общем расследовании."
-        }
+        {"kind": "comic", "panels": [
+          {"caption": "Неделя после починки конфигурации. Сервис выложен, порт слушает, клиенты не доходят.", "scene": "monitor"},
+          {"speaker": "gleb", "emotion": "worried", "caption": "Проверка порта зелёная. Ответа от сервиса нет.", "scene": "monitor"},
+          {"speaker": "yana", "emotion": "worried", "caption": "Поддержка пишет: у половины пользователей бесконечная загрузка.", "scene": "support-queue"}
+        ]},
+        {"kind": "line", "speaker": "oleg", "emotion": "neutral", "text": "Конфигурацию мы закрыли в прошлый раз, и читается она верно. Значит, врёт не файл, а окружение."},
+        {"kind": "line", "speaker": "gleb", "emotion": "determined", "text": "Начну с процесса: жив ли он вообще и чем занят."}
       ]
     },
     {
-      "id": "linux-network-ops-brief",
-      "title": "Первая версия",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "LNO-001"
-      },
+      "id": "lno-a1",
+      "title": "Живой, но занятой",
+      "trigger": {"on": "beforeMission", "missionId": "LNO-001"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "happy",
-          "text": "Я уже собрал материалы. Давай сначала договоримся, какой вопрос мы вообще пытаемся решить."
-        },
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "neutral",
-          "text": "Хорошее начало. Зафиксируй принцип — после этого рабочая станция откроет первую улику."
-        }
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "Процесс на месте, состояние D. Он не спит и не считает — он ждёт диск."},
+        {"kind": "line", "speaker": "yana", "emotion": "surprised", "text": "А разве «жив» и «работает» — не одно и то же?"},
+        {"kind": "line", "speaker": "oleg", "emotion": "neutral", "text": "Нет. Поэтому проверка «порт слушает» ничего и не доказывает: слушает ядро, а отвечает процесс."}
       ]
     },
     {
-      "id": "linux-network-ops-evidence",
-      "title": "Улика не сходится",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "LNO-003"
-      },
+      "id": "lno-a2",
+      "title": "Сигнал",
+      "trigger": {"on": "afterMission", "missionId": "LNO-003"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "worried",
-          "text": "Проверка изменила число. Значит, первая версия была удобной, но неверной."
-        },
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "happy",
-          "text": "Именно поэтому мы оставляем воспроизводимые шаги. Ошибка, найденная до решения, — полезная улика."
-        }
+        {"kind": "line", "speaker": "gleb", "emotion": "determined", "text": "Могу отправить сигнал и поднять заново. Минута — и метрика позеленеет."},
+        {"kind": "line", "speaker": "oleg", "emotion": "worried", "text": "Позеленеет. И заберёт с собой всё, что мы могли бы узнать о причине."},
+        {"kind": "choice", "id": "lno-c1", "prompt": "Пользователи ждут, причина ещё не найдена. Что сначала?", "options": [
+          {"id": "evidence", "text": "Снять состояние процесса: открытые файлы, стек, счётчики. Перезапуск — после.", "reply": "Олег: «Перезапуск — это лечение. Снимок — диагноз. Без второго третий раз будет таким же».", "trust": {"oleg": 4, "gleb": 2}, "flags": ["case-linux-network-ops:evidence"]},
+          {"id": "restart", "text": "Перезапустить сейчас: очередь растёт.", "reply": "Сервис отвечает через сорок секунд. Причина уходит вместе со старым процессом.", "trust": {"oleg": -1, "yana": 1}, "flags": ["case-linux-network-ops:restart"]}
+        ]}
       ]
     },
     {
-      "id": "linux-network-ops-choice",
-      "title": "Давление срока",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "LNO-007"
-      },
+      "id": "lno-a2b",
+      "title": "Второй раз без следов",
+      "trigger": {"on": "afterMission", "missionId": "LNO-004"},
+      "requiresFlags": ["case-linux-network-ops:restart"],
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "lena",
-          "emotion": "worried",
-          "text": "Мне нужна рекомендация через двадцать минут. Можно не показывать спорный сегмент?"
-        },
-        {
-          "kind": "choice",
-          "id": "linux-network-ops-deadline-choice",
-          "prompt": "Как ты ответишь?",
-          "options": [
-            {
-              "id": "transparent",
-              "text": "Покажу спорный риск и объясню, как он влияет на решение.",
-              "reply": "Руководитель кивает: неприятный риск лучше скрытой ошибки.",
-              "trust": {
-                "lena": 2,
-                "gleb": 1
-              },
-              "flags": [
-                "linux-network-ops-transparent"
-              ]
-            },
-            {
-              "id": "fast",
-              "text": "Уберу спорный риск ради короткого ответа.",
-              "reply": "Наставник ничего не говорит, но просит сохранить эту версию отдельно.",
-              "trust": {
-                "gleb": -1
-              },
-              "flags": [
-                "linux-network-ops-rushed"
-              ]
-            }
-          ]
-        }
+        {"kind": "line", "speaker": "gleb", "emotion": "worried", "text": "Он снова перестал отвечать. И снова единственное, что у нас есть, — время, когда это заметили."},
+        {"kind": "line", "speaker": "oleg", "emotion": "worried", "text": "Перезапуск вернул сервис и стёр причину. Второй раз мы начинаем ровно с той же точки, что и первый."}
       ]
     },
     {
-      "id": "linux-network-ops-turn",
-      "title": "Решение выдерживает проверку",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "LNO-010"
-      },
+      "id": "lno-a3",
+      "title": "Место кончилось",
+      "trigger": {"on": "afterMission", "missionId": "LNO-006"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "happy",
-          "text": "Теперь вывод не рассыпается, даже если изменить период и открыть сегменты."
-        },
-        {
-          "kind": "line",
-          "speaker": "lena",
-          "emotion": "determined",
-          "text": "Хорошо. Доводи доказательства до итоговой рекомендации — я защищу её перед командой."
-        }
+        {"kind": "notification", "channel": "alert", "from": "Мониторинг", "title": "Свободного места нет", "text": "Раздел с журналами заполнен на 100%. Запись новых журналов остановлена."},
+        {"kind": "line", "speaker": "gleb", "emotion": "worried", "text": "Подробные журналы включили две недели назад и забыли выключить."},
+        {"kind": "line", "speaker": "yana", "emotion": "neutral", "text": "То есть сервис не отвечал, потому что не мог записать, что он не отвечает."},
+        {"kind": "line", "speaker": "oleg", "emotion": "neutral", "text": "Так и бывает. Память, процессор и диск — три первых вопроса, и про диск почему-то вспоминают последним."}
+      ]
+    },
+    {
+      "id": "lno-a4",
+      "title": "Имя указывает не туда",
+      "trigger": {"on": "beforeMission", "missionId": "LNO-007"},
+      "beats": [
+        {"kind": "line", "speaker": "yana", "emotion": "worried", "text": "У части пользователей всё работает, у части нет. Как так выходит?"},
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "Имя сервиса отвечает двумя адресами. Один новый, второй остался от прошлой выкладки."},
+        {"kind": "line", "speaker": "oleg", "emotion": "determined", "text": "Проверь путь целиком: имя, маршрут, соединение. Ошибка живёт на одном из трёх шагов, и угадывать дешевле не выйдет."}
+      ]
+    },
+    {
+      "id": "lno-a5",
+      "title": "Свой собственный ключ",
+      "trigger": {"on": "afterMission", "missionId": "LNO-012"},
+      "beats": [
+        {"kind": "line", "speaker": "gleb", "emotion": "surprised", "text": "Служба не может прочитать собственный ключ: права на файл только для владельца, а владелец другой."},
+        {"kind": "choice", "id": "lno-c2", "prompt": "Как чинить права?", "options": [
+          {"id": "least", "text": "Отдать файл владельцу службы и оставить чтение только ему.", "reply": "Служба стартует. Ключ по-прежнему не читает никто посторонний.", "trust": {"oleg": 4, "yana": 2}, "flags": ["case-linux-network-ops:least-privilege"]},
+          {"id": "wide", "text": "Открыть файл на чтение всем: сейчас важнее, чтобы поднялось.", "reply": "Поднимается. Ключ от рабочей базы теперь читает любой процесс на этой машине.", "trust": {"oleg": -3}, "flags": ["case-linux-network-ops:open-key"]}
+        ]},
+        {"kind": "line", "speaker": "oleg", "emotion": "neutral", "text": "Права — не формальность. Это записанный ответ на вопрос, кому мы доверяем на этой машине."}
+      ]
+    },
+    {
+      "id": "lno-a5b",
+      "title": "Ключ читают все",
+      "trigger": {"on": "afterMission", "missionId": "LNO-010"},
+      "requiresFlags": ["case-linux-network-ops:open-key"],
+      "beats": [
+        {"kind": "line", "speaker": "yana", "emotion": "surprised", "text": "Соседний процесс на этой машине спокойно прочитал ключ от рабочей базы. Он вообще не должен был о нём знать."},
+        {"kind": "line", "speaker": "oleg", "emotion": "worried", "text": "Мы поднимали сервис и расширили права на всех. Сервис поднялся, а вместе с ним поднялась и эта возможность."}
+      ]
+    },
+    {
+      "id": "lno-a6",
+      "title": "Проверка, которая проверяет",
+      "trigger": {"on": "afterMission", "missionId": "LNO-013"},
+      "beats": [
+        {"kind": "comic", "panels": [
+          {"speaker": "gleb", "emotion": "happy", "caption": "Теперь проверка спрашивает не порт, а сам сервис: отвечает ли он и за сколько.", "scene": "monitor"},
+          {"speaker": "yana", "emotion": "happy", "caption": "И поддержка видит ровно то же, что и мы.", "scene": "support-queue"}
+        ]},
+        {"kind": "line", "speaker": "oleg", "emotion": "happy", "text": "Разница между «порт открыт» и «сервис работает» стоила нам недели. Запомнить её можно дешевле."},
+        {"kind": "line", "speaker": "narrator", "text": "Получен предмет: карта проверок сервиса."}
       ]
     }
   ],
   "endings": [
     {
-      "id": "linux-network-ops-gold",
-      "title": "Доказательство принято",
-      "summary": "Команда получила воспроизводимый вывод и безопасный следующий шаг.",
-      "minTrust": {
-        "gleb": 1,
-        "lena": 1
-      },
+      "id": "gold",
+      "title": "Диагноз, а не лечение",
+      "summary": "Причину нашли по снятому состоянию, а не по догадкам: журналы съели диск, имя отвечало старым адресом, служба не читала свой ключ. Права остались узкими, проверка теперь спрашивает сервис, а не порт. Глеб перестал начинать разбор с перезапуска.",
+      "minTrust": {"oleg": 7, "yana": 2},
+      "requiresFlags": ["case-linux-network-ops:evidence", "case-linux-network-ops:least-privilege"],
       "rank": "золото"
     },
     {
-      "id": "linux-network-ops-silver",
-      "title": "Решение с оговорками",
-      "summary": "Вывод принят, но часть рисков придётся перепроверить после запуска.",
+      "id": "silver",
+      "title": "Подняли и разобрали",
+      "summary": "Сервис отвечает, диск освобождён, адрес поправлен. Но часть выводов держится на памяти дежурного: в следующий раз разбор начнётся заново, с той же первой минуты.",
+      "minTrust": {"oleg": 3},
       "rank": "серебро"
+    },
+    {
+      "id": "bronze",
+      "title": "Перезапуск помог",
+      "summary": "Метрика зелёная, причина неизвестна. Журналы снова растут, ключ читает кто угодно, а проверка по-прежнему подтверждает только то, что порт открыт.",
+      "rank": "бронза"
     }
   ]
 }

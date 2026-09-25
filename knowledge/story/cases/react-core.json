@@ -1,183 +1,139 @@
 {
   "caseId": "case-react-core",
   "courseId": "react-core",
-  "number": "01",
-  "title": "Бесконечный рендер",
-  "logline": "Экран профиля отправляет запрос после каждого ответа и за минуту исчерпывает лимит API.",
-  "setting": "Продуктовая компания «Север»",
-  "cast": [
-    "irina",
-    "gleb",
-    "alexey"
-  ],
+  "number": "29",
+  "title": "Три экрана, три разных статуса",
+  "logline": "Один заказ, три экрана. На первом он «в пути», на втором «доставлен», на третьем его нет.",
+  "setting": "Диспетчерский интерфейс доставки. Каждый экран писали в свой месяц и по своим правилам.",
+  "cast": ["irina", "gleb", "alexey"],
   "acts": [
     {
-      "id": "react-core-start",
-      "title": "Бесконечный рендер",
-      "trigger": {
-        "on": "caseStart"
-      },
+      "id": "rct-a0",
+      "title": "Один заказ, три ответа",
+      "trigger": {"on": "caseStart"},
       "beats": [
-        {
-          "kind": "comic",
-          "panels": [
-            {
-              "speaker": "irina",
-              "emotion": "surprised",
-              "scene": "office",
-              "caption": "Экран профиля отправляет запрос после каждого ответа и быстро исчерпывает лимит API."
-            },
-            {
-              "speaker": "gleb",
-              "emotion": "determined",
-              "scene": "screen",
-              "caption": "Сначала строим цепочку доказательств. Красивый ответ без проверки не принимается."
-            },
-            {
-              "speaker": "alexey",
-              "emotion": "worried",
-              "scene": "meeting",
-              "caption": "Решение нужно сегодня. Ошибка изменит план команды на квартал."
-            }
-          ]
-        },
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "determined",
-          "text": "Это дело про «React: модель интерфейса». Не проходи уроки отдельно: каждый найденный факт станет уликой в общем расследовании."
-        }
+        {"kind": "comic", "panels": [
+          {"caption": "Заказ 4417 открыт в трёх вкладках. Список говорит «в пути», карточка — «доставлен», карта не показывает его вовсе.", "scene": "screens"},
+          {"speaker": "gleb", "emotion": "worried", "caption": "Оператор звонит клиенту и не знает, что ему сказать.", "scene": "screens"},
+          {"speaker": "irina", "emotion": "neutral", "caption": "Я смотрела, как он работает: он открывает все три и верит той, что открыл последней.", "scene": "screens"}
+        ]},
+        {"kind": "line", "speaker": "alexey", "emotion": "determined", "text": "Значит, интерфейс не показывает состояние, а хранит три своих мнения о нём."},
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "Каждый экран сам ходит за данными и сам решает, как их разложить."},
+        {"kind": "line", "speaker": "alexey", "emotion": "neutral", "text": "Начнём с простого: из чего вообще собирается один экран и откуда он берёт значения."}
       ]
     },
     {
-      "id": "react-core-brief",
-      "title": "Первая версия",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "RCT-003"
-      },
+      "id": "rct-a1",
+      "title": "Два корня",
+      "trigger": {"on": "beforeMission", "missionId": "RCT-005"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "happy",
-          "text": "Компонент — обычная функция, которая возвращает разметку. Ни классов, ни магии."
-        },
-        {
-          "kind": "line",
-          "speaker": "irina",
-          "emotion": "neutral",
-          "text": "И язык мы уже знаем. Здесь надстройка, а не новый язык с нуля."
-        }
+        {"kind": "line", "speaker": "gleb", "emotion": "surprised", "text": "Компонент не собирается: два элемента рядом и слово class в разметке."},
+        {"kind": "line", "speaker": "irina", "emotion": "neutral", "text": "Разметка здесь — это выражение, а не текст страницы. У выражения один результат."},
+        {"kind": "line", "speaker": "alexey", "emotion": "determined", "text": "И атрибуты пишутся так, как их называет язык, а не так, как в вёрстке. Это первое место, где интерфейс перестаёт быть картинкой."}
       ]
     },
     {
-      "id": "react-core-evidence",
-      "title": "Улика не сходится",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "RCT-010"
-      },
+      "id": "rct-a2",
+      "title": "Данные сверху вниз",
+      "trigger": {"on": "afterMission", "missionId": "RCT-008"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "alexey",
-          "emotion": "surprised",
-          "text": "Обычная переменная в компоненте не работает: при каждой отрисовке она создаётся заново."
-        },
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "happy",
-          "text": "Поэтому и нужно состояние. Меняешь состояние — React сам приводит экран к новому виду."
-        }
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "Карточка заказа сама запрашивает заказ по номеру. Список делает то же самое, отдельно."},
+        {"kind": "line", "speaker": "irina", "emotion": "worried", "text": "Поэтому они и расходятся: два запроса в разное время дают два разных ответа."},
+        {"kind": "choice", "id": "rct-c1", "prompt": "Откуда экран берёт данные?", "options": [
+          {"id": "props", "text": "Один владелец данных наверху, вниз всё приходит параметрами.", "reply": "Ирина: «Теперь у заказа одно состояние на экране. Спорить стало нечему».", "trust": {"irina": 4, "gleb": 2}, "flags": ["case-react-core:props"]},
+          {"id": "everywhere", "text": "Пусть каждый компонент запрашивает сам: так меньше связей.", "reply": "Связей меньше, запросов больше. Расхождение между экранами превращается в гонку, у которой нет виноватого.", "trust": {"irina": -2}, "flags": ["case-react-core:everywhere"]}
+        ]}
       ]
     },
     {
-      "id": "react-core-choice",
-      "title": "Давление срока",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "RCT-013"
-      },
+      "id": "rct-a2b",
+      "title": "Четвёртое мнение",
+      "trigger": {"on": "afterMission", "missionId": "RCT-010"},
+      "requiresFlags": ["case-react-core:everywhere"],
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "irina",
-          "emotion": "worried",
-          "text": "В списке заказов ключом проще всего поставить индекс. Так ведь можно?"
-        },
-        {
-          "kind": "choice",
-          "id": "react-core-deadline-choice",
-          "prompt": "Как поступить?",
-          "options": [
-            {
-              "id": "transparent",
-              "text": "Возьму ключом номер заказа — он не меняется при перестановке.",
-              "reply": "Удаление строки перестанет путать состояние соседних.",
-              "trust": {
-                "alexey": 2,
-                "gleb": 1
-              },
-              "flags": [
-                "react-core-transparent"
-              ]
-            },
-            {
-              "id": "fast",
-              "text": "Поставлю индекс, список всё равно редко меняется.",
-              "reply": "Работает, пока порядок постоянен. Первое же удаление это сломает.",
-              "trust": {
-                "gleb": -1
-              },
-              "flags": [
-                "react-core-rushed"
-              ]
-            }
-          ]
-        }
+        {"kind": "line", "speaker": "gleb", "emotion": "worried", "text": "Добавили панель уведомлений. У неё своё представление о статусе заказа, четвёртое."},
+        {"kind": "line", "speaker": "irina", "emotion": "neutral", "text": "Каждый новый экран приносит ещё одно мнение. Их количество растёт быстрее, чем польза."}
       ]
     },
     {
-      "id": "react-core-turn",
-      "title": "Решение выдерживает проверку",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "RCT-018"
-      },
+      "id": "rct-a3",
+      "title": "Изменил состояние напрямую",
+      "trigger": {"on": "afterMission", "missionId": "RCT-011"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "alexey",
-          "emotion": "happy",
-          "text": "Вот и причина бесконечного рендера: эффект без массива зависимостей менял состояние."
-        },
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "determined",
-          "text": "Осталось научиться убирать за собой и честно показывать загрузку и ошибку."
-        }
+        {"kind": "notification", "channel": "ticket", "from": "Ирина", "title": "Список не обновляется", "text": "Оператор отмечает заказ доставленным. В данных отметка есть, на экране заказ остаётся в пути до перезагрузки."},
+        {"kind": "line", "speaker": "gleb", "emotion": "surprised", "text": "Я меняю поле прямо в объекте. Данные-то верные."},
+        {"kind": "line", "speaker": "alexey", "emotion": "neutral", "text": "Верные и невидимые. Экран перерисовывается, когда состояние заменяют, а не когда его правят внутри."},
+        {"kind": "line", "speaker": "irina", "emotion": "determined", "text": "И оператору важно не то, что данные верные, а то, что он это видит."}
+      ]
+    },
+    {
+      "id": "rct-a4",
+      "title": "Индекс как ключ",
+      "trigger": {"on": "beforeMission", "missionId": "RCT-014"},
+      "beats": [
+        {"kind": "line", "speaker": "irina", "emotion": "worried", "text": "При сортировке списка комментарий оператора переезжает к чужому заказу."},
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "Ключами у списка стоят номера по порядку. После сортировки порядок другой, а ключи те же."},
+        {"kind": "line", "speaker": "alexey", "emotion": "determined", "text": "Ключ должен принадлежать самой записи, а не её месту в списке. Иначе интерфейс путает вещи местами."}
+      ]
+    },
+    {
+      "id": "rct-a5",
+      "title": "Загрузка, ошибка, результат",
+      "trigger": {"on": "afterMission", "missionId": "RCT-019"},
+      "beats": [
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "Пока данные грузятся, экран пустой. Если запрос упал, он тоже пустой."},
+        {"kind": "choice", "id": "rct-c2", "prompt": "Как показывать состояние загрузки?", "options": [
+          {"id": "states", "text": "Разделить три состояния явно: идёт загрузка, ошибка с причиной, готовый результат.", "reply": "Алексей: «Пустой экран больше не означает три разные вещи одновременно».", "trust": {"alexey": 4, "irina": 3}, "flags": ["case-react-core:states"]},
+          {"id": "spinner", "text": "Показывать крутилку до первого ответа: пользователь поймёт.", "reply": "Крутилка крутится и при ошибке. Оператор ждёт данные, которых уже не будет.", "trust": {"alexey": -2}, "flags": ["case-react-core:spinner"]}
+        ]},
+        {"kind": "line", "speaker": "irina", "emotion": "neutral", "text": "И у ошибки должно быть действие: повторить, а не только сообщение о том, что всё плохо."}
+      ]
+    },
+    {
+      "id": "rct-a5b",
+      "title": "Крутилка навсегда",
+      "trigger": {"on": "afterMission", "missionId": "RCT-018"},
+      "requiresFlags": ["case-react-core:spinner"],
+      "beats": [
+        {"kind": "line", "speaker": "irina", "emotion": "worried", "text": "Оператор ждал загрузки одиннадцать минут. Запрос упал на второй секунде."},
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "Мы показали процесс вместо результата. Процесс шёл, результата не было."}
+      ]
+    },
+    {
+      "id": "rct-a6",
+      "title": "Один заказ, один статус",
+      "trigger": {"on": "afterMission", "missionId": "RCT-020"},
+      "beats": [
+        {"kind": "comic", "panels": [
+          {"speaker": "gleb", "emotion": "happy", "caption": "Данные приходят сверху, ключи принадлежат заказам, состояния загрузки разведены.", "scene": "screens"},
+          {"speaker": "irina", "emotion": "happy", "caption": "И оператор больше не сверяет три вкладки, чтобы ответить на один вопрос.", "scene": "screens"}
+        ]},
+        {"kind": "line", "speaker": "alexey", "emotion": "happy", "text": "Интерфейс — это не картинка поверх данных. Это способ показать одно состояние без разночтений."},
+        {"kind": "line", "speaker": "narrator", "text": "Получен предмет: карта состояний экрана."}
       ]
     }
   ],
   "endings": [
     {
-      "id": "react-core-gold",
-      "title": "Доказательство принято",
-      "summary": "Экран загружается один раз, показывает загрузку, ошибку и данные честно.",
-      "minTrust": {
-        "gleb": 1,
-        "alexey": 1
-      },
+      "id": "gold",
+      "title": "Одно состояние на экран",
+      "summary": "У заказа появился один владелец данных, ключи списка принадлежат записям, а загрузка, ошибка и результат перестали выглядеть одинаково. Оператор отвечает клиенту по одному экрану вместо трёх и больше не угадывает, какой из них свежее.",
+      "minTrust": {"irina": 7, "alexey": 4},
+      "requiresFlags": ["case-react-core:props", "case-react-core:states"],
       "rank": "золото"
     },
     {
-      "id": "react-core-silver",
-      "title": "Решение с оговорками",
-      "summary": "Интерфейс работает, но эффекты и ключи стоит перепроверить.",
+      "id": "silver",
+      "title": "Экран собран",
+      "summary": "Компоненты разложены, список не путает записи местами, состояние обновляется видимо. Но пустой экран по-прежнему означает и загрузку, и ошибку: оператор ждёт данные, которых уже не будет.",
+      "minTrust": {"irina": 2},
       "rank": "серебро"
+    },
+    {
+      "id": "bronze",
+      "title": "Каждый экран сам за себя",
+      "summary": "Экраны продолжают ходить за данными по отдельности и расходиться во мнениях. К трём вкладкам добавилась четвёртая, а оператор всё так же верит той, что открыл последней.",
+      "rank": "бронза"
     }
   ]
 }

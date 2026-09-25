@@ -1,183 +1,138 @@
 {
   "caseId": "case-go-core-concurrency",
   "courseId": "go-core-concurrency",
-  "number": "01",
-  "title": "Горутины после закрытия смены",
-  "logline": "Сервис остановлен по команде, но процесс жив: сотни горутин ждут канал, который никто не закроет.",
-  "setting": "Продуктовая компания «Север»",
-  "cast": [
-    "gleb",
-    "artem",
-    "alexey"
-  ],
+  "number": "26",
+  "title": "Смена закрыта, горутины остались",
+  "logline": "Отчёт печатает итог и завершается. Половина рейсов дописывается в файл уже после этого.",
+  "setting": "Тот же отчёт, следующая версия: его научили считать источники параллельно.",
+  "cast": ["gleb", "artem", "alexey"],
   "acts": [
     {
-      "id": "go-core-concurrency-start",
-      "title": "Горутины после закрытия смены",
-      "trigger": {
-        "on": "caseStart"
-      },
+      "id": "gcc-a0",
+      "title": "Итог раньше данных",
+      "trigger": {"on": "caseStart"},
       "beats": [
-        {
-          "kind": "comic",
-          "panels": [
-            {
-              "speaker": "gleb",
-              "emotion": "surprised",
-              "scene": "office",
-              "caption": "Сервис остановился, но сотни горутин продолжают ждать канал, который никто не закроет."
-            },
-            {
-              "speaker": "artem",
-              "emotion": "determined",
-              "scene": "screen",
-              "caption": "Сначала строим цепочку доказательств. Красивый ответ без проверки не принимается."
-            },
-            {
-              "speaker": "alexey",
-              "emotion": "worried",
-              "scene": "meeting",
-              "caption": "Решение нужно сегодня. Ошибка изменит план команды на квартал."
-            }
-          ]
-        },
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "determined",
-          "text": "Это дело про «Go и конкурентность». Не проходи уроки отдельно: каждый найденный факт станет уликой в общем расследовании."
-        }
+        {"kind": "comic", "panels": [
+          {"caption": "Отчёт напечатал «смена закрыта, 214 рейсов». В файле оказалось 137 строк, ещё 77 дописались через две секунды.", "scene": "dispatch"},
+          {"speaker": "artem", "emotion": "worried", "caption": "Я запустил разбор источников параллельно, и стало быстрее. Только итог теперь печатается раньше конца работы.", "scene": "dispatch"},
+          {"speaker": "gleb", "emotion": "neutral", "caption": "То есть цифра в отчёте и файл рядом с ним — про разные смены.", "scene": "dispatch"}
+        ]},
+        {"kind": "line", "speaker": "alexey", "emotion": "determined", "text": "Быстрее и неправильно — это не быстрее. Разберитесь, кто кого должен дожидаться."},
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Начну с одной горутины и одного результата. Пока не пойму этого, остальное — угадывание."}
       ]
     },
     {
-      "id": "go-core-concurrency-brief",
-      "title": "Первая версия",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "GCC-003"
-      },
+      "id": "gcc-a1",
+      "title": "Пауза вместо ожидания",
+      "trigger": {"on": "beforeMission", "missionId": "GCC-004"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "happy",
-          "text": "Начинаем с самого простого запуска. Пауза в конце — костыль, и мы это признаём сразу."
-        },
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "neutral",
-          "text": "Главное — увидеть, что main не ждёт никого. Дальше заменим паузу настоящим ожиданием."
-        }
+        {"kind": "line", "speaker": "artem", "emotion": "surprised", "text": "Я поставил паузу на секунду после запуска. Обычно хватает."},
+        {"kind": "line", "speaker": "gleb", "emotion": "worried", "text": "Обычно. В ночную смену источник отвечает три секунды, и «обычно» перестаёт работать."},
+        {"kind": "line", "speaker": "alexey", "emotion": "determined", "text": "Пауза — это не ожидание, а ставка на чужую скорость. Посмотри, как результат возвращают явно."}
       ]
     },
     {
-      "id": "go-core-concurrency-evidence",
-      "title": "Улика не сходится",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "GCC-006"
-      },
+      "id": "gcc-a2",
+      "title": "Кто закрывает канал",
+      "trigger": {"on": "afterMission", "missionId": "GCC-009"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "alexey",
-          "emotion": "surprised",
-          "text": "Канал убрал паузу совсем. Приём сам ждёт ровно столько, сколько нужно."
-        },
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "happy",
-          "text": "Вот отсюда и растёт корректная остановка. Пауза угадывает время, канал знает его точно."
-        }
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Читатель закрывает канал, когда решил, что данных достаточно. Писатель об этом не знает."},
+        {"kind": "line", "speaker": "gleb", "emotion": "worried", "text": "И при следующей записи всё падает. Причём падает в чужой горутине, где я эту причину не ищу."},
+        {"kind": "choice", "id": "gcc-c1", "prompt": "Кто отвечает за закрытие канала?", "options": [
+          {"id": "writer", "text": "Закрывает тот, кто пишет: он один знает, что данные кончились.", "reply": "Артём: «Правило простое и на одну строчку. Зато падений в чужих горутинах больше нет».", "trust": {"artem": 4, "gleb": 2}, "flags": ["case-go-core-concurrency:writer"]},
+          {"id": "recover", "text": "Оставить как есть и перехватывать панику в записи.", "reply": "Падения прекратились. Теперь запись иногда тихо теряет часть рейсов, и это выглядит как нормальная работа.", "trust": {"artem": -2, "gleb": -1}, "flags": ["case-go-core-concurrency:recover"]}
+        ]}
       ]
     },
     {
-      "id": "go-core-concurrency-choice",
-      "title": "Давление срока",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "GCC-011"
-      },
+      "id": "gcc-a2b",
+      "title": "Тихо потерянные рейсы",
+      "trigger": {"on": "afterMission", "missionId": "GCC-010"},
+      "requiresFlags": ["case-go-core-concurrency:recover"],
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "worried",
-          "text": "Обработчиков стало три. Заводить под каждый свой канал-сигнал?"
-        },
-        {
-          "kind": "choice",
-          "id": "go-core-concurrency-deadline-choice",
-          "prompt": "Как поступить?",
-          "options": [
-            {
-              "id": "transparent",
-              "text": "Заведу счётчик ожидания — он масштабируется на любое число горутин.",
-              "reply": "Добавить четвёртый обработчик теперь ничего не стоит.",
-              "trust": {
-                "alexey": 2,
-                "artem": 1
-              },
-              "flags": [
-                "go-core-concurrency-transparent"
-              ]
-            },
-            {
-              "id": "fast",
-              "text": "Сделаю по каналу на каждого, так понятнее.",
-              "reply": "Работает, но каждый новый обработчик придётся вписывать руками.",
-              "trust": {
-                "artem": -1
-              },
-              "flags": [
-                "go-core-concurrency-rushed"
-              ]
-            }
-          ]
-        }
+        {"kind": "line", "speaker": "gleb", "emotion": "worried", "text": "За неделю в отчёты не попали девятнадцать рейсов. Ни одной ошибки в журнале при этом нет."},
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Мы перехватили сообщение о поломке и решили, что починили поломку."}
       ]
     },
     {
-      "id": "go-core-concurrency-turn",
-      "title": "Решение выдерживает проверку",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "GCC-014"
-      },
+      "id": "gcc-a3",
+      "title": "Дождаться всех",
+      "trigger": {"on": "afterMission", "missionId": "GCC-011"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "happy",
-          "text": "Контекст доходит до каждой горутины, и каждая выходит сама. Убить её извне язык не позволяет."
-        },
-        {
-          "kind": "line",
-          "speaker": "alexey",
-          "emotion": "determined",
-          "text": "Осталось собрать остановку целиком: таймаут, отмена и ожидание всех."
-        }
+        {"kind": "notification", "channel": "ticket", "from": "Артём", "title": "Сколько источников закончило", "text": "Отчёт запускает разбор по числу источников, но печатает итог сразу после запуска последнего. Ожидания завершения нет ни у одного."},
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "Отсюда и «итог раньше данных». Мы запускали работу и считали её сделанной."},
+        {"kind": "line", "speaker": "alexey", "emotion": "determined", "text": "Значит, у отчёта должна быть точка, где он ждёт всех. Одна, явная и видимая в коде."},
+        {"kind": "line", "speaker": "artem", "emotion": "determined", "text": "И желательно рядом с запуском, чтобы забыть о ней было труднее."}
+      ]
+    },
+    {
+      "id": "gcc-a4",
+      "title": "Источник, который молчит",
+      "trigger": {"on": "beforeMission", "missionId": "GCC-013"},
+      "beats": [
+        {"kind": "line", "speaker": "gleb", "emotion": "worried", "text": "Партнёрский источник иногда не отвечает вообще. Отчёт в такие дни не появляется до утра."},
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Он ждёт ответа бесконечно, потому что я нигде не сказал, сколько ждать."},
+        {"kind": "line", "speaker": "alexey", "emotion": "determined", "text": "Скажи. Отчёт без одного источника лучше, чем отсутствие отчёта, — но только если в нём написано, чего в нём нет."}
+      ]
+    },
+    {
+      "id": "gcc-a5",
+      "title": "Счётчик на четверых",
+      "trigger": {"on": "afterMission", "missionId": "GCC-015"},
+      "beats": [
+        {"kind": "line", "speaker": "artem", "emotion": "surprised", "text": "Общий счётчик обработанных рейсов каждый раз показывает разное число. И всегда меньше настоящего."},
+        {"kind": "choice", "id": "gcc-c2", "prompt": "Четыре горутины пишут в один счётчик. Как быть?", "options": [
+          {"id": "guard", "text": "Защитить счётчик и проверить программу детектором гонок перед выкладкой.", "reply": "Глеб: «Детектор нашёл ещё две гонки, о которых мы не знали. Обе в местах, где всё «работало»».", "trust": {"gleb": 4, "alexey": 3}, "flags": ["case-go-core-concurrency:guard"]},
+          {"id": "hope", "text": "Оставить: расхождение в пару рейсов на итог не влияет.", "reply": "Расхождение остаётся небольшим ровно до дня, когда рейсов станет вдвое больше.", "trust": {"gleb": -3}, "flags": ["case-go-core-concurrency:hope"]}
+        ]},
+        {"kind": "line", "speaker": "alexey", "emotion": "neutral", "text": "Гонка данных не проявляется предсказуемо. Она копит вероятность и выбирает худший день."}
+      ]
+    },
+    {
+      "id": "gcc-a5b",
+      "title": "Худший день",
+      "trigger": {"on": "afterMission", "missionId": "GCC-012"},
+      "requiresFlags": ["case-go-core-concurrency:hope"],
+      "beats": [
+        {"kind": "line", "speaker": "gleb", "emotion": "worried", "text": "В пиковую смену счётчик разошёлся на четыреста рейсов. Отчёт ушёл партнёру раньше, чем это заметили."},
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Мы знали про гонку и посчитали её мелочью. Мелочью она была только при маленькой нагрузке."}
+      ]
+    },
+    {
+      "id": "gcc-a6",
+      "title": "Последние тридцать секунд",
+      "trigger": {"on": "afterMission", "missionId": "GCC-016"},
+      "beats": [
+        {"kind": "comic", "panels": [
+          {"speaker": "artem", "emotion": "happy", "caption": "Отчёт ждёт все источники, не висит на молчащем и считает верно под нагрузкой.", "scene": "dispatch"},
+          {"speaker": "gleb", "emotion": "happy", "caption": "И если данных нет, он говорит об этом, а не печатает красивый ноль.", "scene": "dispatch"}
+        ]},
+        {"kind": "line", "speaker": "alexey", "emotion": "happy", "text": "Параллельность даёт скорость только тогда, когда понятно, кто кого ждёт. Всё остальное — просто более быстрый способ ошибиться."},
+        {"kind": "line", "speaker": "narrator", "text": "Получен предмет: схема параллельного отчёта."}
       ]
     }
   ],
   "endings": [
     {
-      "id": "go-core-concurrency-gold",
-      "title": "Доказательство принято",
-      "summary": "Сервис останавливается корректно: горутины выходят по отмене, данные не теряются.",
-      "minTrust": {
-        "artem": 1,
-        "alexey": 1
-      },
+      "id": "gold",
+      "title": "Быстро и верно",
+      "summary": "У отчёта появилась одна явная точка ожидания, канал закрывает тот, кто в него пишет, молчащий источник больше не держит всю смену, а счётчик проверен детектором гонок. Скорость выросла втрое, и ни один рейс не потерялся.",
+      "minTrust": {"gleb": 6, "artem": 4},
+      "requiresFlags": ["case-go-core-concurrency:writer", "case-go-core-concurrency:guard"],
       "rank": "золото"
     },
     {
-      "id": "go-core-concurrency-silver",
-      "title": "Решение с оговорками",
-      "summary": "Остановка работает, но часть решений об ожидании стоит перепроверить.",
+      "id": "silver",
+      "title": "Дожидается, но не всё",
+      "summary": "Итог больше не печатается раньше данных, таймауты расставлены. Но общий счётчик остался без защиты: пока нагрузка небольшая, расхождение выглядит как случайность.",
+      "minTrust": {"gleb": 2},
       "rank": "серебро"
+    },
+    {
+      "id": "bronze",
+      "title": "Стало быстрее",
+      "summary": "Отчёт считается втрое быстрее и иногда теряет рейсы, о которых никто не узнаёт: паника перехвачена, гонка признана мелочью, а расхождения списываются на диспетчеров.",
+      "rank": "бронза"
     }
   ]
 }

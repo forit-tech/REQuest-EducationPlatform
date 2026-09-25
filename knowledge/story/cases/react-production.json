@@ -1,183 +1,138 @@
 {
   "caseId": "case-react-production",
   "courseId": "react-production",
-  "number": "03",
+  "number": "31",
   "title": "Белый экран после оплаты",
-  "logline": "Редкая ошибка виджета рушит всё дерево сразу после успешного платежа, а повтор создаёт второй заказ.",
-  "setting": "Продуктовая компания «Север»",
-  "cast": [
-    "irina",
-    "gleb",
-    "alexey"
-  ],
+  "logline": "После оплаты интерфейс становится белым. В логах сервера всё хорошо: он свою часть сделал.",
+  "setting": "Диспетчерский интерфейс в работе. Ошибки в нём есть только у тех, кто их видит.",
+  "cast": ["irina", "gleb", "alexey"],
   "acts": [
     {
-      "id": "react-production-start",
-      "title": "Белый экран после оплаты",
-      "trigger": {
-        "on": "caseStart"
-      },
+      "id": "rcp-a0",
+      "title": "Белый экран",
+      "trigger": {"on": "caseStart"},
       "beats": [
-        {
-          "kind": "comic",
-          "panels": [
-            {
-              "speaker": "irina",
-              "emotion": "surprised",
-              "scene": "office",
-              "caption": "Редкая ошибка виджета рушит всё дерево сразу после успешного платежа, а повтор создаёт второй заказ."
-            },
-            {
-              "speaker": "gleb",
-              "emotion": "determined",
-              "scene": "screen",
-              "caption": "Сначала строим цепочку доказательств. Красивый ответ без проверки не принимается."
-            },
-            {
-              "speaker": "alexey",
-              "emotion": "worried",
-              "scene": "meeting",
-              "caption": "Решение нужно сегодня. Ошибка изменит план команды на квартал."
-            }
-          ]
-        },
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "determined",
-          "text": "Это дело про «React в продакшене». Не проходи уроки отдельно: каждый найденный факт станет уликой в общем расследовании."
-        }
+        {"kind": "comic", "panels": [
+          {"caption": "Двадцать шесть обращений за неделю: «после оплаты страница белая». На сервере все запросы успешны.", "scene": "monitor"},
+          {"speaker": "gleb", "emotion": "worried", "caption": "У меня не воспроизводится. Ни разу за два дня.", "scene": "monitor"},
+          {"speaker": "irina", "emotion": "neutral", "caption": "Зато воспроизводится у оператора, который платит с планшета и старым браузером.", "scene": "monitor"}
+        ]},
+        {"kind": "line", "speaker": "alexey", "emotion": "determined", "text": "Значит, ошибка есть, а способа узнать о ней у нас нет. Это и есть первая задача."},
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "Начну с тестов: проверяют ли они то, что делает человек, или то, что делает код."}
       ]
     },
     {
-      "id": "react-production-brief",
-      "title": "Первая версия",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "RCP-001"
-      },
+      "id": "rcp-a1",
+      "title": "Тест на реализацию",
+      "trigger": {"on": "beforeMission", "missionId": "RCP-002"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "irina",
-          "emotion": "happy",
-          "text": "Я уже собрала материалы. Давай сначала договоримся, какой вопрос мы вообще пытаемся решить."
-        },
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "neutral",
-          "text": "Хорошее начало. Зафиксируй принцип — после этого рабочая станция откроет первую улику."
-        }
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "Тесты проверяют, что вызвалась нужная функция и состояние стало равно двойке."},
+        {"kind": "line", "speaker": "irina", "emotion": "surprised", "text": "А то, что оператор видит на экране кнопку «оплатить», не проверяет никто?"},
+        {"kind": "line", "speaker": "alexey", "emotion": "determined", "text": "Проверяй поведение: нашли поле, ввели, нажали, увидели результат. Тест на внутренности ломается при любой перестановке кода и молчит при настоящей поломке."}
       ]
     },
     {
-      "id": "react-production-evidence",
-      "title": "Улика не сходится",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "RCP-003"
-      },
+      "id": "rcp-a2",
+      "title": "Модальное окно без выхода",
+      "trigger": {"on": "afterMission", "missionId": "RCP-005"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "irina",
-          "emotion": "worried",
-          "text": "Проверка изменила число. Значит, первая версия была удобной, но неверной."
-        },
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "happy",
-          "text": "Именно поэтому мы оставляем воспроизводимые шаги. Ошибка, найденная до решения, — полезная улика."
-        }
+        {"kind": "line", "speaker": "irina", "emotion": "worried", "text": "Окно подтверждения оплаты не закрывается с клавиатуры, а голосовой доступ читает его как «диалог»."},
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "Фокус после открытия остаётся на странице позади. Оператор нажимает вслепую."},
+        {"kind": "choice", "id": "rcp-c1", "prompt": "Динамический интерфейс недоступен. Когда чинить?", "options": [
+          {"id": "now", "text": "Сейчас: фокус, роли и закрытие по клавише — часть той же задачи.", "reply": "Ирина: «Половина операторов работает с клавиатуры. Для них это не удобство, а возможность работать».", "trust": {"irina": 4, "alexey": 2}, "flags": ["case-react-production:a11y"]},
+          {"id": "later", "text": "Позже: сначала белый экран, доступность потом.", "reply": "Белый экран чинится. Оператор, который работает с клавиатуры, продолжает нажимать вслепую.", "trust": {"irina": -3}, "flags": ["case-react-production:later"]}
+        ]}
       ]
     },
     {
-      "id": "react-production-choice",
-      "title": "Давление срока",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "RCP-007"
-      },
+      "id": "rcp-a2b",
+      "title": "Нажал вслепую",
+      "trigger": {"on": "afterMission", "missionId": "RCP-006"},
+      "requiresFlags": ["case-react-production:later"],
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "alexey",
-          "emotion": "worried",
-          "text": "Мне нужна рекомендация через двадцать минут. Можно не показывать спорный сегмент?"
-        },
-        {
-          "kind": "choice",
-          "id": "react-production-deadline-choice",
-          "prompt": "Как ты ответишь?",
-          "options": [
-            {
-              "id": "transparent",
-              "text": "Покажу спорный риск и объясню, как он влияет на решение.",
-              "reply": "Руководитель кивает: неприятный риск лучше скрытой ошибки.",
-              "trust": {
-                "alexey": 2,
-                "gleb": 1
-              },
-              "flags": [
-                "react-production-transparent"
-              ]
-            },
-            {
-              "id": "fast",
-              "text": "Уберу спорный риск ради короткого ответа.",
-              "reply": "Наставник ничего не говорит, но просит сохранить эту версию отдельно.",
-              "trust": {
-                "gleb": -1
-              },
-              "flags": [
-                "react-production-rushed"
-              ]
-            }
-          ]
-        }
+        {"kind": "line", "speaker": "irina", "emotion": "worried", "text": "Оператор подтвердил оплату не того заказа: фокус был на странице позади окна."},
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "Мы отложили это как оформление. Оказалось, это была механика."}
       ]
     },
     {
-      "id": "react-production-turn",
-      "title": "Решение выдерживает проверку",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "RCP-010"
-      },
+      "id": "rcp-a3",
+      "title": "Ошибка без границы",
+      "trigger": {"on": "afterMission", "missionId": "RCP-008"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "irina",
-          "emotion": "happy",
-          "text": "Теперь вывод не рассыпается, даже если изменить период и открыть сегменты."
-        },
-        {
-          "kind": "line",
-          "speaker": "alexey",
-          "emotion": "determined",
-          "text": "Хорошо. Доводи доказательства до итоговой рекомендации — я защищу её перед командой."
-        }
+        {"kind": "notification", "channel": "ticket", "from": "Ирина", "title": "Одна ошибка — весь экран", "text": "Ошибка в блоке карты роняет всё приложение целиком: список заказов, оплату и панель оператора."},
+        {"kind": "line", "speaker": "gleb", "emotion": "surprised", "text": "Одна ошибка в одном блоке убирает всю страницу?"},
+        {"kind": "line", "speaker": "alexey", "emotion": "neutral", "text": "Если её никто не поймал — да. Границы ошибок нужны там, где часть интерфейса может отказать, не забирая с собой остальное."},
+        {"kind": "line", "speaker": "irina", "emotion": "determined", "text": "И вместо белого экрана человек должен видеть, что сломалось и что делать дальше."}
+      ]
+    },
+    {
+      "id": "rcp-a4",
+      "title": "Ошибка, о которой мы не знаем",
+      "trigger": {"on": "beforeMission", "missionId": "RCP-011"},
+      "beats": [
+        {"kind": "line", "speaker": "irina", "emotion": "worried", "text": "О двадцати шести белых экранах мы узнали из обращений. Само приложение не сообщило ни об одном."},
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "Ошибки остаются в браузере оператора. Дальше они никуда не едут."},
+        {"kind": "line", "speaker": "alexey", "emotion": "determined", "text": "Значит, интерфейс должен рассказывать о себе так же, как сервис: что сломалось, у кого и в какой версии."}
+      ]
+    },
+    {
+      "id": "rcp-a5",
+      "title": "Версия, которой нет",
+      "trigger": {"on": "afterMission", "missionId": "RCP-012"},
+      "beats": [
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "Половина операторов работает на версии двухнедельной давности: страница у них не перезагружалась."},
+        {"kind": "choice", "id": "rcp-c2", "prompt": "Как доставлять новую версию?", "options": [
+          {"id": "versioned", "text": "Сообщать приложению о новой версии и предлагать обновиться, а старую поддерживать до конца смены.", "reply": "Алексей: «Теперь мы знаем, кто на какой версии, и можем чинить не вслепую».", "trust": {"alexey": 4, "gleb": 3}, "flags": ["case-react-production:versioned"]},
+          {"id": "hope", "text": "Никак: рано или поздно все перезагрузят страницу.", "reply": "Кто-то перезагружает через день, кто-то через две недели. Ошибка «не воспроизводится» становится обычным ответом.", "trust": {"alexey": -2}, "flags": ["case-react-production:hope"]}
+        ]},
+        {"kind": "line", "speaker": "irina", "emotion": "neutral", "text": "И обновление посреди оплаты — это тоже потерянный заказ. Момент имеет значение."}
+      ]
+    },
+    {
+      "id": "rcp-a5b",
+      "title": "Не воспроизводится",
+      "trigger": {"on": "afterMission", "missionId": "RCP-013"},
+      "requiresFlags": ["case-react-production:hope"],
+      "beats": [
+        {"kind": "line", "speaker": "gleb", "emotion": "worried", "text": "Ошибку из обращения не удалось повторить. У оператора версия от прошлого месяца."},
+        {"kind": "line", "speaker": "irina", "emotion": "neutral", "text": "Мы чиним то, что видим у себя. Люди работают в другом приложении, просто похожем на наше."}
+      ]
+    },
+    {
+      "id": "rcp-a6",
+      "title": "Ошибку видно раньше клиента",
+      "trigger": {"on": "afterMission", "missionId": "RCP-013"},
+      "beats": [
+        {"kind": "comic", "panels": [
+          {"speaker": "gleb", "emotion": "happy", "caption": "Тесты проверяют поведение, ошибка не роняет весь экран, отчёты приходят с версией и браузером.", "scene": "monitor"},
+          {"speaker": "irina", "emotion": "happy", "caption": "И окно оплаты наконец закрывается с клавиатуры.", "scene": "monitor"}
+        ]},
+        {"kind": "line", "speaker": "alexey", "emotion": "happy", "text": "Интерфейс в продакшене — это не то, что открылось у разработчика. Это то, что работает у человека, которого мы никогда не увидим."},
+        {"kind": "line", "speaker": "narrator", "text": "Получен предмет: отчёт об ошибках интерфейса."}
       ]
     }
   ],
   "endings": [
     {
-      "id": "react-production-gold",
-      "title": "Доказательство принято",
-      "summary": "Команда получила воспроизводимый вывод и безопасный следующий шаг.",
-      "minTrust": {
-        "gleb": 1,
-        "alexey": 1
-      },
+      "id": "gold",
+      "title": "Видно у всех",
+      "summary": "Тесты проверяют поведение, отказ одного блока не роняет остальные, ошибки приезжают с версией и браузером, а обновление больше не застаёт оператора посреди оплаты. Клавиатура и голосовой доступ работают со всеми окнами.",
+      "minTrust": {"irina": 4, "alexey": 4},
+      "requiresFlags": ["case-react-production:a11y", "case-react-production:versioned"],
       "rank": "золото"
     },
     {
-      "id": "react-production-silver",
-      "title": "Решение с оговорками",
-      "summary": "Вывод принят, но часть рисков придётся перепроверить после запуска.",
+      "id": "silver",
+      "title": "Белый экран победили",
+      "summary": "Границы ошибок расставлены, отчёты приходят, тесты стали проверять поведение. Но версия у операторов по-прежнему своя у каждого: часть обращений так и остаётся с пометкой «не воспроизводится».",
+      "minTrust": {"alexey": 2},
       "rank": "серебро"
+    },
+    {
+      "id": "bronze",
+      "title": "У меня работает",
+      "summary": "Приложение падает целиком, о падениях сообщают операторы, версия у каждого своя, а окно оплаты по-прежнему нельзя закрыть с клавиатуры. Ответ «не воспроизводится» стал рабочей формулировкой.",
+      "rank": "бронза"
     }
   ]
 }

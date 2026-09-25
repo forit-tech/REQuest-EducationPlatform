@@ -1,183 +1,138 @@
 {
   "caseId": "case-go-production",
   "courseId": "go-production",
-  "number": "03",
-  "title": "Последние тридцать секунд",
-  "logline": "Релиз откатили через сорок минут после выкладки, хотя все тесты в сборке были зелёными.",
-  "setting": "Продуктовая компания «Север»",
-  "cast": [
-    "gleb",
-    "artem",
-    "alexey"
-  ],
+  "number": "28",
+  "title": "Зелёные тесты и упавший релиз",
+  "logline": "Все тесты прошли, релиз выкатился, оплата встала на двадцать минут. Тесты не соврали — они просто ничего не проверяли.",
+  "setting": "Сервис оплаты рейсов под настоящей нагрузкой. Первый релиз, который дошёл до клиентов быстрее, чем до мониторинга.",
+  "cast": ["gleb", "artem", "alexey"],
   "acts": [
     {
-      "id": "go-production-start",
-      "title": "Последние тридцать секунд",
-      "trigger": {
-        "on": "caseStart"
-      },
+      "id": "gpr-a0",
+      "title": "Всё зелёное",
+      "trigger": {"on": "caseStart"},
       "beats": [
-        {
-          "kind": "comic",
-          "panels": [
-            {
-              "speaker": "gleb",
-              "emotion": "surprised",
-              "scene": "office",
-              "caption": "Во время выкладки процесс завершился раньше активных запросов и потерял подтверждения очереди."
-            },
-            {
-              "speaker": "artem",
-              "emotion": "determined",
-              "scene": "screen",
-              "caption": "Сначала строим цепочку доказательств. Красивый ответ без проверки не принимается."
-            },
-            {
-              "speaker": "alexey",
-              "emotion": "worried",
-              "scene": "meeting",
-              "caption": "Решение нужно сегодня. Ошибка изменит план команды на квартал."
-            }
-          ]
-        },
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "determined",
-          "text": "Это дело про «Go-сервис в продакшене». Не проходи уроки отдельно: каждый найденный факт станет уликой в общем расследовании."
-        }
+        {"kind": "comic", "panels": [
+          {"caption": "Релиз выкатился в 14:02. В 14:05 оплата перестала проходить. В 14:22 её вернули откатом.", "scene": "monitor"},
+          {"speaker": "artem", "emotion": "worried", "caption": "Тесты зелёные, сборка зелёная. Я не понимаю, что именно сломалось.", "scene": "monitor"},
+          {"speaker": "gleb", "emotion": "neutral", "caption": "Двадцать минут без оплаты — это триста непроведённых рейсов. Понимать придётся.", "scene": "monitor"}
+        ]},
+        {"kind": "line", "speaker": "alexey", "emotion": "determined", "text": "Начнём с тестов. Если они зелёные при сломанном сервисе, вопрос не к сервису."},
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Проверю, что вообще утверждает каждый из них."}
       ]
     },
     {
-      "id": "go-production-brief",
-      "title": "Первая версия",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "GPR-003"
-      },
+      "id": "gpr-a1",
+      "title": "Тест, который всегда зелёный",
+      "trigger": {"on": "beforeMission", "missionId": "GPR-002"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "alexey",
-          "emotion": "happy",
-          "text": "Тест — обычная функция по соглашению об именах. Библиотеку подключать не нужно."
-        },
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "neutral",
-          "text": "Главное — чтобы он умел падать. Тест без утверждения защищает только от спокойного сна."
-        }
+        {"kind": "line", "speaker": "artem", "emotion": "surprised", "text": "Тест вызывает функцию, получает результат и не сравнивает его ни с чем."},
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "Такой тест проверяет ровно одно: что программа не упала. О правильности он не говорит."},
+        {"kind": "line", "speaker": "alexey", "emotion": "determined", "text": "Напиши один тест, который умеет краснеть. Дальше по образцу."}
       ]
     },
     {
-      "id": "go-production-evidence",
-      "title": "Улика не сходится",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "GPR-007"
-      },
+      "id": "gpr-a2",
+      "title": "Случай, о котором не подумали",
+      "trigger": {"on": "afterMission", "missionId": "GPR-005"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "surprised",
-          "text": "Тест на счётчик падал раз в сто запусков. Детектор гонок нашёл причину с первого раза."
-        },
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "happy",
-          "text": "Он ищет сам факт одновременного доступа, а не ждёт неверного результата. Поэтому и находит."
-        }
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Разбор суммы проверен на трёх примерах. Все три я придумал сам."},
+        {"kind": "line", "speaker": "gleb", "emotion": "worried", "text": "И все три — те, о которых ты уже подумал. Ломается всегда четвёртый."},
+        {"kind": "choice", "id": "gpr-c1", "prompt": "Как проверять разбор входных данных?", "options": [
+          {"id": "table", "text": "Таблица случаев плюс фаззинг: пусть входы придумывает не автор.", "reply": "Артём: «Фаззер за минуту нашёл строку, на которой разбор паникует. Такую я бы не придумал никогда».", "trust": {"artem": 4, "gleb": 2}, "flags": ["case-go-production:table"]},
+          {"id": "three", "text": "Оставить три примера: они покрывают основные случаи.", "reply": "Три примера продолжают проходить. Четвёртый случай приходит из клиентского приложения через неделю.", "trust": {"artem": -2}, "flags": ["case-go-production:three"]}
+        ]}
       ]
     },
     {
-      "id": "go-production-choice",
-      "title": "Давление срока",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "GPR-014"
-      },
+      "id": "gpr-a2b",
+      "title": "Четвёртый случай",
+      "trigger": {"on": "afterMission", "missionId": "GPR-006"},
+      "requiresFlags": ["case-go-production:three"],
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "worried",
-          "text": "Выкладка через минуту. Просто закрыть сервер и перезапустить?"
-        },
-        {
-          "kind": "choice",
-          "id": "go-production-deadline-choice",
-          "prompt": "Как поступить?",
-          "options": [
-            {
-              "id": "transparent",
-              "text": "Дождусь завершения текущих запросов через Shutdown.",
-              "reply": "Клиенты получат свои ответы, а не обрыв соединения.",
-              "trust": {
-                "alexey": 2,
-                "artem": 1
-              },
-              "flags": [
-                "go-production-transparent"
-              ]
-            },
-            {
-              "id": "fast",
-              "text": "Закрою сервер сразу, выкладка не ждёт.",
-              "reply": "Порт освободится быстрее, но часть клиентов получит ошибку.",
-              "trust": {
-                "artem": -1
-              },
-              "flags": [
-                "go-production-rushed"
-              ]
-            }
-          ]
-        }
+        {"kind": "line", "speaker": "gleb", "emotion": "worried", "text": "Приложение прислало сумму с двумя точками. Сервис упал на разборе и не поднялся сам."},
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Я проверял то, что придумал. Клиенты придумывают лучше."}
       ]
     },
     {
-      "id": "go-production-turn",
-      "title": "Решение выдерживает проверку",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "GPR-015"
-      },
+      "id": "gpr-a3",
+      "title": "Где на самом деле время",
+      "trigger": {"on": "afterMission", "missionId": "GPR-009"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "alexey",
-          "emotion": "happy",
-          "text": "Разница между Close и Shutdown — это оборванные запросы у реальных клиентов."
-        },
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "determined",
-          "text": "Собираем всё вместе: готовность, лог и остановка. После этого выкладка перестанет быть событием."
-        }
+        {"kind": "notification", "channel": "ticket", "from": "Артём", "title": "Профиль под нагрузкой", "text": "80% времени — сериализация ответа в JSON. Расчёт скидки, который мы оптимизировали две недели, занимает 1,5%."},
+        {"kind": "line", "speaker": "gleb", "emotion": "surprised", "text": "Две недели ушли на полтора процента."},
+        {"kind": "line", "speaker": "alexey", "emotion": "neutral", "text": "Так бывает всегда, когда чинят по ощущению. Профиль стоит запускать до оптимизации, а не после неё."},
+        {"kind": "line", "speaker": "artem", "emotion": "determined", "text": "Значит, сначала бенчмарк, потом изменение, потом снова бенчмарк."}
+      ]
+    },
+    {
+      "id": "gpr-a4",
+      "title": "Что писать в журнал",
+      "trigger": {"on": "beforeMission", "missionId": "GPR-011"},
+      "beats": [
+        {"kind": "line", "speaker": "gleb", "emotion": "worried", "text": "В журнале строка «ошибка оплаты». Без номера рейса, без клиента, без причины."},
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Я писал её для себя и по памяти помнил контекст."},
+        {"kind": "line", "speaker": "alexey", "emotion": "determined", "text": "Журнал читает дежурный в три часа ночи, и он ничего не помнит. Пиши событие полями, а не фразой."}
+      ]
+    },
+    {
+      "id": "gpr-a5",
+      "title": "Остановка на полуслове",
+      "trigger": {"on": "afterMission", "missionId": "GPR-014"},
+      "beats": [
+        {"kind": "line", "speaker": "artem", "emotion": "surprised", "text": "При выкладке сервис снимается сразу. Запросы, которые он в этот момент обрабатывал, обрываются."},
+        {"kind": "choice", "id": "gpr-c2", "prompt": "Как выкатывать следующую версию?", "options": [
+          {"id": "drain", "text": "Перестать принимать новые запросы, дождаться текущих и только потом останавливаться.", "reply": "Глеб: «Выкладка стала на двадцать секунд дольше и перестала стоить нам оборванных оплат».", "trust": {"gleb": 4, "alexey": 3}, "flags": ["case-go-production:drain"]},
+          {"id": "fast", "text": "Снимать сразу: клиенты повторят запрос, у нас же есть ключ операции.", "reply": "Повторят те, кто заметил. Остальные увидят ошибку и уйдут искать другой способ оплатить.", "trust": {"gleb": -2}, "flags": ["case-go-production:fast"]}
+        ]},
+        {"kind": "line", "speaker": "alexey", "emotion": "neutral", "text": "И проверка готовности должна означать «сервис отвечает и укладывается в срок», а не «процесс запущен»."}
+      ]
+    },
+    {
+      "id": "gpr-a5b",
+      "title": "Оборванные на выкладке",
+      "trigger": {"on": "afterMission", "missionId": "GPR-015"},
+      "requiresFlags": ["case-go-production:fast"],
+      "beats": [
+        {"kind": "line", "speaker": "gleb", "emotion": "worried", "text": "На вечерней выкладке оборвалось сорок оплат. Двенадцать клиентов не вернулись."},
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Ключ операции спасает того, кто повторит. Мы предположили, что повторят все."}
+      ]
+    },
+    {
+      "id": "gpr-a6",
+      "title": "Выкладка без потерь",
+      "trigger": {"on": "afterMission", "missionId": "GPR-016"},
+      "beats": [
+        {"kind": "comic", "panels": [
+          {"speaker": "artem", "emotion": "happy", "caption": "Тесты умеют краснеть, фаззер ищет входы, профиль показывает правду, журнал отвечает на вопросы.", "scene": "monitor"},
+          {"speaker": "gleb", "emotion": "happy", "caption": "И выкладка больше не обрывает оплату на полуслове.", "scene": "monitor"}
+        ]},
+        {"kind": "line", "speaker": "alexey", "emotion": "happy", "text": "Готовность к продакшену — это не «работает у меня». Это способность объяснить, почему работает, и заметить, когда перестало."},
+        {"kind": "line", "speaker": "narrator", "text": "Получен предмет: чек-лист выкладки."}
       ]
     }
   ],
   "endings": [
     {
-      "id": "go-production-gold",
-      "title": "Доказательство принято",
-      "summary": "Выкладка проходит без единого оборванного запроса.",
-      "minTrust": {
-        "artem": 1,
-        "alexey": 1
-      },
+      "id": "gold",
+      "title": "Релиз, который видно",
+      "summary": "Тесты научились краснеть, фаззер находит входы раньше клиентов, профиль показал настоящее узкое место, журнал отвечает на вопросы дежурного, а выкладка дожидается текущих запросов. Следующий релиз прошёл незаметно для оплаты — впервые.",
+      "minTrust": {"gleb": 6, "artem": 4},
+      "requiresFlags": ["case-go-production:table", "case-go-production:drain"],
       "rank": "золото"
     },
     {
-      "id": "go-production-silver",
-      "title": "Решение с оговорками",
-      "summary": "Сервис выкладывается, но порядок остановки стоит перепроверить.",
+      "id": "silver",
+      "title": "Измеряем, но теряем",
+      "summary": "Тесты стали настоящими, профиль и журнал появились. Но выкладка по-прежнему снимает сервис на полуслове: каждая новая версия стоит нескольких оборванных оплат, и это считается нормой.",
+      "minTrust": {"gleb": 2},
       "rank": "серебро"
+    },
+    {
+      "id": "bronze",
+      "title": "Зелёные тесты",
+      "summary": "Тесты по-прежнему проверяют, что программа не упала, вход придумывает автор, а выкладка обрывает оплату. О каждом сломанном релизе сервис узнаёт от клиентов и всегда с опозданием.",
+      "rank": "бронза"
     }
   ]
 }

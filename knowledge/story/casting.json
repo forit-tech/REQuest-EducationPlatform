@@ -1,0 +1,30 @@
+{
+  "$comment": "Контракт кастинга сквозной новеллы. Одно и то же дело играется в разных профессиях, и вместо авторского героя выходит тот, кто есть в постоянной команде профессии. Подстановка разрешена только по совпадению рода и сюжетной роли: замена по позиции в массиве однажды выдала мужчине реплику «я сама всё проверила».",
+  "$archetypeComment": "Сюжетная роль героя (поле archetype в cast.json) и роли, которыми её разрешено закрывать. Порядок значим: берётся первая роль, в которой нашёлся кандидат нужного пола. Кандидаты внутри роли перебираются в порядке cast.json, а не в порядке команды профессии, чтобы результат не зависел от того, как записан состав.",
+  "archetypeFallbacks": {
+    "peer": ["peer", "engineer", "research"],
+    "mentor": ["mentor", "lead", "engineer"],
+    "product": ["product", "lead", "research"],
+    "lead": ["lead", "mentor", "product"],
+    "engineer": ["engineer", "operations", "peer"],
+    "operations": ["operations", "engineer", "security"],
+    "security": ["security", "operations", "engineer"],
+    "research": ["research", "product", "peer"]
+  },
+  "$genderComment": "Пол должен совпадать точно. Значения neutral и отсутствующее совместимыми не считаются: рассказчик не выходит на сцену вместо героя, а герой без указанного пола — это незаполненная карточка, а не универсальный дублёр.",
+  "castableGenders": ["male", "female"],
+  "$minCastComment": "Сколько персонажей должно быть доступно профессии. Пока в команде трое, женскую роль в мужской команде закрыть некем, и аудит честно падает вместо тихой подмены. Порог снимается только ростом состава.",
+  "minCastPerProfession": 30,
+  "$supportComment": "Персонаж поддержки главы: к кому герой может обратиться за помощью. Ключ — профессия, default — все остальные.",
+  "support": {
+    "data-analyst": "irina",
+    "frontend-developer": "irina",
+    "react-developer": "irina",
+    "cybersecurity-specialist": "damir",
+    "pentester": "damir",
+    "soc-analyst": "damir",
+    "data-scientist": "yana",
+    "ai-engineer": "yana",
+    "default": "pavel"
+  }
+}

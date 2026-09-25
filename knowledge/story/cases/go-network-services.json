@@ -1,183 +1,138 @@
 {
   "caseId": "case-go-network-services",
   "courseId": "go-network-services",
-  "number": "02",
+  "number": "27",
   "title": "Таймаут закончился, запись осталась",
-  "logline": "Клиент не дождался ответа и повторил заказ. В базе оказались две записи об одной оплате.",
-  "setting": "Продуктовая компания «Север»",
-  "cast": [
-    "gleb",
-    "artem",
-    "alexey"
-  ],
+  "logline": "Клиент не дождался ответа и повторил оплату. Денег списано дважды, чек выдан один.",
+  "setting": "Сервис оплаты рейсов. Первый месяц в работе, первая же нестабильная связь.",
+  "cast": ["gleb", "artem", "alexey"],
   "acts": [
     {
-      "id": "go-network-services-start",
-      "title": "Таймаут закончился, запись осталась",
-      "trigger": {
-        "on": "caseStart"
-      },
+      "id": "gns-a0",
+      "title": "Оплата дважды",
+      "trigger": {"on": "caseStart"},
       "beats": [
-        {
-          "kind": "comic",
-          "panels": [
-            {
-              "speaker": "gleb",
-              "emotion": "surprised",
-              "scene": "office",
-              "caption": "Клиент получил ошибку по таймауту, но операция позже записалась в базу повторно."
-            },
-            {
-              "speaker": "artem",
-              "emotion": "determined",
-              "scene": "screen",
-              "caption": "Сначала строим цепочку доказательств. Красивый ответ без проверки не принимается."
-            },
-            {
-              "speaker": "alexey",
-              "emotion": "worried",
-              "scene": "meeting",
-              "caption": "Решение нужно сегодня. Ошибка изменит план команды на квартал."
-            }
-          ]
-        },
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "determined",
-          "text": "Это дело про «Сетевые сервисы на Go». Не проходи уроки отдельно: каждый найденный факт станет уликой в общем расследовании."
-        }
+        {"kind": "comic", "panels": [
+          {"caption": "За сутки одиннадцать двойных списаний. Каждое — после того, как клиент не дождался ответа и повторил оплату.", "scene": "queue"},
+          {"speaker": "artem", "emotion": "worried", "caption": "Сервис успевал записать оплату, но не успевал ответить. Клиент видел ошибку.", "scene": "queue"},
+          {"speaker": "gleb", "emotion": "neutral", "caption": "И повторял. С точки зрения сервиса это была вторая честная оплата.", "scene": "queue"}
+        ]},
+        {"kind": "line", "speaker": "alexey", "emotion": "determined", "text": "Значит, наш ответ и наша запись живут отдельно друг от друга. Это и нужно исправить."},
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Начну с обработчика: что он обещает вызывающему и в каком порядке это делает."}
       ]
     },
     {
-      "id": "go-network-services-brief",
-      "title": "Первая версия",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "GNS-003"
-      },
+      "id": "gns-a1",
+      "title": "Статус после тела",
+      "trigger": {"on": "beforeMission", "missionId": "GNS-005"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "happy",
-          "text": "Начинаем с самого маленького сервиса: один маршрут и запуск. Дальше нарастим."
-        },
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "neutral",
-          "text": "Обработчик — обычная функция. Никакой магии здесь нет, и это хорошая новость."
-        }
+        {"kind": "line", "speaker": "artem", "emotion": "surprised", "text": "Я записываю тело ответа, а потом ставлю код ошибки. Код не меняется."},
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "Потому что заголовки уходят с первым же байтом тела. После этого статус менять уже нечему."},
+        {"kind": "line", "speaker": "alexey", "emotion": "determined", "text": "Порядок здесь не стилистика, а часть протокола. Сначала решение, потом данные."}
       ]
     },
     {
-      "id": "go-network-services-evidence",
-      "title": "Улика не сходится",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "GNS-007"
-      },
+      "id": "gns-a2",
+      "title": "Сервер без таймаутов",
+      "trigger": {"on": "afterMission", "missionId": "GNS-007"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "alexey",
-          "emotion": "surprised",
-          "text": "Сервис без таймаутов держит соединение сколько угодно. Один медленный клиент — и пул кончился."
-        },
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "determined",
-          "text": "Значит, запуск одной строкой годится только для примера. Дальше — явный сервер с ограничениями."
-        }
+        {"kind": "line", "speaker": "gleb", "emotion": "worried", "text": "Двести соединений висят по сорок минут. Клиентов за ними нет — есть оборванная связь."},
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "У сервера не выставлено ни одного таймаута. По умолчанию он готов ждать вечно."},
+        {"kind": "choice", "id": "gns-c1", "prompt": "Что делать с зависшими соединениями?", "options": [
+          {"id": "timeouts", "text": "Выставить таймауты чтения, записи и простоя и записать их в настройку сервиса.", "reply": "Глеб: «Теперь оборванная связь стоит нам пяти секунд, а не сорока минут и пула соединений».", "trust": {"gleb": 4, "artem": 2}, "flags": ["case-go-network-services:timeouts"]},
+          {"id": "restart", "text": "Перезапускать сервис по ночам: соединения освобождаются.", "reply": "Каждую ночь сервис перезапускается и к утру снова набирает висящие соединения.", "trust": {"gleb": -2}, "flags": ["case-go-network-services:restart"]}
+        ]}
       ]
     },
     {
-      "id": "go-network-services-choice",
-      "title": "Давление срока",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "GNS-014"
-      },
+      "id": "gns-a2b",
+      "title": "Ночной перезапуск",
+      "trigger": {"on": "afterMission", "missionId": "GNS-008"},
+      "requiresFlags": ["case-go-network-services:restart"],
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "worried",
-          "text": "Списание и зачисление идут двумя запросами. Пока хватит и так?"
-        },
-        {
-          "kind": "choice",
-          "id": "go-network-services-deadline-choice",
-          "prompt": "Как поступить?",
-          "options": [
-            {
-              "id": "transparent",
-              "text": "Оберну оба изменения в транзакцию с откатом.",
-              "reply": "Либо пройдут оба изменения, либо ни одного.",
-              "trust": {
-                "alexey": 2,
-                "artem": 1
-              },
-              "flags": [
-                "go-network-services-transparent"
-              ]
-            },
-            {
-              "id": "fast",
-              "text": "Оставлю два запроса подряд, так проще.",
-              "reply": "Сбой между ними оставит деньги списанными и не зачисленными.",
-              "trust": {
-                "artem": -1
-              },
-              "flags": [
-                "go-network-services-rushed"
-              ]
-            }
-          ]
-        }
+        {"kind": "line", "speaker": "gleb", "emotion": "worried", "text": "Перезапуск пришёлся на конец смены. Три оплаты оборвались посередине."},
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Мы лечим симптом расписанием. Расписание не знает, что происходит в этот момент с деньгами."}
       ]
     },
     {
-      "id": "go-network-services-turn",
-      "title": "Решение выдерживает проверку",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "GNS-015"
-      },
+      "id": "gns-a3",
+      "title": "Контекст, который никто не слушает",
+      "trigger": {"on": "afterMission", "missionId": "GNS-011"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "alexey",
-          "emotion": "happy",
-          "text": "Ключ идемпотентности и сама операция должны лечь в одну транзакцию. Тогда повтор не создаст вторую запись."
-        },
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "determined",
-          "text": "Осталось собрать это в обработчике — и повторный запрос перестанет быть проблемой."
-        }
+        {"kind": "notification", "channel": "ticket", "from": "Артём", "title": "Запрос ушёл, работа осталась", "text": "Клиент отменил запрос через две секунды. Обработчик продолжал ходить в базу ещё девять секунд и записал результат."},
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "То есть отменённые запросы всё равно оплачиваются. Это худший вид «почти работает»."},
+        {"kind": "line", "speaker": "alexey", "emotion": "determined", "text": "Контекст запроса нужно передавать дальше, а не оставлять на входе. Тогда отмена дойдёт до базы."},
+        {"kind": "line", "speaker": "artem", "emotion": "determined", "text": "И фоновую задачу с этим контекстом запускать нельзя: она умрёт вместе с запросом."}
+      ]
+    },
+    {
+      "id": "gns-a4",
+      "title": "Пул на десять соединений",
+      "trigger": {"on": "beforeMission", "missionId": "GNS-012"},
+      "beats": [
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "В пиковый час запросы ждут соединение с базой по восемь секунд. Самих запросов при этом двести."},
+        {"kind": "line", "speaker": "gleb", "emotion": "worried", "text": "А в пуле десять соединений, и никто ни разу не задал вопрос, почему именно десять."},
+        {"kind": "line", "speaker": "alexey", "emotion": "determined", "text": "Задайте. И заодно посмотрите, закрываются ли строки после запроса: незакрытая выборка держит соединение так же надёжно, как работа."}
+      ]
+    },
+    {
+      "id": "gns-a5",
+      "title": "Ровно один раз",
+      "trigger": {"on": "afterMission", "missionId": "GNS-014"},
+      "beats": [
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Запись оплаты теперь идёт в транзакции: либо всё, либо ничего."},
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "Осталось главное: как отличить повтор от второй оплаты."},
+        {"kind": "choice", "id": "gns-c2", "prompt": "Клиент повторяет запрос. Как ответить?", "options": [
+          {"id": "idempotent", "text": "Принимать ключ операции от клиента и возвращать по нему результат первой попытки.", "reply": "Алексей: «Повтор перестал быть новой оплатой. Клиент может спрашивать хоть десять раз».", "trust": {"alexey": 4, "artem": 3}, "flags": ["case-go-network-services:idempotent"]},
+          {"id": "dedup", "text": "Ловить дубли по сумме и времени: две одинаковые оплаты подряд — это повтор.", "reply": "Дубли ловятся. Вместе с ними ловятся и честные повторные оплаты одного и того же рейса.", "trust": {"alexey": -2, "gleb": -1}, "flags": ["case-go-network-services:dedup"]}
+        ]}
+      ]
+    },
+    {
+      "id": "gns-a5b",
+      "title": "Отклонили настоящую оплату",
+      "trigger": {"on": "afterMission", "missionId": "GNS-015"},
+      "requiresFlags": ["case-go-network-services:dedup"],
+      "beats": [
+        {"kind": "line", "speaker": "gleb", "emotion": "worried", "text": "Клиент оплатил два одинаковых рейса подряд. Вторую оплату мы отклонили как дубль."},
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Мы угадывали намерение по сумме и времени. Ключ операции не нужно угадывать."}
+      ]
+    },
+    {
+      "id": "gns-a6",
+      "title": "Оплата ровно один раз",
+      "trigger": {"on": "afterMission", "missionId": "GNS-016"},
+      "beats": [
+        {"kind": "comic", "panels": [
+          {"speaker": "artem", "emotion": "happy", "caption": "Таймауты выставлены, контекст доходит до базы, запись неделима, повтор узнаётся по ключу.", "scene": "queue"},
+          {"speaker": "gleb", "emotion": "happy", "caption": "И ни одного двойного списания за две недели.", "scene": "queue"}
+        ]},
+        {"kind": "line", "speaker": "alexey", "emotion": "happy", "text": "Сеть не бывает надёжной. Надёжным бывает сервис, который это учитывает."},
+        {"kind": "line", "speaker": "narrator", "text": "Получен предмет: контракт оплаты."}
       ]
     }
   ],
   "endings": [
     {
-      "id": "go-network-services-gold",
-      "title": "Доказательство принято",
-      "summary": "Оплата проходит ровно один раз даже при повторе запроса.",
-      "minTrust": {
-        "artem": 1,
-        "alexey": 1
-      },
+      "id": "gold",
+      "title": "Списано один раз",
+      "summary": "Таймауты сервера выставлены и записаны в настройку, отмена запроса доходит до базы, запись оплаты неделима, а повтор узнаётся по ключу операции. Двойные списания прекратились, и поддержка перестала возвращать деньги вручную.",
+      "minTrust": {"gleb": 4, "alexey": 4},
+      "requiresFlags": ["case-go-network-services:timeouts", "case-go-network-services:idempotent"],
       "rank": "золото"
     },
     {
-      "id": "go-network-services-silver",
-      "title": "Решение с оговорками",
-      "summary": "Сервис работает, но защиту от повторов стоит перепроверить под нагрузкой.",
+      "id": "silver",
+      "title": "Держит нагрузку",
+      "summary": "Соединения больше не висят, пул расширен, транзакция закрывает запись целиком. Но повтор сервис по-прежнему отличает по сумме и времени: иногда он отклоняет настоящую оплату и извиняется за это письмом.",
+      "minTrust": {"gleb": 2},
       "rank": "серебро"
+    },
+    {
+      "id": "bronze",
+      "title": "Перезапускаем по ночам",
+      "summary": "Сервис перезапускается по расписанию, соединения освобождаются, двойные списания разбирает поддержка. Каждое утро начинается с вопроса, сколько оплат оборвалось этой ночью.",
+      "rank": "бронза"
     }
   ]
 }

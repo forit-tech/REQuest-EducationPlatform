@@ -1,183 +1,138 @@
 {
   "caseId": "case-python-databases-async",
   "courseId": "python-databases-async",
-  "number": "02",
+  "number": "33",
   "title": "Очередь, которая пережила ответ",
-  "logline": "HTTP-запрос завершился, но отменённая операция продолжила списание в фоне.",
-  "setting": "Продуктовая компания «Север»",
-  "cast": [
-    "mira",
-    "artem",
-    "sonya"
-  ],
+  "logline": "Сервис ответил клиенту за 80 миллисекунд. Уведомление о доставке ушло через сорок минут.",
+  "setting": "Тот же сервис доставки под вечерней нагрузкой. Он быстрый ровно до того места, где начинается ожидание.",
+  "cast": ["mira", "artem", "sonya"],
   "acts": [
     {
-      "id": "python-databases-async-start",
-      "title": "Очередь, которая пережила ответ",
-      "trigger": {
-        "on": "caseStart"
-      },
+      "id": "pdb-a0",
+      "title": "Быстро и потом",
+      "trigger": {"on": "caseStart"},
       "beats": [
-        {
-          "kind": "comic",
-          "panels": [
-            {
-              "speaker": "mira",
-              "emotion": "surprised",
-              "scene": "office",
-              "caption": "HTTP-запрос завершился, но отменённая операция продолжила списание в фоне."
-            },
-            {
-              "speaker": "artem",
-              "emotion": "determined",
-              "scene": "screen",
-              "caption": "Сначала строим цепочку доказательств. Красивый ответ без проверки не принимается."
-            },
-            {
-              "speaker": "sonya",
-              "emotion": "worried",
-              "scene": "meeting",
-              "caption": "Решение нужно сегодня. Ошибка изменит план команды на квартал."
-            }
-          ]
-        },
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "determined",
-          "text": "Это дело про «Асинхронный Python и данные». Не проходи уроки отдельно: каждый найденный факт станет уликой в общем расследовании."
-        }
+        {"kind": "comic", "panels": [
+          {"caption": "Ответ клиенту: 80 миллисекунд. Уведомление о принятом заказе: через 40 минут. Иногда — никогда.", "scene": "queue"},
+          {"speaker": "artem", "emotion": "worried", "caption": "Отправку уведомления я запускаю фоном и не жду. Ответ поэтому и быстрый.", "scene": "queue"},
+          {"speaker": "mira", "emotion": "neutral", "caption": "А потом задача теряется при перезапуске, и клиент не узнаёт, что заказ принят.", "scene": "queue"}
+        ]},
+        {"kind": "line", "speaker": "sonya", "emotion": "determined", "text": "Значит, «фоном» у нас означает «неизвестно когда и неизвестно, случится ли вообще»."},
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Начну с основы: что вообще происходит, пока сервис кого-то ждёт."}
       ]
     },
     {
-      "id": "python-databases-async-brief",
-      "title": "Первая версия",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "PDB-001"
-      },
+      "id": "pdb-a1",
+      "title": "Один блокирующий вызов",
+      "trigger": {"on": "beforeMission", "missionId": "PDB-002"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "mira",
-          "emotion": "happy",
-          "text": "Я уже собрала материалы. Давай сначала договоримся, какой вопрос мы вообще пытаемся решить."
-        },
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "neutral",
-          "text": "Хорошее начало. Зафиксируй принцип — после этого рабочая станция откроет первую улику."
-        }
+        {"kind": "line", "speaker": "mira", "emotion": "surprised", "text": "В обработчике остался обычный синхронный запрос к почтовому сервису. Одна строка."},
+        {"kind": "line", "speaker": "artem", "emotion": "worried", "text": "И на время этого запроса весь процесс перестаёт отвечать всем остальным."},
+        {"kind": "line", "speaker": "sonya", "emotion": "determined", "text": "Один блокирующий вызов останавливает цикл событий целиком. Найди его и посмотри, что происходит с задержкой соседних запросов."}
       ]
     },
     {
-      "id": "python-databases-async-evidence",
-      "title": "Улика не сходится",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "PDB-003"
-      },
+      "id": "pdb-a2",
+      "title": "Задача, которую никто не ждёт",
+      "trigger": {"on": "afterMission", "missionId": "PDB-005"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "mira",
-          "emotion": "worried",
-          "text": "Проверка изменила число. Значит, первая версия была удобной, но неверной."
-        },
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "happy",
-          "text": "Именно поэтому мы оставляем воспроизводимые шаги. Ошибка, найденная до решения, — полезная улика."
-        }
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Задача уведомления создаётся и никуда не сохраняется. Ссылку на неё никто не держит."},
+        {"kind": "line", "speaker": "mira", "emotion": "worried", "text": "Поэтому она иногда исчезает до выполнения, а её ошибка не всплывает нигде."},
+        {"kind": "choice", "id": "pdb-c1", "prompt": "Как запускать фоновую работу?", "options": [
+          {"id": "structured", "text": "Держать задачи в явной группе с общим сроком и разбором ошибок.", "reply": "Соня: «Теперь у каждой задачи есть владелец, срок и место, где видно её падение».", "trust": {"sonya": 4, "artem": 2}, "flags": ["case-python-databases-async:structured"]},
+          {"id": "fire", "text": "Оставить как есть: задача маленькая, почти всегда успевает.", "reply": "Почти всегда — это девяносто восемь процентов. Оставшиеся два процента клиент замечает лучше нас.", "trust": {"sonya": -2}, "flags": ["case-python-databases-async:fire"]}
+        ]}
       ]
     },
     {
-      "id": "python-databases-async-choice",
-      "title": "Давление срока",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "PDB-007"
-      },
+      "id": "pdb-a2b",
+      "title": "Два процента",
+      "trigger": {"on": "afterMission", "missionId": "PDB-006"},
+      "requiresFlags": ["case-python-databases-async:fire"],
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "sonya",
-          "emotion": "worried",
-          "text": "Мне нужна рекомендация через двадцать минут. Можно не показывать спорный сегмент?"
-        },
-        {
-          "kind": "choice",
-          "id": "python-databases-async-deadline-choice",
-          "prompt": "Как ты ответишь?",
-          "options": [
-            {
-              "id": "transparent",
-              "text": "Покажу спорный риск и объясню, как он влияет на решение.",
-              "reply": "Руководитель кивает: неприятный риск лучше скрытой ошибки.",
-              "trust": {
-                "sonya": 2,
-                "artem": 1
-              },
-              "flags": [
-                "python-databases-async-transparent"
-              ]
-            },
-            {
-              "id": "fast",
-              "text": "Уберу спорный риск ради короткого ответа.",
-              "reply": "Наставник ничего не говорит, но просит сохранить эту версию отдельно.",
-              "trust": {
-                "artem": -1
-              },
-              "flags": [
-                "python-databases-async-rushed"
-              ]
-            }
-          ]
-        }
+        {"kind": "line", "speaker": "mira", "emotion": "worried", "text": "За месяц не ушло четыреста двенадцать уведомлений. Ни одной ошибки в журнале."},
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Задача падала молча, потому что её результат никто не забирал."}
       ]
     },
     {
-      "id": "python-databases-async-turn",
-      "title": "Решение выдерживает проверку",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "PDB-010"
-      },
+      "id": "pdb-a3",
+      "title": "Отмена, которая не доходит",
+      "trigger": {"on": "afterMission", "missionId": "PDB-008"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "mira",
-          "emotion": "happy",
-          "text": "Теперь вывод не рассыпается, даже если изменить период и открыть сегменты."
-        },
-        {
-          "kind": "line",
-          "speaker": "sonya",
-          "emotion": "determined",
-          "text": "Хорошо. Доводи доказательства до итоговой рекомендации — я защищу её перед командой."
-        }
+        {"kind": "notification", "channel": "ticket", "from": "Мира", "title": "Клиент ушёл, работа осталась", "text": "Клиент разорвал соединение через секунду. Обработчик продолжал считать маршрут ещё двенадцать секунд и записал результат."},
+        {"kind": "line", "speaker": "artem", "emotion": "surprised", "text": "Отмена приходит в обработчик, но дальше в расчёт маршрута не передаётся."},
+        {"kind": "line", "speaker": "sonya", "emotion": "neutral", "text": "Значит, она останавливает только верхний уровень. Всё, что ниже, продолжает занимать место."},
+        {"kind": "line", "speaker": "mira", "emotion": "determined", "text": "И в пик это те самые соединения, которых не хватает живым клиентам."}
+      ]
+    },
+    {
+      "id": "pdb-a4",
+      "title": "Пул на десять",
+      "trigger": {"on": "beforeMission", "missionId": "PDB-009"},
+      "beats": [
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "В пуле десять соединений. В вечерний пик запросов двести, и они ждут по восемь секунд."},
+        {"kind": "line", "speaker": "mira", "emotion": "worried", "text": "А ещё транзакция открывается в начале обработчика и закрывается в конце, вместе с отправкой почты внутри."},
+        {"kind": "line", "speaker": "sonya", "emotion": "determined", "text": "Тогда соединение занято ровно столько, сколько идёт почта. Границы транзакции должны совпадать с работой над данными, а не с обработчиком."}
+      ]
+    },
+    {
+      "id": "pdb-a5",
+      "title": "Ровно один раз",
+      "trigger": {"on": "afterMission", "missionId": "PDB-012"},
+      "beats": [
+        {"kind": "line", "speaker": "mira", "emotion": "neutral", "text": "Осталось сделать так, чтобы уведомление не терялось при перезапуске."},
+        {"kind": "choice", "id": "pdb-c2", "prompt": "Где хранить фоновые задачи?", "options": [
+          {"id": "queue", "text": "В очереди с подтверждением: задача исчезает только после успешного выполнения.", "reply": "Артём: «Перезапуск больше ничего не теряет. Задача просто ждёт следующего воркера».", "trust": {"artem": 4, "mira": 3}, "flags": ["case-python-databases-async:queue"]},
+          {"id": "memory", "text": "В памяти процесса: очередь — это лишняя система в архитектуре.", "reply": "Пока процесс жив, всё работает. Каждый релиз стоит нам десятка непринятых уведомлений.", "trust": {"artem": -2}, "flags": ["case-python-databases-async:memory"]}
+        ]},
+        {"kind": "line", "speaker": "sonya", "emotion": "neutral", "text": "И задача должна выдерживать повторную обработку: очередь однажды доставит её дважды."}
+      ]
+    },
+    {
+      "id": "pdb-a5b",
+      "title": "Релиз съел уведомления",
+      "trigger": {"on": "afterMission", "missionId": "PDB-013"},
+      "requiresFlags": ["case-python-databases-async:memory"],
+      "beats": [
+        {"kind": "line", "speaker": "mira", "emotion": "worried", "text": "После вечернего релиза не ушли тридцать восемь уведомлений. Восстановить их нечем."},
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Мы держали работу в памяти процесса, а процесс — вещь временная по определению."}
+      ]
+    },
+    {
+      "id": "pdb-a6",
+      "title": "Восемьдесят миллисекунд и не потом",
+      "trigger": {"on": "afterMission", "missionId": "PDB-013"},
+      "beats": [
+        {"kind": "comic", "panels": [
+          {"speaker": "artem", "emotion": "happy", "caption": "Блокирующих вызовов нет, задачи в группе со сроком, отмена доходит до расчёта, очередь переживает релиз.", "scene": "queue"},
+          {"speaker": "mira", "emotion": "happy", "caption": "И уведомление приходит клиенту раньше, чем он успевает открыть переписку с поддержкой.", "scene": "queue"}
+        ]},
+        {"kind": "line", "speaker": "sonya", "emotion": "happy", "text": "Асинхронность не делает работу быстрее. Она делает ожидание дешёвым — но только если за каждым ожиданием кто-то следит."},
+        {"kind": "line", "speaker": "narrator", "text": "Получен предмет: схема фоновых задач."}
       ]
     }
   ],
   "endings": [
     {
-      "id": "python-databases-async-gold",
-      "title": "Доказательство принято",
-      "summary": "Команда получила воспроизводимый вывод и безопасный следующий шаг.",
-      "minTrust": {
-        "artem": 1,
-        "sonya": 1
-      },
+      "id": "gold",
+      "title": "Ничего не теряется",
+      "summary": "Блокирующий вызов убран, фоновые задачи живут в группе со сроком и разбором ошибок, отмена доходит до расчёта, а очередь переживает релиз. Уведомления приходят за секунды, и ни одно не пропало за две недели.",
+      "minTrust": {"sonya": 4, "artem": 4},
+      "requiresFlags": ["case-python-databases-async:structured", "case-python-databases-async:queue"],
       "rank": "золото"
     },
     {
-      "id": "python-databases-async-silver",
-      "title": "Решение с оговорками",
-      "summary": "Вывод принят, но часть рисков придётся перепроверить после запуска.",
+      "id": "silver",
+      "title": "Быстро и почти надёжно",
+      "summary": "Цикл событий больше не встаёт, транзакции держат соединение ровно столько, сколько нужно. Но фоновые задачи по-прежнему живут в памяти процесса: каждый релиз стоит десятка уведомлений, о которых узнают только клиенты.",
+      "minTrust": {"sonya": 2},
       "rank": "серебро"
+    },
+    {
+      "id": "bronze",
+      "title": "Ответ быстрый",
+      "summary": "Клиент получает ответ за восемьдесят миллисекунд и уведомление когда-нибудь. Задачи падают молча, отмена не доходит до расчёта, а в пик соединения занимают те, кто уже ушёл.",
+      "rank": "бронза"
     }
   ]
 }

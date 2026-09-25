@@ -1,183 +1,138 @@
 {
   "caseId": "case-python-service-production",
   "courseId": "python-service-production",
-  "number": "03",
+  "number": "34",
   "title": "Восемь воркеров, восемь ошибок",
-  "logline": "После масштабирования каждый процесс запустил одну и ту же периодическую задачу.",
-  "setting": "Продуктовая компания «Север»",
-  "cast": [
-    "mira",
-    "artem",
-    "sonya"
-  ],
+  "logline": "Сервис доставки падает раз в сутки на одном из восьми процессов. Каждый раз в разное время и без объяснений.",
+  "setting": "Сервис доставки в продакшене. Он работает, пока на него не смотрят внимательно.",
+  "cast": ["mira", "artem", "sonya"],
   "acts": [
     {
-      "id": "python-service-production-start",
-      "title": "Восемь воркеров, восемь ошибок",
-      "trigger": {
-        "on": "caseStart"
-      },
+      "id": "psp-a0",
+      "title": "Один из восьми",
+      "trigger": {"on": "caseStart"},
       "beats": [
-        {
-          "kind": "comic",
-          "panels": [
-            {
-              "speaker": "mira",
-              "emotion": "surprised",
-              "scene": "office",
-              "caption": "После масштабирования каждый процесс запустил одну и ту же периодическую задачу."
-            },
-            {
-              "speaker": "artem",
-              "emotion": "determined",
-              "scene": "screen",
-              "caption": "Сначала строим цепочку доказательств. Красивый ответ без проверки не принимается."
-            },
-            {
-              "speaker": "sonya",
-              "emotion": "worried",
-              "scene": "meeting",
-              "caption": "Решение нужно сегодня. Ошибка изменит план команды на квартал."
-            }
-          ]
-        },
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "determined",
-          "text": "Это дело про «Python-сервис в продакшене». Не проходи уроки отдельно: каждый найденный факт станет уликой в общем расследовании."
-        }
+        {"kind": "comic", "panels": [
+          {"caption": "За неделю восемь падений: разные процессы, разное время суток, один и тот же пустой след в журнале.", "scene": "monitor"},
+          {"speaker": "artem", "emotion": "worried", "caption": "Процесс перезапускается автоматически, и большинство клиентов ничего не замечает.", "scene": "monitor"},
+          {"speaker": "sonya", "emotion": "neutral", "caption": "Большинство. А те, чьи запросы были внутри, замечают всё.", "scene": "monitor"}
+        ]},
+        {"kind": "line", "speaker": "mira", "emotion": "determined", "text": "Значит, у нас есть регулярная поломка, о которой мы знаем только по счётчику перезапусков."},
+        {"kind": "line", "speaker": "sonya", "emotion": "neutral", "text": "Начнём с тестов и контракта: что мы вообще обещали и что из этого проверяем."}
       ]
     },
     {
-      "id": "python-service-production-brief",
-      "title": "Первая версия",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "PSP-001"
-      },
+      "id": "psp-a1",
+      "title": "Контракт на словах",
+      "trigger": {"on": "beforeMission", "missionId": "PSP-002"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "mira",
-          "emotion": "happy",
-          "text": "Я уже собрала материалы. Давай сначала договоримся, какой вопрос мы вообще пытаемся решить."
-        },
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "neutral",
-          "text": "Хорошее начало. Зафиксируй принцип — после этого рабочая станция откроет первую улику."
-        }
+        {"kind": "line", "speaker": "mira", "emotion": "neutral", "text": "Партнёр присылает поле «дата» то строкой, то числом. Мы разбираем оба варианта на всякий случай."},
+        {"kind": "line", "speaker": "artem", "emotion": "surprised", "text": "И никто не знает, какой из них правильный?"},
+        {"kind": "line", "speaker": "sonya", "emotion": "determined", "text": "Именно поэтому контракт пишут и проверяют тестом. Пока он живёт в переписке, каждая сторона понимает его по-своему."}
       ]
     },
     {
-      "id": "python-service-production-evidence",
-      "title": "Улика не сходится",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "PSP-003"
-      },
+      "id": "psp-a2",
+      "title": "Журнал без имени",
+      "trigger": {"on": "afterMission", "missionId": "PSP-005"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "mira",
-          "emotion": "worried",
-          "text": "Проверка изменила число. Значит, первая версия была удобной, но неверной."
-        },
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "happy",
-          "text": "Именно поэтому мы оставляем воспроизводимые шаги. Ошибка, найденная до решения, — полезная улика."
-        }
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "В журнале восьми процессов всё вперемешку. Понять, какой запрос к какому падению относится, невозможно."},
+        {"kind": "line", "speaker": "mira", "emotion": "worried", "text": "Я пробовала сопоставлять по времени. Совпадений слишком много."},
+        {"kind": "choice", "id": "psp-c1", "prompt": "Как связать записи журнала?", "options": [
+          {"id": "trace", "text": "Дать каждому запросу идентификатор и протаскивать его через все записи и вызовы.", "reply": "Мира: «Теперь падение — это одна строка поиска, а не полчаса сопоставления времени».", "trust": {"mira": 4, "sonya": 2}, "flags": ["case-python-service-production:trace"]},
+          {"id": "timestamps", "text": "Улучшить точность времени: до миллисекунд станет понятнее.", "reply": "Записей стало точнее и не понятнее: восемь процессов пишут в одну кучу с миллисекундами.", "trust": {"mira": -2}, "flags": ["case-python-service-production:timestamps"]}
+        ]}
       ]
     },
     {
-      "id": "python-service-production-choice",
-      "title": "Давление срока",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "PSP-007"
-      },
+      "id": "psp-a2b",
+      "title": "Полчаса на сопоставление",
+      "trigger": {"on": "afterMission", "missionId": "PSP-006"},
+      "requiresFlags": ["case-python-service-production:timestamps"],
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "sonya",
-          "emotion": "worried",
-          "text": "Мне нужна рекомендация через двадцать минут. Можно не показывать спорный сегмент?"
-        },
-        {
-          "kind": "choice",
-          "id": "python-service-production-deadline-choice",
-          "prompt": "Как ты ответишь?",
-          "options": [
-            {
-              "id": "transparent",
-              "text": "Покажу спорный риск и объясню, как он влияет на решение.",
-              "reply": "Руководитель кивает: неприятный риск лучше скрытой ошибки.",
-              "trust": {
-                "sonya": 2,
-                "artem": 1
-              },
-              "flags": [
-                "python-service-production-transparent"
-              ]
-            },
-            {
-              "id": "fast",
-              "text": "Уберу спорный риск ради короткого ответа.",
-              "reply": "Наставник ничего не говорит, но просит сохранить эту версию отдельно.",
-              "trust": {
-                "artem": -1
-              },
-              "flags": [
-                "python-service-production-rushed"
-              ]
-            }
-          ]
-        }
+        {"kind": "line", "speaker": "mira", "emotion": "worried", "text": "На разбор ночного падения ушло сорок минут. Из них тридцать пять — на поиск нужных строк."},
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Мы сделали журнал точнее, но не связнее. Связность и точность — разные свойства."}
       ]
     },
     {
-      "id": "python-service-production-turn",
-      "title": "Решение выдерживает проверку",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "PSP-010"
-      },
+      "id": "psp-a3",
+      "title": "Память растёт",
+      "trigger": {"on": "afterMission", "missionId": "PSP-008"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "mira",
-          "emotion": "happy",
-          "text": "Теперь вывод не рассыпается, даже если изменить период и открыть сегменты."
-        },
-        {
-          "kind": "line",
-          "speaker": "sonya",
-          "emotion": "determined",
-          "text": "Хорошо. Доводи доказательства до итоговой рекомендации — я защищу её перед командой."
-        }
+        {"kind": "notification", "channel": "ticket", "from": "Артём", "title": "Профиль воркера", "text": "Процесс стартует с 180 МБ и доходит до 1,4 ГБ за 20 часов. Рост линейный, освобождения нет."},
+        {"kind": "line", "speaker": "mira", "emotion": "surprised", "text": "Кэш маршрутов ключуется адресом целиком, а адреса почти никогда не повторяются."},
+        {"kind": "line", "speaker": "sonya", "emotion": "neutral", "text": "То есть это не кэш, а список всего, что мы когда-либо считали."},
+        {"kind": "line", "speaker": "artem", "emotion": "determined", "text": "Значит, ограничиваем размер и срок жизни. И проверяем это не глазами, а измерением."}
+      ]
+    },
+    {
+      "id": "psp-a4",
+      "title": "Восемь процессов, одна конфигурация",
+      "trigger": {"on": "beforeMission", "missionId": "PSP-011"},
+      "beats": [
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Каждый из восьми процессов держит свой пул на двадцать соединений. База принимает сто."},
+        {"kind": "line", "speaker": "sonya", "emotion": "worried", "text": "Сто шестьдесят против ста. В пик часть процессов просто не получает соединения."},
+        {"kind": "line", "speaker": "mira", "emotion": "determined", "text": "Значит, настройки процесса надо считать от общего лимита, а не задавать по отдельности."}
+      ]
+    },
+    {
+      "id": "psp-a5",
+      "title": "Релиз в пик",
+      "trigger": {"on": "afterMission", "missionId": "PSP-012"},
+      "beats": [
+        {"kind": "line", "speaker": "sonya", "emotion": "neutral", "text": "Выкладка снимает все восемь процессов разом, в том числе в вечерний час."},
+        {"kind": "choice", "id": "psp-c2", "prompt": "Как выкатывать сервис?", "options": [
+          {"id": "rolling", "text": "По одному процессу за раз, с проверкой готовности и ожиданием текущих запросов.", "reply": "Соня: «Выкладка стала дольше на минуту и перестала быть событием для клиентов».", "trust": {"sonya": 4, "mira": 3}, "flags": ["case-python-service-production:rolling"]},
+          {"id": "all", "text": "Все сразу: так проще и версия везде одинаковая.", "reply": "Версия одинаковая, простой общий. В вечерний час это триста запросов, оборванных одновременно.", "trust": {"sonya": -2}, "flags": ["case-python-service-production:all"]}
+        ]},
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "И проверка готовности должна спрашивать сервис, а не процесс: «запустился» и «готов принимать» — разные события."}
+      ]
+    },
+    {
+      "id": "psp-a5b",
+      "title": "Триста оборванных",
+      "trigger": {"on": "afterMission", "missionId": "PSP-013"},
+      "requiresFlags": ["case-python-service-production:all"],
+      "beats": [
+        {"kind": "line", "speaker": "mira", "emotion": "worried", "text": "Вечерняя выкладка оборвала триста запросов. Половина из них — оформление заказа."},
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Мы выбрали простую выкладку и заплатили за неё чужими заказами."}
+      ]
+    },
+    {
+      "id": "psp-a6",
+      "title": "Падение с адресом",
+      "trigger": {"on": "afterMission", "missionId": "PSP-013"},
+      "beats": [
+        {"kind": "comic", "panels": [
+          {"speaker": "mira", "emotion": "happy", "caption": "У каждого запроса свой идентификатор, память под контролем, соединения посчитаны от общего лимита.", "scene": "monitor"},
+          {"speaker": "sonya", "emotion": "happy", "caption": "И последнее падение мы разобрали за четыре минуты вместо сорока.", "scene": "monitor"}
+        ]},
+        {"kind": "line", "speaker": "artem", "emotion": "happy", "text": "Продакшен не требует героизма. Он требует, чтобы про каждое падение можно было задать вопрос и получить ответ."},
+        {"kind": "line", "speaker": "narrator", "text": "Получен предмет: журнал разбора инцидентов."}
       ]
     }
   ],
   "endings": [
     {
-      "id": "python-service-production-gold",
-      "title": "Доказательство принято",
-      "summary": "Команда получила воспроизводимый вывод и безопасный следующий шаг.",
-      "minTrust": {
-        "artem": 1,
-        "sonya": 1
-      },
+      "id": "gold",
+      "title": "Разбор за четыре минуты",
+      "summary": "Контракт с партнёром описан и проверяется тестом, у каждого запроса есть идентификатор, кэш перестал быть списком всего на свете, соединения считаются от общего лимита, а выкладка идёт по одному процессу. Падения не исчезли — они стали объяснимыми.",
+      "minTrust": {"mira": 7, "sonya": 4},
+      "requiresFlags": ["case-python-service-production:trace", "case-python-service-production:rolling"],
       "rank": "золото"
     },
     {
-      "id": "python-service-production-silver",
-      "title": "Решение с оговорками",
-      "summary": "Вывод принят, но часть рисков придётся перепроверить после запуска.",
+      "id": "silver",
+      "title": "Причину нашли",
+      "summary": "Утечка закрыта, соединения посчитаны, журнал стал связным. Но выкладка по-прежнему снимает все процессы разом: каждый релиз в вечерний час стоит нескольких сотен оборванных запросов.",
+      "minTrust": {"mira": 2},
       "rank": "серебро"
+    },
+    {
+      "id": "bronze",
+      "title": "Перезапускается сам",
+      "summary": "Процессы падают раз в сутки и поднимаются автоматически, журнал точен до миллисекунд и по-прежнему несвязен, а выкладка обрывает всё разом. О каждом падении известно ровно одно: оно было.",
+      "rank": "бронза"
     }
   ]
 }

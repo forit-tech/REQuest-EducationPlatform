@@ -1,183 +1,140 @@
 {
   "caseId": "case-javascript-core",
   "courseId": "javascript-core",
-  "number": "63",
-  "title": "Корзина, которая показывает пустоту",
-  "logline": "Корзина отрисовывается пустой, хотя данные приходят: причина в самом языке, а не в интерфейсе.",
-  "setting": "Учебная экспедиция · JavaScript Core",
-  "cast": [
-    "lena",
-    "sonya",
-    "gleb"
-  ],
+  "number": "05",
+  "title": "Кнопка, которая срабатывает дважды",
+  "logline": "Каждый двадцатый заказ приходит дважды. Кнопка одна, нажатие одно, заказа два.",
+  "setting": "Форма оформления заказа. Поддержка возвращает деньги вручную третью неделю.",
+  "cast": ["oleg", "gleb", "irina"],
   "acts": [
     {
-      "id": "javascript-core-start",
-      "title": "Новое дело",
-      "trigger": {
-        "on": "caseStart"
-      },
+      "id": "jsc-a0",
+      "title": "Двойной заказ",
+      "trigger": {"on": "caseStart"},
       "beats": [
-        {
-          "kind": "comic",
-          "panels": [
-            {
-              "speaker": "lena",
-              "emotion": "worried",
-              "scene": "screen",
-              "caption": "Корзина показывает пустой экран, хотя ответ сервера приходит и данные в нём есть."
-            },
-            {
-              "speaker": "gleb",
-              "emotion": "determined",
-              "scene": "office",
-              "caption": "В React лезть рано. Сначала язык: значения, функции, объекты и то, как работает ожидание."
-            },
-            {
-              "speaker": "sonya",
-              "emotion": "neutral",
-              "scene": "meeting",
-              "caption": "Документация React прямо перечисляет, что нужно знать заранее. Начнём с этого списка."
-            }
-          ]
-        },
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "determined",
-          "text": "Цель дела — читать и писать JavaScript без подсказок. Компоненты и хуки будут отдельным делом."
-        }
+        {"kind": "comic", "panels": [
+          {"caption": "Отчёт поддержки: за неделю сорок один повторный заказ. Все — от разных людей, все — с разницей в доли секунды.", "scene": "support-report"},
+          {"speaker": "irina", "emotion": "worried", "caption": "Люди не нажимают дважды. Я смотрела записи сеансов: нажатие одно.", "scene": "support-report"},
+          {"speaker": "oleg", "emotion": "neutral", "caption": "Значит, дважды нажимает не человек, а код.", "scene": "support-report"}
+        ]},
+        {"kind": "line", "speaker": "gleb", "emotion": "determined", "text": "Я могу поставить блокировку кнопки после первого клика. Сегодня же."},
+        {"kind": "line", "speaker": "oleg", "emotion": "worried", "text": "Поставь — и мы перестанем видеть симптом. А заказ всё равно уйдёт дважды, просто из другого места."},
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "Тогда начнём с того, что вообще происходит, когда я пишу одну строчку на JavaScript и жму «сохранить»."}
       ]
     },
     {
-      "id": "javascript-core-brief",
-      "title": "Две буквы разницы",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "JSC-003"
-      },
+      "id": "jsc-a1",
+      "title": "Два равно и три равно",
+      "trigger": {"on": "beforeMission", "missionId": "JSC-002"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "sonya",
-          "emotion": "happy",
-          "text": "Начнём с объявлений. По умолчанию берём const, а let только там, где значение точно изменится."
-        },
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "neutral",
-          "text": "Это не вкусовщина. Константа сообщает читателю кода, что значение дальше не поедет."
-        }
+        {"kind": "line", "speaker": "oleg", "emotion": "neutral", "text": "Смотри на проверку количества. Поле формы отдаёт строку, а сравнивается она с числом."},
+        {"kind": "line", "speaker": "gleb", "emotion": "surprised", "text": "И «1» равно 1? Язык сам приводит одно к другому?"},
+        {"kind": "line", "speaker": "oleg", "emotion": "determined", "text": "С двумя знаками равенства — да, и делает это по правилам, которые никто не помнит наизусть. Проверь оба сравнения и посмотри, где они расходятся."}
       ]
     },
     {
-      "id": "javascript-core-evidence",
-      "title": "Склейка вместо суммы",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "JSC-005"
-      },
+      "id": "jsc-a2",
+      "title": "Обработчик в цикле",
+      "trigger": {"on": "afterMission", "missionId": "JSC-006"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "lena",
-          "emotion": "surprised",
-          "text": "Сумма заказа получилась строкой. Одно значение пришло в кавычках, и плюс склеил их."
-        },
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "happy",
-          "text": "Теперь понятно, почему в корзине попадались суммы вида «1990450». Это не сервер, это тип."
-        }
+        {"kind": "line", "speaker": "gleb", "emotion": "surprised", "text": "Нашёл. Обработчик навешивается в цикле по списку товаров, а список перерисовывается после каждого изменения корзины."},
+        {"kind": "line", "speaker": "irina", "emotion": "worried", "text": "То есть чем дольше человек собирает корзину, тем больше у кнопки обработчиков?"},
+        {"kind": "line", "speaker": "oleg", "emotion": "neutral", "text": "Ровно так. Двойной заказ — это второй нажим, которого никто не делал."},
+        {"kind": "choice", "id": "jsc-c1", "prompt": "Причина найдена. Как чинить?", "options": [
+          {"id": "scope", "text": "Разобраться, где живёт функция и что она помнит, и навешивать обработчик один раз.", "reply": "Олег: «Функция помнит то место, где её создали. Пока это понятно, такие ошибки просто не пишутся».", "trust": {"oleg": 4, "gleb": 2}, "flags": ["case-javascript-core:scope"]},
+          {"id": "copy", "text": "Скопировать рабочий фрагмент из соседнего проекта: там кнопка не дублирует.", "reply": "Кнопка перестаёт дублировать. Почему — по-прежнему не знает никто, включая соседний проект.", "trust": {"oleg": -1}, "flags": ["case-javascript-core:copy"]}
+        ]}
       ]
     },
     {
-      "id": "javascript-core-choice",
-      "title": "Копия или ссылка",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "JSC-014"
-      },
+      "id": "jsc-a2b",
+      "title": "Третья кнопка",
+      "trigger": {"on": "afterMission", "missionId": "JSC-008"},
+      "requiresFlags": ["case-javascript-core:copy"],
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "lena",
-          "emotion": "worried",
-          "text": "Проще изменить пришедший объект заказа на месте. Так ведь короче?"
-        },
-        {
-          "kind": "choice",
-          "id": "javascript-core-spread-choice",
-          "prompt": "Как поступить?",
-          "options": [
-            {
-              "id": "careful",
-              "text": "Соберу копию с изменением и оставлю исходный объект нетронутым.",
-              "reply": "Другие части интерфейса продолжат видеть прежние данные.",
-              "trust": {
-                "gleb": 2,
-                "sonya": 1
-              },
-              "flags": [
-                "javascript-core-spread-careful"
-              ]
-            },
-            {
-              "id": "rushed",
-              "text": "Изменю объект на месте, так меньше кода.",
-              "reply": "Экран заказа обновится, но соседний список покажет старое.",
-              "trust": {
-                "gleb": -1
-              },
-              "flags": [
-                "javascript-core-spread-rushed"
-              ]
-            }
-          ]
-        }
+        {"kind": "line", "speaker": "irina", "emotion": "worried", "text": "На странице доставки та же беда. Фрагмент туда не копировали — писали заново."},
+        {"kind": "line", "speaker": "oleg", "emotion": "neutral", "text": "Мы перенесли решение, но не понимание. Понимание не копируется вместе с кодом."}
       ]
     },
     {
-      "id": "javascript-core-turn",
-      "title": "Пустой экран объяснён",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "JSC-018"
-      },
+      "id": "jsc-a3",
+      "title": "Один объект на всех",
+      "trigger": {"on": "afterMission", "missionId": "JSC-010"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "sonya",
-          "emotion": "happy",
-          "text": "Вот и причина: вывод случился раньше ответа. Запрос не останавливает программу."
-        },
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "determined",
-          "text": "Последняя миссия — научиться дожидаться результата. После неё можно открывать React."
-        }
+        {"kind": "notification", "channel": "ticket", "from": "Ирина", "title": "Адрес меняется сам", "text": "Пользователь правит адрес доставки в одном заказе, а меняется он сразу в трёх. Все три ссылаются на один и тот же объект."},
+        {"kind": "line", "speaker": "gleb", "emotion": "surprised", "text": "Я думал, что скопировал данные заказа. А скопировал только ссылку на них."},
+        {"kind": "line", "speaker": "oleg", "emotion": "neutral", "text": "Присваивание объекта не создаёт второй объект. Это одна из тех вещей, которые лучше узнать здесь, а не на живых заказах."},
+        {"kind": "line", "speaker": "irina", "emotion": "determined", "text": "Значит, при копировании заказа мы обязаны решить: копия это или та же самая вещь."}
+      ]
+    },
+    {
+      "id": "jsc-a4",
+      "title": "Одна функция в трёх файлах",
+      "trigger": {"on": "beforeMission", "missionId": "JSC-014"},
+      "beats": [
+        {"kind": "line", "speaker": "irina", "emotion": "worried", "text": "Сумму заказа считают в трёх местах. В корзине с копейками, в письме без, на странице оплаты — по-своему."},
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "И правит их разный человек в разный день."},
+        {"kind": "line", "speaker": "oleg", "emotion": "determined", "text": "Значит, у расчёта должен быть один дом. Вынеси его в модуль и подключи туда, где он нужен."}
+      ]
+    },
+    {
+      "id": "jsc-a5",
+      "title": "Порядок, которого нет",
+      "trigger": {"on": "afterMission", "missionId": "JSC-017"},
+      "beats": [
+        {"kind": "line", "speaker": "gleb", "emotion": "worried", "text": "Письмо о заказе иногда уходит раньше, чем заказ сохранён. Не всегда — примерно раз из тридцати."},
+        {"kind": "line", "speaker": "oleg", "emotion": "neutral", "text": "Значит, код не ждёт ответа, а идёт дальше. Это асинхронность, и «раз из тридцати» — её обычная подпись."},
+        {"kind": "choice", "id": "jsc-c2", "prompt": "Как гарантировать порядок?", "options": [
+          {"id": "await", "text": "Дождаться завершения сохранения и только потом отправлять письмо.", "reply": "Порядок перестаёт быть удачей: письмо уходит после ответа, а не вместо него.", "trust": {"oleg": 4, "irina": 2}, "flags": ["case-javascript-core:await"]},
+          {"id": "timeout", "text": "Отправлять письмо через полсекунды после сохранения: обычно хватает.", "reply": "Раз из тридцати становится разом из двухсот. В отчёте это выглядит как «починили».", "trust": {"oleg": -2}, "flags": ["case-javascript-core:timeout"]}
+        ]}
+      ]
+    },
+    {
+      "id": "jsc-a5b",
+      "title": "Гонка вернулась",
+      "trigger": {"on": "afterMission", "missionId": "JSC-018"},
+      "requiresFlags": ["case-javascript-core:timeout"],
+      "beats": [
+        {"kind": "line", "speaker": "irina", "emotion": "worried", "text": "Ночью сеть отвечала медленнее обычного. Писем о несуществующих заказах ушло девятнадцать."},
+        {"kind": "line", "speaker": "oleg", "emotion": "neutral", "text": "Полсекунды — это не гарантия, а ставка. Сегодня она не сыграла."}
+      ]
+    },
+    {
+      "id": "jsc-a6",
+      "title": "Одно нажатие — один заказ",
+      "trigger": {"on": "afterMission", "missionId": "JSC-019"},
+      "beats": [
+        {"kind": "comic", "panels": [
+          {"speaker": "gleb", "emotion": "happy", "caption": "Обработчик один, расчёт суммы один, письмо уходит после ответа.", "scene": "checkout"},
+          {"speaker": "irina", "emotion": "happy", "caption": "И поддержка впервые за месяц не возвращает деньги руками.", "scene": "checkout"}
+        ]},
+        {"kind": "line", "speaker": "oleg", "emotion": "happy", "text": "Хороший интерфейс начинается не с кнопки, а с понимания, что произойдёт после нажатия."},
+        {"kind": "line", "speaker": "narrator", "text": "Получен предмет: разбор оформления заказа."}
       ]
     }
   ],
   "endings": [
     {
-      "id": "javascript-core-gold",
-      "title": "Корзина ожила",
-      "summary": "Язык освоен, пустой экран объяснён асинхронностью, маршрут открыт к React.",
-      "minTrust": {
-        "gleb": 1,
-        "sonya": 1
-      },
+      "id": "gold",
+      "title": "Понятно, а не просто работает",
+      "summary": "Двойной заказ исчез вместе с причиной, а не вместе с симптомом: обработчик навешивается один раз, расчёт суммы живёт в одном модуле, письмо уходит после ответа сервера. Ирина перестала объяснять поддержке, почему деньги возвращают руками.",
+      "minTrust": {"oleg": 7, "irina": 2},
+      "requiresFlags": ["case-javascript-core:scope", "case-javascript-core:await"],
       "rank": "золото"
     },
     {
-      "id": "javascript-core-silver",
-      "title": "Причина найдена с оговорками",
-      "summary": "Корзина работает, но часть асинхронного кода стоит перечитать перед React.",
+      "id": "silver",
+      "title": "Симптом снят",
+      "summary": "Заказы больше не дублируются, сумма считается одинаково. Но часть решений держится на том, что «так работает»: следующая похожая ошибка снова начнётся с недели в поддержке.",
+      "minTrust": {"oleg": 2},
       "rank": "серебро"
+    },
+    {
+      "id": "bronze",
+      "title": "Кнопку заблокировали",
+      "summary": "Кнопка блокируется после первого нажатия, повторные заказы почти пропали. Почти — потому что причина осталась на месте и ждёт страницы, где кнопку заблокировать забыли.",
+      "rank": "бронза"
     }
   ]
 }

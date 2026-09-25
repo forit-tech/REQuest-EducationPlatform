@@ -1,183 +1,139 @@
 {
   "caseId": "case-python-web-api",
   "courseId": "python-web-api",
-  "number": "01",
+  "number": "32",
   "title": "Запрос с чужим идентификатором",
-  "logline": "Клиент изменил идентификатор в URL и получил документ другой команды.",
-  "setting": "Продуктовая компания «Север»",
-  "cast": [
-    "mira",
-    "artem",
-    "sonya"
-  ],
+  "logline": "Курьер поменял в адресе одну цифру и увидел заказ другого клиента. Вместе с адресом и телефоном.",
+  "setting": "API доставки, третья неделя работы. Оно отвечает на всё, о чём его спрашивают.",
+  "cast": ["mira", "artem", "sonya"],
   "acts": [
     {
-      "id": "python-web-api-start",
-      "title": "Запрос с чужим идентификатором",
-      "trigger": {
-        "on": "caseStart"
-      },
+      "id": "pwa-a0",
+      "title": "Одна цифра",
+      "trigger": {"on": "caseStart"},
       "beats": [
-        {
-          "kind": "comic",
-          "panels": [
-            {
-              "speaker": "mira",
-              "emotion": "surprised",
-              "scene": "office",
-              "caption": "Клиент изменил идентификатор в URL и получил документ другой команды."
-            },
-            {
-              "speaker": "artem",
-              "emotion": "determined",
-              "scene": "screen",
-              "caption": "Сначала строим цепочку доказательств. Красивый ответ без проверки не принимается."
-            },
-            {
-              "speaker": "sonya",
-              "emotion": "worried",
-              "scene": "meeting",
-              "caption": "Решение нужно сегодня. Ошибка изменит план команды на квартал."
-            }
-          ]
-        },
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "determined",
-          "text": "Это дело про «Web API на Python». Не проходи уроки отдельно: каждый найденный факт станет уликой в общем расследовании."
-        }
+        {"kind": "comic", "panels": [
+          {"caption": "Курьер открыл заказ 10432, поменял последнюю цифру и увидел заказ 10433: адрес, телефон, сумма.", "scene": "queue"},
+          {"speaker": "sonya", "emotion": "worried", "caption": "Он не взламывал ничего. Он поправил число в строке.", "scene": "queue"},
+          {"speaker": "mira", "emotion": "surprised", "caption": "И сервис спокойно отдал ему чужие данные?", "scene": "queue"}
+        ]},
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Сервис проверил, что курьер вошёл в систему. Что заказ его — не проверял никто."},
+        {"kind": "line", "speaker": "sonya", "emotion": "determined", "text": "Значит, у нас есть вход и нет прав. Это разные вещи, и вторую мы не написали."},
+        {"kind": "line", "speaker": "mira", "emotion": "neutral", "text": "Начнём с того, что вообще обещает наш API и кто имеет право спрашивать."}
       ]
     },
     {
-      "id": "python-web-api-brief",
-      "title": "Первая версия",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "PWA-001"
-      },
+      "id": "pwa-a1",
+      "title": "Метод и путь",
+      "trigger": {"on": "beforeMission", "missionId": "PWA-002"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "mira",
-          "emotion": "happy",
-          "text": "Я уже собрала материалы. Давай сначала договоримся, какой вопрос мы вообще пытаемся решить."
-        },
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "neutral",
-          "text": "Хорошее начало. Зафиксируй принцип — после этого рабочая станция откроет первую улику."
-        }
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Отмена заказа делается запросом на адрес с параметром action=cancel. Обычным чтением."},
+        {"kind": "line", "speaker": "mira", "emotion": "surprised", "text": "То есть отменить заказ можно, просто открыв ссылку?"},
+        {"kind": "line", "speaker": "sonya", "emotion": "determined", "text": "И браузер курьера может сделать это сам, предзагружая ссылку. Метод должен говорить, меняет запрос что-то или нет."}
       ]
     },
     {
-      "id": "python-web-api-evidence",
-      "title": "Улика не сходится",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "PWA-003"
-      },
+      "id": "pwa-a2",
+      "title": "Схема вместо надежды",
+      "trigger": {"on": "afterMission", "missionId": "PWA-005"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "mira",
-          "emotion": "worried",
-          "text": "Проверка изменила число. Значит, первая версия была удобной, но неверной."
-        },
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "happy",
-          "text": "Именно поэтому мы оставляем воспроизводимые шаги. Ошибка, найденная до решения, — полезная улика."
-        }
+        {"kind": "line", "speaker": "mira", "emotion": "neutral", "text": "Тело запроса разбирается вручную: если поля нет, подставляем значение по умолчанию."},
+        {"kind": "line", "speaker": "artem", "emotion": "worried", "text": "И вес посылки со строкой «десять» превращается в ноль. Молча."},
+        {"kind": "choice", "id": "pwa-c1", "prompt": "Как проверять входные данные?", "options": [
+          {"id": "schema", "text": "Описать схему запроса и отвечать понятной ошибкой, если данные ей не соответствуют.", "reply": "Соня: «Теперь плохой запрос виден на входе, а не в накладной курьера».", "trust": {"sonya": 4, "mira": 2}, "flags": ["case-python-web-api:schema"]},
+          {"id": "defaults", "text": "Оставить значения по умолчанию: клиенты и так присылают правильно.", "reply": "Правильно присылают до первого нового клиента. Его данные тихо превращаются в нули.", "trust": {"sonya": -2}, "flags": ["case-python-web-api:defaults"]}
+        ]}
       ]
     },
     {
-      "id": "python-web-api-choice",
-      "title": "Давление срока",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "PWA-007"
-      },
+      "id": "pwa-a2b",
+      "title": "Ноль килограммов",
+      "trigger": {"on": "afterMission", "missionId": "PWA-006"},
+      "requiresFlags": ["case-python-web-api:defaults"],
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "sonya",
-          "emotion": "worried",
-          "text": "Мне нужна рекомендация через двадцать минут. Можно не показывать спорный сегмент?"
-        },
-        {
-          "kind": "choice",
-          "id": "python-web-api-deadline-choice",
-          "prompt": "Как ты ответишь?",
-          "options": [
-            {
-              "id": "transparent",
-              "text": "Покажу спорный риск и объясню, как он влияет на решение.",
-              "reply": "Руководитель кивает: неприятный риск лучше скрытой ошибки.",
-              "trust": {
-                "sonya": 2,
-                "artem": 1
-              },
-              "flags": [
-                "python-web-api-transparent"
-              ]
-            },
-            {
-              "id": "fast",
-              "text": "Уберу спорный риск ради короткого ответа.",
-              "reply": "Наставник ничего не говорит, но просит сохранить эту версию отдельно.",
-              "trust": {
-                "artem": -1
-              },
-              "flags": [
-                "python-web-api-rushed"
-              ]
-            }
-          ]
-        }
+        {"kind": "line", "speaker": "artem", "emotion": "worried", "text": "Партнёр прислал вес строкой. Двести посылок уехали с нулевым весом, машину загрузили вдвое."},
+        {"kind": "line", "speaker": "mira", "emotion": "neutral", "text": "Мы решили за клиента, что он ошибся несущественно."}
       ]
     },
     {
-      "id": "python-web-api-turn",
-      "title": "Решение выдерживает проверку",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "PWA-010"
-      },
+      "id": "pwa-a3",
+      "title": "Всё в одном обработчике",
+      "trigger": {"on": "afterMission", "missionId": "PWA-008"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "mira",
-          "emotion": "happy",
-          "text": "Теперь вывод не рассыпается, даже если изменить период и открыть сегменты."
-        },
-        {
-          "kind": "line",
-          "speaker": "sonya",
-          "emotion": "determined",
-          "text": "Хорошо. Доводи доказательства до итоговой рекомендации — я защищу её перед командой."
-        }
+        {"kind": "notification", "channel": "ticket", "from": "Соня", "title": "Обработчик знает всё", "text": "Проверка прав, расчёт стоимости, запись в базу и отправка уведомления лежат в одной функции. Проверить расчёт отдельно нельзя."},
+        {"kind": "line", "speaker": "mira", "emotion": "neutral", "text": "Я вынесла расчёт, но он сам открывает соединение с базой."},
+        {"kind": "line", "speaker": "artem", "emotion": "determined", "text": "Тогда пусть соединение приходит снаружи. В тесте на его место встанет заглушка, и расчёт можно будет проверить без базы."},
+        {"kind": "line", "speaker": "sonya", "emotion": "neutral", "text": "И заодно станет видно, что обработчик делает четыре разные вещи."}
+      ]
+    },
+    {
+      "id": "pwa-a4",
+      "title": "Кто спрашивает",
+      "trigger": {"on": "beforeMission", "missionId": "PWA-011"},
+      "beats": [
+        {"kind": "line", "speaker": "sonya", "emotion": "neutral", "text": "Токен курьера проверяется на подпись и срок. Что курьер имеет право на этот заказ — нет."},
+        {"kind": "line", "speaker": "mira", "emotion": "surprised", "text": "То есть любой вошедший может прочитать любой заказ?"},
+        {"kind": "line", "speaker": "artem", "emotion": "determined", "text": "Пока проверка одна на всех — да. Аутентификация отвечает, кто это. Права отвечают, что ему можно."}
+      ]
+    },
+    {
+      "id": "pwa-a5",
+      "title": "Чужой идентификатор",
+      "trigger": {"on": "afterMission", "missionId": "PWA-012"},
+      "beats": [
+        {"kind": "line", "speaker": "mira", "emotion": "neutral", "text": "Осталось решить, где проверять принадлежность заказа."},
+        {"kind": "choice", "id": "pwa-c2", "prompt": "Где проверять права на объект?", "options": [
+          {"id": "query", "text": "В самом запросе к базе: курьер видит только те заказы, которые за ним закреплены.", "reply": "Артём: «Забыть такую проверку нельзя: без неё запрос просто не вернёт чужую строку».", "trust": {"artem": 4, "sonya": 3}, "flags": ["case-python-web-api:ownership"]},
+          {"id": "check", "text": "Отдельной проверкой после чтения заказа: так нагляднее.", "reply": "Проверка работает там, где её написали. В трёх обработчиках из одиннадцати её забыли.", "trust": {"artem": -1, "sonya": -2}, "flags": ["case-python-web-api:check"]}
+        ]},
+        {"kind": "line", "speaker": "sonya", "emotion": "neutral", "text": "И ответ на чужой заказ должен выглядеть так же, как на несуществующий. Иначе перебор по номерам сам покажет, что существует."}
+      ]
+    },
+    {
+      "id": "pwa-a5b",
+      "title": "Три обработчика из одиннадцати",
+      "trigger": {"on": "afterMission", "missionId": "PWA-013"},
+      "requiresFlags": ["case-python-web-api:check"],
+      "beats": [
+        {"kind": "line", "speaker": "sonya", "emotion": "worried", "text": "В трёх обработчиках проверку не дописали. Через них по-прежнему видно чужие заказы."},
+        {"kind": "line", "speaker": "mira", "emotion": "neutral", "text": "Правило, которое нужно помнить в каждом месте, однажды не вспомнят."}
+      ]
+    },
+    {
+      "id": "pwa-a6",
+      "title": "Спрашивать можно только своё",
+      "trigger": {"on": "afterMission", "missionId": "PWA-013"},
+      "beats": [
+        {"kind": "comic", "panels": [
+          {"speaker": "mira", "emotion": "happy", "caption": "Схема проверяет вход, права проверяются запросом, изменения идут не чтением.", "scene": "queue"},
+          {"speaker": "sonya", "emotion": "happy", "caption": "И чужой заказ выглядит так же, как несуществующий.", "scene": "queue"}
+        ]},
+        {"kind": "line", "speaker": "artem", "emotion": "happy", "text": "API — это не список адресов. Это ответ на вопрос, кому и что мы разрешаем спрашивать."},
+        {"kind": "line", "speaker": "narrator", "text": "Получен предмет: контракт API доставки."}
       ]
     }
   ],
   "endings": [
     {
-      "id": "python-web-api-gold",
-      "title": "Доказательство принято",
-      "summary": "Команда получила воспроизводимый вывод и безопасный следующий шаг.",
-      "minTrust": {
-        "artem": 1,
-        "sonya": 1
-      },
+      "id": "gold",
+      "title": "Только своё",
+      "summary": "Схема отсекает плохие запросы на входе, изменения не делаются чтением, а права проверяются самим запросом к базе: чужой заказ невозможно получить, даже поменяв цифру. Курьер видит ровно свои доставки, и об этом не нужно помнить в каждом обработчике.",
+      "minTrust": {"sonya": 7, "artem": 4},
+      "requiresFlags": ["case-python-web-api:schema", "case-python-web-api:ownership"],
       "rank": "золото"
     },
     {
-      "id": "python-web-api-silver",
-      "title": "Решение с оговорками",
-      "summary": "Вывод принят, но часть рисков придётся перепроверить после запуска.",
+      "id": "silver",
+      "title": "Дыру закрыли",
+      "summary": "Данные проверяются схемой, слои разложены, права появились. Но проверка принадлежности живёт отдельной строчкой в каждом обработчике: где-то её однажды забудут, и узнают об этом снова от курьера.",
+      "minTrust": {"sonya": 2},
       "rank": "серебро"
+    },
+    {
+      "id": "bronze",
+      "title": "Вход есть, прав нет",
+      "summary": "Сервис проверяет, что человек вошёл, и отдаёт всё, о чём его просят. Вес по-прежнему превращается в ноль, отмена заказа делается ссылкой, а соседний заказ открывается сменой одной цифры.",
+      "rank": "бронза"
     }
   ]
 }

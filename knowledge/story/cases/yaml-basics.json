@@ -3,181 +3,138 @@
   "courseId": "yaml-basics",
   "number": "64",
   "title": "Пробел, который остановил релиз",
-  "logline": "Выкладка не проходит из-за конфигурации: один отступ и одни потерянные кавычки.",
-  "setting": "Учебная экспедиция · Platform",
-  "cast": [
-    "oleg",
-    "damir",
-    "yana"
-  ],
+  "logline": "Выкладка встала на третьем шаге. В логе одна строка: парсер ждал двоеточие и не нашёл его.",
+  "setting": "Платёжный сервис, день выкладки. До того, как это заметят пользователи, — сорок минут.",
+  "cast": ["oleg", "gleb", "yana"],
   "acts": [
     {
-      "id": "yaml-basics-start",
-      "title": "Новое дело",
-      "trigger": {
-        "on": "caseStart"
-      },
+      "id": "yml-a0",
+      "title": "Выкладка встала",
+      "trigger": {"on": "caseStart"},
       "beats": [
-        {
-          "kind": "comic",
-          "panels": [
-            {
-              "speaker": "yana",
-              "emotion": "worried",
-              "scene": "screen",
-              "caption": "Выкладка остановлена: конфигурация не читается, а сервис уже выключен."
-            },
-            {
-              "speaker": "damir",
-              "emotion": "determined",
-              "scene": "office",
-              "caption": "Разбирать надо сам формат. Kubernetes здесь ни при чём — ошибка в отступе и кавычках."
-            },
-            {
-              "speaker": "oleg",
-              "emotion": "neutral",
-              "scene": "meeting",
-              "caption": "Значит, сначала YAML как формат: пары, отступы, списки, кавычки. Схемы потом."
-            }
-          ]
-        },
-        {
-          "kind": "line",
-          "speaker": "oleg",
-          "emotion": "determined",
-          "text": "Цель дела — читать конфигурацию и понимать, что именно получит программа. Compose, CI и Kubernetes будут отдельными делами."
-        }
+        {"kind": "comic", "panels": [
+          {"caption": "09:40. Выкладка новой версии остановлена на третьем шаге. В логе одна строка: could not find expected ':'.", "scene": "deploy-log"},
+          {"speaker": "gleb", "emotion": "worried", "caption": "Конфигурация не читается. Машина ждала двоеточие, а нашла что-то другое.", "scene": "deploy-log"},
+          {"speaker": "yana", "emotion": "neutral", "caption": "Пользователи пока ничего не видят. Через сорок минут увидят: у них не пройдёт оплата.", "scene": "support-queue"}
+        ]},
+        {"kind": "line", "speaker": "oleg", "emotion": "neutral", "text": "Значит, у нас сорок минут. Их хватит либо на догадки, либо на разбор. Разбор быстрее."},
+        {"kind": "line", "speaker": "gleb", "emotion": "determined", "text": "Я могу вернуть вчерашнюю версию конфигурации прямо сейчас."},
+        {"kind": "line", "speaker": "oleg", "emotion": "worried", "text": "Можешь. И завтра мы соберёмся здесь же, потому что причину так и не увидим. Сначала поймём, что вообще читает машина."}
       ]
     },
     {
-      "id": "yaml-basics-brief",
-      "title": "Двоеточие с пробелом",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "YML-003"
-      },
+      "id": "yml-a1",
+      "title": "Что читает машина",
+      "trigger": {"on": "beforeMission", "missionId": "YML-002"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "damir",
-          "emotion": "happy",
-          "text": "Разделитель здесь не двоеточие, а двоеточие с пробелом. Без пробела пары просто не будет."
-        },
-        {
-          "kind": "line",
-          "speaker": "oleg",
-          "emotion": "neutral",
-          "text": "И ошибки при этом не случится. Параметр молча не применится — это худший вид сбоя."
-        }
+        {"kind": "line", "speaker": "oleg", "emotion": "neutral", "text": "YAML — это не текст для человека. Это пары: слева имя, справа значение. Всё остальное лишь способ их сгруппировать."},
+        {"kind": "line", "speaker": "yana", "emotion": "surprised", "text": "То есть отступ здесь не оформление, а часть смысла?"},
+        {"kind": "line", "speaker": "oleg", "emotion": "determined", "text": "Именно. Сдвинул строку на два пробела — и значение переехало к другому владельцу. Начни с одной пары и посмотри, что видит парсер."}
       ]
     },
     {
-      "id": "yaml-basics-evidence",
-      "title": "Список, которого не было",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "YML-006"
-      },
+      "id": "yml-a2",
+      "title": "Съехавший отступ",
+      "trigger": {"on": "afterMission", "missionId": "YML-005"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "yana",
-          "emotion": "surprised",
-          "text": "Пустые квадратные скобки и блочный список — одно и то же. Раньше это выглядело как разные вещи."
-        },
-        {
-          "kind": "line",
-          "speaker": "damir",
-          "emotion": "happy",
-          "text": "Именно. Один формат, два стиля записи. Выбор влияет только на чтение и на историю правок."
-        }
+        {"kind": "line", "speaker": "gleb", "emotion": "surprised", "text": "Нашёл. Строка с таймаутом сдвинута на два пробела вправо и попала внутрь блока журналирования."},
+        {"kind": "line", "speaker": "yana", "emotion": "worried", "text": "И сервис три недели работал с таймаутом по умолчанию, а мы считали, что настроили свой?"},
+        {"kind": "line", "speaker": "oleg", "emotion": "worried", "text": "Работал. Никто не жаловался, потому что нагрузка была маленькой. Такие ошибки ждут часа пик."},
+        {"kind": "choice", "id": "yml-c1", "prompt": "Отступ исправлен. Что делаем дальше?", "options": [
+          {"id": "validate", "text": "Добавить проверку конфигурации в конвейер: не проходит — не выкладываем.", "reply": "Олег кивает: «Пробел, который останавливает релиз, должен останавливать его до людей, а не после».", "trust": {"oleg": 4, "gleb": 2}, "flags": ["case-yaml-basics:validated"]},
+          {"id": "handfix", "text": "Поправить и выложить: сорок минут заканчиваются.", "reply": "Выкладка проходит. Через неделю такой же пробел приедет из другой ветки, и всё повторится.", "trust": {"oleg": -1}, "flags": ["case-yaml-basics:handfix"]}
+        ]}
       ]
     },
     {
-      "id": "yaml-basics-choice",
-      "title": "Версия без кавычек",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "YML-008"
-      },
+      "id": "yml-a2b",
+      "title": "Тот же пробел, другая ветка",
+      "trigger": {"on": "afterMission", "missionId": "YML-006"},
+      "requiresFlags": ["case-yaml-basics:handfix"],
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "yana",
-          "emotion": "worried",
-          "text": "Версия 1.10 в файле выглядит нормально. Может, оставить как есть и не загромождать кавычками?"
-        },
-        {
-          "kind": "choice",
-          "id": "yaml-basics-quotes-choice",
-          "prompt": "Как поступить?",
-          "options": [
-            {
-              "id": "careful",
-              "text": "Возьму версию в кавычки — иначе она станет числом 1.1.",
-              "reply": "Выкладка возьмёт ту сборку, которая указана.",
-              "trust": {
-                "damir": 2,
-                "oleg": 1
-              },
-              "flags": [
-                "yaml-basics-quotes-careful"
-              ]
-            },
-            {
-              "id": "rushed",
-              "text": "Оставлю без кавычек, выглядит чище.",
-              "reply": "Файл прочитается, но версия сборки окажется другой.",
-              "trust": {
-                "oleg": -1
-              },
-              "flags": [
-                "yaml-basics-quotes-rushed"
-              ]
-            }
-          ]
-        }
+        {"kind": "line", "speaker": "gleb", "emotion": "worried", "text": "Выкладка снова встала. Отступ съехал в другой ветке, конфигурацию туда правил не я."},
+        {"kind": "line", "speaker": "oleg", "emotion": "worried", "text": "Мы починили файл, а не способ его проверять. Поэтому ошибка вернулась не к нам, а к следующему."}
       ]
     },
     {
-      "id": "yaml-basics-turn",
-      "title": "Конфигурация читается",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "YML-013"
-      },
+      "id": "yml-a3",
+      "title": "Значение, которое не то, чем кажется",
+      "trigger": {"on": "afterMission", "missionId": "YML-009"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "damir",
-          "emotion": "happy",
-          "text": "Теперь видно, что получит программа: где отображение, где список, где строка, а где число."
-        },
-        {
-          "kind": "line",
-          "speaker": "oleg",
-          "emotion": "determined",
-          "text": "Осталось собрать полный файл выкладки. После этого можно браться за Kubernetes и CI."
-        }
+        {"kind": "notification", "channel": "alert", "from": "Мониторинг", "title": "Проверка сертификата выключена", "text": "Параметр verify прочитан как логическое значение «ложь». В конфигурации написано off."},
+        {"kind": "line", "speaker": "gleb", "emotion": "worried", "text": "Я писал off как название режима. Парсер прочитал это как «выключено»."},
+        {"kind": "line", "speaker": "oleg", "emotion": "neutral", "text": "Поэтому у значений бывают кавычки. Они говорят парсеру: это строка, а не команда."},
+        {"kind": "line", "speaker": "yana", "emotion": "determined", "text": "Записываю в чек-лист: всё, что похоже на да, нет, вкл, выкл или номер версии, — в кавычках."}
+      ]
+    },
+    {
+      "id": "yml-a4",
+      "title": "Три окружения разошлись",
+      "trigger": {"on": "beforeMission", "missionId": "YML-011"},
+      "beats": [
+        {"kind": "line", "speaker": "yana", "emotion": "worried", "text": "У нас три файла: проверочный, предпродакшен и рабочий. Отличаться они должны двумя строками, а отличаются двадцатью."},
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "Их правили руками, каждый в свой день и по своему поводу."},
+        {"kind": "choice", "id": "yml-c2", "prompt": "Как убрать расхождение?", "options": [
+          {"id": "anchor", "text": "Вынести общую часть в якорь и подключать её в каждом окружении.", "reply": "Общая часть становится одной. Различия видно глазом: их ровно две строки.", "trust": {"oleg": 3, "yana": 3}, "flags": ["case-yaml-basics:shared"]},
+          {"id": "copy", "text": "Скопировать рабочий файл в остальные и дальше править по месту.", "reply": "Сегодня файлы совпадают. Через месяц расхождений станет тридцать, и никто не вспомнит, какие из них нужны.", "trust": {"oleg": -2}, "flags": ["case-yaml-basics:copypaste"]}
+        ]}
+      ]
+    },
+    {
+      "id": "yml-a4b",
+      "title": "Двадцать первое различие",
+      "trigger": {"on": "afterMission", "missionId": "YML-012"},
+      "requiresFlags": ["case-yaml-basics:copypaste"],
+      "beats": [
+        {"kind": "line", "speaker": "yana", "emotion": "worried", "text": "В рабочем окружении появилась строка, которой нет в проверочном. Никто не помнит, зачем она."},
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "Значит, проверочное окружение больше ничего не проверяет: мы тестируем не то, что выкладываем."}
+      ]
+    },
+    {
+      "id": "yml-a5",
+      "title": "Цена сорока минут",
+      "trigger": {"on": "afterMission", "missionId": "YML-013"},
+      "beats": [
+        {"kind": "line", "speaker": "yana", "emotion": "neutral", "text": "Простой вышел пятьдесят две минуты. Оплату не прошли сто двенадцать человек, сорок вернулись сами."},
+        {"kind": "line", "speaker": "gleb", "emotion": "worried", "text": "Остальные семьдесят два — это и есть цена одного пробела."},
+        {"kind": "line", "speaker": "oleg", "emotion": "determined", "text": "Теперь это не пробел, а правило. Правило обходится дешевле, чем семьдесят два человека."}
+      ]
+    },
+    {
+      "id": "yml-a6",
+      "title": "Конфигурация, которую читают одинаково",
+      "trigger": {"on": "afterMission", "missionId": "YML-014"},
+      "beats": [
+        {"kind": "comic", "panels": [
+          {"speaker": "gleb", "emotion": "happy", "caption": "Конвейер проверяет конфигурацию раньше, чем трогает выкладку.", "scene": "pipeline"},
+          {"speaker": "yana", "emotion": "happy", "caption": "И я наконец понимаю, что там написано, без переводчика.", "scene": "pipeline"}
+        ]},
+        {"kind": "line", "speaker": "oleg", "emotion": "happy", "text": "Хорошая конфигурация — не красивая. Это та, про которую машина и человек думают одинаково."},
+        {"kind": "line", "speaker": "narrator", "text": "Получен предмет: проверяемая конфигурация выкладки."}
       ]
     }
   ],
   "endings": [
     {
-      "id": "yaml-basics-gold",
-      "title": "Релиз пошёл",
-      "summary": "Формат освоен, конфигурация читается осознанно, маршрут открыт к предметным схемам.",
-      "minTrust": {
-        "damir": 1,
-        "oleg": 1
-      },
+      "id": "gold",
+      "title": "Пробел под контролем",
+      "summary": "Конфигурация перестала быть текстом, который каждый читает по-своему: её проверяет конвейер, а общая часть живёт в одном месте. Глеб больше не правит три файла руками, Яна разбирает настройки без переводчика. Пробел всё ещё может остановить релиз — но теперь до людей, а не после.",
+      "minTrust": {"oleg": 6, "yana": 2},
+      "requiresFlags": ["case-yaml-basics:validated", "case-yaml-basics:shared"],
       "rank": "золото"
     },
     {
-      "id": "yaml-basics-silver",
-      "title": "Релиз пошёл с оговорками",
-      "summary": "Файл исправлен, но часть значений стоит перепроверить на приведение типов.",
+      "id": "silver",
+      "title": "Разобрано, но не закреплено",
+      "summary": "Отступ найден, кавычки расставлены, выкладка прошла. Но конфигурацию по-прежнему держит в голове один человек: следующая правка из чужой ветки снова приедет без проверки.",
+      "minTrust": {"oleg": 2},
       "rank": "серебро"
+    },
+    {
+      "id": "bronze",
+      "title": "Вернули вчерашнее",
+      "summary": "Сервис подняли возвратом на вчерашнюю версию. Причину вслух так и не назвали, три окружения продолжают расходиться, и следующий час пик встретит их такими же.",
+      "rank": "бронза"
     }
   ]
 }

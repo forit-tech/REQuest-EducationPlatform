@@ -3,181 +3,137 @@
   "courseId": "relational-databases",
   "number": "17",
   "title": "Ключ от потерянной записи",
-  "logline": "Связи между заказами и клиентами повреждены, а исправление без ограничений создаст новые ошибки.",
-  "setting": "Учебная экспедиция · Базы данных",
-  "cast": [
-    "mira",
-    "oleg",
-    "lena"
-  ],
+  "logline": "Четыреста двенадцать заказов ссылаются на клиентов, которых в базе нет. Половина из них оплачена.",
+  "setting": "Отчёт по возвратам не сходится третий месяц. База честно хранит то, что в неё записали.",
+  "cast": ["oleg", "sonya", "yana"],
   "acts": [
     {
-      "id": "relational-databases-start",
-      "title": "Новая экспедиция",
-      "trigger": {
-        "on": "caseStart"
-      },
+      "id": "rdb-a0",
+      "title": "Заказ без клиента",
+      "trigger": {"on": "caseStart"},
       "beats": [
-        {
-          "kind": "comic",
-          "panels": [
-            {
-              "speaker": "mira",
-              "emotion": "surprised",
-              "scene": "office",
-              "caption": "Связи между заказами и клиентами повреждены, а исправление без ограничений создаст новые ошибки."
-            },
-            {
-              "speaker": "oleg",
-              "emotion": "determined",
-              "scene": "screen",
-              "caption": "Курс «Реляционные базы данных» станет отдельным делом: каждую версию решения проверяем кодом."
-            },
-            {
-              "speaker": "lena",
-              "emotion": "worried",
-              "scene": "meeting",
-              "caption": "Результат нужен команде, но неподтверждённый ответ только ухудшит ситуацию."
-            }
-          ]
-        },
-        {
-          "kind": "line",
-          "speaker": "oleg",
-          "emotion": "determined",
-          "text": "Цель дела — собрать реляционную схему. Теория даст ориентир, но уликами станут только воспроизводимые действия и проверки."
-        }
+        {"kind": "comic", "panels": [
+          {"caption": "Отчёт по возвратам не сходится третий месяц подряд. Расхождение всегда в одну сторону.", "scene": "report"},
+          {"speaker": "sonya", "emotion": "worried", "caption": "Четыреста двенадцать заказов ссылаются на клиентов, которых в базе нет.", "scene": "report"},
+          {"speaker": "yana", "emotion": "neutral", "caption": "И половина этих заказов оплачена. Деньги есть, покупателя нет.", "scene": "report"}
+        ]},
+        {"kind": "line", "speaker": "oleg", "emotion": "neutral", "text": "Значит, база позволила записать ссылку в никуда. Сначала поймём, почему она это позволила."},
+        {"kind": "line", "speaker": "sonya", "emotion": "determined", "text": "Я могу дописать проверку в сервисе перед вставкой."},
+        {"kind": "line", "speaker": "oleg", "emotion": "worried", "text": "Можешь. Но в базу пишет не только твой сервис. Посмотрим, что вообще делает строку записью и чем она держится."}
       ]
     },
     {
-      "id": "relational-databases-brief",
-      "title": "Первая гипотеза",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "RDB-001"
-      },
+      "id": "rdb-a1",
+      "title": "Строка и запись",
+      "trigger": {"on": "beforeMission", "missionId": "RDB-006"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "mira",
-          "emotion": "happy",
-          "text": "Я открыла материалы по теме «ключи». Сначала зафиксируем вопрос, потом напишем проверку."
-        },
-        {
-          "kind": "line",
-          "speaker": "oleg",
-          "emotion": "neutral",
-          "text": "Не подгоняй решение под красивый результат. Оставь следующий участник команды способ повторить каждый шаг."
-        }
+        {"kind": "line", "speaker": "oleg", "emotion": "neutral", "text": "Строка — это то, что лежит. Запись — то, что можно найти и на что можно сослаться. Разницу делает ключ."},
+        {"kind": "line", "speaker": "yana", "emotion": "surprised", "text": "А если ключа нет, две одинаковые строки становятся неразличимы?"},
+        {"kind": "line", "speaker": "oleg", "emotion": "determined", "text": "И тогда любое исправление задевает обе. Начни с первичного ключа: что в этой таблице делает строку единственной."}
       ]
     },
     {
-      "id": "relational-databases-evidence",
-      "title": "След расходится",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "RDB-011"
-      },
+      "id": "rdb-a2",
+      "title": "Ссылка в никуда",
+      "trigger": {"on": "afterMission", "missionId": "RDB-010"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "mira",
-          "emotion": "worried",
-          "text": "Первая проверка не подтвердила удобную гипотезу. Зато теперь мы знаем, где искать дальше."
-        },
-        {
-          "kind": "line",
-          "speaker": "oleg",
-          "emotion": "happy",
-          "text": "Отлично. Отрицательный результат — тоже улика, если код и исходные условия сохранены."
-        }
+        {"kind": "line", "speaker": "sonya", "emotion": "neutral", "text": "Внешний ключ описала. База отказалась его включать: те самые четыреста двенадцать строк ей мешают."},
+        {"kind": "line", "speaker": "yana", "emotion": "neutral", "text": "То есть ограничение честно говорит, что данные сломаны уже сейчас."},
+        {"kind": "choice", "id": "rdb-c1", "prompt": "Где держать правило целостности?", "options": [
+          {"id": "constraint", "text": "В базе: внешний ключ, и никаких заказов без клиента.", "reply": "Олег: «Правило в базе действует для всех, кто в неё пишет. Правило в коде — только для того, кто о нём помнит».", "trust": {"oleg": 4, "sonya": 2}, "flags": ["case-relational-databases:constraint"]},
+          {"id": "appcheck", "text": "В сервисе: там гибче и не придётся разбирать историю.", "reply": "Сервис проверяет. Ночной импорт, который пишет напрямую, — нет.", "trust": {"oleg": -2, "yana": -1}, "flags": ["case-relational-databases:appcheck"]}
+        ]}
       ]
     },
     {
-      "id": "relational-databases-choice",
-      "title": "Цена скорости",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "RDB-021"
-      },
+      "id": "rdb-a2b",
+      "title": "Импорт пишет мимо",
+      "trigger": {"on": "afterMission", "missionId": "RDB-014"},
+      "requiresFlags": ["case-relational-databases:appcheck"],
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "lena",
-          "emotion": "worried",
-          "text": "Срок сжимается. Можно показать только итог и убрать неоднозначную проверку?"
-        },
-        {
-          "kind": "choice",
-          "id": "relational-databases-deadline-choice",
-          "prompt": "Как поступить?",
-          "options": [
-            {
-              "id": "transparent",
-              "text": "Покажу ограничение и приложу воспроизводимую проверку.",
-              "reply": "Команда видит риск и принимает решение осознанно.",
-              "trust": {
-                "lena": 2,
-                "oleg": 1
-              },
-              "flags": [
-                "relational-databases-transparent"
-              ]
-            },
-            {
-              "id": "fast",
-              "text": "Спрячу ограничение ради быстрого ответа.",
-              "reply": "Ответ принимают, но наставник просит сохранить сомнительную версию отдельно.",
-              "trust": {
-                "oleg": -1
-              },
-              "flags": [
-                "relational-databases-rushed"
-              ]
-            }
-          ]
-        }
+        {"kind": "line", "speaker": "sonya", "emotion": "worried", "text": "Ночью приехали ещё восемнадцать заказов без клиента. Их писал импорт, он мою проверку не видит."},
+        {"kind": "line", "speaker": "oleg", "emotion": "worried", "text": "Правило, которое знает только один вход, — это не правило базы, а привычка одного сервиса."}
       ]
     },
     {
-      "id": "relational-databases-turn",
-      "title": "Доказательство собрано",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "RDB-038"
-      },
+      "id": "rdb-a3",
+      "title": "Ограничение на грязных данных",
+      "trigger": {"on": "afterMission", "missionId": "RDB-018"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "mira",
-          "emotion": "happy",
-          "text": "Теперь реляционную схему можно повторить с нуля: исходные условия, код и проверки лежат рядом."
-        },
-        {
-          "kind": "line",
-          "speaker": "lena",
-          "emotion": "determined",
-          "text": "Такой результат я могу защищать. Заверши последнюю миссию и зафиксируй ограничения."
-        }
+        {"kind": "notification", "channel": "ticket", "from": "Соня", "title": "Ограничение не включается", "text": "CHECK на положительную сумму не создаётся: в таблице тридцать семь строк с нулём и четыре с отрицательным значением."},
+        {"kind": "line", "speaker": "sonya", "emotion": "worried", "text": "Их писали три года. Просто удалить нельзя, это чужие деньги."},
+        {"kind": "line", "speaker": "oleg", "emotion": "neutral", "text": "И не надо. Сначала объясни каждую: ноль — это отмена, минус — это возврат. Потом решай, где им место."},
+        {"kind": "line", "speaker": "yana", "emotion": "determined", "text": "Возвраты вынесем отдельной сущностью. Тогда ограничение включится и не соврёт."}
+      ]
+    },
+    {
+      "id": "rdb-a4",
+      "title": "Адрес в трёх местах",
+      "trigger": {"on": "beforeMission", "missionId": "RDB-021"},
+      "beats": [
+        {"kind": "line", "speaker": "yana", "emotion": "worried", "text": "Адрес клиента лежит в трёх таблицах. В одной он новый, в двух остался старый."},
+        {"kind": "line", "speaker": "sonya", "emotion": "neutral", "text": "Курьеры возят по старому. Полгода мы считали, что это ошибки водителей."},
+        {"kind": "line", "speaker": "oleg", "emotion": "determined", "text": "Это не ошибки водителей, это аномалия обновления. Найди значение, которое обязано жить ровно в одном месте."}
+      ]
+    },
+    {
+      "id": "rdb-a5",
+      "title": "Между двумя шагами",
+      "trigger": {"on": "afterMission", "missionId": "RDB-029"},
+      "beats": [
+        {"kind": "line", "speaker": "sonya", "emotion": "surprised", "text": "Нашла. Перевод между счетами списывает деньги и только потом зачисляет, а транзакции между шагами нет."},
+        {"kind": "choice", "id": "rdb-c2", "prompt": "Что делать с переводом?", "options": [
+          {"id": "atomic", "text": "Обернуть оба шага в одну транзакцию: либо целиком, либо никак.", "reply": "Яна: «И тогда сбой посередине перестанет быть потерянными деньгами».", "trust": {"oleg": 4, "yana": 3}, "flags": ["case-relational-databases:atomic"]},
+          {"id": "later", "text": "Оставить как есть: за три года сбой случился дважды.", "reply": "Дважды — это два человека, которым деньги не вернулись. Третий случай будет громче.", "trust": {"oleg": -2, "yana": -2}, "flags": ["case-relational-databases:hope"]}
+        ]},
+        {"kind": "line", "speaker": "oleg", "emotion": "neutral", "text": "Транзакция — это обещание базы: промежуточного состояния никто снаружи не увидит."}
+      ]
+    },
+    {
+      "id": "rdb-a5b",
+      "title": "Третий случай",
+      "trigger": {"on": "afterMission", "missionId": "RDB-033"},
+      "requiresFlags": ["case-relational-databases:hope"],
+      "beats": [
+        {"kind": "line", "speaker": "yana", "emotion": "worried", "text": "Перевод оборвался посередине. Со счёта списано, на счёт не зачислено, между шагами — ничего."},
+        {"kind": "line", "speaker": "oleg", "emotion": "worried", "text": "Третий случай за три года. Мы знали про него заранее и решили, что двух раз недостаточно."}
+      ]
+    },
+    {
+      "id": "rdb-a6",
+      "title": "База, которая держит себя сама",
+      "trigger": {"on": "afterMission", "missionId": "RDB-BOSS-01"},
+      "beats": [
+        {"kind": "comic", "panels": [
+          {"speaker": "sonya", "emotion": "happy", "caption": "Ограничения включены. Импорт, сервис и ручные правки играют по одним правилам.", "scene": "schema"},
+          {"speaker": "yana", "emotion": "happy", "caption": "А возвраты наконец видно отдельно от продаж.", "scene": "schema"}
+        ]},
+        {"kind": "line", "speaker": "oleg", "emotion": "happy", "text": "Хорошая схема — та, где неверные данные некуда положить. Дальше их держит не наша память, а сама база."},
+        {"kind": "line", "speaker": "narrator", "text": "Получен предмет: схема с ограничениями."}
       ]
     }
   ],
   "endings": [
     {
-      "id": "relational-databases-gold",
-      "title": "Дело выдержало проверку",
-      "summary": "Команда получила реляционную схему и понимает границы применимости решения.",
-      "minTrust": {
-        "oleg": 1,
-        "lena": 1
-      },
+      "id": "gold",
+      "title": "Правила внутри базы",
+      "summary": "Заказ без клиента больше невозможен, возвраты живут отдельной сущностью, перевод между счетами стал атомарным. Соня перестала добавлять проверки в сервис по одной, Яна получила данные, на которых можно строить отчёт. Отчёт по возвратам сошёлся впервые за три месяца.",
+      "minTrust": {"oleg": 7, "yana": 2},
+      "requiresFlags": ["case-relational-databases:constraint", "case-relational-databases:atomic"],
       "rank": "золото"
     },
     {
-      "id": "relational-databases-silver",
-      "title": "Результат с оговорками",
-      "summary": "Рабочая версия принята, но спорные места придётся перепроверить перед следующим решением.",
+      "id": "silver",
+      "title": "Разобрались, но не закрыли",
+      "summary": "Ключи описаны, нормализация разобрана, история почищена. Но часть правил осталась в коде сервиса: тот, кто придёт писать в базу мимо него, об этих правилах не узнает.",
+      "minTrust": {"oleg": 2},
       "rank": "серебро"
+    },
+    {
+      "id": "bronze",
+      "title": "Отчёт по-прежнему не сходится",
+      "summary": "Записи почищены руками, ограничения так и не включены. Ночной импорт продолжает писать заказы без клиентов, а перевод между счетами всё ещё может остановиться посередине.",
+      "rank": "бронза"
     }
   ]
 }

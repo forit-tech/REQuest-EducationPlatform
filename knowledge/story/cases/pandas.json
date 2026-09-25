@@ -54,7 +54,7 @@
       "title": "Первая гипотеза",
       "trigger": {
         "on": "beforeMission",
-        "missionId": "PDA-001"
+        "missionId": "PDA-0101"
       },
       "beats": [
         {
@@ -76,7 +76,7 @@
       "title": "След расходится",
       "trigger": {
         "on": "afterMission",
-        "missionId": "PDA-030"
+        "missionId": "PDA-1503"
       },
       "beats": [
         {
@@ -98,7 +98,7 @@
       "title": "Цена скорости",
       "trigger": {
         "on": "beforeMission",
-        "missionId": "PDA-059"
+        "missionId": "PDA-2303"
       },
       "beats": [
         {
@@ -144,7 +144,7 @@
       "title": "Доказательство собрано",
       "trigger": {
         "on": "afterMission",
-        "missionId": "PDA-116"
+        "missionId": "PDA-2901"
       },
       "beats": [
         {

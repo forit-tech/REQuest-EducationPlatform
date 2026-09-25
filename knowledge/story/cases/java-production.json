@@ -1,183 +1,138 @@
 {
   "caseId": "case-java-production",
   "courseId": "java-production",
-  "number": "03",
+  "number": "24",
   "title": "Релиз без следов",
-  "logline": "Новая версия стала медленнее, но логи, метрики и трассы не связываются с запросами.",
-  "setting": "Продуктовая компания «Север»",
-  "cast": [
-    "sonya",
-    "artem",
-    "alexey"
-  ],
+  "logline": "Сервис деградировал четыре часа. В логах — ни одной ошибки, в метриках — ровная линия.",
+  "setting": "Сервис заказов после релиза. Он работает, и это единственное, что о нём известно.",
+  "cast": ["artem", "sonya", "alexey"],
   "acts": [
     {
-      "id": "java-production-start",
-      "title": "Релиз без следов",
-      "trigger": {
-        "on": "caseStart"
-      },
+      "id": "jpr-a0",
+      "title": "Ровная линия",
+      "trigger": {"on": "caseStart"},
       "beats": [
-        {
-          "kind": "comic",
-          "panels": [
-            {
-              "speaker": "sonya",
-              "emotion": "surprised",
-              "scene": "office",
-              "caption": "Новая версия стала медленнее, но логи, метрики и трассы не связываются с запросами."
-            },
-            {
-              "speaker": "artem",
-              "emotion": "determined",
-              "scene": "screen",
-              "caption": "Сначала строим цепочку доказательств. Красивый ответ без проверки не принимается."
-            },
-            {
-              "speaker": "alexey",
-              "emotion": "worried",
-              "scene": "meeting",
-              "caption": "Решение нужно сегодня. Ошибка изменит план команды на квартал."
-            }
-          ]
-        },
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "determined",
-          "text": "Это дело про «Java-сервис в продакшене». Не проходи уроки отдельно: каждый найденный факт станет уликой в общем расследовании."
-        }
+        {"kind": "comic", "panels": [
+          {"caption": "Четыре часа заказы оформлялись по сорок секунд вместо двух. Ни одной ошибки в логах, ни одного алерта.", "scene": "monitor"},
+          {"speaker": "sonya", "emotion": "worried", "caption": "Мы узнали об этом из письма клиента, а не от сервиса.", "scene": "monitor"},
+          {"speaker": "artem", "emotion": "worried", "caption": "Тесты зелёные, релиз прошёл, откатывать формально нечего.", "scene": "monitor"}
+        ]},
+        {"kind": "line", "speaker": "alexey", "emotion": "determined", "text": "Значит, у нас нет способа отличить работающий сервис от притворяющегося. Это и есть задача."},
+        {"kind": "line", "speaker": "sonya", "emotion": "neutral", "text": "Начнём с тестов. Зелёный тест, который ничего не проверяет, — первый в этой цепочке."}
       ]
     },
     {
-      "id": "java-production-brief",
-      "title": "Первая версия",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "JPR-001"
-      },
+      "id": "jpr-a1",
+      "title": "Тест, который всегда зелёный",
+      "trigger": {"on": "beforeMission", "missionId": "JPR-002"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "sonya",
-          "emotion": "happy",
-          "text": "Я уже собрала материалы. Давай сначала договоримся, какой вопрос мы вообще пытаемся решить."
-        },
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "neutral",
-          "text": "Хорошее начало. Зафиксируй принцип — после этого рабочая станция откроет первую улику."
-        }
+        {"kind": "line", "speaker": "sonya", "emotion": "neutral", "text": "Половина тестов вызывает метод и не проверяет результат. Они падают, только если код бросит исключение."},
+        {"kind": "line", "speaker": "artem", "emotion": "surprised", "text": "Но покрытие показывает восемьдесят процентов."},
+        {"kind": "line", "speaker": "alexey", "emotion": "determined", "text": "Покрытие показывает, какие строки выполнились, а не что мы проверили. Начни с одного теста, который умеет падать."}
       ]
     },
     {
-      "id": "java-production-evidence",
-      "title": "Улика не сходится",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "JPR-003"
-      },
+      "id": "jpr-a2",
+      "title": "Что писать в лог",
+      "trigger": {"on": "afterMission", "missionId": "JPR-005"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "sonya",
-          "emotion": "worried",
-          "text": "Проверка изменила число. Значит, первая версия была удобной, но неверной."
-        },
-        {
-          "kind": "line",
-          "speaker": "artem",
-          "emotion": "happy",
-          "text": "Именно поэтому мы оставляем воспроизводимые шаги. Ошибка, найденная до решения, — полезная улика."
-        }
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "В логе строка «Обработка завершена». Без идентификатора заказа, без времени обработки, без результата."},
+        {"kind": "line", "speaker": "sonya", "emotion": "worried", "text": "Такую строку невозможно ни найти, ни сосчитать. Она просто занимает место."},
+        {"kind": "choice", "id": "jpr-c1", "prompt": "Как вести журнал сервиса?", "options": [
+          {"id": "structured", "text": "Писать событие полями: идентификатор заказа, шаг, длительность, исход.", "reply": "Соня: «Теперь по логу можно задать вопрос, а не читать его глазами до утра».", "trust": {"sonya": 4, "artem": 2}, "flags": ["case-java-production:structured"]},
+          {"id": "more", "text": "Добавить больше строк: чем подробнее, тем понятнее.", "reply": "Объём логов вырастает вчетверо. Найти в них нужный заказ становится ещё труднее.", "trust": {"sonya": -2}, "flags": ["case-java-production:more"]}
+        ]}
       ]
     },
     {
-      "id": "java-production-choice",
-      "title": "Давление срока",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "JPR-007"
-      },
+      "id": "jpr-a2b",
+      "title": "Терабайт текста",
+      "trigger": {"on": "afterMission", "missionId": "JPR-006"},
+      "requiresFlags": ["case-java-production:more"],
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "alexey",
-          "emotion": "worried",
-          "text": "Мне нужна рекомендация через двадцать минут. Можно не показывать спорный сегмент?"
-        },
-        {
-          "kind": "choice",
-          "id": "java-production-deadline-choice",
-          "prompt": "Как ты ответишь?",
-          "options": [
-            {
-              "id": "transparent",
-              "text": "Покажу спорный риск и объясню, как он влияет на решение.",
-              "reply": "Руководитель кивает: неприятный риск лучше скрытой ошибки.",
-              "trust": {
-                "alexey": 2,
-                "artem": 1
-              },
-              "flags": [
-                "java-production-transparent"
-              ]
-            },
-            {
-              "id": "fast",
-              "text": "Уберу спорный риск ради короткого ответа.",
-              "reply": "Наставник ничего не говорит, но просит сохранить эту версию отдельно.",
-              "trust": {
-                "artem": -1
-              },
-              "flags": [
-                "java-production-rushed"
-              ]
-            }
-          ]
-        }
+        {"kind": "line", "speaker": "artem", "emotion": "worried", "text": "За неделю логи заняли терабайт. Поиск по ним идёт восемь минут."},
+        {"kind": "line", "speaker": "sonya", "emotion": "neutral", "text": "Мы писали больше, а не понятнее. Это разные вещи, и стоят они тоже по-разному."}
       ]
     },
     {
-      "id": "java-production-turn",
-      "title": "Решение выдерживает проверку",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "JPR-010"
-      },
+      "id": "jpr-a3",
+      "title": "Где на самом деле время",
+      "trigger": {"on": "afterMission", "missionId": "JPR-008"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "sonya",
-          "emotion": "happy",
-          "text": "Теперь вывод не рассыпается, даже если изменить период и открыть сегменты."
-        },
-        {
-          "kind": "line",
-          "speaker": "alexey",
-          "emotion": "determined",
-          "text": "Хорошо. Доводи доказательства до итоговой рекомендации — я защищу её перед командой."
-        }
+        {"kind": "notification", "channel": "ticket", "from": "Артём", "title": "Профиль под нагрузкой", "text": "Сорок секунд обработки: 0,3 секунды в расчёте, 38 секунд в ожидании соединения с базой. Пул соединений — десять, потоков — двести."},
+        {"kind": "line", "speaker": "artem", "emotion": "surprised", "text": "Я был уверен, что тормозит расчёт скидки. Мы его две недели оптимизировали."},
+        {"kind": "line", "speaker": "sonya", "emotion": "neutral", "text": "Он и правда стал быстрее. Только это никогда не было узким местом."},
+        {"kind": "line", "speaker": "alexey", "emotion": "determined", "text": "Поэтому сначала измеряют, а потом чинят. В обратном порядке получается ускорение того, что и так работало."}
+      ]
+    },
+    {
+      "id": "jpr-a4",
+      "title": "Память растёт ступенями",
+      "trigger": {"on": "beforeMission", "missionId": "JPR-009"},
+      "beats": [
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Занятая память растёт ступенями и не возвращается после сборки мусора."},
+        {"kind": "line", "speaker": "sonya", "emotion": "worried", "text": "Через двое суток пауза на сборку доходит до трёх секунд. Это и есть те самые «сорок секунд иногда»."},
+        {"kind": "line", "speaker": "alexey", "emotion": "determined", "text": "Значит, снимаем снимок кучи и смотрим, что в ней держится дольше, чем должно."}
+      ]
+    },
+    {
+      "id": "jpr-a5",
+      "title": "Выкатывать целиком",
+      "trigger": {"on": "afterMission", "missionId": "JPR-011"},
+      "beats": [
+        {"kind": "line", "speaker": "alexey", "emotion": "neutral", "text": "Релиз выкатывается сразу на все узлы. Если он плохой, плохо становится всем одновременно."},
+        {"kind": "choice", "id": "jpr-c2", "prompt": "Как выкатывать следующий релиз?", "options": [
+          {"id": "canary", "text": "Сначала на один узел, сравнить его метрики с остальными и только потом раскатывать.", "reply": "Артём: «Плохой релиз теперь стоит одного узла и десяти минут, а не четырёх часов».", "trust": {"artem": 4, "alexey": 3}, "flags": ["case-java-production:canary"]},
+          {"id": "all", "text": "Как раньше: так быстрее и все узлы одинаковые.", "reply": "Раскатка занимает две минуты. Стоимость ошибки по-прежнему равна всему сервису.", "trust": {"alexey": -2}, "flags": ["case-java-production:all"]}
+        ]},
+        {"kind": "line", "speaker": "sonya", "emotion": "neutral", "text": "И у релиза должен быть признак, по которому видно, что он живой: не «процесс запущен», а «сервис отвечает и укладывается в срок»."}
+      ]
+    },
+    {
+      "id": "jpr-a5b",
+      "title": "Все узлы сразу",
+      "trigger": {"on": "afterMission", "missionId": "JPR-012"},
+      "requiresFlags": ["case-java-production:all"],
+      "beats": [
+        {"kind": "line", "speaker": "sonya", "emotion": "worried", "text": "Ночной релиз положил обработку заказов на всех восьми узлах. Откат занял сорок минут."},
+        {"kind": "line", "speaker": "artem", "emotion": "neutral", "text": "Мы снова узнали о проблеме от клиентов. Разница только в том, что теперь у нас есть логи, по которым это видно."}
+      ]
+    },
+    {
+      "id": "jpr-a6",
+      "title": "Сервис, который рассказывает о себе",
+      "trigger": {"on": "afterMission", "missionId": "JPR-013"},
+      "beats": [
+        {"kind": "comic", "panels": [
+          {"speaker": "artem", "emotion": "happy", "caption": "Тесты умеют падать, лог отвечает на вопросы, профиль показывает настоящее узкое место.", "scene": "monitor"},
+          {"speaker": "sonya", "emotion": "happy", "caption": "И о деградации мы узнаём за четыре минуты, а не за четыре часа.", "scene": "monitor"}
+        ]},
+        {"kind": "line", "speaker": "alexey", "emotion": "happy", "text": "Продакшен — это не место, где код работает. Это место, где про код всё известно."},
+        {"kind": "line", "speaker": "narrator", "text": "Получен предмет: карта наблюдаемости сервиса."}
       ]
     }
   ],
   "endings": [
     {
-      "id": "java-production-gold",
-      "title": "Доказательство принято",
-      "summary": "Команда получила воспроизводимый вывод и безопасный следующий шаг.",
-      "minTrust": {
-        "artem": 1,
-        "alexey": 1
-      },
+      "id": "gold",
+      "title": "Четыре минуты вместо четырёх часов",
+      "summary": "Тесты научились падать, журнал стал набором событий с полями, профиль показал настоящее узкое место, а релиз выкатывается сначала на один узел. О деградации сервис теперь сообщает сам — раньше, чем о ней напишет клиент.",
+      "minTrust": {"alexey": 3, "artem": 4},
+      "requiresFlags": ["case-java-production:structured", "case-java-production:canary"],
       "rank": "золото"
     },
     {
-      "id": "java-production-silver",
-      "title": "Решение с оговорками",
-      "summary": "Вывод принят, но часть рисков придётся перепроверить после запуска.",
+      "id": "silver",
+      "title": "Видно, но поздно",
+      "summary": "Журнал и метрики появились, узкое место найдено и расширено. Но релиз по-прежнему приезжает на все узлы сразу: следующая ошибка снова будет стоить всего сервиса, просто теперь её будет видно.",
+      "minTrust": {"alexey": 2},
       "rank": "серебро"
+    },
+    {
+      "id": "bronze",
+      "title": "Логов стало больше",
+      "summary": "Логи выросли вчетверо и по-прежнему ни на что не отвечают, релизы приезжают целиком, а о деградации сервиса сообщают клиенты. Про код известно ровно одно: он запущен.",
+      "rank": "бронза"
     }
   ]
 }

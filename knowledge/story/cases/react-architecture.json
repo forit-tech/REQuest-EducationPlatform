@@ -1,183 +1,138 @@
 {
   "caseId": "case-react-architecture",
   "courseId": "react-architecture",
-  "number": "02",
-  "title": "Кэш трёх истин",
-  "logline": "Три экрана хранят разные копии одного заказа и показывают пользователю несовместимые статусы.",
-  "setting": "Продуктовая компания «Север»",
-  "cast": [
-    "irina",
-    "gleb",
-    "alexey"
-  ],
+  "number": "30",
+  "title": "Универсальный компонент стал монолитом",
+  "logline": "Компонент карточки принимает сорок один параметр. Добавить сорок второй быстрее, чем понять первые сорок.",
+  "setting": "Тот же диспетчерский интерфейс, полгода спустя. Он работает и почти не поддаётся изменению.",
+  "cast": ["irina", "gleb", "alexey"],
   "acts": [
     {
-      "id": "react-architecture-start",
-      "title": "Кэш трёх истин",
-      "trigger": {
-        "on": "caseStart"
-      },
+      "id": "rca-a0",
+      "title": "Сорок один параметр",
+      "trigger": {"on": "caseStart"},
       "beats": [
-        {
-          "kind": "comic",
-          "panels": [
-            {
-              "speaker": "irina",
-              "emotion": "surprised",
-              "scene": "office",
-              "caption": "Три экрана хранят разные копии одного заказа и показывают пользователю несовместимые статусы."
-            },
-            {
-              "speaker": "gleb",
-              "emotion": "determined",
-              "scene": "screen",
-              "caption": "Один заказ должен иметь один адрес и один ключ кэша. Иначе интерфейс снова разойдётся по версиям."
-            },
-            {
-              "speaker": "alexey",
-              "emotion": "worried",
-              "scene": "meeting",
-              "caption": "Исправление нужно сегодня: поддержка уже отвечает клиентам по трём разным статусам."
-            }
-          ]
-        },
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "determined",
-          "text": "Начнём с границ компонентов, затем проведём orderId через маршрут и серверный кэш. В финале останется одна проверяемая версия экрана."
-        }
+        {"kind": "comic", "panels": [
+          {"caption": "Компонент карточки: 41 параметр, 15 условий внутри, 900 строк. Каждый новый экран добавляет к нему ещё один флаг.", "scene": "screens"},
+          {"speaker": "gleb", "emotion": "worried", "caption": "Я боюсь его трогать. Любая правка ломает экран, о котором я не знал.", "scene": "screens"},
+          {"speaker": "alexey", "emotion": "neutral", "caption": "И поэтому все правки делаются добавлением флага. Так он и вырос.", "scene": "screens"}
+        ]},
+        {"kind": "line", "speaker": "irina", "emotion": "determined", "text": "Значит, компонент не универсальный, а просто общий. Это разные вещи."},
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "Начнём с границ: что здесь действительно одно и то же, а что просто оказалось рядом."}
       ]
     },
     {
-      "id": "react-architecture-brief",
-      "title": "Первая версия",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "RCA-001"
-      },
+      "id": "rca-a1",
+      "title": "Слоты вместо флагов",
+      "trigger": {"on": "beforeMission", "missionId": "RCA-002"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "irina",
-          "emotion": "happy",
-          "text": "OrderCard принимает семнадцать флагов. Я уже не могу предсказать, какой набор включит нужную разметку."
-        },
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "neutral",
-          "text": "Отдели устойчивую оболочку от конкретного содержимого. Первая улика — кто действительно должен знать сценарий экрана."
-        }
+        {"kind": "line", "speaker": "irina", "emotion": "neutral", "text": "Половина флагов включает и выключает куски разметки: с кнопкой, без кнопки, с картой, без карты."},
+        {"kind": "line", "speaker": "gleb", "emotion": "surprised", "text": "То есть вместо флага можно передавать саму эту часть внутрь?"},
+        {"kind": "line", "speaker": "alexey", "emotion": "determined", "text": "Да. Тогда карточка отвечает за рамку и расположение, а содержимое приносит тот, кто её вызывает. Собери layout из слотов и посмотри, сколько флагов исчезнет."}
       ]
     },
     {
-      "id": "react-architecture-evidence",
-      "title": "Граница стала видимой",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "RCA-003"
-      },
+      "id": "rca-a2",
+      "title": "Три копии ответа",
+      "trigger": {"on": "afterMission", "missionId": "RCA-005"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "irina",
-          "emotion": "worried",
-          "text": "После layout со слотами страницы больше не копируют шапку и меню. Отличия остались там, где им место."
-        },
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "happy",
-          "text": "Теперь ищем вторую границу: серверный ответ нельзя размножать по локальным состояниям."
-        }
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "Заказ лежит в трёх местах: в состоянии списка, в состоянии карточки и в глобальном хранилище."},
+        {"kind": "line", "speaker": "irina", "emotion": "worried", "text": "И после отметки о доставке обновляется одно из трёх. Какое — зависит от того, откуда пришёл оператор."},
+        {"kind": "choice", "id": "rca-c1", "prompt": "Где хранить серверные данные?", "options": [
+          {"id": "cache", "text": "Один кэш серверного состояния: сущность — ключ — запись, и обновление кэша после изменения.", "reply": "Ирина: «Копий больше нет. После отметки о доставке все экраны узнают об этом одинаково».", "trust": {"irina": 4, "gleb": 3}, "flags": ["case-react-architecture:cache"]},
+          {"id": "copy", "text": "Оставить копии и синхронизировать их вручную после каждой операции.", "reply": "Синхронизация работает для трёх мест. Четвёртое появится через месяц и о ней не узнает.", "trust": {"irina": -2}, "flags": ["case-react-architecture:copy"]}
+        ]}
       ]
     },
     {
-      "id": "react-architecture-choice",
-      "title": "Давление срока",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "RCA-007"
-      },
+      "id": "rca-a2b",
+      "title": "Четвёртая копия",
+      "trigger": {"on": "afterMission", "missionId": "RCA-006"},
+      "requiresFlags": ["case-react-architecture:copy"],
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "alexey",
-          "emotion": "worried",
-          "text": "Мне нужна ссылка на конкретный заказ через двадцать минут. Можно пока оставить выбранный id в памяти вкладки?"
-        },
-        {
-          "kind": "choice",
-          "id": "react-architecture-deadline-choice",
-          "prompt": "Как ты ответишь?",
-          "options": [
-            {
-              "id": "transparent",
-              "text": "Вынесу id в URL и покажу состояние загрузки и ошибки.",
-              "reply": "Алексей кивает: такую ссылку можно проверить и передать поддержке.",
-              "trust": {
-                "alexey": 2,
-                "gleb": 1
-              },
-              "flags": [
-                "react-architecture-transparent"
-              ]
-            },
-            {
-              "id": "fast",
-              "text": "Оставлю id в useState и попрошу не обновлять страницу.",
-              "reply": "Глеб сохраняет ссылку — и сразу показывает, что она открывает другой заказ.",
-              "trust": {
-                "gleb": -1
-              },
-              "flags": [
-                "react-architecture-rushed"
-              ]
-            }
-          ]
-        }
+        {"kind": "line", "speaker": "gleb", "emotion": "worried", "text": "Новый экран смены завёл себе свою копию заказов. Синхронизацию туда никто не дописал."},
+        {"kind": "line", "speaker": "irina", "emotion": "neutral", "text": "Ручная синхронизация — это правило, которое живёт в чужой памяти. Память подводит быстрее кода."}
       ]
     },
     {
-      "id": "react-architecture-turn",
-      "title": "Profiler меняет план",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "RCA-010"
-      },
+      "id": "rca-a3",
+      "title": "Экран без адреса",
+      "trigger": {"on": "afterMission", "missionId": "RCA-008"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "irina",
-          "emotion": "happy",
-          "text": "Profiler показал: тормозит не весь экран, а фильтр и повторный render строк. Значит, memo нужен только там."
-        },
-        {
-          "kind": "line",
-          "speaker": "alexey",
-          "emotion": "determined",
-          "text": "Хорошо. Собери финальный маршрут так, чтобы URL, query key и экран говорили об одном заказе."
-        }
+        {"kind": "notification", "channel": "ticket", "from": "Ирина", "title": "Нельзя дать ссылку", "text": "Оператор просит коллегу «открыть заказ 4417». Ссылки на заказ не существует: экран открывается только тремя кликами из списка."},
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "Состояние экрана живёт в памяти приложения, а не в адресе."},
+        {"kind": "line", "speaker": "alexey", "emotion": "determined", "text": "Значит, адрес и есть состояние. Заказ, фильтр, вкладка — всё, что можно назвать, должно быть в ссылке."},
+        {"kind": "line", "speaker": "irina", "emotion": "determined", "text": "И тогда перезагрузка страницы перестанет быть потерей контекста."}
+      ]
+    },
+    {
+      "id": "rca-a4",
+      "title": "memo повсюду",
+      "trigger": {"on": "beforeMission", "missionId": "RCA-010"},
+      "beats": [
+        {"kind": "line", "speaker": "gleb", "emotion": "worried", "text": "Я обернул в memo сорок компонентов. Быстрее не стало."},
+        {"kind": "line", "speaker": "irina", "emotion": "neutral", "text": "Потому что перерисовывается не то, что медленное, а то, у чего меняется состояние. Мы этого не измеряли."},
+        {"kind": "line", "speaker": "alexey", "emotion": "determined", "text": "Сначала измерь, что именно перерисовывается и сколько это стоит. Оптимизация без измерения — это просто больше кода."}
+      ]
+    },
+    {
+      "id": "rca-a5",
+      "title": "Одна версия заказа",
+      "trigger": {"on": "afterMission", "missionId": "RCA-012"},
+      "beats": [
+        {"kind": "line", "speaker": "irina", "emotion": "neutral", "text": "Осталось решить, кто отвечает за обновление после изменения заказа."},
+        {"kind": "choice", "id": "rca-c2", "prompt": "Как обновлять данные после операции?", "options": [
+          {"id": "invalidate", "text": "Помечать записи кэша устаревшими и перечитывать: источник правды остаётся один.", "reply": "Алексей: «Экран показывает то, что в базе, а не то, что мы предположили после нажатия».", "trust": {"alexey": 4, "irina": 3}, "flags": ["case-react-architecture:invalidate"]},
+          {"id": "guess", "text": "Дописывать изменения в кэш руками: так быстрее и без лишнего запроса.", "reply": "Интерфейс мгновенный и иногда неправильный: он показывает результат, которого сервер не подтверждал.", "trust": {"alexey": -2}, "flags": ["case-react-architecture:guess"]}
+        ]},
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "И если сервер отказал, экран обязан вернуться к правде, а не остаться с нашей выдумкой."}
+      ]
+    },
+    {
+      "id": "rca-a5b",
+      "title": "Показали то, чего не было",
+      "trigger": {"on": "afterMission", "missionId": "RCA-011"},
+      "requiresFlags": ["case-react-architecture:guess"],
+      "beats": [
+        {"kind": "line", "speaker": "irina", "emotion": "worried", "text": "Заказ отметили доставленным, сервер отказал по правам. Экран три часа показывал «доставлен»."},
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "Мы нарисовали результат заранее и забыли предусмотреть, что его может не быть."}
+      ]
+    },
+    {
+      "id": "rca-a6",
+      "title": "Единая версия заказа",
+      "trigger": {"on": "afterMission", "missionId": "RCA-013"},
+      "beats": [
+        {"kind": "comic", "panels": [
+          {"speaker": "gleb", "emotion": "happy", "caption": "Карточка отвечает за рамку, содержимое приходит слотами, данные живут в одном кэше.", "scene": "screens"},
+          {"speaker": "irina", "emotion": "happy", "caption": "И на любой экран теперь можно дать ссылку.", "scene": "screens"}
+        ]},
+        {"kind": "line", "speaker": "alexey", "emotion": "happy", "text": "Архитектура интерфейса — это ответ на вопрос, где живёт правда. Всё остальное следует из него."},
+        {"kind": "line", "speaker": "narrator", "text": "Получен предмет: схема состояний приложения."}
       ]
     }
   ],
   "endings": [
     {
-      "id": "react-architecture-gold",
-      "title": "Доказательство принято",
-      "summary": "Команда получила адресуемый экран с единым серверным кэшем и измеренными границами render.",
-      "minTrust": {
-        "gleb": 1,
-        "alexey": 1
-      },
+      "id": "gold",
+      "title": "Правда в одном месте",
+      "summary": "Карточка отвечает за границы, а не за сорок один случай; серверные данные живут в одном кэше и обновляются перечитыванием; на каждый экран есть ссылка. Новый экран смены собрали за день и без единого нового флага.",
+      "minTrust": {"irina": 7, "alexey": 4},
+      "requiresFlags": ["case-react-architecture:cache", "case-react-architecture:invalidate"],
       "rank": "золото"
     },
     {
-      "id": "react-architecture-silver",
-      "title": "Решение с оговорками",
-      "summary": "Экран принят, но часть границ кэша и производительности придётся перепроверить после запуска.",
+      "id": "silver",
+      "title": "Границы проведены",
+      "summary": "Монолит разобран на слоты, адрес хранит состояние экрана, узкое место найдено измерением. Но обновление после операции по-прежнему дописывается руками: иногда интерфейс показывает то, чего сервер не подтверждал.",
+      "minTrust": {"irina": 2},
       "rank": "серебро"
+    },
+    {
+      "id": "bronze",
+      "title": "Сорок второй флаг",
+      "summary": "Компонент продолжает расти флагами, копии данных синхронизируются вручную, ссылку на экран дать нельзя. Каждая правка по-прежнему ломает экран, о котором никто не знал.",
+      "rank": "бронза"
     }
   ]
 }

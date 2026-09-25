@@ -1,183 +1,138 @@
 {
   "caseId": "case-web-platform-foundations",
   "courseId": "web-platform-foundations",
-  "number": "01",
-  "title": "Страница без голоса",
-  "logline": "Новая форма выглядит правильно, но клавиатура и скринридер не позволяют завершить заказ.",
-  "setting": "Продуктовая компания «Север»",
-  "cast": [
-    "sonya",
-    "gleb",
-    "lena"
-  ],
+  "number": "06",
+  "title": "Форма, которую не видно",
+  "logline": "Заказ оформляется. С телефона — нет, с клавиатуры — нет, а голосовой доступ вообще молчит.",
+  "setting": "Та же форма заказа. Двойные заказы починены, и теперь стало видно всё остальное.",
+  "cast": ["oleg", "gleb", "irina"],
   "acts": [
     {
-      "id": "web-platform-foundations-start",
-      "title": "Страница без голоса",
-      "trigger": {
-        "on": "caseStart"
-      },
+      "id": "wpf-a0",
+      "title": "Двадцать два процента",
+      "trigger": {"on": "caseStart"},
       "beats": [
-        {
-          "kind": "comic",
-          "panels": [
-            {
-              "speaker": "sonya",
-              "emotion": "surprised",
-              "scene": "office",
-              "caption": "Новая форма выглядит правильно, но клавиатура и скринридер не позволяют завершить заказ."
-            },
-            {
-              "speaker": "gleb",
-              "emotion": "determined",
-              "scene": "screen",
-              "caption": "Сначала строим цепочку доказательств. Красивый ответ без проверки не принимается."
-            },
-            {
-              "speaker": "lena",
-              "emotion": "worried",
-              "scene": "meeting",
-              "caption": "Решение нужно сегодня. Ошибка изменит план команды на квартал."
-            }
-          ]
-        },
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "determined",
-          "text": "Это дело про «Web-платформа». Не проходи уроки отдельно: каждый найденный факт станет уликой в общем расследовании."
-        }
+        {"kind": "comic", "panels": [
+          {"caption": "Оформление с телефона доходит до конца у двадцати двух процентов. С компьютера — у семидесяти девяти.", "scene": "funnel"},
+          {"speaker": "irina", "emotion": "worried", "caption": "Двойные заказы мы починили, и на их месте стало видно вот это.", "scene": "funnel"},
+          {"speaker": "gleb", "emotion": "surprised", "caption": "Я думал, дело было в кнопке. Кнопка теперь честная, а люди всё равно уходят.", "scene": "funnel"}
+        ]},
+        {"kind": "line", "speaker": "oleg", "emotion": "neutral", "text": "Значит, дело не в логике. Логика делает то, что написано. Уходят раньше, чем до неё доходит."},
+        {"kind": "line", "speaker": "irina", "emotion": "determined", "text": "Тогда разбираем не код заказа, а саму страницу: из чего она собрана и как её читают."}
       ]
     },
     {
-      "id": "web-platform-foundations-brief",
-      "title": "Первая версия",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "WPF-001"
-      },
+      "id": "wpf-a1",
+      "title": "Кнопка, которая не кнопка",
+      "trigger": {"on": "beforeMission", "missionId": "WPF-002"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "sonya",
-          "emotion": "happy",
-          "text": "Я уже собрала материалы. Давай сначала договоримся, какой вопрос мы вообще пытаемся решить."
-        },
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "neutral",
-          "text": "Хорошее начало. Зафиксируй принцип — после этого рабочая станция откроет первую улику."
-        }
+        {"kind": "line", "speaker": "irina", "emotion": "neutral", "text": "«Оформить» — это не кнопка. Это блок с обработчиком нажатия и картинкой."},
+        {"kind": "line", "speaker": "gleb", "emotion": "surprised", "text": "А есть разница, если выглядит одинаково?"},
+        {"kind": "line", "speaker": "irina", "emotion": "determined", "text": "Для глаза нет, для всего остального — да. Настоящую кнопку можно нажать с клавиатуры, её объявляет голосовой доступ, её понимает браузер. Начни с того, чем размечена страница."}
       ]
     },
     {
-      "id": "web-platform-foundations-evidence",
-      "title": "Улика не сходится",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "WPF-003"
-      },
+      "id": "wpf-a2",
+      "title": "Ничего не объявлено",
+      "trigger": {"on": "afterMission", "missionId": "WPF-004"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "sonya",
-          "emotion": "worried",
-          "text": "Проверка изменила число. Значит, первая версия была удобной, но неверной."
-        },
-        {
-          "kind": "line",
-          "speaker": "gleb",
-          "emotion": "happy",
-          "text": "Именно поэтому мы оставляем воспроизводимые шаги. Ошибка, найденная до решения, — полезная улика."
-        }
+        {"kind": "line", "speaker": "irina", "emotion": "worried", "text": "Голосовой доступ читает форму как «ссылка, ссылка, поле, ссылка». Ни одного названия."},
+        {"kind": "line", "speaker": "gleb", "emotion": "worried", "text": "И человек, который так пользуется сайтом, просто не знает, что он заполняет."},
+        {"kind": "choice", "id": "wpf-c1", "prompt": "Разметка правится долго. Когда браться?", "options": [
+          {"id": "now", "text": "Сейчас: подписи, роли и порядок обхода — часть той же формы.", "reply": "Ирина: «Доступность — это не отдельная задача. Это та же задача, сделанная до конца».", "trust": {"irina": 4, "oleg": 2}, "flags": ["case-web-platform-foundations:semantic"]},
+          {"id": "later", "text": "Позже: сначала вернём конверсию, потом доступность.", "reply": "Конверсия возвращается на телефонах. Люди с голосовым доступом продолжают не оформлять заказ вовсе.", "trust": {"irina": -3}, "flags": ["case-web-platform-foundations:later"]}
+        ]}
       ]
     },
     {
-      "id": "web-platform-foundations-choice",
-      "title": "Давление срока",
-      "trigger": {
-        "on": "beforeMission",
-        "missionId": "WPF-007"
-      },
+      "id": "wpf-a2b",
+      "title": "Скринридер молчит",
+      "trigger": {"on": "afterMission", "missionId": "WPF-005"},
+      "requiresFlags": ["case-web-platform-foundations:later"],
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "lena",
-          "emotion": "worried",
-          "text": "Мне нужна рекомендация через двадцать минут. Можно не показывать спорный сегмент?"
-        },
-        {
-          "kind": "choice",
-          "id": "web-platform-foundations-deadline-choice",
-          "prompt": "Как ты ответишь?",
-          "options": [
-            {
-              "id": "transparent",
-              "text": "Покажу спорный риск и объясню, как он влияет на решение.",
-              "reply": "Руководитель кивает: неприятный риск лучше скрытой ошибки.",
-              "trust": {
-                "lena": 2,
-                "gleb": 1
-              },
-              "flags": [
-                "web-platform-foundations-transparent"
-              ]
-            },
-            {
-              "id": "fast",
-              "text": "Уберу спорный риск ради короткого ответа.",
-              "reply": "Наставник ничего не говорит, но просит сохранить эту версию отдельно.",
-              "trust": {
-                "gleb": -1
-              },
-              "flags": [
-                "web-platform-foundations-rushed"
-              ]
-            }
-          ]
-        }
+        {"kind": "line", "speaker": "irina", "emotion": "worried", "text": "Пришло письмо: человек третью неделю не может оформить заказ голосовым доступом. Он писал и в прошлом месяце."},
+        {"kind": "line", "speaker": "oleg", "emotion": "neutral", "text": "«Позже» уже наступало. Оно всегда наступает после кого-то."}
       ]
     },
     {
-      "id": "web-platform-foundations-turn",
-      "title": "Решение выдерживает проверку",
-      "trigger": {
-        "on": "afterMission",
-        "missionId": "WPF-010"
-      },
+      "id": "wpf-a3",
+      "title": "Ширина, которой нет",
+      "trigger": {"on": "afterMission", "missionId": "WPF-006"},
       "beats": [
-        {
-          "kind": "line",
-          "speaker": "sonya",
-          "emotion": "happy",
-          "text": "Теперь вывод не рассыпается, даже если изменить период и открыть сегменты."
-        },
-        {
-          "kind": "line",
-          "speaker": "lena",
-          "emotion": "determined",
-          "text": "Хорошо. Доводи доказательства до итоговой рекомендации — я защищу её перед командой."
-        }
+        {"kind": "notification", "channel": "alert", "from": "Мониторинг", "title": "Горизонтальная прокрутка", "text": "На ширине экрана 360 пикселей поле «Комментарий к заказу» выходит за границу страницы на 140 пикселей."},
+        {"kind": "line", "speaker": "gleb", "emotion": "neutral", "text": "Ширина формы задана в пикселях. Она была верной ровно для того экрана, на котором её рисовали."},
+        {"kind": "line", "speaker": "oleg", "emotion": "neutral", "text": "И для всех остальных — нет. Экранов больше, чем макетов."},
+        {"kind": "line", "speaker": "irina", "emotion": "determined", "text": "Значит, размеры задаём не числом, а правилом: сколько есть места, столько и занимаем."}
+      ]
+    },
+    {
+      "id": "wpf-a4",
+      "title": "Страница не отвечает",
+      "trigger": {"on": "beforeMission", "missionId": "WPF-009"},
+      "beats": [
+        {"kind": "line", "speaker": "gleb", "emotion": "worried", "text": "При выборе города страница замирает на полторы секунды. Ввод в это время просто теряется."},
+        {"kind": "line", "speaker": "oleg", "emotion": "neutral", "text": "Список городов фильтруется целиком, на каждую нажатую букву, в том же потоке, который рисует страницу."},
+        {"kind": "line", "speaker": "irina", "emotion": "determined", "text": "Посмотри, что происходит между нажатием и перерисовкой. Пока эта очередь занята, интерфейс мёртвый."}
+      ]
+    },
+    {
+      "id": "wpf-a5",
+      "title": "Повтор запроса",
+      "trigger": {"on": "afterMission", "missionId": "WPF-012"},
+      "beats": [
+        {"kind": "line", "speaker": "gleb", "emotion": "surprised", "text": "Если сеть отвалилась, мы повторяем запрос на создание заказа. И иногда создаём второй."},
+        {"kind": "line", "speaker": "oleg", "emotion": "worried", "text": "Знакомо. Только теперь дубль приезжает не от кнопки, а от сети."},
+        {"kind": "choice", "id": "wpf-c2", "prompt": "Что делать с повтором?", "options": [
+          {"id": "idempotent", "text": "Дать заказу ключ, по которому повтор узнаётся как тот же самый.", "reply": "Повтор перестаёт быть вторым заказом: сервер узнаёт ключ и возвращает первый результат.", "trust": {"oleg": 4, "irina": 3}, "flags": ["case-web-platform-foundations:idempotent"]},
+          {"id": "retry", "text": "Просто не повторять запрос: сеть обычно работает.", "reply": "Дубли исчезают. Вместе с ними исчезают и заказы тех, у кого сеть отвалилась на секунду.", "trust": {"oleg": -2}, "flags": ["case-web-platform-foundations:noretry"]}
+        ]}
+      ]
+    },
+    {
+      "id": "wpf-a5b",
+      "title": "Заказ, которого не было",
+      "trigger": {"on": "afterMission", "missionId": "WPF-013"},
+      "requiresFlags": ["case-web-platform-foundations:noretry"],
+      "beats": [
+        {"kind": "line", "speaker": "irina", "emotion": "worried", "text": "Человек оформил заказ в лифте. Запрос не дошёл, повтора нет, деньги списаны."},
+        {"kind": "line", "speaker": "oleg", "emotion": "neutral", "text": "Мы выбирали между двумя ошибками и выбрали ту, которую не видно в отчёте."}
+      ]
+    },
+    {
+      "id": "wpf-a6",
+      "title": "Форма, которая доступна",
+      "trigger": {"on": "afterMission", "missionId": "WPF-013"},
+      "beats": [
+        {"kind": "comic", "panels": [
+          {"speaker": "irina", "emotion": "happy", "caption": "Голосовой доступ читает форму по названиям полей, а не как список ссылок.", "scene": "checkout"},
+          {"speaker": "gleb", "emotion": "happy", "caption": "И на экране в триста шестьдесят пикселей она наконец помещается целиком.", "scene": "checkout"}
+        ]},
+        {"kind": "line", "speaker": "oleg", "emotion": "happy", "text": "Платформа не мешала нам всё это время. Мы просто пользовались ей на треть."},
+        {"kind": "line", "speaker": "narrator", "text": "Получен предмет: доступная форма заказа."}
       ]
     }
   ],
   "endings": [
     {
-      "id": "web-platform-foundations-gold",
-      "title": "Доказательство принято",
-      "summary": "Команда получила воспроизводимый вывод и безопасный следующий шаг.",
-      "minTrust": {
-        "gleb": 1,
-        "lena": 1
-      },
+      "id": "gold",
+      "title": "Работает у всех",
+      "summary": "Форма размечена так, что её понимает и браузер, и голосовой доступ; она помещается на узком экране, не замирает при вводе и не создаёт второй заказ при повторе запроса. Оформление с телефона доходит до конца у шестидесяти восьми процентов вместо двадцати двух.",
+      "minTrust": {"oleg": 6, "irina": 5},
+      "requiresFlags": ["case-web-platform-foundations:semantic", "case-web-platform-foundations:idempotent"],
       "rank": "золото"
     },
     {
-      "id": "web-platform-foundations-silver",
-      "title": "Решение с оговорками",
-      "summary": "Вывод принят, но часть рисков придётся перепроверить после запуска.",
+      "id": "silver",
+      "title": "Стало лучше",
+      "summary": "Вёрстка перестала ломаться на узких экранах, ввод не теряется. Но часть страницы по-прежнему собрана из блоков, которые притворяются кнопками: для половины способов пользоваться сайтом форма осталась непроходимой.",
+      "minTrust": {"oleg": 2},
       "rank": "серебро"
+    },
+    {
+      "id": "bronze",
+      "title": "Конверсию подняли",
+      "summary": "Цифра в отчёте выросла, и на этом разбор закончился. Люди, которые пользуются сайтом с клавиатуры или голосом, в этой цифре не участвуют — они до неё не доходят.",
+      "rank": "бронза"
     }
   ]
 }
