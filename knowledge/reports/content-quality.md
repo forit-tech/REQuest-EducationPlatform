@@ -1,10 +1,10 @@
 # Качество учебного контента
 
-Собрано 09.09.2026, 10:59:00 за 335 мс.
+Собрано 25.09.2026, 13:46:40 за 376 мс.
 
 | Периметр | Ошибки | Предупреждения | Наблюдения |
 |---|---:|---:|---:|
-| Старый контент | 398 | 299 | 59 |
+| Старый контент | 358 | 271 | 56 |
 | Учебный материал | 0 | 5 | 30 |
 | Тестовые фикстуры | 0 | 1 | 0 |
 
@@ -12,7 +12,7 @@
 
 Покрытие ниже — это характеристика программы, а не конкретного человека: оно отвечает на вопрос «есть ли в REQuest обучение по этому пункту». Готовность человека считается отдельно, по журналу его попыток.
 
-Корпус: 75 курсов, 1909 старых заданий, 23 заданий новой модели, 44 навыков, 87 официальных вопросов вузов.
+Корпус: 76 курсов, 2188 старых заданий, 23 заданий новой модели, 44 навыков, 87 официальных вопросов вузов.
 
 ## По правилам
 
@@ -20,17 +20,15 @@
 |---|---|---|---:|
 | C3.duplicate-prompt | error | legacy | 193 |
 | C2.exact-answer-in-theory | error | legacy | 163 |
-| C2.normalized-answer-in-theory | error | legacy | 5 |
-| C4.duplicate-options | error | legacy | 4 |
-| C2.free-check | warning | legacy | 142 |
+| C2.normalized-answer-in-theory | error | legacy | 2 |
+| C2.free-check | warning | legacy | 140 |
 | C3.duplicate-intro | warning | legacy | 83 |
-| C5.fragile-substring | warning | legacy | 45 |
-| C4.longest-is-correct | warning | legacy | 26 |
+| C5.fragile-substring | warning | legacy | 25 |
+| C4.longest-is-correct | warning | legacy | 21 |
 | C7.no-introduction | warning | production | 5 |
 | C2.paraphrased-answer | warning | legacy | 2 |
 | C1.missing-source | warning | fixture | 1 |
-| C3.duplicate-options | warning | legacy | 1 |
-| C3.template-course | info | legacy | 57 |
+| C3.template-course | info | legacy | 54 |
 | C7.progression | info | production | 26 |
 | C8.coverage | info | production | 3 |
 | C3.duplicate-reach | info | legacy | 1 |

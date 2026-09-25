@@ -1,0 +1,12 @@
+{
+  "$comment": "Долг аудита курса на момент фиксации. Расти нельзя, уменьшать можно и нужно.",
+  "updatedAt": "2026-09-24",
+  "errorsByRule": {
+    "A1.cast-too-small": 15,
+    "A1.no-compatible-cast": 81,
+    "A1.recast-collision": 9,
+    "A2.pose-planned-in-use": 5,
+    "A2.blurry": 60,
+    "A4.ending-unreachable": 2
+  }
+}

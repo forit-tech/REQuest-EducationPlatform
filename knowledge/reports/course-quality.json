@@ -1,28 +1,74 @@
 {
   "note": "Классификация runtime-курсов по происхождению содержания. Считается автоматически: npm run quality:report. Время сборки в файл не пишется намеренно — отчёт лежит в репозитории, и метка времени давала бы изменение в diff при каждом прогоне.",
   "totals": {
-    "AUTHORED_REAL": 14,
-    "AUTHORED_NEEDS_REVIEW": 5,
-    "GENERATOR_SCAFFOLD": 31,
+    "AUTHORED_REAL": 19,
+    "AUTHORED_NEEDS_REVIEW": 4,
+    "GENERATOR_SCAFFOLD": 28,
     "FAKE_PRACTICE": 25,
     "OUTLINE_ONLY": 149
   },
   "missionsByClass": {
-    "AUTHORED_REAL": 386,
-    "AUTHORED_NEEDS_REVIEW": 242,
-    "GENERATOR_SCAFFOLD": 956,
+    "AUTHORED_REAL": 1047,
+    "AUTHORED_NEEDS_REVIEW": 75,
+    "GENERATOR_SCAFFOLD": 741,
     "FAKE_PRACTICE": 325,
     "OUTLINE_ONLY": 0
   },
   "runtime": {
-    "courses": 75,
-    "missions": 1909
+    "courses": 76,
+    "missions": 2188
   },
   "curriculumLayer": {
     "courses": 355,
     "outline": 149
   },
   "courses": [
+    {
+      "id": "data-cleaning",
+      "path": "knowledge/data/data-cleaning/course.json",
+      "title": "Очистка данных",
+      "level": "База",
+      "technology": "python",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 52,
+      "codeLabMissions": 29,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 25,
+      "longestAnswerRatio": 0.76,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 77,
+      "unknownTokenSamples": [
+        "assert",
+        "assign",
+        "mean",
+        "between",
+        "len"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "data-carpentry-lessons",
+          "class": "ADAPTABLE_OER"
+        },
+        {
+          "id": "effective-pandas",
+          "class": "ADAPTABLE_OER"
+        },
+        {
+          "id": "pandas-documentation",
+          "class": "GROUNDING"
+        }
+      ]
+    },
     {
       "id": "data-formats",
       "path": "knowledge/data/data-formats/course.json",
@@ -37,6 +83,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -97,6 +144,39 @@
       ]
     },
     {
+      "id": "exploratory-data-analysis",
+      "path": "knowledge/data/exploratory-data-analysis/course.json",
+      "title": "Разведочный анализ данных",
+      "level": "База",
+      "technology": "python",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 46,
+      "codeLabMissions": 24,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 24,
+      "longestAnswerRatio": 0.792,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 66,
+      "unknownTokenSamples": [
+        "assert",
+        "len",
+        "median",
+        "loc",
+        "value_counts"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
       "id": "go-core",
       "path": "knowledge/backend/go-core/course.json",
       "title": "Go: основы языка",
@@ -110,6 +190,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -140,6 +221,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -171,6 +253,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -205,6 +288,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -234,6 +318,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -260,6 +345,39 @@
       "sourceCoverage": []
     },
     {
+      "id": "ml-foundations",
+      "path": "knowledge/data/ml-foundations/course.json",
+      "title": "Первая модель",
+      "level": "Средний",
+      "technology": "python",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 42,
+      "codeLabMissions": 29,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 13,
+      "longestAnswerRatio": 0.308,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 65,
+      "unknownTokenSamples": [
+        "print",
+        "shape",
+        "len",
+        "X_train",
+        "iloc"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": []
+    },
+    {
       "id": "numpy",
       "path": "knowledge/data/numpy/course.json",
       "title": "NumPy",
@@ -268,25 +386,26 @@
       "classification": "AUTHORED_REAL",
       "reasons": [],
       "overridden": false,
-      "missions": 48,
-      "codeLabMissions": 24,
+      "missions": 109,
+      "codeLabMissions": 54,
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
       "starterAlreadySatisfies": 0,
-      "optionMissions": 48,
-      "longestAnswerRatio": 0.667,
+      "optionMissions": 55,
+      "longestAnswerRatio": 0.091,
       "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 36,
+      "unknownRequiredTokens": 90,
       "unknownTokenSamples": [
-        "assert",
-        "and",
-        "copy",
+        "shape",
+        "import",
+        "numpy",
         "array",
-        "values"
+        "size"
       ],
       "prerequisiteByUsage": [],
       "sourceCoverage": [
@@ -297,6 +416,94 @@
         {
           "id": "python-data-science-handbook",
           "class": "REFERENCE_ONLY"
+        }
+      ]
+    },
+    {
+      "id": "pandas",
+      "path": "knowledge/data/pandas/course.json",
+      "title": "Pandas",
+      "level": "База",
+      "technology": "python",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 121,
+      "codeLabMissions": 62,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 59,
+      "longestAnswerRatio": 0.034,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 206,
+      "unknownTokenSamples": [
+        "status",
+        "DataFrame",
+        "import",
+        "pandas",
+        "EKB"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "effective-pandas",
+          "class": "ADAPTABLE_OER"
+        },
+        {
+          "id": "pandas-documentation",
+          "class": "GROUNDING"
+        },
+        {
+          "id": "python-data-science-handbook",
+          "class": "REFERENCE_ONLY"
+        },
+        {
+          "id": "kaggle-learn",
+          "class": "REFERENCE_ONLY"
+        }
+      ]
+    },
+    {
+      "id": "python-core",
+      "path": "knowledge/data/python-core/course.json",
+      "title": "Python: базовые конструкции",
+      "level": "База",
+      "technology": "python",
+      "classification": "AUTHORED_REAL",
+      "reasons": [],
+      "overridden": false,
+      "missions": 339,
+      "codeLabMissions": 203,
+      "fakePracticeMissions": 0,
+      "planStubMissions": 0,
+      "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 0,
+      "scaffoldTripletTitles": 0,
+      "templateObjectiveMissions": 0,
+      "echoPhraseMissions": 0,
+      "starterAlreadySatisfies": 0,
+      "optionMissions": 137,
+      "longestAnswerRatio": 0.372,
+      "literalAnswerLeak": 0,
+      "unknownRequiredTokens": 353,
+      "unknownTokenSamples": [
+        "print",
+        "int",
+        "type",
+        "price_raw",
+        "price"
+      ],
+      "prerequisiteByUsage": [],
+      "sourceCoverage": [
+        {
+          "id": "python-docs",
+          "class": "GROUNDING"
         }
       ]
     },
@@ -314,6 +521,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -342,6 +550,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -379,6 +588,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -410,6 +620,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -452,6 +663,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -517,6 +729,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -562,6 +775,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -582,6 +796,7 @@
       "technology": null,
       "classification": "AUTHORED_NEEDS_REVIEW",
       "reasons": [
+        "4 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "4 миссий повторяют одну фразу в контексте, объяснении и подсказке"
       ],
       "overridden": false,
@@ -590,6 +805,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 4,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 4,
       "echoPhraseMissions": 4,
@@ -618,6 +834,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -659,6 +876,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -680,45 +898,6 @@
       ]
     },
     {
-      "id": "python-core",
-      "path": "knowledge/data/python-core/course.json",
-      "title": "Python для работы с данными",
-      "level": "База",
-      "technology": "python",
-      "classification": "AUTHORED_NEEDS_REVIEW",
-      "reasons": [
-        "45 из 167 миссий собраны шаблоном `scripts/generate-planned-courses.mjs`"
-      ],
-      "overridden": false,
-      "missions": 167,
-      "codeLabMissions": 105,
-      "fakePracticeMissions": 0,
-      "planStubMissions": 0,
-      "plannedScaffoldMissions": 45,
-      "scaffoldTripletTitles": 0,
-      "templateObjectiveMissions": 0,
-      "echoPhraseMissions": 0,
-      "starterAlreadySatisfies": 0,
-      "optionMissions": 92,
-      "longestAnswerRatio": 0.62,
-      "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 154,
-      "unknownTokenSamples": [
-        "int",
-        "print",
-        "type",
-        "price_raw",
-        "price"
-      ],
-      "prerequisiteByUsage": [],
-      "sourceCoverage": [
-        {
-          "id": "python-docs",
-          "class": "GROUNDING"
-        }
-      ]
-    },
-    {
       "id": "technical-foundations",
       "path": "knowledge/data/technical-foundations/course.json",
       "title": "Технический фундамент",
@@ -734,6 +913,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -762,6 +942,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 62,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -807,6 +988,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 32,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -840,6 +1022,7 @@
       "technology": "yaml",
       "classification": "GENERATOR_SCAFFOLD",
       "reasons": [
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -850,6 +1033,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -879,6 +1063,7 @@
       "technology": "yaml",
       "classification": "GENERATOR_SCAFFOLD",
       "reasons": [
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -889,6 +1074,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -930,6 +1116,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 48,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -959,6 +1146,7 @@
       "technology": "yaml",
       "classification": "GENERATOR_SCAFFOLD",
       "reasons": [
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -969,6 +1157,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -991,51 +1180,6 @@
       ]
     },
     {
-      "id": "data-cleaning",
-      "path": "knowledge/data/data-cleaning/course.json",
-      "title": "Очистка данных",
-      "level": "База",
-      "technology": "python",
-      "classification": "GENERATOR_SCAFFOLD",
-      "reasons": [
-        "52 из 52 миссий собраны шаблоном `scripts/generate-planned-courses.mjs`"
-      ],
-      "overridden": false,
-      "missions": 52,
-      "codeLabMissions": 25,
-      "fakePracticeMissions": 0,
-      "planStubMissions": 0,
-      "plannedScaffoldMissions": 52,
-      "scaffoldTripletTitles": 0,
-      "templateObjectiveMissions": 0,
-      "echoPhraseMissions": 0,
-      "starterAlreadySatisfies": 0,
-      "optionMissions": 52,
-      "longestAnswerRatio": 1,
-      "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 88,
-      "unknownTokenSamples": [
-        "def",
-        "solve",
-        "print"
-      ],
-      "prerequisiteByUsage": [],
-      "sourceCoverage": [
-        {
-          "id": "data-carpentry-lessons",
-          "class": "ADAPTABLE_OER"
-        },
-        {
-          "id": "effective-pandas",
-          "class": "ADAPTABLE_OER"
-        },
-        {
-          "id": "pandas-documentation",
-          "class": "GROUNDING"
-        }
-      ]
-    },
-    {
       "id": "data-final-project",
       "path": "knowledge/data/data-final-project/course.json",
       "title": "Финальный проект: платформа розничных данных",
@@ -1051,6 +1195,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 18,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -1082,6 +1227,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 44,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -1114,6 +1260,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 50,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -1151,6 +1298,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 44,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -1180,6 +1328,7 @@
       "technology": "yaml",
       "classification": "GENERATOR_SCAFFOLD",
       "reasons": [
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -1190,6 +1339,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1220,6 +1370,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 30,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -1257,6 +1408,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 46,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -1278,38 +1430,6 @@
       ]
     },
     {
-      "id": "exploratory-data-analysis",
-      "path": "knowledge/data/exploratory-data-analysis/course.json",
-      "title": "Разведочный анализ данных",
-      "level": "База",
-      "technology": "python",
-      "classification": "GENERATOR_SCAFFOLD",
-      "reasons": [
-        "46 из 46 миссий собраны шаблоном `scripts/generate-planned-courses.mjs`"
-      ],
-      "overridden": false,
-      "missions": 46,
-      "codeLabMissions": 24,
-      "fakePracticeMissions": 0,
-      "planStubMissions": 0,
-      "plannedScaffoldMissions": 46,
-      "scaffoldTripletTitles": 0,
-      "templateObjectiveMissions": 0,
-      "echoPhraseMissions": 0,
-      "starterAlreadySatisfies": 0,
-      "optionMissions": 46,
-      "longestAnswerRatio": 1,
-      "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 81,
-      "unknownTokenSamples": [
-        "def",
-        "solve",
-        "print"
-      ],
-      "prerequisiteByUsage": [],
-      "sourceCoverage": []
-    },
-    {
       "id": "incident-response",
       "path": "knowledge/cybersecurity/incident-response/course.json",
       "title": "Реагирование на инциденты",
@@ -1317,6 +1437,7 @@
       "technology": "yaml",
       "classification": "GENERATOR_SCAFFOLD",
       "reasons": [
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -1327,6 +1448,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1364,6 +1486,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 40,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -1401,6 +1524,7 @@
       "technology": "yaml",
       "classification": "GENERATOR_SCAFFOLD",
       "reasons": [
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -1411,6 +1535,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1435,6 +1560,7 @@
       "technology": "yaml",
       "classification": "GENERATOR_SCAFFOLD",
       "reasons": [
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -1445,6 +1571,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1467,54 +1594,6 @@
       ]
     },
     {
-      "id": "pandas",
-      "path": "knowledge/data/pandas/course.json",
-      "title": "Pandas",
-      "level": "База",
-      "technology": "python",
-      "classification": "GENERATOR_SCAFFOLD",
-      "reasons": [
-        "96 из 117 миссий собраны шаблоном `scripts/generate-planned-courses.mjs`"
-      ],
-      "overridden": false,
-      "missions": 117,
-      "codeLabMissions": 73,
-      "fakePracticeMissions": 0,
-      "planStubMissions": 0,
-      "plannedScaffoldMissions": 96,
-      "scaffoldTripletTitles": 0,
-      "templateObjectiveMissions": 0,
-      "echoPhraseMissions": 0,
-      "starterAlreadySatisfies": 0,
-      "optionMissions": 117,
-      "longestAnswerRatio": 0.983,
-      "literalAnswerLeak": 0,
-      "unknownRequiredTokens": 336,
-      "unknownTokenSamples": [
-        "import",
-        "pandas"
-      ],
-      "prerequisiteByUsage": [],
-      "sourceCoverage": [
-        {
-          "id": "effective-pandas",
-          "class": "ADAPTABLE_OER"
-        },
-        {
-          "id": "pandas-documentation",
-          "class": "GROUNDING"
-        },
-        {
-          "id": "python-data-science-handbook",
-          "class": "REFERENCE_ONLY"
-        },
-        {
-          "id": "kaggle-learn",
-          "class": "REFERENCE_ONLY"
-        }
-      ]
-    },
-    {
       "id": "pentest-methodology",
       "path": "knowledge/cybersecurity/pentest-methodology/course.json",
       "title": "Методология пентеста",
@@ -1522,6 +1601,7 @@
       "technology": "yaml",
       "classification": "GENERATOR_SCAFFOLD",
       "reasons": [
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -1532,6 +1612,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1556,6 +1637,7 @@
       "technology": "yaml",
       "classification": "GENERATOR_SCAFFOLD",
       "reasons": [
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -1566,6 +1648,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1602,6 +1685,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 42,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -1642,6 +1726,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 54,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -1677,6 +1762,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 36,
+      "professionScaffoldMissions": 0,
       "scaffoldTripletTitles": 0,
       "templateObjectiveMissions": 0,
       "echoPhraseMissions": 0,
@@ -1706,6 +1792,7 @@
       "technology": "yaml",
       "classification": "GENERATOR_SCAFFOLD",
       "reasons": [
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -1716,6 +1803,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1739,6 +1827,7 @@
       "technology": "yaml",
       "classification": "GENERATOR_SCAFFOLD",
       "reasons": [
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -1749,6 +1838,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1778,6 +1868,7 @@
       "technology": "yaml",
       "classification": "GENERATOR_SCAFFOLD",
       "reasons": [
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -1788,6 +1879,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1816,6 +1908,7 @@
       "technology": "yaml",
       "classification": "GENERATOR_SCAFFOLD",
       "reasons": [
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -1826,6 +1919,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1855,6 +1949,7 @@
       "technology": "yaml",
       "classification": "GENERATOR_SCAFFOLD",
       "reasons": [
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -1865,6 +1960,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1892,6 +1988,7 @@
       "technology": "yaml",
       "classification": "GENERATOR_SCAFFOLD",
       "reasons": [
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -1902,6 +1999,7 @@
       "fakePracticeMissions": 0,
       "planStubMissions": 0,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1936,6 +2034,7 @@
       "classification": "FAKE_PRACTICE",
       "reasons": [
         "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -1946,6 +2045,7 @@
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -1970,6 +2070,7 @@
       "classification": "FAKE_PRACTICE",
       "reasons": [
         "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -1980,6 +2081,7 @@
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2001,6 +2103,7 @@
       "classification": "FAKE_PRACTICE",
       "reasons": [
         "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -2011,6 +2114,7 @@
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2048,6 +2152,7 @@
       "classification": "FAKE_PRACTICE",
       "reasons": [
         "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -2058,6 +2163,7 @@
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2082,6 +2188,7 @@
       "classification": "FAKE_PRACTICE",
       "reasons": [
         "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -2092,6 +2199,7 @@
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2115,6 +2223,7 @@
       "classification": "FAKE_PRACTICE",
       "reasons": [
         "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -2125,6 +2234,7 @@
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2154,6 +2264,7 @@
       "classification": "FAKE_PRACTICE",
       "reasons": [
         "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -2164,6 +2275,7 @@
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2192,6 +2304,7 @@
       "classification": "FAKE_PRACTICE",
       "reasons": [
         "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -2202,6 +2315,7 @@
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2231,6 +2345,7 @@
       "classification": "FAKE_PRACTICE",
       "reasons": [
         "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -2241,6 +2356,7 @@
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2274,6 +2390,7 @@
       "classification": "FAKE_PRACTICE",
       "reasons": [
         "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -2284,6 +2401,7 @@
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2305,6 +2423,7 @@
       "classification": "FAKE_PRACTICE",
       "reasons": [
         "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -2315,6 +2434,7 @@
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2338,6 +2458,7 @@
       "classification": "FAKE_PRACTICE",
       "reasons": [
         "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -2348,6 +2469,7 @@
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2393,6 +2515,7 @@
       "classification": "FAKE_PRACTICE",
       "reasons": [
         "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -2403,6 +2526,7 @@
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2427,6 +2551,7 @@
       "classification": "FAKE_PRACTICE",
       "reasons": [
         "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -2437,6 +2562,7 @@
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2460,6 +2586,7 @@
       "classification": "FAKE_PRACTICE",
       "reasons": [
         "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -2470,6 +2597,7 @@
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2494,6 +2622,7 @@
       "classification": "FAKE_PRACTICE",
       "reasons": [
         "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -2504,6 +2633,7 @@
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2527,6 +2657,7 @@
       "classification": "FAKE_PRACTICE",
       "reasons": [
         "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -2537,6 +2668,7 @@
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2561,6 +2693,7 @@
       "classification": "FAKE_PRACTICE",
       "reasons": [
         "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -2571,6 +2704,7 @@
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2600,6 +2734,7 @@
       "classification": "FAKE_PRACTICE",
       "reasons": [
         "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -2610,6 +2745,7 @@
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2643,6 +2779,7 @@
       "classification": "FAKE_PRACTICE",
       "reasons": [
         "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -2653,6 +2790,7 @@
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2679,6 +2817,7 @@
       "classification": "FAKE_PRACTICE",
       "reasons": [
         "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -2689,6 +2828,7 @@
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2710,6 +2850,7 @@
       "classification": "FAKE_PRACTICE",
       "reasons": [
         "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -2720,6 +2861,7 @@
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2749,6 +2891,7 @@
       "classification": "FAKE_PRACTICE",
       "reasons": [
         "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -2759,6 +2902,7 @@
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2785,6 +2929,7 @@
       "classification": "FAKE_PRACTICE",
       "reasons": [
         "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -2795,6 +2940,7 @@
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,
@@ -2818,6 +2964,7 @@
       "classification": "FAKE_PRACTICE",
       "reasons": [
         "9 из 9 практических миссий проверяют русский литерал, а не поведение",
+        "13 из 13 миссий собраны шаблоном `scripts/generate-profession-courses.mjs`",
         "12 из 13 заголовков — одна тема под несколькими типами",
         "12 из 13 миссий с шаблонной учебной целью",
         "12 миссий повторяют одну фразу в контексте, объяснении и подсказке"
@@ -2828,6 +2975,7 @@
       "fakePracticeMissions": 9,
       "planStubMissions": 9,
       "plannedScaffoldMissions": 0,
+      "professionScaffoldMissions": 13,
       "scaffoldTripletTitles": 12,
       "templateObjectiveMissions": 12,
       "echoPhraseMissions": 12,

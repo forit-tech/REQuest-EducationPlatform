@@ -1,0 +1,33 @@
+{
+  "spreadByCharacter": {
+    "alexey": 0.05,
+    "artem": 0.11,
+    "damir": 0.13,
+    "gleb": 0.12,
+    "irina": 0.14,
+    "lena": 0.07,
+    "mira": 0.08,
+    "oleg": 0.1,
+    "pavel": 0.09,
+    "sonya": 0.14,
+    "vadim": 0.11,
+    "yana": 0.1
+  },
+  "stretchByCharacter": {
+    "alexey": 1.211,
+    "artem": 1.443,
+    "damir": 1.44,
+    "gleb": 1.459,
+    "irina": 1.385,
+    "lena": 1.472,
+    "mira": 1.451,
+    "oleg": 1.395,
+    "pavel": 1.515,
+    "sonya": 1.439,
+    "vadim": 1.593,
+    "yana": 1.433
+  },
+  "spreadLimit": 1.5,
+  "sharpLimit": 1.15,
+  "requiredFigureHeight": 1350
+}

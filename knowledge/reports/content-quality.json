@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-09T07:59:00.347Z",
-  "durationMs": 335,
+  "generatedAt": "2026-09-25T10:46:40.584Z",
+  "durationMs": 376,
   "corpus": {
-    "courses": 75,
-    "legacyMissions": 1909,
+    "courses": 76,
+    "legacyMissions": 2188,
     "v2Tasks": 23,
     "skills": 44,
     "officialRequirements": 87,
@@ -12,9 +12,9 @@
   },
   "summary": {
     "legacy": {
-      "error": 398,
-      "warning": 299,
-      "info": 59
+      "error": 358,
+      "warning": 271,
+      "info": 56
     },
     "production": {
       "error": 0,
@@ -81,7 +81,7 @@
     "C2.free-check": {
       "severity": "warning",
       "scope": "legacy",
-      "count": 142,
+      "count": 140,
       "samples": [
         {
           "where": "java-core-jvm/JVM-002",
@@ -169,21 +169,10 @@
         }
       ]
     },
-    "C3.duplicate-options": {
-      "severity": "warning",
-      "scope": "legacy",
-      "count": 1,
-      "samples": [
-        {
-          "where": "python-core/PYC-208",
-          "message": "Набор вариантов ответа повторяется 2 раз"
-        }
-      ]
-    },
     "C3.template-course": {
       "severity": "info",
       "scope": "legacy",
-      "count": 57,
+      "count": 54,
       "samples": [
         {
           "where": "java-core-jvm",
@@ -199,29 +188,10 @@
         }
       ]
     },
-    "C4.duplicate-options": {
-      "severity": "error",
-      "scope": "legacy",
-      "count": 3,
-      "samples": [
-        {
-          "where": "sql-foundations/SQL-009",
-          "message": "Варианты ответа повторяются"
-        },
-        {
-          "where": "sql-foundations/SQL-011",
-          "message": "Варианты ответа повторяются"
-        },
-        {
-          "where": "sql-foundations/SQL-020",
-          "message": "Варианты ответа повторяются"
-        }
-      ]
-    },
     "C4.longest-is-correct": {
       "severity": "warning",
       "scope": "legacy",
-      "count": 26,
+      "count": 21,
       "samples": [
         {
           "where": "go-network-services",
@@ -244,14 +214,14 @@
       "samples": [
         {
           "where": "все курсы",
-          "message": "Распределение числа вариантов: 3 вариантов — 1445"
+          "message": "Распределение числа вариантов: 3 вариантов — 1370"
         }
       ]
     },
     "C5.fragile-substring": {
       "severity": "warning",
       "scope": "legacy",
-      "count": 45,
+      "count": 25,
       "samples": [
         {
           "where": "go-core/GOC-008",

@@ -1,39 +1,18 @@
 {
   "note": "Базовая линия аудита введения конструкций. Старый долг зафиксирован как есть и сборку не валит. Сборка падает на ухудшении: когда у курса выросло число находок по какому-нибудь правилу или когда новый курс приезжает уже с нарушениями. Считается по курсам, а не по общему итогу: итог скрывает размен между курсами. Перезаписывать после каждого исправления: npm run api:audit:baseline",
   "totals": {
-    "requiredBeforeShown": 19,
-    "firstUseSameMission": 92,
-    "multipleNewApis": 35,
+    "requiredBeforeShown": 14,
+    "firstUseSameMission": 89,
+    "multipleNewApis": 33,
     "blankEditor": 0,
-    "checkPassesOnStarter": 137,
+    "checkPassesOnStarter": 133,
     "hintIsNotTeaching": 11,
     "ladderGap": 0,
-    "declaredNeverRequired": 4,
-    "noReinforcement": 41
+    "unexplainedStarterApi": 4,
+    "declaredNeverRequired": 2,
+    "noReinforcement": 39
   },
   "byCourse": {
-    "pandas": {
-      "requiredBeforeShown": 5,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 2,
-      "blankEditor": 73,
-      "checkPassesOnStarter": 0,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    "numpy": {
-      "requiredBeforeShown": 4,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 1,
-      "blankEditor": 32,
-      "checkPassesOnStarter": 0,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
     "javascript-core": {
       "requiredBeforeShown": 0,
       "firstUseSameMission": 18,
@@ -42,8 +21,21 @@
       "checkPassesOnStarter": 0,
       "hintIsNotTeaching": 2,
       "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 2,
       "noReinforcement": 4
+    },
+    "java-core": {
+      "requiredBeforeShown": 4,
+      "firstUseSameMission": 15,
+      "multipleNewApis": 6,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "hintIsNotTeaching": 1,
+      "ladderGap": 0,
+      "unexplainedStarterApi": 3,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 2
     },
     "go-core": {
       "requiredBeforeShown": 2,
@@ -53,41 +45,33 @@
       "checkPassesOnStarter": 0,
       "hintIsNotTeaching": 2,
       "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
-      "noReinforcement": 6
-    },
-    "java-core": {
-      "requiredBeforeShown": 5,
-      "firstUseSameMission": 15,
-      "multipleNewApis": 7,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "hintIsNotTeaching": 1,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 2
-    },
-    "go-network-services": {
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 16,
-      "multipleNewApis": 6,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "hintIsNotTeaching": 1,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 6
+      "noReinforcement": 5
     },
     "polars": {
-      "requiredBeforeShown": 6,
+      "requiredBeforeShown": 5,
       "firstUseSameMission": 0,
       "multipleNewApis": 1,
       "blankEditor": 22,
       "checkPassesOnStarter": 0,
       "hintIsNotTeaching": 0,
       "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 0
+    },
+    "go-network-services": {
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 15,
+      "multipleNewApis": 5,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "hintIsNotTeaching": 1,
+      "ladderGap": 0,
+      "unexplainedStarterApi": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 6
     },
     "go-core-concurrency": {
       "requiredBeforeShown": 1,
@@ -97,72 +81,55 @@
       "checkPassesOnStarter": 0,
       "hintIsNotTeaching": 2,
       "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
-      "noReinforcement": 6
+      "noReinforcement": 5
     },
     "go-production": {
       "requiredBeforeShown": 0,
-      "firstUseSameMission": 9,
+      "firstUseSameMission": 8,
       "multipleNewApis": 3,
       "blankEditor": 0,
       "checkPassesOnStarter": 0,
       "hintIsNotTeaching": 2,
       "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 6
     },
     "react-core": {
-      "requiredBeforeShown": 2,
-      "firstUseSameMission": 4,
-      "multipleNewApis": 1,
+      "requiredBeforeShown": 1,
+      "firstUseSameMission": 7,
+      "multipleNewApis": 2,
       "blankEditor": 0,
       "checkPassesOnStarter": 1,
       "hintIsNotTeaching": 0,
       "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 8
     },
+    "react-architecture": {
+      "requiredBeforeShown": 6,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 2,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 1,
+      "hintIsNotTeaching": 1,
+      "ladderGap": 0,
+      "unexplainedStarterApi": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 3
+    },
     "data-modeling": {
-      "requiredBeforeShown": 5,
+      "requiredBeforeShown": 4,
       "firstUseSameMission": 0,
       "multipleNewApis": 1,
       "blankEditor": 5,
       "checkPassesOnStarter": 0,
       "hintIsNotTeaching": 0,
       "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    "python-core": {
-      "requiredBeforeShown": 6,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 1,
-      "blankEditor": 2,
-      "checkPassesOnStarter": 0,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
-      "declaredNeverRequired": 2,
-      "noReinforcement": 0
-    },
-    "frontend-delivery": {
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 9,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    "frontend-quality": {
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 9,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
@@ -174,6 +141,31 @@
       "checkPassesOnStarter": 9,
       "hintIsNotTeaching": 0,
       "ladderGap": 0,
+      "unexplainedStarterApi": 1,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "frontend-delivery": {
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 9,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "unexplainedStarterApi": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "frontend-quality": {
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 9,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
@@ -185,19 +177,21 @@
       "checkPassesOnStarter": 9,
       "hintIsNotTeaching": 0,
       "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
-    "react-architecture": {
-      "requiredBeforeShown": 3,
-      "firstUseSameMission": 0,
+    "production": {
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 4,
       "multipleNewApis": 1,
       "blankEditor": 0,
-      "checkPassesOnStarter": 1,
-      "hintIsNotTeaching": 1,
+      "checkPassesOnStarter": 4,
+      "hintIsNotTeaching": 0,
       "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
-      "noReinforcement": 3
+      "noReinforcement": 0
     },
     "react-production": {
       "requiredBeforeShown": 0,
@@ -207,6 +201,7 @@
       "checkPassesOnStarter": 9,
       "hintIsNotTeaching": 0,
       "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
@@ -218,6 +213,7 @@
       "checkPassesOnStarter": 9,
       "hintIsNotTeaching": 0,
       "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
@@ -229,127 +225,19 @@
       "checkPassesOnStarter": 9,
       "hintIsNotTeaching": 0,
       "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
     "production-incidents": {
-      "requiredBeforeShown": 5,
+      "requiredBeforeShown": 4,
       "firstUseSameMission": 0,
       "multipleNewApis": 1,
       "blankEditor": 2,
       "checkPassesOnStarter": 0,
       "hintIsNotTeaching": 0,
       "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    "technical-foundations": {
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 3,
-      "multipleNewApis": 1,
-      "blankEditor": 1,
-      "checkPassesOnStarter": 2,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    "data-pipelines": {
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 2,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 4,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    "linear-algebra": {
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 2,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 4,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    "product-analytics": {
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 2,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 4,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    "python-web-api": {
-      "requiredBeforeShown": 0,
-      "firstUseSameMission": 2,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 4,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    "data-cleaning": {
-      "requiredBeforeShown": 4,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 1,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    "data-final-project": {
-      "requiredBeforeShown": 4,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 1,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    "data-formats": {
-      "requiredBeforeShown": 4,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 1,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    "etl-elt": {
-      "requiredBeforeShown": 4,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 1,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    "exploratory-data-analysis": {
-      "requiredBeforeShown": 4,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 1,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
@@ -361,6 +249,7 @@
       "checkPassesOnStarter": 4,
       "hintIsNotTeaching": 0,
       "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
@@ -372,6 +261,7 @@
       "checkPassesOnStarter": 4,
       "hintIsNotTeaching": 0,
       "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
@@ -383,6 +273,31 @@
       "checkPassesOnStarter": 4,
       "hintIsNotTeaching": 0,
       "ladderGap": 0,
+      "unexplainedStarterApi": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "data-final-project": {
+      "requiredBeforeShown": 3,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 1,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "unexplainedStarterApi": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "data-pipelines": {
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
@@ -394,6 +309,19 @@
       "checkPassesOnStarter": 4,
       "hintIsNotTeaching": 0,
       "ladderGap": 0,
+      "unexplainedStarterApi": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "linear-algebra": {
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
@@ -405,6 +333,7 @@
       "checkPassesOnStarter": 4,
       "hintIsNotTeaching": 0,
       "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
@@ -416,6 +345,7 @@
       "checkPassesOnStarter": 4,
       "hintIsNotTeaching": 0,
       "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
@@ -427,6 +357,7 @@
       "checkPassesOnStarter": 4,
       "hintIsNotTeaching": 0,
       "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
@@ -438,6 +369,7 @@
       "checkPassesOnStarter": 4,
       "hintIsNotTeaching": 0,
       "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
@@ -449,10 +381,11 @@
       "checkPassesOnStarter": 4,
       "hintIsNotTeaching": 0,
       "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
-    "production": {
+    "product-analytics": {
       "requiredBeforeShown": 0,
       "firstUseSameMission": 0,
       "multipleNewApis": 0,
@@ -460,6 +393,7 @@
       "checkPassesOnStarter": 4,
       "hintIsNotTeaching": 0,
       "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
@@ -471,6 +405,7 @@
       "checkPassesOnStarter": 4,
       "hintIsNotTeaching": 0,
       "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
@@ -482,6 +417,19 @@
       "checkPassesOnStarter": 4,
       "hintIsNotTeaching": 0,
       "ladderGap": 0,
+      "unexplainedStarterApi": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "python-web-api": {
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 4,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
@@ -493,6 +441,7 @@
       "checkPassesOnStarter": 4,
       "hintIsNotTeaching": 0,
       "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
@@ -504,39 +453,7 @@
       "checkPassesOnStarter": 4,
       "hintIsNotTeaching": 0,
       "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    "data-quality": {
-      "requiredBeforeShown": 1,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    "data-visualization": {
-      "requiredBeforeShown": 1,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
-      "declaredNeverRequired": 0,
-      "noReinforcement": 0
-    },
-    "large-data": {
-      "requiredBeforeShown": 1,
-      "firstUseSameMission": 0,
-      "multipleNewApis": 0,
-      "blankEditor": 0,
-      "checkPassesOnStarter": 0,
-      "hintIsNotTeaching": 0,
-      "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
@@ -548,6 +465,127 @@
       "checkPassesOnStarter": 0,
       "hintIsNotTeaching": 0,
       "ladderGap": 0,
+      "unexplainedStarterApi": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "data-formats": {
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "unexplainedStarterApi": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "data-quality": {
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "unexplainedStarterApi": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "data-visualization": {
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "unexplainedStarterApi": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "etl-elt": {
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "unexplainedStarterApi": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "exploratory-data-analysis": {
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "unexplainedStarterApi": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "large-data": {
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "unexplainedStarterApi": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "ml-foundations": {
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "unexplainedStarterApi": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "numpy": {
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "unexplainedStarterApi": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "pandas": {
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "unexplainedStarterApi": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "python-core": {
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     },
@@ -559,6 +597,31 @@
       "checkPassesOnStarter": 0,
       "hintIsNotTeaching": 0,
       "ladderGap": 0,
+      "unexplainedStarterApi": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "statistics": {
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "unexplainedStarterApi": 0,
+      "declaredNeverRequired": 0,
+      "noReinforcement": 0
+    },
+    "technical-foundations": {
+      "requiredBeforeShown": 0,
+      "firstUseSameMission": 0,
+      "multipleNewApis": 0,
+      "blankEditor": 0,
+      "checkPassesOnStarter": 0,
+      "hintIsNotTeaching": 0,
+      "ladderGap": 0,
+      "unexplainedStarterApi": 0,
       "declaredNeverRequired": 0,
       "noReinforcement": 0
     }
