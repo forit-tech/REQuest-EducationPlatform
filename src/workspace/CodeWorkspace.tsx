@@ -41,7 +41,7 @@ function loadDraft(taskId: string, file: TaskFile) {
   try { return localStorage.getItem(draftKey(taskId, file.path)) ?? file.content } catch { return file.content }
 }
 
-export function CodeWorkspace({ task, runner, context, onChecked, onNext, nextLabel, completed }: {
+export function CodeWorkspace({ task, runner, context, onChecked, onNext, nextLabel, completed, chrome = 'full' }: {
   task: Task
   runner: CodeRunner
   /** Сюжетный контекст эпизода: показывается над условием, не заменяя его. */
@@ -51,6 +51,14 @@ export function CodeWorkspace({ task, runner, context, onChecked, onNext, nextLa
   onNext?: () => void
   nextLabel?: string
   completed?: boolean
+  /**
+   * `full` — станция сама показывает условие слева и делит экран.
+   * `practice` — только редактор, результат и кнопки: условие держит учебный
+   * экран снаружи, и дублировать его здесь нельзя. Второй режим появился
+   * вместе с `LessonScreen`: редактор и среда выполнения обязаны остаться в
+   * одном месте, а колонка условия у них теперь общая с теорией.
+   */
+  chrome?: 'full' | 'practice'
 }) {
   /**
    * Старое кодовое задание засчитывалось только вместе с верной гипотезой,
@@ -346,30 +354,32 @@ export function CodeWorkspace({ task, runner, context, onChecked, onNext, nextLa
     </div>
   </section>
 
-  return <div className={`code-workspace ${layout.focus ? 'is-focused' : ''} ${narrow ? 'is-narrow' : ''}`}>
-    {narrow && <nav className="ws-mobile-tabs" aria-label="Разделы рабочей станции">
+  const practiceOnly = chrome === 'practice'
+
+  return <div className={`code-workspace ${layout.focus && !practiceOnly ? 'is-focused' : ''} ${narrow ? 'is-narrow' : ''} ${practiceOnly ? 'is-practice' : ''}`}>
+    {narrow && !practiceOnly && <nav className="ws-mobile-tabs" aria-label="Разделы рабочей станции">
       {(['task', 'code', 'result'] as const).map(pane => <button key={pane} className={mobilePane === pane ? 'active' : ''} onClick={() => setMobilePane(pane)}>
         {pane === 'task' ? 'Задание' : pane === 'code' ? 'Код' : 'Результат'}
       </button>)}
     </nav>}
 
-    <div className="ws-shell" ref={shell} style={narrow || layout.focus ? undefined : { gridTemplateColumns: `${layout.theory}% 6px 1fr` }}>
-      {(!narrow || mobilePane === 'task') && !layout.focus && theory}
-      {!narrow && !layout.focus && <div className="ws-split-v" role="separator" aria-orientation="vertical" aria-label="Ширина условия" tabIndex={0}
+    <div className="ws-shell" ref={shell} style={narrow || layout.focus || practiceOnly ? undefined : { gridTemplateColumns: `${layout.theory}% 6px 1fr` }}>
+      {!practiceOnly && (!narrow || mobilePane === 'task') && !layout.focus && theory}
+      {!practiceOnly && !narrow && !layout.focus && <div className="ws-split-v" role="separator" aria-orientation="vertical" aria-label="Ширина условия" tabIndex={0}
         onPointerDown={dragVertical}
         onKeyDown={event => {
           if (event.key === 'ArrowLeft') setLayout(current => ({ ...current, theory: Math.max(24, current.theory - 3) }))
           if (event.key === 'ArrowRight') setLayout(current => ({ ...current, theory: Math.min(72, current.theory + 3) }))
         }}
       />}
-      {(!narrow || mobilePane !== 'task') && workspace}
+      {(practiceOnly || !narrow || mobilePane !== 'task') && workspace}
     </div>
 
     <footer className="ws-actions">
       <div className="ws-actions-left">
-        <button type="button" className="ws-focus" onClick={() => setLayout(current => ({ ...current, focus: !current.focus }))}>
+        {!practiceOnly && <button type="button" className="ws-focus" onClick={() => setLayout(current => ({ ...current, focus: !current.focus }))}>
           {layout.focus ? 'Показать условие' : 'Скрыть условие'}
-        </button>
+        </button>}
         <span className="ws-shortcut">Ctrl+Enter — выполнить · Ctrl+Shift+Enter — проверить</span>
       </div>
       <div className="ws-actions-right">

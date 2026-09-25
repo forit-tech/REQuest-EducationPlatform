@@ -339,7 +339,14 @@ export function evaluate(task: Task, value: ResponseValue): EvaluationResult {
       passed: completed >= passScore - 1e-9 && !results.some(item => item.result.status === 'needs-runtime'),
       score,
       evidence: results.every(item => item.result.evidence === 'strong') ? 'strong' : 'weak',
-      checks: results.flatMap(item => item.result.checks.map(check => ({ ...check, id: `${item.field.id}.${check.id}`, label: `${item.field.label}: ${check.label}` }))),
+      // Имя поля перед названием проверки нужно только тогда, когда полей
+      // несколько: «Гипотеза: …» и «Решение: …» действительно про разное.
+      // У задания с одним полем оно превращается в шум на каждой строке отчёта.
+      checks: results.flatMap(item => item.result.checks.map(check => ({
+        ...check,
+        id: `${item.field.id}.${check.id}`,
+        label: results.length > 1 ? `${item.field.label}: ${check.label}` : check.label,
+      }))),
       diagnosedSkills: [...new Set(results.flatMap(item => item.result.diagnosedSkills))],
     }
   }
@@ -369,15 +376,22 @@ export function evaluate(task: Task, value: ResponseValue): EvaluationResult {
   // Совместимость со старым контентом: проверка обязательных фрагментов кода.
   if (value.kind !== 'code') return build([], 'weak', [], { message: 'Код не написан' })
   const source = Object.values(value.files).join('\n')
-  const checks: CheckResult[] = evaluation.checks.map((check, index) => ({
-    id: `legacy-${index}`,
-    label: check.label,
-    passed: passesCodeCheck(source, {
+  // Обязательный фрагмент показывается только у пройденной проверки — как
+  // подтверждение сделанного. У непройденной он был бы готовым ответом:
+  // человеку, который не справился, отчёт выдавал ровно ту строку, которую
+  // от него ждут, и задание решалось копированием из панели проверок.
+  const checks: CheckResult[] = evaluation.checks.map((check, index) => {
+    const passed = passesCodeCheck(source, {
       includes: check.fragment,
       notIncludes: check.notFragment,
       minOccurrences: check.minOccurrences,
-    }),
-    detail: check.fragment.trim(),
-  }))
+    })
+    return {
+      id: `legacy-${index}`,
+      label: check.label,
+      passed,
+      detail: passed ? check.fragment.trim() : 'в решении этого пока нет',
+    }
+  })
   return build(checks, 'weak', diagnoseFor(task, checks.filter(check => !check.passed).map(check => check.id)))
 }

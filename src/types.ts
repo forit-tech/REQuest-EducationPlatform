@@ -1,6 +1,19 @@
 export type MissionType = 'story' | 'quiz' | 'code' | 'lab' | 'case' | 'boss'
 
 /**
+ * Ступень учебной лестницы.
+ *
+ * Порядок значим и задан `knowledge/curriculum/PROGRAMMING_PEDAGOGY.md`: новая
+ * конструкция проходит его сверху вниз, и самостоятельная запись не может
+ * стоять раньше правки и дополнения. Поле приезжает из `course.json`, где его
+ * расставляет автор курса, и до сих пор терялось на границе JSON → TS: аудит
+ * лестницу знал, интерфейс — нет.
+ */
+export type MissionStage =
+  | 'explained' | 'shown' | 'guided' | 'modified'
+  | 'filled' | 'independent' | 'debugged' | 'transferred'
+
+/**
  * Рабочее окружение задания. Определяет, что показывает раннер, и задаётся
  * заданием, а не типом миссии: викторина не должна открывать редактор кода.
  */
@@ -10,12 +23,12 @@ export interface Mission {
   id: string
   title: string
   type: MissionType
+  /** Ступень лестницы. Нет у курсов, которые ещё не размечены. */
+  stage?: MissionStage
   minutes: number
   xp: number
   termIds?: import('./glossary').GlossaryTermId[]
   difficulty?: 'основа' | 'начальный' | 'средний' | 'продвинутый'
-  /** Явная ступень учебной лестницы для курсов, прошедших педагогический аудит. */
-  stage?: 'explained' | 'shown' | 'guided' | 'modified' | 'filled' | 'independent' | 'debugged' | 'transferred'
   /** Одна сущность, которую эта миссия отрабатывает. */
   concept?: string
   objectives?: string[]
@@ -63,7 +76,7 @@ export interface Room {
   prerequisites?: string[]
 }
 
-export type AppSection = 'home' | 'path' | 'practice' | 'projects' | 'achievements' | 'hq'
+export type AppSection = 'home' | 'path' | 'practice' | 'projects' | 'achievements' | 'hq' | 'qa'
 
 export type View =
   | { type: AppSection }

@@ -1,10 +1,14 @@
 import { isLocationId } from './types'
+import { castCharacter, castingBook } from './casting'
+import type { CastingMember } from './casting'
 import type { Character, LocationId, StoryAct, StoryCase, StoryEnding } from './types'
 import type { GameState } from '../core/game'
 import type { Mission } from '../types'
 import castData from '../../knowledge/story/cast.json'
 import careerNarrativesData from '../../knowledge/professions/narratives.json'
 import professionProgramsData from '../../knowledge/professions/programs.json'
+import careerRoutesData from '../../knowledge/professions/routes.json'
+import castingData from '../../knowledge/story/casting.json'
 
 export const cast = castData as unknown as Character[]
 const caseModules = import.meta.glob('../../knowledge/story/cases/*.json', { eager: true, import: 'default' }) as Record<string, StoryCase>
@@ -48,113 +52,11 @@ function toLocation(value: string | undefined, fallback: LocationId): LocationId
   if (value && legacyLocationAliases[value]) return legacyLocationAliases[value]
   return fallback
 }
-const careerRoutes: Record<string, RouteChapter[]> = {
-  'data-scientist': [
-    { location: 'office', hook: 'Дарья получает архив городских обращений и замечает, что часть районов почти исчезла из данных.' },
-    { location: 'train', hook: 'Команда едет к диспетчерам соседнего региона, чтобы сверить таблицы с тем, что происходит на земле.' },
-    { location: 'coast', hook: 'На прибрежной станции датчики спорят с журналами наблюдателей, и Дарье приходится заново собирать признаки.' },
-    { location: 'operations', hook: 'Во время шторма модель впервые влияет на настоящее решение штаба — цена неверного прогноза становится реальной.' },
-    { location: 'conference', hook: 'Дарья защищает итоговую систему перед городами-партнёрами и объясняет не только метрики, но и границы модели.' },
-  ],
-  'data-analyst': [
-    { location: 'office', hook: 'Алина расследует падение продаж, которое разные отделы объясняют четырьмя несовместимыми версиями.' },
-    { location: 'train', hook: 'В поезде к региональному складу она собирает воспроизводимый отчёт и находит пропущенный сегмент клиентов.' },
-    { location: 'industrial', hook: 'На складе цифры встречаются с реальным процессом: причина скрыта между сканером, возвратом и ночной сменой.' },
-    { location: 'restaurant', hook: 'За ужином с региональной командой Алина проверяет выводы на неудобных вопросах и договаривается о новом эксперименте.' },
-    { location: 'conference', hook: 'На совете директоров она связывает всю цепочку доказательств и предлагает решение, которое можно измерить после запуска.' },
-  ],
-  'ml-engineer': [
-    { location: 'lab', hook: 'Тимур принимает эффектный прототип, который пока умеет работать только на ноутбуке автора.' },
-    { location: 'coast', hook: 'На полевой станции входные данные меняются быстрее документации, и модель начинает дрейфовать.' },
-    { location: 'industrial', hook: 'Промышленный контур требует очередей, версий и отката — одной хорошей метрики больше недостаточно.' },
-    { location: 'operations', hook: 'Под аварийной нагрузкой Тимур расследует деградацию и собирает безопасный путь восстановления.' },
-    { location: 'conference', hook: 'На инженерном разборе он демонстрирует сервис, мониторинг и честный отчёт о неудачных экспериментах.' },
-  ],
-  'data-engineer': [
-    { location: 'office', hook: 'Вера получает цепочку отчётов, где один и тот же заказ имеет три времени создания.' },
-    { location: 'train', hook: 'По дороге в логистический хаб она восстанавливает контракт данных и список проверяемых допущений.' },
-    { location: 'industrial', hook: 'На площадке выясняется, как терминалы, смены и ручные исправления меняют поток событий.' },
-    { location: 'operations', hook: 'Ночной сбой обрывает конвейер, и Вера строит повторяемое восстановление без потери записей.' },
-    { location: 'meeting', hook: 'Финальная встреча превращает временный ремонт в устойчивую платформу с владельцами и гарантиями качества.' },
-  ],
-  'ai-engineer': [
-    { location: 'lab', hook: 'Илья собирает помощника для врачей и сразу сталкивается с опасной уверенностью красивых ответов.' },
-    { location: 'train', hook: 'В дороге к пилотной клинике он готовит набор проверок, которые нельзя заменить демонстрацией.' },
-    { location: 'coast', hook: 'Удалённая медицинская станция показывает редкие случаи и ограничения исходной базы знаний.' },
-    { location: 'operations', hook: 'Во время перебоя связи помощник должен корректно отказать, сохранить контекст и не выдумать решение.' },
-    { location: 'conference', hook: 'Илья защищает продукт перед экспертами, показывая оценку качества, безопасность и участие человека.' },
-  ],
-  'java-developer': [
-    { location: 'office', hook: 'Максим получает старый платёжный сервис и первый баг без понятного владельца.' },
-    { location: 'library', hook: 'На вечернем разборе команда восстанавливает доменную модель по тестам, логам и истории изменений.' },
-    { location: 'industrial', hook: 'На терминалах партнёра проявляется конкуренция запросов, которую не удавалось воспроизвести в офисе.' },
-    { location: 'operations', hook: 'Перед релизом нагрузка вскрывает узкое место, и Максим готовит исправление вместе с планом отката.' },
-    { location: 'meeting', hook: 'После запуска он проводит разбор и превращает найденные риски в тесты и архитектурные ограничения.' },
-  ],
-  'python-backend': [
-    { location: 'office', hook: 'Ника проектирует API доставки для нового города, где адреса и расписания живут по непривычным правилам.' },
-    { location: 'train', hook: 'В командировке она поднимает локальный стенд и сверяет контракт с операционной командой.' },
-    { location: 'industrial', hook: 'В сортировочном центре реальные сканеры создают дубли и запоздавшие события.' },
-    { location: 'restaurant', hook: 'За поздним ужином курьеры помогают Нике найти сценарии, которых не было в техническом задании.' },
-    { location: 'operations', hook: 'В первый вечер запуска сервис встречает пик заказов, а Ника удерживает очередь и данные в согласованном состоянии.' },
-  ],
-  'go-developer': [
-    { location: 'office', hook: 'Денис принимает сетевой шлюз, который теряет сообщения только в самые неудобные минуты.' },
-    { location: 'lab', hook: 'В лаборатории он строит нагрузочный стенд и делает проблему воспроизводимой.' },
-    { location: 'train', hook: 'По пути на транспортный узел команда анализирует трассировки и готовит безопасное переключение.' },
-    { location: 'industrial', hook: 'На узле новый сервис сталкивается с нестабильной сетью и настоящей конкуренцией соединений.' },
-    { location: 'operations', hook: 'В час пик Денис управляет запуском, наблюдает систему и принимает решение об откате по данным.' },
-  ],
-  'frontend-developer': [
-    { location: 'office', hook: 'Лера собирает первый интерфейс фестиваля из противоречивых макетов и реальных пользовательских задач.' },
-    { location: 'train', hook: 'По дороге на площадку она чинит адаптивность и готовит сценарии полевого тестирования.' },
-    { location: 'backstage', hook: 'За кулисами посетители, волонтёры и слабая сеть быстро показывают, что прототип упустил.' },
-    { location: 'restaurant', hook: 'За ужином с организаторами Лера защищает доступность и сокращает путь до главного действия.' },
-    { location: 'conference', hook: 'В вечер открытия интерфейс обслуживает живую аудиторию, а команда наблюдает метрики и исправляет проблемы без паники.' },
-  ],
-  'react-developer': [
-    { location: 'office', hook: 'Кирилл наследует диспетчерский прототип, где одно действие неожиданно меняет пять экранов.' },
-    { location: 'library', hook: 'На архитектурном воркшопе он отделяет состояние, события и визуальные компоненты.' },
-    { location: 'industrial', hook: 'В диспетчерской реальные операторы проверяют скорость, клавиатурную навигацию и устойчивость интерфейса.' },
-    { location: 'operations', hook: 'Во время аварии поток обновлений растёт, и приложение должно оставаться понятным и отзывчивым.' },
-    { location: 'conference', hook: 'Кирилл показывает систему отраслевым экспертам и доказывает архитектуру работающим сценарием.' },
-  ],
-  'devops-engineer': [
-    { location: 'server', hook: 'Ася выходит на первое дежурство и обнаруживает релиз, который можно повторить только по памяти коллеги.' },
-    { location: 'train', hook: 'В поездке к резервному центру она превращает ручные шаги в проверяемый конвейер.' },
-    { location: 'industrial', hook: 'На площадке команда инвентаризирует реальные зависимости и устраняет расхождения конфигурации.' },
-    { location: 'operations', hook: 'Шторм отключает основной канал, и Ася проводит переключение с наблюдаемыми контрольными точками.' },
-    { location: 'meeting', hook: 'На итоговом разборе она закрепляет автоматизацию, ответственность и план следующей тренировки.' },
-  ],
-  'sre-engineer': [
-    { location: 'server', hook: 'Роман готовит платформу трансляций и переводит обещания бизнеса в измеримые цели надёжности.' },
-    { location: 'airport', hook: 'В аэропорту задерживается команда, но репетиция инцидента начинается прямо с ноутбуков.' },
-    { location: 'backstage', hook: 'За кулисами международного эфира он проверяет деградацию, резервирование и связь между командами.' },
-    { location: 'operations', hook: 'Во время события растёт задержка, и Роман координирует инцидент по сигналам, а не догадкам.' },
-    { location: 'restaurant', hook: 'После эфира команда проводит спокойный разбор и превращает пережитое в инженерные изменения.' },
-  ],
-  'cybersecurity-specialist': [
-    { location: 'office', hook: 'Марина моделирует угрозы для новой производственной сети и замечает опасную зону доверия.' },
-    { location: 'train', hook: 'В дороге на завод она готовит план проверки, не нарушающий работу линии.' },
-    { location: 'industrial', hook: 'На объекте схема сети расходится с реальностью, а старый контроллер открывает неожиданный маршрут.' },
-    { location: 'operations', hook: 'Признаки проникновения требуют изоляции, сбора артефактов и решения без остановки производства.' },
-    { location: 'meeting', hook: 'Марина докладывает руководству доказанную цепочку атаки и план исправлений с приоритетами.' },
-  ],
-  'pentester': [
-    { location: 'meeting', hook: 'Марк получает письменные границы первой проверки и учится отделять разрешённый эксперимент от риска.' },
-    { location: 'train', hook: 'В поездке к клиенту он собирает пассивную разведку и журнал каждого допущения.' },
-    { location: 'coast', hook: 'В удалённом филиале нестандартная инфраструктура открывает цепочку, которую нельзя проверять грубой силой.' },
-    { location: 'industrial', hook: 'На производственной площадке Марк подтверждает влияние безопасным доказательством и сразу закрывает опасный путь.' },
-    { location: 'conference', hook: 'Финальный отчёт превращает технические находки в понятный маршрут исправлений для разных команд.' },
-  ],
-  'soc-analyst': [
-    { location: 'server', hook: 'Елизавета принимает ночную смену и замечает одиночный алерт, который слишком легко списать на шум.' },
-    { location: 'train', hook: 'Мобильный штаб едет к площадке, пока она связывает события по времени, узлам и учётным записям.' },
-    { location: 'industrial', hook: 'На объекте журналы и физическая картина помогают отделить ложный след от реального перемещения атакующего.' },
-    { location: 'operations', hook: 'Атака затрагивает несколько площадок, и Елизавета ведёт приоритизацию, изоляцию и сохранение доказательств.' },
-    { location: 'meeting', hook: 'На межкомандном разборе она восстанавливает хронологию и превращает наблюдения в новые правила обнаружения.' },
-  ],
-}
+/**
+ * Маршруты профессий лежат в knowledge/professions/routes.json: одну и ту же
+ * таблицу читает аудит сюжета, поэтому она не может жить в коде экрана.
+ */
+const careerRoutes = (careerRoutesData as { routes: Record<string, RouteChapter[]> }).routes
 
 const castById = new Map(cast.map(character => [character.id, character]))
 
@@ -167,25 +69,20 @@ function remapTrust(trust: Record<string, number> | undefined, ids: Map<string, 
   return Object.fromEntries(Object.entries(trust).map(([id, value]) => [ids.get(id) ?? id, value]))
 }
 
-const rolePreferences: Record<string, string[]> = {
-  mira: ['mira', 'sonya', 'yana'],
-  lena: ['lena', 'yana', 'alexey'],
-  oleg: ['oleg', 'alexey', 'vadim'],
-  gleb: ['oleg', 'pavel', 'vadim', 'artem', 'alexey'],
-  sonya: ['sonya', 'yana', 'lena'],
-  artem: ['artem', 'pavel', 'vadim', 'gleb'],
-  vadim: ['vadim', 'pavel', 'artem', 'gleb'],
-  alexey: ['alexey', 'oleg', 'lena'],
-  yana: ['yana', 'irina', 'mira', 'lena'],
-  pavel: ['pavel', 'damir', 'gleb', 'artem'],
-  irina: ['irina', 'yana', 'mira'],
-  damir: ['damir', 'pavel', 'alexey'],
-}
+const book = castingBook(castData as CastingMember[], castingData)
 
-/** Сопоставляет характер и роль, а не случайную позицию в массиве актёров. */
+/**
+ * Замена автора сцены на героя профессии. Правила живут в ./casting.ts, их же
+ * читает аудит.
+ *
+ * Отказ не подменяет героя молча: на сцене остаётся авторский персонаж, а
+ * `npm run audit:course` показывает курс, миссию, сцену и доступный состав.
+ * Тихая подстановка «кого-нибудь» однажды выдала мужчине женскую реплику, и
+ * заметить это можно было только глазами.
+ */
 function mapCareerCharacter(sourceId: string, targetIds: string[]) {
-  if (targetIds.includes(sourceId)) return sourceId
-  return rolePreferences[sourceId]?.find(id => targetIds.includes(id)) ?? targetIds[0] ?? sourceId
+  const result = castCharacter(sourceId, targetIds, book)
+  return result.ok ? result.id : sourceId
 }
 
 function replaceCharacterNames(text: string | undefined, ids: Map<string, string>) {
@@ -205,10 +102,10 @@ function replaceCharacterNames(text: string | undefined, ids: Map<string, string
   return result
 }
 
+const supportByProfession = castingData.support as Record<string, string>
+
 function supportFor(professionId: string) {
-  if (['data-analyst', 'frontend-developer', 'react-developer'].includes(professionId)) return 'irina'
-  if (['cybersecurity-specialist', 'pentester', 'soc-analyst'].includes(professionId)) return 'damir'
-  return ['data-scientist', 'ai-engineer'].includes(professionId) ? 'yana' : 'pavel'
+  return supportByProfession[professionId] ?? supportByProfession.default
 }
 
 function careerCase(story: StoryCase, professionId: string): StoryCase {
@@ -469,7 +366,7 @@ const briefQuestions = [
  * Сцена-бриф эпизода. Нужна там, где у миссии нет собственного авторского акта:
  * игрок всё равно входит в задание через историю, а не через пустой редактор.
  */
-export function missionBriefAct(story: StoryCase, mission: Mission, episode: number, total: number): StoryAct | undefined {
+export function missionBriefAct(story: StoryCase, mission: Mission, episode: number, total: number, label?: string): StoryAct | undefined {
   if (story.acts.some(act => act.trigger.on === 'beforeMission' && act.trigger.missionId === mission.id)) return undefined
   const location = story.location ?? story.career?.location
   const mentorId = story.cast[1] ?? story.cast[0] ?? 'narrator'
@@ -480,7 +377,10 @@ export function missionBriefAct(story: StoryCase, mission: Mission, episode: num
   const workspaceFile = mission.task?.workspaceFile
   const objective = mission.objectives?.[0]
   const beats: StoryAct['beats'] = [
-    { kind: 'comic', panels: [{ scene: 'episode-brief', location, caption: `Эпизод ${episode} из ${total}. ${mission.title}.` }] },
+    // Подпись называет место в программе, а не порядковый номер миссии:
+    // «эпизод 258 из 316» человеку не говорит ничего, а «блок 11, новая тема» —
+    // говорит, где он и что начинается.
+    { kind: 'comic', panels: [{ scene: 'episode-brief', location, caption: label ?? `Эпизод ${episode} из ${total}. ${mission.title}.` }] },
   ]
   if (intro) beats.push({ kind: 'line', speaker: mentorId, emotion: 'neutral', text: intro })
   if (partnerId !== mentorId) beats.push({ kind: 'line', speaker: partnerId, emotion: 'surprised', text: briefQuestions[(episode - 1) % briefQuestions.length] })

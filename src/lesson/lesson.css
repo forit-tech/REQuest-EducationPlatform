@@ -1,0 +1,282 @@
+/*
+ * Учебный экран.
+ *
+ * Плотность ближе к рабочей среде, чем к витрине: объяснение и код видны
+ * одновременно, декоративного слоя нет вовсе. Палитра совпадает с рабочей
+ * станцией — это один экран, а не два соседних.
+ */
+
+.lesson-screen {
+  --ln-void: #060e17;
+  --ln-panel: #0b1622;
+  --ln-inset: #08111b;
+  --ln-raised: #101d2c;
+  --ln-line: #1b2c3e;
+  --ln-line-soft: #142232;
+  --ln-ink: #e2ecf6;
+  --ln-soft: #93a9bf;
+  --ln-dim: #61798e;
+  --ln-accent: #56a9e8;
+  --ln-accent-deep: #2c587c;
+  --ln-accent-wash: rgba(86, 169, 232, .11);
+  --ln-good: #45b08d;
+  --ln-bad: #d97078;
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 0;
+  background: var(--ln-void);
+  color: var(--ln-ink);
+  font-size: 15px;
+}
+.lesson-screen.is-narrow { grid-template-rows: auto auto 1fr; }
+
+/* ------------------------------------------------------------------ шапка */
+
+.ln-top {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--ln-line);
+  background: var(--ln-panel);
+}
+.ln-back, .ln-rail-toggle {
+  width: 34px; height: 34px; display: grid; place-items: center;
+  border: 1px solid var(--ln-line); border-radius: 10px;
+  background: transparent; color: var(--ln-soft); cursor: pointer;
+}
+.ln-back:hover, .ln-rail-toggle:hover { background: var(--ln-raised); color: var(--ln-ink); }
+.ln-where { min-width: 0; }
+.ln-crumbs {
+  display: flex; align-items: center; gap: 6px; min-width: 0;
+  color: var(--ln-dim); font-size: 12.5px; line-height: 1.3;
+}
+.ln-crumbs span, .ln-crumbs b { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ln-crumbs b { color: var(--ln-ink); font-weight: 600; }
+.ln-crumbs svg { flex: 0 0 auto; color: var(--ln-dim); opacity: .7; }
+.ln-step { margin-top: 2px; color: var(--ln-dim); font: 500 11.5px/1.2 'JetBrains Mono', ui-monospace, monospace; }
+
+.ln-ladder {
+  display: flex; align-items: center; gap: 4px; flex-wrap: wrap;
+  list-style: none; margin: 0; padding: 0; justify-self: end;
+}
+.ln-ladder button {
+  border: 1px solid var(--ln-line); border-radius: 9px; background: transparent;
+  color: var(--ln-dim); padding: 5px 10px; cursor: pointer;
+  font: 500 11.5px/1.2 'JetBrains Mono', ui-monospace, monospace; white-space: nowrap;
+}
+.ln-ladder button:hover:not(:disabled) { color: var(--ln-ink); border-color: var(--ln-accent-deep); }
+.ln-ladder button:disabled { cursor: default; }
+.ln-ladder .done button { color: var(--ln-soft); border-color: var(--ln-line); background: var(--ln-inset); }
+.ln-ladder .current button {
+  color: var(--ln-void); background: var(--ln-accent); border-color: var(--ln-accent); font-weight: 600;
+}
+.ln-top-right { display: flex; align-items: center; gap: 10px; }
+.ln-xp { color: var(--ln-dim); font: 500 12px 'JetBrains Mono', ui-monospace, monospace; white-space: nowrap; }
+
+.ln-tabs { display: flex; gap: 6px; padding: 8px 12px; border-bottom: 1px solid var(--ln-line); background: var(--ln-panel); }
+.ln-tabs button {
+  flex: 1; padding: 9px 10px; border: 1px solid var(--ln-line); border-radius: 10px;
+  background: transparent; color: var(--ln-soft); font-size: 13.5px; cursor: pointer;
+}
+.ln-tabs button.active { background: var(--ln-accent-wash); border-color: var(--ln-accent-deep); color: var(--ln-ink); }
+
+/* ---------------------------------------------------------------- раскладка */
+
+.ln-body { display: grid; min-height: 0; overflow: hidden; }
+.lesson-screen.is-narrow .ln-body { grid-template-columns: 1fr; }
+
+.ln-split { background: var(--ln-line-soft); cursor: col-resize; }
+.ln-split:hover, .ln-split:focus-visible { background: var(--ln-accent-deep); outline: none; }
+
+/* ------------------------------------------------------------------ рельс */
+
+.ln-rail { min-height: 0; border-right: 1px solid var(--ln-line); background: var(--ln-panel); }
+.ln-rail-scroll { height: 100%; overflow-y: auto; overscroll-behavior: contain; padding: 14px 10px 28px; }
+.ln-rail-block + .ln-rail-block { margin-top: 16px; }
+.ln-rail-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  padding: 0 8px 8px; color: var(--ln-dim);
+  font: 600 10.5px/1 'JetBrains Mono', ui-monospace, monospace; letter-spacing: .1em; text-transform: uppercase;
+}
+.ln-rail-flag { color: #d6a245; letter-spacing: .03em; text-transform: none; }
+.ln-rail ul { list-style: none; margin: 0; padding: 0; }
+.ln-rail li button {
+  width: 100%; display: grid; gap: 5px; text-align: left; cursor: pointer;
+  padding: 7px 8px; border: 1px solid transparent; border-radius: 9px;
+  background: transparent; color: var(--ln-soft); font: inherit; font-size: 12.5px; line-height: 1.35;
+}
+.ln-rail li button:hover:not(:disabled) { background: var(--ln-raised); color: var(--ln-ink); }
+.ln-rail li button:disabled { cursor: default; }
+.ln-rail li.active button { background: var(--ln-accent-wash); border-color: var(--ln-accent-deep); color: var(--ln-ink); }
+.ln-rail-title { display: block; }
+.ln-rail-steps { display: flex; gap: 3px; }
+.ln-rail-steps i { width: 12px; height: 3px; border-radius: 2px; background: var(--ln-line); }
+.ln-rail li.active .ln-rail-steps i { background: var(--ln-accent-deep); }
+.ln-rail-steps i.now { background: var(--ln-accent); }
+.ln-rail-head.scaffold { color: #d6a245; }
+
+/* ----------------------------------------------------------------- теория */
+
+.ln-theory { min-height: 0; border-right: 1px solid var(--ln-line); background: var(--ln-panel); }
+.ln-theory-scroll { height: 100%; overflow-y: auto; overscroll-behavior: contain; padding: 22px 28px 48px; }
+
+.ln-stage-note {
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  padding: 9px 12px; margin-bottom: 18px;
+  border: 1px solid var(--ln-accent-deep); border-radius: 10px; background: var(--ln-accent-wash);
+  color: var(--ln-soft); font-size: 12.5px; line-height: 1.45;
+}
+.ln-stage-name {
+  color: var(--ln-accent); font: 600 11px/1 'JetBrains Mono', ui-monospace, monospace;
+  letter-spacing: .09em; text-transform: uppercase;
+}
+.ln-title { margin: 0 0 14px; font-size: 23px; line-height: 1.22; letter-spacing: -.015em; font-weight: 700; text-wrap: balance; }
+
+.ln-eyebrow {
+  display: block; margin-bottom: 7px; color: var(--ln-dim);
+  font: 600 10.5px/1 'JetBrains Mono', ui-monospace, monospace; letter-spacing: .11em; text-transform: uppercase;
+}
+
+.prose { max-width: 66ch; }
+.prose p { margin: 0 0 12px; color: var(--ln-soft); line-height: 1.6; }
+.prose p:last-child { margin-bottom: 0; }
+.ln-lead p { color: var(--ln-ink); }
+
+.prose-code, .prose-output {
+  margin: 14px 0; padding: 13px 16px; overflow-x: auto;
+  border: 1px solid var(--ln-line); border-radius: 10px; background: var(--ln-inset);
+  font: 400 13px/1.65 'JetBrains Mono', ui-monospace, monospace;
+  color: #dbe7f2; white-space: pre; tab-size: 4;
+}
+.prose-code { border-left: 3px solid var(--ln-accent-deep); }
+.prose-output { color: var(--ln-soft); border-left: 3px solid var(--ln-line); background: #070f18; }
+.prose-code code, .prose-output code { font: inherit; }
+
+.ln-fact, .ln-context, .ln-goals, .ln-task {
+  margin-top: 20px; padding: 14px 16px;
+  border: 1px solid var(--ln-line); border-radius: 12px; background: var(--ln-inset);
+}
+.ln-fact strong { display: block; margin-bottom: 6px; font-size: 14px; }
+.ln-fact p { margin: 0 0 8px; color: var(--ln-soft); font-size: 13.5px; line-height: 1.55; }
+.ln-fact a { color: var(--ln-accent); font-size: 12.5px; }
+.ln-goals ul { margin: 0; padding-left: 18px; color: var(--ln-soft); }
+.ln-goals li { margin: 4px 0; line-height: 1.5; }
+.ln-goals li::marker { color: var(--ln-accent-deep); }
+.ln-task { border-color: var(--ln-accent-deep); background: var(--ln-accent-wash); }
+.ln-task p { margin: 0; color: var(--ln-ink); line-height: 1.55; }
+
+.ln-hints { margin-top: 18px; }
+.ln-hints > button {
+  display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+  padding: 8px 13px; border: 1px solid var(--ln-line); border-radius: 10px;
+  background: transparent; color: var(--ln-soft); font: inherit; font-size: 13px;
+}
+.ln-hints > button:hover { color: var(--ln-ink); border-color: var(--ln-accent-deep); }
+.ln-hints ul { margin: 10px 0 0; padding-left: 18px; color: var(--ln-soft); font-size: 13.5px; }
+.ln-hints li { margin: 5px 0; line-height: 1.55; }
+
+.ln-replay {
+  margin-top: 22px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+  padding: 7px 12px; border: 1px solid var(--ln-line); border-radius: 10px;
+  background: transparent; color: var(--ln-dim); font: inherit; font-size: 12.5px;
+}
+.ln-replay:hover { color: var(--ln-soft); }
+
+/* --------------------------------------------------------------- практика */
+
+.ln-practice { position: relative; min-height: 0; overflow: hidden; background: var(--ln-void); }
+.ln-practice-pane { position: absolute; inset: 0; display: grid; grid-template-rows: 1fr; min-height: 0; }
+.ln-quiz-scroll { height: 100%; overflow-y: auto; overscroll-behavior: contain; padding: 24px 28px 32px; }
+.ln-question { margin: 0 0 18px; font-size: 16px; line-height: 1.5; max-width: 58ch; }
+.ln-options { display: grid; gap: 9px; max-width: 58ch; }
+.ln-option {
+  display: grid; grid-template-columns: 20px 1fr; align-items: start; gap: 11px;
+  padding: 13px 15px; text-align: left; cursor: pointer;
+  border: 1px solid var(--ln-line); border-radius: 12px; background: var(--ln-panel);
+  color: var(--ln-soft); font: inherit; font-size: 14px; line-height: 1.5;
+}
+.ln-option:hover { border-color: var(--ln-accent-deep); color: var(--ln-ink); }
+.ln-option i {
+  width: 20px; height: 20px; display: grid; place-items: center; margin-top: 1px;
+  border: 1px solid var(--ln-line); border-radius: 50%; color: var(--ln-void);
+}
+.ln-option.chosen { border-color: var(--ln-accent); color: var(--ln-ink); background: var(--ln-accent-wash); }
+.ln-option.chosen i { border-color: var(--ln-accent); background: var(--ln-accent); }
+.ln-option.ok { border-color: var(--ln-good); background: rgba(69, 176, 141, .1); }
+.ln-option.ok i { border-color: var(--ln-good); background: var(--ln-good); }
+.ln-option.bad { border-color: var(--ln-bad); background: rgba(217, 112, 120, .1); }
+.ln-option.bad i { border-color: var(--ln-bad); background: var(--ln-bad); }
+
+.ln-verdict { margin-top: 20px; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--ln-line); max-width: 58ch; }
+.ln-verdict strong { display: block; margin-bottom: 7px; font-size: 14px; }
+.ln-verdict.ok { border-color: var(--ln-good); background: rgba(69, 176, 141, .08); }
+.ln-verdict.ok strong { color: var(--ln-good); }
+.ln-verdict.bad { border-color: var(--ln-bad); background: rgba(217, 112, 120, .08); }
+.ln-verdict.bad strong { color: var(--ln-bad); }
+
+.ln-actions {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 10px 16px; border-top: 1px solid var(--ln-line); background: var(--ln-panel);
+}
+.ln-shortcut { color: var(--ln-dim); font-size: 12px; }
+.ln-actions-right { display: flex; gap: 10px; }
+.ln-actions button {
+  display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+  padding: 9px 16px; border-radius: 10px; border: 1px solid var(--ln-line);
+  background: transparent; color: var(--ln-soft); font: inherit; font-size: 13.5px;
+}
+.ln-check { border-color: var(--ln-accent) !important; background: var(--ln-accent) !important; color: var(--ln-void) !important; font-weight: 600; }
+.ln-next { border-color: var(--ln-accent-deep) !important; color: var(--ln-accent) !important; }
+.ln-actions button:disabled { opacity: .4; cursor: not-allowed; }
+
+.lesson-screen button:focus-visible,
+.lesson-screen a:focus-visible,
+.lesson-screen [role="separator"]:focus-visible { outline: 2px solid var(--ln-accent); outline-offset: 2px; }
+
+/* ------------------------------------------------------------ узкий экран */
+
+@media (max-width: 860px) {
+  .ln-top { grid-template-columns: 34px minmax(0, 1fr) auto; gap: 10px; }
+  .ln-ladder { display: none; }
+  .ln-theory-scroll, .ln-quiz-scroll { padding: 18px 16px 32px; }
+  .ln-actions { flex-wrap: wrap; }
+  .ln-actions-right { width: 100%; }
+  .ln-actions-right button { flex: 1; justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) { .lesson-screen * { transition: none !important; animation: none !important; } }
+
+.ln-ladder em { font-style: normal; opacity: .72; margin-left: 3px; }
+
+/* Полоса прокрутки на учебном экране не должна светиться: рядом с кодом
+   неоновая вертикальная черта читается как часть интерфейса редактора. */
+.lesson-screen * { scrollbar-color: #24384c var(--ln-inset); }
+.lesson-screen *::-webkit-scrollbar-thumb { background: #24384c; border-color: var(--ln-inset); }
+.lesson-screen *::-webkit-scrollbar-thumb:hover { background: #32506c; }
+.lesson-screen *::-webkit-scrollbar-track,
+.lesson-screen *::-webkit-scrollbar-corner { background: var(--ln-inset); }
+
+/* Сюжетная линия одной строкой: дело называется, сцена доступна, места не занимает. */
+.ln-case {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--ln-line-soft);
+}
+.ln-case-chapter {
+  color: var(--ln-dim); font: 600 10.5px/1 'JetBrains Mono', ui-monospace, monospace;
+  letter-spacing: .1em; text-transform: uppercase; white-space: nowrap;
+}
+.ln-case-title { color: var(--ln-soft); font-size: 12.5px; min-width: 0; }
+.ln-case button {
+  margin-left: auto; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+  padding: 4px 10px; border: 1px solid var(--ln-line); border-radius: 8px;
+  background: transparent; color: var(--ln-dim); font: inherit; font-size: 11.5px; white-space: nowrap;
+}
+.ln-case button:hover { color: var(--ln-soft); border-color: var(--ln-accent-deep); }
+
+/* Тема, до которой человек ещё не дошёл: видна, но не кликается. */
+.ln-rail li.locked button { opacity: .45; }
+.ln-rail li.locked button:hover { background: transparent; color: var(--ln-soft); }

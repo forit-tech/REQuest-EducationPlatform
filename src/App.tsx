@@ -1,19 +1,35 @@
+import courseClassification from '../knowledge/reports/course-classification.json'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   ArrowLeft, ArrowRight, BookOpen, Boxes, Check, ChevronRight, CircleDot,
   Code2, Compass, Database, Flame, FlaskConical, Hexagon, Home, Info, Layers3, LockKeyhole,
   GitBranch, Map, Play, Search, Settings, Sparkles, Star, TerminalSquare, Trophy, UserRound, X,
   Gift, Zap, Backpack,
+  Bug,
 } from 'lucide-react'
 import { missionTypeLabels, rooms, roomsForProfession } from './data'
 import type { AppSection, MissionType, Room, View } from './types'
+import { QaView } from './QaView'
+import { QaFlag } from './lesson/QaFlag'
 import { AccountView, AuthView } from './AccountViews'
-import { activeAccount, completeMission, getProgress, loadState, logout, setTheme as persistTheme, type ThemeId, type UserAccount, type UserProgress } from './core/storage'
+import { activeAccount, adminSession, completeMission, isQaBuild, getProgress, isAdmin, loadState, logout, setTheme as persistTheme, type ThemeId, type UserAccount, type UserProgress } from './core/storage'
 import { careerDomains, professions, sharedSkillNames, type CareerDomainId, type Profession, type ProfessionId } from './professions'
 import { glossary } from './glossary'
 import dataPrograms from '../knowledge/data/programs.json'
 import professionPrograms from '../knowledge/professions/programs.json'
 import { MissionRunner } from './MissionRunner'
+import { LessonScreen } from './lesson/LessonScreen'
+import { STAGE_HINT, STAGE_LABEL, blockTitle, blocksOf, outlineOf } from './lesson/outline'
+
+/**
+ * Курсы, переведённые на единый учебный экран.
+ *
+ * Переезд идёт курсами, а не разом: у трёх миссий `data-foundations` есть
+ * собственные интерактивные разборы, которые живут в старом экране, и ронять
+ * их ради консистентности нельзя. Список растёт по мере переписывания курсов;
+ * когда в нём окажется весь каталог, `MissionRunner` удаляется целиком.
+ */
+const LESSON_SCREEN_COURSES = new Set(['python-first-steps', 'python-core', 'numpy', 'pandas', 'ml-foundations'])
 import { DiagnosticMode } from './diagnostic/DiagnosticMode'
 import { getDiagnostic, getMastery, saveDiagnostic, saveMastery } from './core/storage'
 import { normalizeMastery } from './core/task/mastery'
@@ -35,10 +51,12 @@ const icons: Record<MissionType, typeof BookOpen> = {
 
 
 function Sidebar({ active, account, progress, onNavigate, onOpenAccount }: { active: string; account: UserAccount; progress: UserProgress; onNavigate: (section: AppSection) => void; onOpenAccount: () => void }) {
-  const nav = [
+  // Раздел замечаний виден только в QA-сборке и только администратору.
+  const nav: [AppSection, typeof Home, string][] = [
     ['home', Home, 'Главная'], ['path', Map, 'Профессии'], ['practice', TerminalSquare, 'Практика'],
     ['projects', Boxes, 'Проекты'], ['hq', Backpack, 'Штаб'], ['achievements', Trophy, 'Достижения'],
-  ] as const
+  ]
+  if (isQaBuild() && adminSession()) nav.push(['qa', Bug, 'QA'])
   return <aside className="sidebar">
     <div className="brand"><div className="brand-mark"><Hexagon size={19}/><span>∿</span></div><span>REdu<strong>Quest</strong></span></div>
     <nav>
@@ -50,7 +68,7 @@ function Sidebar({ active, account, progress, onNavigate, onOpenAccount }: { act
     <div className="sidebar-foot">
       <div className="streak"><Flame size={19}/><div><b>{progress.streak} дней</b><span>Личная серия</span></div></div>
       <button className="nav-item" onClick={onOpenAccount}><Settings size={18}/><span>Настройки</span></button>
-      <button className="profile" onClick={onOpenAccount}><span className="avatar">{account.avatar ? <img src={account.avatar} alt=""/> : account.displayName.slice(0, 2).toUpperCase()}</span><span><b>{account.displayName}</b><small>Уровень 7 · {progress.xp.toLocaleString('ru-RU')} XP</small></span><ChevronRight size={16}/></button>
+      <button className="profile" onClick={onOpenAccount}><span className="avatar">{account.avatar ? <img src={account.avatar} alt=""/> : account.displayName.slice(0, 2).toUpperCase()}</span><span><b>{account.displayName}{isAdmin(account) && <i className="role-badge">ADMIN</i>}</b><small>Уровень 7 · {progress.xp.toLocaleString('ru-RU')} XP</small></span><ChevronRight size={16}/></button>
     </div>
   </aside>
 }
@@ -89,6 +107,10 @@ function isRoomComplete(roomId: string, progress: UserProgress) {
 }
 
 function isRoomAccessible(room: Room, progress: UserProgress) {
+  // Администратор видит весь каталог, чтобы осматривать курсы. Правила доступа
+  // при этом не меняются: ничего не отмечается пройденным и ни у кого, кроме
+  // текущей записи, курс не открывается.
+  if (adminSession()) return true
   if (hasRoomProgress(room, progress)) return true
   if (room.prerequisites?.length) return room.prerequisites.every(prerequisite => isRoomComplete(prerequisite, progress))
   return !room.locked
@@ -98,6 +120,8 @@ function isMissionAccessible(room: Room, missionId: string, progress: UserProgre
   if (!isRoomAccessible(room, progress)) return false
   const index = room.missions.findIndex(mission => mission.id === missionId)
   if (index < 0) return false
+  // Любая миссия открывается напрямую, включая те, до которых очередь не дошла.
+  if (adminSession()) return true
   if (progress.completedMissionIds.includes(missionId)) return true
   const firstIncomplete = room.missions.findIndex(mission => !progress.completedMissionIds.includes(mission.id))
   return index === (firstIncomplete < 0 ? room.missions.length - 1 : firstIncomplete)
@@ -107,6 +131,82 @@ function currentAccessibleRoom(progress: UserProgress) {
   const saved = rooms.find(item => item.id === progress.currentRoomId)
   return saved && isRoomAccessible(saved, progress) ? saved : rooms.find(item => isRoomAccessible(item, progress)) ?? rooms[0]
 }
+
+/**
+ * Насколько курс действительно написан.
+ *
+ * Судить по объявленному в программе статусу нельзя: `status: "ready"` стоит и
+ * у курсов, собранных генератором. Разметка лестницы тоже не признак: её нет у
+ * написанных вручную курсов вроде `sql-foundations`, и по ней заготовка из
+ * шаблона выглядела так же, как пятьдесят восемь живых миссий.
+ *
+ * Признак даёт классификатор: он считает долю шаблонных заголовков, псевдо-
+ * практику и подпись генератора. Карта его выводов лежит рядом с отчётом и
+ * пересобирается в `npm run quality:report` перед каждой сборкой.
+ */
+function courseReadiness(room: Room | undefined): 'ready' | 'partial' | 'draft' | 'planned' {
+  if (!room || !room.missions.length) return 'planned'
+  const classification = (courseClassification as Record<string, string>)[room.id]
+  if (classification === 'GENERATOR_SCAFFOLD' || classification === 'FAKE_PRACTICE') return 'planned'
+  if (classification === 'AUTHORED_NEEDS_REVIEW') return 'partial'
+  if (classification === 'AUTHORED_REAL') return 'ready'
+  const staged = room.missions.filter(mission => mission.stage).length
+  if (staged === room.missions.length) return 'ready'
+  return staged ? 'partial' : 'draft'
+}
+
+const READINESS_LABEL: Record<'ready' | 'partial' | 'draft' | 'planned', string> = {
+  ready: 'ГОТОВ', partial: 'ПИШЕТСЯ', draft: 'ЧЕРНОВИК', planned: 'В ПЛАНЕ',
+}
+
+/**
+ * Курс, в котором человек учится сейчас.
+ *
+ * Раньше брался первый доступный курс каталога — и главная предлагала
+ * «Go: конкурентность» человеку, который выбрал путь специалиста по данным и
+ * ни строки на Go не писал. Здесь порядок другой: маршрут выбранной профессии,
+ * внутри него первый непройденный курс, и из непройденных — написанный. В
+ * заготовку генератора главная не зовёт: учиться в ней нечему.
+ */
+function nextRoomOf(progress: UserProgress, professionId: ProfessionId) {
+  const route = roomsForProfession(professionId).filter(item => isRoomAccessible(item, progress))
+  const unfinished = route.filter(item => !isRoomComplete(item.id, progress))
+  const saved = unfinished.find(item => item.id === progress.currentRoomId)
+  return (saved && courseReadiness(saved) === 'ready' ? saved : undefined)
+    ?? unfinished.find(item => courseReadiness(item) === 'ready')
+    ?? saved
+    ?? unfinished[0]
+    ?? route[route.length - 1]
+    ?? currentAccessibleRoom(progress)
+}
+
+/**
+ * Следующий шаг обучения, названный так, как его увидит человек.
+ *
+ * Главная раньше показывала «текущий блок» и процент пути. И то, и другое
+ * отвечает на вопрос «сколько сделано», а не на вопрос «что делать сейчас»,
+ * — а человек, открывший приложение, спрашивает второе. Здесь считается
+ * конкретная миссия: курс, блок, тема, номер шага в теме и ступень лестницы.
+ */
+function nextStepOf(progress: UserProgress, professionId: ProfessionId) {
+  const room = nextRoomOf(progress, professionId)
+  const mission = room.missions.find(item => !progress.completedMissionIds.includes(item.id))
+    ?? room.missions[room.missions.length - 1]
+  const outline = outlineOf(room)
+  const place = outline.placeOf.get(mission.id)
+  const blocks = blocksOf(outline)
+  const block = place ? blocks.find(item => item.topics.includes(place.topic)) : undefined
+  return {
+    room,
+    mission,
+    topic: place?.topic,
+    step: place?.step,
+    of: place?.topic.missions.length,
+    where: block ? blockTitle(block, blocks.indexOf(block)) : undefined,
+    done: progress.completedMissionIds.includes(mission.id),
+  }
+}
+
 
 function GlobalSearch({ open, progress, onClose, onChoose }: { open: boolean; progress: UserProgress; onClose: () => void; onChoose: (target: SearchTarget) => void }) {
   const [query, setQuery] = useState('')
@@ -326,10 +426,21 @@ function DataCurriculum({ progress, onOpen }: { progress: UserProgress; onOpen: 
     <div className="roadmap-heading"><div><span className="section-kicker">ПОЛНАЯ ПРОГРАММА // ДАННЫЕ</span><h2>{dataPrograms.length} курса от фундамента до проекта</h2><p>Курсы открываются по зависимостям. Каждый узел — отдельная программа с практическими миссиями, а не одна длинная лекция.</p></div><div className="roadmap-summary"><Database size={18}/><span><strong>{dataPrograms.length}</strong> курса</span><span><strong>{totalMissions}</strong> миссий</span></div></div>
     <div className="program-tree">{phases.map((phase, phaseIndex) => <div className="program-phase" key={phase}><div className="program-axis"><span>{String(phaseIndex + 1).padStart(2, '0')}</span><strong>{phase}</strong></div><div className="program-nodes">{dataPrograms.filter(program => program.phase === phase).map(program => {
       const programRoom = rooms.find(item => item.id === program.id)
-      const contentReady = program.status === 'ready' && Boolean(programRoom)
-      const canOpen = Boolean(programRoom && contentReady && isRoomAccessible(programRoom, progress))
+      // Статус берётся из самого курса, а не из объявленного в программе:
+      // `status: "ready"` стоит и у заготовок, и человек шёл в них как в готовые.
+      const readiness = courseReadiness(programRoom)
+      const reachable = Boolean(programRoom && isRoomAccessible(programRoom, progress))
+      const canOpen = adminSession() || (reachable && readiness !== 'planned')
       const prerequisites = program.prerequisites.map(id => dataPrograms.find(item => item.id === id)?.title || id)
-      return <article className={`program-node ${canOpen ? 'ready' : 'locked'}`} key={program.id}><div><span>{canOpen ? 'ДОСТУПЕН' : contentReady ? 'ЗАКРЫТ' : `${program.missionCount} МИССИЙ`}</span><h3>{program.title}</h3><p>{program.goal}</p></div><div className="program-blocks">{program.blocks.slice(0, 4).map(block => <i key={block}>{block}</i>)}{program.blocks.length > 4 && <i>+{program.blocks.length - 4} блоков</i>}</div>{canOpen ? <button className="section-link" onClick={() => onOpen(program.id)}>Открыть курс <ArrowRight size={16}/></button> : <small>{prerequisites.length ? `После: ${prerequisites.join(' · ')}` : 'Курс готовится'}</small>}</article>
+      const state = readiness === 'ready' ? (reachable ? 'ready' : 'locked') : readiness === 'planned' ? 'locked' : 'draft'
+      // Администратору важно видеть, что именно он открыл: обычному пользователю
+      // такой курс закрыт, и подпись обязана об этом говорить.
+      const byAdminOnly = adminSession() && !(reachable && readiness !== 'planned')
+      const label = byAdminOnly ? `ДОСТУП АДМИНА · ${READINESS_LABEL[readiness]}`
+        : readiness === 'planned' ? `${program.missionCount} МИССИЙ`
+        : readiness !== 'ready' ? READINESS_LABEL[readiness]
+        : reachable ? 'ДОСТУПЕН' : 'ЗАКРЫТ'
+      return <article className={`program-node ${state}`} key={program.id}><div><span>{label}</span><h3>{program.title}</h3><p>{program.goal}</p></div><div className="program-blocks">{program.blocks.slice(0, 4).map(block => <i key={block}>{block}</i>)}{program.blocks.length > 4 && <i>+{program.blocks.length - 4} блоков</i>}</div>{canOpen ? <button className="section-link" onClick={() => onOpen(program.id)}>{readiness === 'ready' ? 'Открыть курс' : 'Посмотреть черновик'} <ArrowRight size={16}/></button> : <small>{prerequisites.length ? `После: ${prerequisites.join(' · ')}` : 'Курс готовится'}</small>}</article>
     })}</div></div>)}</div>
   </section>
 }
@@ -417,14 +528,41 @@ function SectionIntro({ kicker, title, description }: { kicker: string; title: s
   return <div className="section-intro"><span className="section-kicker">{kicker}</span><h1>{title}</h1><p>{description}</p></div>
 }
 
-function HomeView({ header, account, progress, onContinue, onOpenPath, onOpenPractice, onOpenDiagnostic }: { header: React.ReactNode; account: UserAccount; progress: UserProgress; onContinue: (roomId: string) => void; onOpenPath: () => void; onOpenPractice: () => void; onOpenDiagnostic: () => void }) {
+function HomeView({ header, account, progress, professionId, onContinue, onOpenMission, onOpenPath, onOpenPractice, onOpenDiagnostic }: { header: React.ReactNode; account: UserAccount; progress: UserProgress; professionId: ProfessionId; onContinue: (roomId: string) => void; onOpenMission: (roomId: string, missionId: string) => void; onOpenPath: () => void; onOpenPractice: () => void; onOpenDiagnostic: () => void }) {
   const totalMissions = rooms.reduce((sum, room) => sum + room.missions.length, 0)
   const percent = Math.round(progress.completedMissionIds.length / totalMissions * 100)
-  const currentRoom = currentAccessibleRoom(progress)
+  const next = nextStepOf(progress, professionId)
+  const stage = next.mission.stage
   return <>{header}<main className="main section-page">
-    <section className="home-command"><div><span className="section-kicker">ЦЕНТР УПРАВЛЕНИЯ ОБУЧЕНИЕМ</span><h1>С возвращением, {account.displayName}</h1><p>Выбери учебный блок или продолжи уже начатый. Приключение запускается только внутри выбранного блока.</p><div className="hero-actions"><button className="primary-button" onClick={() => onContinue(currentRoom.id)}><Play size={16} fill="currentColor"/>Продолжить блок</button><button className="section-button" onClick={onOpenPath}><Map size={17}/>Открыть карьерные пути</button></div></div><ProgressRing percent={percent}/></section>
-    <section className="section-metrics"><article><span>Пройдено миссий</span><strong>{progress.completedMissionIds.length}</strong><small>из {totalMissions} в первом маршруте</small></article><article><span>Энергия опыта</span><strong>{progress.xp.toLocaleString('ru-RU')} XP</strong><small>общий прогресс профиля</small></article><article><span>Серия занятий</span><strong>{progress.streak} дней</strong><small>ритм сохранён</small></article></section>
-    <section className="home-grid"><article className="focus-card"><div className="section-card-icon"><Database size={20}/></div><span className="section-kicker">ТЕКУЩИЙ БЛОК</span><h2>{currentRoom.title}</h2><p>{currentRoom.description}</p><button className="section-link" onClick={() => onContinue(currentRoom.id)}>Открыть программу блока <ArrowRight size={16}/></button></article><article className="focus-card"><div className="section-card-icon"><TerminalSquare size={20}/></div><span className="section-kicker">БЫСТРЫЙ РЕЖИМ</span><h2>Практика навыков</h2><p>Короткие упражнения из уже открытых учебных блоков.</p><button className="section-link" onClick={onOpenPractice}>Перейти к практике <ArrowRight size={16}/></button></article><article className="focus-card"><div className="section-card-icon"><Compass size={20}/></div><span className="section-kicker">ПОДГОТОВКА К МАГИСТРАТУРЕ</span><h2>Входная диагностика</h2><p>Короткая адаптивная проверка по графу навыков: что уже умеете, где пробел и с чего начинать.</p><button className="section-link" onClick={onOpenDiagnostic}>Пройти диагностику <ArrowRight size={16}/></button></article></section>
+    <section className="home-next">
+      <div className="home-next-main">
+        <span className="section-kicker">СЛЕДУЮЩИЙ ШАГ · {account.displayName}</span>
+        <h1>{next.topic?.title ?? next.mission.title}</h1>
+        <p className="home-next-where">
+          {next.room.title}
+          {next.where && <> · {next.where}</>}
+          {next.step && next.of && <> · шаг {next.step} из {next.of}</>}
+        </p>
+        {stage && <p className="home-next-stage"><b>{STAGE_LABEL[stage]}</b>{STAGE_HINT[stage]}</p>}
+        <div className="hero-actions">
+          <button className="primary-button" onClick={() => onOpenMission(next.room.id, next.mission.id)}>
+            <Play size={16} fill="currentColor"/>{next.done ? 'Повторить шаг' : 'Продолжить'}
+          </button>
+          <button className="section-button" onClick={() => onContinue(next.room.id)}><Map size={17}/>Программа курса</button>
+        </div>
+      </div>
+      <ProgressRing percent={percent}/>
+    </section>
+    <p className="home-quiet">
+      {plural(progress.completedMissionIds.length, 'миссия пройдена', 'миссии пройдено', 'миссий пройдено')}
+      {' · '}{progress.xp.toLocaleString('ru-RU')} XP
+      {' · '}серия {plural(progress.streak, 'день', 'дня', 'дней')}
+    </p>
+    <section className="home-grid">
+      <article className="focus-card"><div className="section-card-icon"><Database size={20}/></div><span className="section-kicker">КУРС ЦЕЛИКОМ</span><h2>{next.room.title}</h2><p>{next.room.description}</p><button className="section-link" onClick={() => onContinue(next.room.id)}>Открыть программу курса <ArrowRight size={16}/></button></article>
+      <article className="focus-card"><div className="section-card-icon"><TerminalSquare size={20}/></div><span className="section-kicker">БЫСТРЫЙ РЕЖИМ</span><h2>Практика навыков</h2><p>Короткие упражнения из уже открытых курсов.</p><button className="section-link" onClick={onOpenPractice}>Перейти к практике <ArrowRight size={16}/></button></article>
+      <article className="focus-card"><div className="section-card-icon"><Compass size={20}/></div><span className="section-kicker">ПОДГОТОВКА К МАГИСТРАТУРЕ</span><h2>Входная диагностика</h2><p>Короткая адаптивная проверка по графу навыков: что уже умеете, где пробел и с чего начинать.</p><button className="section-link" onClick={onOpenDiagnostic}>Пройти диагностику <ArrowRight size={16}/></button></article>
+    </section>
   </main></>
 }
 
@@ -508,6 +646,8 @@ export default function App() {
   const [searchOpen, setSearchOpen] = useState(false)
   const [game, setGame] = useState<GameState>(() => (account ? getGame(account.id) : emptyGame()))
   const [scene, setScene] = useState<StoryAct | null>(null)
+  /** Миссия, к которой открыта сцена: нужна, чтобы кадр не пережил переход. */
+  const sceneMission = useRef<string | null>(null)
   const [endingRoomId, setEndingRoomId] = useState<string | null>(null)
   const [professionId, setProfessionId] = useState<ProfessionId>(() => (localStorage.getItem('request.selected-profession') as ProfessionId) || 'data-scientist')
   const [domainId, setDomainId] = useState<CareerDomainId>(() => professions.find(item => item.id === ((localStorage.getItem('request.selected-profession') as ProfessionId) || 'data-scientist'))?.domainId || 'data-ai')
@@ -541,22 +681,59 @@ export default function App() {
     localStorage.setItem('request.selected-profession', next)
   }
   useEffect(() => {
-    if (!account || scene) return
+    if (!account) return
     if (view.type !== 'mission') return
+    if (scene) {
+      /* Сцена открыта к другой миссии: человек ушёл по лестнице дальше, а
+         полноэкранный кадр остался поверх урока и закрыл собой и объяснение,
+         и редактор. Такая сцена снимается, а не досматривается. */
+      if (sceneMission.current && sceneMission.current !== view.missionId) {
+        setScene(null)
+        sceneMission.current = null
+      }
+      return
+    }
     const brief = briefActFor(view.roomId, view.missionId)
     const act = pendingAct(view.roomId, game, { on: 'caseStart' }, professionId)
       ?? pendingAct(view.roomId, game, { on: 'beforeMission', missionId: view.missionId }, professionId)
       ?? (brief && !game.seenActs.includes(brief.id) ? brief : undefined)
-    if (act) setScene(act)
+    if (act) {
+      setScene(act)
+      sceneMission.current = view.missionId
+    }
   }, [view, game, account, scene, professionId])
-  /** Сцена-бриф эпизода: у большинства миссий нет собственного авторского акта. */
+  /**
+   * Сцена-бриф эпизода: у большинства миссий нет собственного авторского акта.
+   *
+   * Показывается только на границе темы. Внутри темы лестница идёт подряд —
+   * показали, поменяй, допиши, напиши сам, — и полноэкранная сцена между её
+   * ступенями разрывает ровно то, что должно читаться как одно занятие:
+   * человек уходит от своего кода к фотографии офиса и возвращается, потеряв
+   * объяснение из виду. Авторские акты этим правилом не ограничены: их ставили
+   * в конкретные места осознанно.
+   */
   function briefActFor(roomId: string, missionId: string) {
     const story = caseForCourse(roomId, professionId)
     const missionRoom = rooms.find(item => item.id === roomId)
     const missionItem = missionRoom?.missions.find(item => item.id === missionId)
     if (!story || !missionRoom || !missionItem) return undefined
+    const outline = outlineOf(missionRoom)
+    const place = outline.placeOf.get(missionId)
+    if (place?.step !== 1) return undefined
     const episode = missionRoom.missions.findIndex(item => item.id === missionId) + 1
-    return missionBriefAct(story, missionItem, episode, missionRoom.missions.length)
+    const block = blocksOf(outline).find(item => item.topics.includes(place.topic))
+    const where = block ? blockTitle(block, blocksOf(outline).indexOf(block)) : missionRoom.title
+    return missionBriefAct(story, missionItem, episode, missionRoom.missions.length,
+      `${where}. Новая тема: ${place.topic.title}.`)
+  }
+  /** Дело курса одной строкой: номер главы и её название. */
+  function caseNoteFor(roomId: string) {
+    const story = caseForCourse(roomId, professionId)
+    if (!story) return undefined
+    const chapter = story.career
+      ? `${story.career.protagonistName} · глава ${story.career.chapterNumber} из ${story.career.chapterCount}`
+      : `Дело ${story.number}`
+    return { chapter, title: story.title }
   }
   function replayScene(roomId: string, missionId: string) {
     const missionRoom = rooms.find(item => item.id === roomId)
@@ -586,6 +763,7 @@ export default function App() {
       setGame(next)
     }
     setScene(null)
+    sceneMission.current = null
   }
   function pickChoice(choiceId: string, optionId: string, effects: BeatEffects) {
     if (!account) return
@@ -670,7 +848,9 @@ export default function App() {
     const mission = missionRoom?.missions.find(item => item.id === view.missionId)
     const nextMission = missionRoom && mission ? missionRoom.missions[missionRoom.missions.findIndex(item => item.id === mission.id) + 1] : undefined
     if (missionRoom && mission && isMissionAccessible(missionRoom, mission.id, progress)) return <>
-      <MissionRunner key={mission.id} professionId={professionId} questMode={Boolean(caseForCourse(missionRoom.id, professionId))} room={missionRoom} mission={mission} completed={progress.completedMissionIds.includes(mission.id)} energy={game.energy} inventory={game.inventory} onSpendFocus={spendFocus} onExit={() => setView({ type: 'room', roomId: missionRoom.id })} onComplete={() => missionCompleted(missionRoom, mission.id, mission.xp)} nextMission={nextMission} onNext={nextMission ? () => setView({ type: 'mission', roomId: missionRoom.id, missionId: nextMission.id }) : undefined} onReplayScene={caseForCourse(missionRoom.id, professionId) ? () => replayScene(missionRoom.id, mission.id) : undefined}/>
+      {LESSON_SCREEN_COURSES.has(missionRoom.id)
+        ? <LessonScreen key={mission.id} room={missionRoom} mission={mission} completed={progress.completedMissionIds.includes(mission.id)} onExit={() => setView({ type: 'room', roomId: missionRoom.id })} onComplete={() => missionCompleted(missionRoom, mission.id, mission.xp)} nextMission={nextMission} onNext={nextMission ? () => setView({ type: 'mission', roomId: missionRoom.id, missionId: nextMission.id }) : undefined} onOpenMission={missionId => setView({ type: 'mission', roomId: missionRoom.id, missionId })} canOpen={missionId => isMissionAccessible(missionRoom, missionId, progress)} caseNote={caseNoteFor(missionRoom.id)} onReplayScene={caseForCourse(missionRoom.id, professionId) ? () => replayScene(missionRoom.id, mission.id) : undefined}/>
+        : <><MissionRunner key={mission.id} professionId={professionId} questMode={Boolean(caseForCourse(missionRoom.id, professionId))} room={missionRoom} mission={mission} completed={progress.completedMissionIds.includes(mission.id)} energy={game.energy} inventory={game.inventory} onSpendFocus={spendFocus} onExit={() => setView({ type: 'room', roomId: missionRoom.id })} onComplete={() => missionCompleted(missionRoom, mission.id, mission.xp)} nextMission={nextMission} onNext={nextMission ? () => setView({ type: 'mission', roomId: missionRoom.id, missionId: nextMission.id }) : undefined} onReplayScene={caseForCourse(missionRoom.id, professionId) ? () => replayScene(missionRoom.id, mission.id) : undefined}/>{isQaBuild() && adminSession() && <div className="qa-float"><QaFlag room={missionRoom} mission={mission} author={account.username}/></div>}</>}
       {scene && (
         <StoryScene act={scene} career={caseForCourse(view.roomId, professionId)?.career} chosenByChoiceId={game.choices} onChoose={pickChoice} onFinish={finishScene} onHome={() => { setScene(null); setView({ type: 'home' }) }}/>
       )}
@@ -679,15 +859,19 @@ export default function App() {
       )}
     </>
   }
-  const requestedRoom = view.type === 'room' ? rooms.find(item => item.id === view.roomId) : undefined
+  /* Миссия, до которой ещё не дошли, не должна выбрасывать из курса: экран
+     миссии выше возвращает разметку только для доступного шага, и без этого
+     запроса к курсу человек оказывался на общем списке профессий. */
+  const requestedRoom = view.type === 'room' || view.type === 'mission' ? rooms.find(item => item.id === view.roomId) : undefined
   const room = requestedRoom && isRoomAccessible(requestedRoom, progress) ? requestedRoom : undefined
-  const sectionTitles: Record<AppSection, string> = { home: 'Главная', path: 'Профессии', practice: 'Практика', projects: 'Проекты', achievements: 'Достижения', hq: 'Штаб' }
+  const sectionTitles: Record<AppSection, string> = { home: 'Главная', path: 'Профессии', practice: 'Практика', projects: 'Проекты', achievements: 'Достижения', hq: 'Штаб', qa: 'QA' }
   const header = (title: string, roomValue?: Room) => <Header title={title} onBack={roomValue ? () => setView({ type: 'path' }) : undefined} room={roomValue} theme={theme} onThemeChange={changeTheme} xp={progress.xp} game={game} onOpenAccount={() => setView({ type: 'account' })} onOpenSearch={() => setSearchOpen(true)}/>
-  const activeSection = view.type === 'room' ? 'path' : view.type === 'account' ? 'account' : view.type
+  const activeSection = view.type === 'room' || view.type === 'mission' ? 'path' : view.type === 'account' ? 'account' : view.type
   return <><div className="app-shell"><Sidebar active={activeSection} account={account} progress={progress} onNavigate={section => setView({ type: section })} onOpenAccount={() => setView({ type: 'account' })}/><div className="content-shell">
-    {view.type === 'account' ? <AccountView account={account} progress={progress} onAccountChange={setAccount} onProgressReset={setProgress} onBack={() => setView({ type: 'path' })} onLogout={signOut}/>
+    {view.type === 'qa' ? <QaView onOpenMission={(courseId, missionId) => setView({ type: 'mission', roomId: courseId, missionId })}/>
+      : view.type === 'account' ? <AccountView account={account} progress={progress} onAccountChange={setAccount} onProgressReset={setProgress} onBack={() => setView({ type: 'path' })} onLogout={signOut}/>
       : room ? <RoomView room={room} onBack={() => setView({ type: 'path' })} header={header('Профессии', room)} progress={progress} onStart={missionId => setView({ type: 'mission', roomId: room.id, missionId })}/>
-      : view.type === 'home' ? <HomeView header={header(sectionTitles.home)} account={account} progress={progress} onContinue={roomId => setView({ type: 'room', roomId })} onOpenPath={() => setView({ type: 'path' })} onOpenPractice={() => setView({ type: 'practice' })} onOpenDiagnostic={() => setView({ type: 'diagnostic' })}/>
+      : view.type === 'home' ? <HomeView header={header(sectionTitles.home)} account={account} progress={progress} professionId={professionId} onContinue={roomId => setView({ type: 'room', roomId })} onOpenMission={(roomId, missionId) => setView({ type: 'mission', roomId, missionId })} onOpenPath={() => setView({ type: 'path' })} onOpenPractice={() => setView({ type: 'practice' })} onOpenDiagnostic={() => setView({ type: 'diagnostic' })}/>
       : view.type === 'practice' ? <PracticeView header={header(sectionTitles.practice)} progress={progress} onOpen={roomId => setView({ type: 'room', roomId })}/>
       : view.type === 'projects' ? <ProjectsView header={header(sectionTitles.projects)}/>
       : view.type === 'hq' ? <HqView header={header(sectionTitles.hq)} account={account} progress={progress} professionId={professionId} game={game} onGameChange={setGame} onOpenRoom={roomId => setView({ type: 'room', roomId })}/>

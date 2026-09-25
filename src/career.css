@@ -44,6 +44,10 @@
 .program-node { min-height: 250px; display: flex; flex-direction: column; gap: 14px; padding: 16px; border: 1px solid var(--line); border-radius: var(--r-card); background: var(--deck); }
 .program-node.ready { border-color: var(--signal); box-shadow: 0 6px 22px var(--glow); }
 .program-node.locked { border-color: var(--line-soft); opacity: .62; }
+/* Черновик выглядит черновиком: его открывают, но за готовый курс он не
+   выдаётся — иначе человек уходит учиться в заготовку генератора. */
+.program-node.draft { border-style: dashed; border-color: var(--line-strong); }
+.program-node.draft > div:first-child > span { color: var(--warning, var(--ink-dim)); }
 .program-node > div:first-child > span { color: var(--ink-ghost); font: 500 14px 'JetBrains Mono'; }
 .program-node.ready > div:first-child > span { color: var(--success); }
 .program-node h3 { margin: 8px 0 7px; font-size: 17px; line-height: 1.3; }

@@ -1,4 +1,7 @@
-export type Emotion = 'neutral' | 'happy' | 'worried' | 'surprised' | 'tired' | 'determined'
+// Набор эмоций объявлен один раз в ./emotions.ts вместе со статусом каждой позы.
+import type { Emotion } from './emotions'
+export type { Emotion }
+export { emotionIds, drawnEmotionIds, shownEmotion } from './emotions'
 
 /**
  * Место действия. Это закрытый словарь: фон подбирается только по нему и

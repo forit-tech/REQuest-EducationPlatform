@@ -171,6 +171,16 @@ h1,h2,h3,p { margin-top: 0; }.hero-copy h1 { font-size: clamp(36px, 4vw, 55px); 
 .home-command > div { max-width: 720px; }
 .home-command h1 { margin: 12px 0; font-size: 46px; letter-spacing: -.05em; }
 .home-command p { color: var(--ink-soft); font-size: 14px; }
+/* Главная ведёт следующим шагом: тема, место в курсе и ступень — крупно,
+   счётчики опыта — отдельной тихой строкой под ними. */
+.home-next { min-height: 260px; display: flex; align-items: center; justify-content: space-between; gap: 48px; padding-bottom: 30px; border-bottom: 1px solid var(--line); }
+.home-next-main { max-width: 720px; }
+.home-next h1 { margin: 12px 0 10px; font-size: 42px; line-height: 1.08; letter-spacing: -.045em; }
+.home-next-where { color: var(--ink-soft); font-size: 14px; }
+.home-next-stage { display: flex; align-items: baseline; gap: 10px; margin-top: 10px; color: var(--ink-dim); font-size: 13px; }
+.home-next-stage b { font: 600 11px/1 'JetBrains Mono'; letter-spacing: .14em; color: var(--signal); text-transform: uppercase; }
+.home-next .hero-actions { margin-top: 24px; }
+.home-quiet { padding: 18px 0 26px; color: var(--ink-dim); font-size: 13px; }
 .section-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 28px 0; }
 .section-metrics article { min-height: 128px; display: flex; flex-direction: column; padding: 18px; border: 1px solid var(--line); border-radius: var(--r-card); background: var(--deck); }
 .section-metrics span,.section-metrics small { color: var(--ink-dim); font-size: 14px; }
@@ -326,7 +336,7 @@ h1,h2,h3,p { margin-top: 0; }.hero-copy h1 { font-size: clamp(36px, 4vw, 55px); 
 
 @media (max-width: 1180px) { .runner-shell { grid-template-columns: 286px minmax(0,1fr); }.workspace-main { grid-template-columns: minmax(0,1fr) 320px; }.runner-brief { padding: 20px; } }
 @media (max-width: 1000px) { .app-shell { grid-template-columns: 72px 1fr; }.sidebar { width: 72px; }.brand > span,.nav-item span,.nav-label,.streak div,.profile > span:not(.avatar),.profile > svg { display: none; }.brand { padding-inline: 6px; }.nav-item { justify-content: center; }.streak { justify-content: center; padding: 12px 4px; }.profile { display: flex; justify-content: center; padding-inline: 0; }.content-shell { grid-column: 2; }.hero-stats { display: none; }.project-grid,.achievement-grid { grid-template-columns: repeat(2,1fr); } }
-@media (max-width: 760px) { .app-shell { display: block; }.sidebar { display: none; }.content-shell { grid-column: 1; }.topbar { padding: 0 16px; }.search,.xp-pill,.theme-toggle { display: none; }.main { padding: 0 18px 48px; }.path-hero { min-height: auto; padding: 40px 0; }.hero-copy h1 { font-size: 37px; }.route-grid { grid-template-columns: 1fr; }.route-head { align-items: start; gap: 18px; flex-direction: column; }.route-line { display: none; }.room-hero { grid-template-columns: 1fr; gap: 20px; padding: 38px 0; }.mastery { max-width: 320px; }.room-layout { grid-template-columns: 1fr; }.mission-panel { position: static; grid-row: 1; max-height: min(70vh, 680px); }.next-path { align-items: start; flex-direction: column; gap: 20px; }.specialties { flex-wrap: wrap; }.auth-page { grid-template-columns: 1fr; padding: 32px 20px; }.account-grid { grid-template-columns: 1fr; }.auth-brand { display: none; }.id-card { position: static; }.account-heading { align-items: start; flex-direction: column; gap: 16px; }.fields-grid,.password-form { grid-template-columns: 1fr; }.home-command { align-items: start; flex-direction: column; }.section-metrics,.home-grid,.project-grid,.achievement-grid { grid-template-columns: 1fr; }.practice-row { grid-template-columns: 42px 1fr; }.practice-progress,.practice-row .section-button { grid-column: 2; justify-self: start; } }
+@media (max-width: 760px) { .app-shell { display: block; }.sidebar { display: none; }.content-shell { grid-column: 1; }.topbar { padding: 0 16px; }.search,.xp-pill,.theme-toggle { display: none; }.main { padding: 0 18px 48px; }.path-hero { min-height: auto; padding: 40px 0; }.hero-copy h1 { font-size: 37px; }.route-grid { grid-template-columns: 1fr; }.route-head { align-items: start; gap: 18px; flex-direction: column; }.route-line { display: none; }.room-hero { grid-template-columns: 1fr; gap: 20px; padding: 38px 0; }.mastery { max-width: 320px; }.room-layout { grid-template-columns: 1fr; }.mission-panel { position: static; grid-row: 1; max-height: min(70vh, 680px); }.next-path { align-items: start; flex-direction: column; gap: 20px; }.specialties { flex-wrap: wrap; }.auth-page { grid-template-columns: 1fr; padding: 32px 20px; }.account-grid { grid-template-columns: 1fr; }.auth-brand { display: none; }.id-card { position: static; }.account-heading { align-items: start; flex-direction: column; gap: 16px; }.fields-grid,.password-form { grid-template-columns: 1fr; }.home-command,.home-next { align-items: start; flex-direction: column; }.section-metrics,.home-grid,.project-grid,.achievement-grid { grid-template-columns: 1fr; }.practice-row { grid-template-columns: 42px 1fr; }.practice-progress,.practice-row .section-button { grid-column: 2; justify-self: start; } }
 .switch:disabled { border-color: var(--line-soft); opacity: .5; cursor: default; }
 
 
@@ -398,3 +408,110 @@ h1,h2,h3,p { margin-top: 0; }.hero-copy h1 { font-size: clamp(36px, 4vw, 55px); 
 .mission-panel p, .mission-task > p, .production-context p,
 .runner-brief-head p, .runner-context p, .runner-brief > p,
 .runner-task-panel > p { white-space: pre-wrap; }
+
+/* Роль показывается рядом с именем: администратор должен понимать, под какой
+   учётной записью он смотрит каталог, но панелью это не становится. */
+.role-badge {
+  font-style: normal;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  margin-left: 0.45rem;
+  padding: 0.1rem 0.32rem;
+  border-radius: 0.3rem;
+  border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
+  opacity: 0.75;
+  vertical-align: middle;
+}
+
+/* ---------------------------------------------------------- разметка замечаний
+   Инструмент QA-сборки: кнопка в шапке урока, быстрая форма и очередь. Обычный
+   ученик этих элементов не получает — они не отрисовываются вовсе. */
+.qa-flag {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  margin-left: auto; padding: 0.3rem 0.6rem;
+  font-size: 0.75rem; border-radius: 0.5rem;
+  border: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+  background: transparent; color: inherit; opacity: 0.7; cursor: pointer;
+}
+.qa-flag:hover { opacity: 1; }
+
+.qa-overlay {
+  position: fixed; inset: 0; z-index: 60;
+  display: grid; place-items: center; padding: 1rem;
+  background: color-mix(in srgb, #000 55%, transparent);
+}
+.qa-sheet {
+  width: min(32rem, 100%); display: grid; gap: 0.7rem;
+  padding: 1rem; border-radius: 0.9rem;
+  background: var(--surface, #12161f); color: inherit;
+  border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+}
+.qa-sheet header { display: flex; align-items: start; justify-content: space-between; gap: 0.5rem; }
+.qa-sheet header small { display: block; opacity: 0.6; font-size: 0.72rem; }
+.qa-sheet header button { background: none; border: 0; color: inherit; opacity: 0.6; cursor: pointer; }
+.qa-types { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.qa-types button {
+  padding: 0.3rem 0.6rem; font-size: 0.74rem; border-radius: 0.5rem; cursor: pointer;
+  border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+  background: transparent; color: inherit; opacity: 0.65;
+}
+.qa-types button.active { opacity: 1; border-color: currentColor; }
+.qa-quote {
+  margin: 0; padding: 0.4rem 0.6rem; font-size: 0.78rem; opacity: 0.8;
+  border-left: 2px solid color-mix(in srgb, currentColor 35%, transparent);
+}
+.qa-sheet textarea {
+  width: 100%; resize: vertical; padding: 0.55rem; font: inherit; font-size: 0.85rem;
+  border-radius: 0.5rem; background: transparent; color: inherit;
+  border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+}
+.qa-meta { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+.qa-meta label, .qa-filters label { display: grid; gap: 0.2rem; font-size: 0.72rem; opacity: 0.8; }
+.qa-meta select, .qa-filters select {
+  padding: 0.3rem; font: inherit; font-size: 0.8rem; border-radius: 0.4rem;
+  background: transparent; color: inherit;
+  border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+}
+.qa-blocker { display: flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; }
+.qa-sheet footer { display: flex; justify-content: flex-end; gap: 0.5rem; }
+.qa-sheet footer button { padding: 0.4rem 0.8rem; border-radius: 0.5rem; cursor: pointer; font-size: 0.8rem; }
+.qa-cancel { background: transparent; color: inherit; border: 1px solid color-mix(in srgb, currentColor 22%, transparent); }
+.qa-save { background: currentColor; border: 0; }
+.qa-save span, .qa-save { color: inherit; }
+.qa-save:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.qa-view { display: grid; gap: 1rem; padding: 1.2rem; }
+.qa-view-head { display: flex; justify-content: space-between; align-items: end; gap: 1rem; flex-wrap: wrap; }
+.qa-filters { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+.qa-empty { opacity: 0.6; font-size: 0.85rem; }
+.qa-list { display: grid; gap: 0.7rem; }
+.qa-card {
+  display: grid; gap: 0.35rem; padding: 0.8rem; border-radius: 0.7rem;
+  border: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+}
+.qa-card.st-fixed { opacity: 0.55; }
+.qa-card header { display: flex; gap: 0.4rem; flex-wrap: wrap; font-size: 0.7rem; }
+.qa-tag, .qa-sev, .qa-status {
+  padding: 0.12rem 0.4rem; border-radius: 0.35rem;
+  border: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+}
+.qa-card h3 { margin: 0; font-size: 0.95rem; }
+.qa-card small { opacity: 0.6; font-size: 0.72rem; }
+.qa-card p { margin: 0.2rem 0; font-size: 0.86rem; }
+.qa-card blockquote {
+  margin: 0; padding-left: 0.6rem; font-size: 0.8rem; opacity: 0.75;
+  border-left: 2px solid color-mix(in srgb, currentColor 35%, transparent);
+}
+.qa-card footer { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.3rem; }
+.qa-card footer button {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  padding: 0.28rem 0.55rem; font-size: 0.75rem; border-radius: 0.45rem; cursor: pointer;
+  background: transparent; color: inherit;
+  border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+}
+.qa-danger { opacity: 0.6; }
+.qa-float { position: fixed; right: 1rem; bottom: 1rem; z-index: 40; }
+.qa-float .qa-flag {
+  margin: 0; background: var(--surface, #12161f);
+  box-shadow: 0 6px 18px rgb(0 0 0 / 0.35);
+}
